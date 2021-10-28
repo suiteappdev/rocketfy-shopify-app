@@ -1,0 +1,10 @@
+{
+    "ES" : {
+        "email-field" : "Correo electronico"
+    },
+    
+    "EN" :
+     {
+        "email-field" : "Email address"
+    }
+}
