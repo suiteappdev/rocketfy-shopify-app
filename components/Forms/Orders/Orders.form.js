@@ -1,6 +1,6 @@
 import React, {useCallback, useState, useEffect} from 'react';
 import { Button, Spinner, Toast, Form, FormLayout, Banner, ButtonGroup, AppProvider, Checkbox} from '@shopify/polaris'
-import { Datatable } from './orders.datatable';
+import { Datatable } from './Orders.datatable';
 import EmptyState from '../../EmptyState';
 import styles from './Orders.module.css';
 import { useMutation, useQuery } from '@apollo/client';
