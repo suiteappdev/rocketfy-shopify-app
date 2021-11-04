@@ -16,7 +16,6 @@ const getCities = (cod)=>{
     return new Promise( async (resolve, reject)=>{
         let response = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
         console.log("response", response);
-        
         resolve(response.data);
     });
 }
