@@ -33,7 +33,7 @@ const OrdersForm = (props)=>{
 
     useEffect(()=>{
         (async () => {
-            if(!list){
+            if(!cities.length){
                 const list = await getlist();
                 setCities(list);
             }
