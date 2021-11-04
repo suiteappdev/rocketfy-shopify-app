@@ -35,8 +35,13 @@ const OrdersForm = (props)=>{
         setConnected(isConnected());
 
         const getCities  = async ()=>{
-            let list = await getlist();
-            setCities(list);
+            if(getJson('cities-cache')){
+                setCities(getJson('cities-cache'));
+            }else{
+                let list = await getlist();
+                setCities(list);
+                setJson('cities-cache', list);
+            }
         }
 
 
