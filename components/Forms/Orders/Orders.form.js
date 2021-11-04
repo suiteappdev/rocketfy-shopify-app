@@ -34,6 +34,14 @@ const OrdersForm = (props)=>{
     useEffect(()=>{
         setConnected(isConnected());
 
+        const getCities  = async ()=>{
+            let list = await getCities();
+            setCities(list);
+            console.log("list", list);
+        }
+
+        getCities();
+
         let app = getAppToken();
         
         if(app){
