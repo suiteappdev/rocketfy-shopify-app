@@ -30,6 +30,13 @@ const OrdersForm = (props)=>{
             setChecked(newChecked);
         }
     }, []);
+
+    useEffect(()=>{
+        (async () => {
+            const list = await getlist();
+            setCities(list);
+        })()
+    }, [cities]);
   
     useEffect(()=>{
         setConnected(isConnected());
@@ -42,11 +49,6 @@ const OrdersForm = (props)=>{
         if(data){
             setOrdersData(data[DATA_KEY].edges);
         }
-
-        (async () => {
-            const list = await getlist();
-            setCities(list);
-        })()
 
     }, [application, data, ordersData]);
 
