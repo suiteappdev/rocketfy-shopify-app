@@ -57,7 +57,7 @@ const OrdersForm = (props)=>{
 
         locations();
 
-    }, [application, data, ordersData, cities]);
+    }, [application, data, ordersData]);
 
     const open = async (event)=>{
         event.preventDefault();
