@@ -15,7 +15,7 @@ const Datatable = (props)=>{
       const rowMarkup = props.orders.map(
          ({node}, index) => {
 
-          if(props.cities.length){
+          if(props.cities && props.cities.length){
             node.courrier = getCourrier(props.cities, node.shippingAddress.city);
             console.log("node.courrier", node); 
           }
