@@ -33,10 +33,12 @@ const OrdersForm = (props)=>{
 
     useEffect(()=>{
         (async () => {
-            const list = await getlist();
-            setCities(list);
+            if(!list){
+                const list = await getlist();
+                setCities(list);
+            }
         })()
-    }, [cities]);
+    }, []);
   
     useEffect(()=>{
         setConnected(isConnected());
