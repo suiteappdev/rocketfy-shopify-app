@@ -37,10 +37,8 @@ const OrdersForm = (props)=>{
         const getCities  = async ()=>{
             let list = await getCities();
             setCities(list);
-            console.log("list", list);
         }
 
-        getCities();
 
         let app = getAppToken();
         
@@ -50,18 +48,10 @@ const OrdersForm = (props)=>{
 
         if(data){
             setOrdersData(data[DATA_KEY].edges);
-
-            /*if(getJson('cities-cache')){
-                setCities(getJson('cities-cache'));
-            }else{
-                let cities = await getCities();
-
-                setCities(cities);
-                setJson('cities-cache', cities);
-            }*/
+            getCities();
         }
 
-    }, [application, data, ordersData, cities]);
+    }, [application, data, ordersData]);
 
     const open = async (event)=>{
         event.preventDefault();
