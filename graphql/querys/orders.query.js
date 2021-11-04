@@ -22,6 +22,20 @@ const ORDERS_QUERY = gql`
                         city
                         province
                     }
+                    shippingAddress {
+                        firstName
+                        lastName
+                        company
+                        address1
+                        address2
+                        city
+                        zip
+                        province
+                        provinceCode
+                        country
+                        countryCodeV2
+                        phone
+                    }
                     currentSubtotalPriceSet{
                         shopMoney{
                             amount
