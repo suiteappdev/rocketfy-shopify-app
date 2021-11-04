@@ -30,4 +30,12 @@ const isConnected = ()=>{
     return getAppToken() != null ? true : false;
 }
 
-export { getRocketfyToken, isConnected, setRocketfyToken, removeRocketfyToken, setAppToken, getCustomerId, setCustomerId, getAppToken }
+const setJson = (key, value)=>{
+    return window.localStorage.setItem(key, JSON.stringify(value));
+}
+
+const getJson = (key)=>{
+    return JSON.parse(window.localStorage.getItem(key));
+}
+
+export { setJson, getJson, getRocketfyToken, isConnected, setRocketfyToken, removeRocketfyToken, setAppToken, getCustomerId, setCustomerId, getAppToken }

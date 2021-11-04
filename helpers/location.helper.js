@@ -1,13 +1,22 @@
 import { PostRequest } from "./request.helper";
 
-const coverage = ()=>{
+const getCourrier = (city, cod = true)=>{
     return new Promise(async (resolve, reject)=>{
-        let data = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : true }).catch((e)=>reject(e));
+        let data = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
         
-        if(data){
-            resolve(data);
-        }
+        let city = data.data.filter((e)=>e.name.toLowerCase() == city.toLowerCase())[0];
+        let courrier = city.courriers.find((c)=>c.cod);
+
+        resolve(courrier);
     });
 }
 
-export { coverage }
+const getCities = (cod = true)=>{
+    return new Promise( async (resolve, reject)=>{
+        let data = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
+        
+        resolve(data.data);
+    });
+}
+
+export { getCourrier, getCities }

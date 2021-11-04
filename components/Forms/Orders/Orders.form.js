@@ -5,11 +5,13 @@ import EmptyState from '../../EmptyState';
 import styles from './Orders.module.css';
 import { useMutation, useQuery } from '@apollo/client';
 import  {ORDERS_QUERY, DATA_KEY}  from '../../../graphql/querys/orders.query';
-import { isConnected, getAppToken} from '../../../helpers/storage.helper';
+import { isConnected, getAppToken, setJson, getJson} from '../../../helpers/storage.helper';
+import { getCities } from '../../../helpers/location.helper';
 import {WEBHOOK_MUTATION } from '../../../graphql/mutations/webhook.mutation';
 
 const OrdersForm = (props)=>{
     const [ordersData, setOrdersData] = useState([]);
+    const [cities, setCities] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [checked, setChecked] = useState(false);
     const [addWebhook, { data : dataWebhook, loading : loadingWebhook, error : errorWebhook }] = useMutation(WEBHOOK_MUTATION);
@@ -29,7 +31,7 @@ const OrdersForm = (props)=>{
         }
     }, []);
   
-    useEffect(()=>{
+    useEffect(async ()=>{
         setConnected(isConnected());
 
         let app = getAppToken();
@@ -40,9 +42,18 @@ const OrdersForm = (props)=>{
 
         if(data){
             setOrdersData(data[DATA_KEY].edges);
+
+            if(getJson('cities-cache')){
+                setCities(getJson('cities-cache'));
+            }else{
+                let cities = await getCities();
+
+                setCities(cities);
+                setJson('cities-cache', cities);
+            }
         }
 
-    }, [application, data, ordersData]);
+    }, [application, data, ordersData, cities]);
 
     const open = async (event)=>{
         event.preventDefault();
@@ -80,7 +91,7 @@ const OrdersForm = (props)=>{
                 <FormLayout>
                     { connected ? (
                     <React.Fragment>
-                    {(ordersData.length > 0) ? <Datatable orders={ordersData} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
+                    {(ordersData.length > 0) ? <Datatable orders={ordersData} courriers={[]} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
                             {(ordersData.length > 0 )  ? (
                                 <React.Fragment>
                                     <ButtonGroup>
