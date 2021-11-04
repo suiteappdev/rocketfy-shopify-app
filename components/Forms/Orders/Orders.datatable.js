@@ -15,8 +15,8 @@ const Datatable = (props)=>{
       const rowMarkup = props.orders.map(
         async ({node}, index) => {
           if(props.cities){
-            let courrier = await getCourrier(props.cities, 'morroa');
-            console.log("courrier", courrier);
+            /*let courrier = await getCourrier(props.cities, 'morroa');
+            console.log("courrier", courrier);*/
           }
 
           return(

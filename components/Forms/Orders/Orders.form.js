@@ -39,6 +39,7 @@ const OrdersForm = (props)=>{
                 setCities(getJson('cities-cache'));
             }else{
                 let list = await getlist();
+                console.log("list", list);
                 setCities(list);
                 setJson('cities-cache', list);
             }
