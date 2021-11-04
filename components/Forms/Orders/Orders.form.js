@@ -38,7 +38,8 @@ const OrdersForm = (props)=>{
             if(getJson('cities-cache')){
                 setCities(getJson('cities-cache'));
             }else{
-                let list = await getlist();
+                let list = await getlist(true);
+                console.log("list", list)
                 setCities(list);
                 setJson('cities-cache', list);
             }
@@ -52,8 +53,9 @@ const OrdersForm = (props)=>{
 
         if(data){
             setOrdersData(data[DATA_KEY].edges);
-            locations();
         }
+
+        locations();
 
     }, [application, data, ordersData, cities]);
 
