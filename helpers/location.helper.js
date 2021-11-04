@@ -1,10 +1,9 @@
 import { PostRequest } from "./request.helper";
-import { getJson, setJson } from "./storage.helper";
 
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
         try {
-            courrier = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
+            let courrier = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
             resolve(courrier);
         } catch (error) {
             reject(error);
