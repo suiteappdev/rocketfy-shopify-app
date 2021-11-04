@@ -34,8 +34,13 @@ const OrdersForm = (props)=>{
     useEffect(()=>{
         (async () => {
             if(!cities.length){
-                const list = await getlist();
-                setCities(list);
+                if(getJson('cities-cache')){
+                    const list = await getlist();
+                    setCities(list);
+                    setJson('cities-cache', list);
+                }else{
+                    setCities(getJson('cities-cache'));
+                }
             }
         })()
     }, []);

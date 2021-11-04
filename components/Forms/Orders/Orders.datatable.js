@@ -1,6 +1,7 @@
 import React from 'react';
 import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
 import moment from 'moment';
+import { getCourrier } from '../../../helpers/location.helper';
 
 const Datatable = (props)=>{
       const resourceName = {
@@ -11,26 +12,32 @@ const Datatable = (props)=>{
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
       useIndexResourceState(props.orders);
 
-      console.log("props list", props.cities)
-    
       const rowMarkup = props.orders.map(
-         ({node}, index) => (
-          <IndexTable.Row
-            id={index}
-            key={index}
-            selected={selectedResources.includes(index)}
-            position={index}
-          >
-          <IndexTable.Cell>{node.name}</IndexTable.Cell>
-          <IndexTable.Cell>{moment(node.createdAt).format('LLL')}</IndexTable.Cell>
-          <IndexTable.Cell>{`${node.customer.firstName} ${node.customer.lastName}`}</IndexTable.Cell>
-          <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
-          <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
-          <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
-          <IndexTable.Cell>{'Interrapidisimo'}</IndexTable.Cell>
-          <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
-          </IndexTable.Row>
-        ),
+         ({node}, index) => {
+
+          if(props.cities.length){
+            node.courrier = getCourrier(props.cities, node.shippingAddress.city);
+            console.log("node.courrier", node); 
+          }
+           
+           return(
+            <IndexTable.Row
+              id={index}
+              key={index}
+              selected={selectedResources.includes(index)}
+              position={index}
+            >
+            <IndexTable.Cell>{node.name}</IndexTable.Cell>
+            <IndexTable.Cell>{moment(node.createdAt).format('LLL')}</IndexTable.Cell>
+            <IndexTable.Cell>{`${node.customer.firstName} ${node.customer.lastName}`}</IndexTable.Cell>
+            <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
+            <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
+            <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
+            <IndexTable.Cell>{node.courrier || 'Sin cobertura'}</IndexTable.Cell>
+            <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
+            </IndexTable.Row>
+          )
+      }
       );
     
       return (
