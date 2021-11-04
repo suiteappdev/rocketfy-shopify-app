@@ -3,8 +3,10 @@ import { PostRequest } from "./request.helper";
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
         try {
-            let courrier = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
-            resolve(courrier);
+            if(cities && cities.length > 0){
+                let courrier = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
+                resolve(courrier);
+            }
         } catch (error) {
             reject(error);
         }
