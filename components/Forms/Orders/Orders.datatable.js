@@ -12,7 +12,7 @@ const Datatable = (props)=>{
       useIndexResourceState(props.orders);
     
       const rowMarkup = props.orders.map(
-        async ({node}, index) => (
+         ({node}, index) => (
           <IndexTable.Row
             id={index}
             key={index}
