@@ -31,7 +31,7 @@ const OrdersForm = (props)=>{
         }
     }, []);
   
-    useEffect(async ()=>{
+    useEffect(()=>{
         setConnected(isConnected());
 
         let app = getAppToken();
