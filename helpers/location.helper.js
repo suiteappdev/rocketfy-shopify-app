@@ -22,7 +22,7 @@ const getCourrier = (city, cod)=>{
 const getCities = (cod)=>{
     return new Promise( async (resolve, reject)=>{
         let data = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
-        
+        console.log("data", data);
         resolve(data.data);
     });
 }

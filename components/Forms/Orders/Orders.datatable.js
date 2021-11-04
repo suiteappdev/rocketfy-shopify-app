@@ -11,8 +11,6 @@ const Datatable = (props)=>{
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
       useIndexResourceState(props.orders);
 
-      console.log("cities", props.cities);
-    
       const rowMarkup = props.orders.map(
         async ({node}, index) => {
           return(
