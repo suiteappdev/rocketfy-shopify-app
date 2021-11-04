@@ -1,6 +1,6 @@
 import { PostRequest } from "./request.helper";
 
-const getCourrier = (city, cod = true)=>{
+const getCourrier = (city, cod)=>{
     return new Promise(async (resolve, reject)=>{
         let data = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
         
@@ -11,7 +11,7 @@ const getCourrier = (city, cod = true)=>{
     });
 }
 
-const getCities = (cod = true)=>{
+const getCities = (cod)=>{
     return new Promise( async (resolve, reject)=>{
         let data = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
         
