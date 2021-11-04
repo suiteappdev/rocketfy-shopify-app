@@ -10,6 +10,8 @@ const Datatable = (props)=>{
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
       useIndexResourceState(props.orders);
+
+      console.log("props list", props.cities)
     
       const rowMarkup = props.orders.map(
          ({node}, index) => (

@@ -45,7 +45,7 @@ const OrdersForm = (props)=>{
 
         (async () => {
             const list = await getlist();
-            console.log("list", list);
+            setCities(list);
         })()
 
     }, [application, data, ordersData]);
@@ -86,7 +86,7 @@ const OrdersForm = (props)=>{
                 <FormLayout>
                     { connected ? (
                     <React.Fragment>
-                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
+                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} cities={cities} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
                             {(ordersData.length > 0 )  ? (
                                 <React.Fragment>
                                     <ButtonGroup>
