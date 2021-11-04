@@ -13,7 +13,7 @@ const Datatable = (props)=>{
       useIndexResourceState(props.orders);
 
       const rowMarkup = props.orders.map(
-        async ({node}, index) => {
+        ({node}, index) => {
           if(props.cities){
             /*let courrier = await getCourrier(props.cities, 'morroa');
             console.log("courrier", courrier);*/
