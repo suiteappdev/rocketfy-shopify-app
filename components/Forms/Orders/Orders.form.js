@@ -33,18 +33,6 @@ const OrdersForm = (props)=>{
   
     useEffect(()=>{
         setConnected(isConnected());
-
-        const locations  = async ()=>{
-            if(getJson('cities-cache')){
-                setCities(getJson('cities-cache'));
-            }else{
-                let list = await getlist(true);
-                console.log("list", list)
-                setCities(list);
-                setJson('cities-cache', list);
-            }
-        }
-
         let app = getAppToken();
         
         if(app){
@@ -55,7 +43,10 @@ const OrdersForm = (props)=>{
             setOrdersData(data[DATA_KEY].edges);
         }
 
-        locations();
+        (async () => {
+            const list = await getlist();
+            console.log("list", list);
+        })()
 
     }, [application, data, ordersData]);
 
