@@ -23,8 +23,8 @@ const Datatable = (props)=>{
           <IndexTable.Cell>{moment(node.createdAt).format('LLL')}</IndexTable.Cell>
           <IndexTable.Cell>{`${node.customer.firstName} ${node.customer.lastName}`}</IndexTable.Cell>
           <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
-          <IndexTable.Cell>{node.billingAddress.city}</IndexTable.Cell>
-          <IndexTable.Cell>{node.billingAddress.province}</IndexTable.Cell>
+          <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
+          <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
           <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
           </IndexTable.Row>
         ),
