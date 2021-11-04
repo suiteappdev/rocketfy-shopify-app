@@ -6,7 +6,7 @@ import styles from './Orders.module.css';
 import { useMutation, useQuery } from '@apollo/client';
 import  {ORDERS_QUERY, DATA_KEY}  from '../../../graphql/querys/orders.query';
 import { isConnected, getAppToken, setJson, getJson} from '../../../helpers/storage.helper';
-import { getCities } from '../../../helpers/location.helper';
+import { getCities as getlist } from '../../../helpers/location.helper';
 import {WEBHOOK_MUTATION } from '../../../graphql/mutations/webhook.mutation';
 
 const OrdersForm = (props)=>{
@@ -35,7 +35,7 @@ const OrdersForm = (props)=>{
         setConnected(isConnected());
 
         const getCities  = async ()=>{
-            let list = await getCities();
+            let list = await getlist();
             setCities(list);
         }
 
