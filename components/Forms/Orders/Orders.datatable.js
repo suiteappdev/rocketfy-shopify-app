@@ -1,6 +1,7 @@
 import React from 'react';
 import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
 import moment from 'moment';
+import { getCourrier } from '../../../helpers/location.helper';
 
 const Datatable = (props)=>{
       const resourceName = {
@@ -13,6 +14,11 @@ const Datatable = (props)=>{
 
       const rowMarkup = props.orders.map(
         async ({node}, index) => {
+          if(props.cities){
+            let courrier = await getCourrier(props.cities, 'morroa');
+            console.log("courrier", courrier);
+          }
+
           return(
               <IndexTable.Row
                 id={index}

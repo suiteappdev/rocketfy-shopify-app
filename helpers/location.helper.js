@@ -1,29 +1,22 @@
 import { PostRequest } from "./request.helper";
 import { getJson, setJson } from "./storage.helper";
 
-const getCourrier = (city, cod)=>{
+const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
-        let courrier;
-
-        if(getJson('cities-cache')){
-            courrier = getJson('cities-cache').filter((c)=>c.name.toLowerCase() == city.toLowerCase());
+        try {
+            courrier = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
             resolve(courrier);
-        }else{
-            let data = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
-            
-            let city = data.data.filter((e)=>e.name.toLowerCase() == city.toLowerCase())[0];
-            courrier = city.courriers.find((c)=>c.cod);
-
-            resolve(courrier);            
+        } catch (error) {
+            reject(error);
         }
+
     });
 }
 
 const getCities = (cod)=>{
     return new Promise( async (resolve, reject)=>{
-        let data = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
-        console.log("data", data);
-        resolve(data.data);
+        let response = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
+        resolve(response.data);
     });
 }
 

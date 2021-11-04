@@ -56,7 +56,7 @@ const OrdersForm = (props)=>{
             getCities();
         }
 
-    }, [application, data, ordersData]);
+    }, [application, data, ordersData, cities]);
 
     const open = async (event)=>{
         event.preventDefault();
