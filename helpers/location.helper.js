@@ -2,7 +2,7 @@ import { PostRequest } from "./request.helper";
 
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
-        
+        console.log("cities", cities);
         let mapperCourrier  =  (c)=>{
             return c.cod
         }
