@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
 import moment from 'moment';
 import { getCourrier } from '../../../helpers/location.helper';
@@ -8,15 +8,22 @@ const Datatable = (props)=>{
         singular: 'order',
         plural: 'orders',
       };
+
+      useEffect(()=>{
+        
+        if(props.cities.length){
+          console.log("cities in usseffect", props.cities);
+        }
+
+      }, []);
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
       useIndexResourceState(props.orders);
 
+      use
+
       const rowMarkup = props.orders.map(
          ({node}, index) => {
-
-          let courrier = getCourrier(props.cities, node.shippingAddress.city);
-           console.log("node.courrier", courrier); 
            return(
             <IndexTable.Row
               id={index}
