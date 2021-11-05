@@ -11,7 +11,7 @@ const Datatable = (props)=>{
         plural: 'orders',
       };
 
-      if(props.orders.length > 0 && props.cities.length > 0){
+      /*if(props.orders.length > 0 && props.cities.length > 0){
         let cities = props.cities;
         orders = props.orders.map(async (o)=>{
           o.courrier = await getCourrier(cities, o.node.shippingAddress.city);
@@ -19,7 +19,7 @@ const Datatable = (props)=>{
         });
 
         console.log("orders", orders);
-      }
+      }*/
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
       useIndexResourceState(props.orders);
