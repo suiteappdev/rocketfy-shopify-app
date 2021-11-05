@@ -29,12 +29,28 @@ const getCourrier = (cities, city)=>{
     });
 }
 
+const mapCourrier = (orders, cities)=>{
+    return new Promise(async (resolve, reject)=>{
+        try {
+
+            for (let index = 0; index < orders.length; index++) {
+                const order = orders[index];
+                order.courrier = await getCourrier(cities, order.node.shippingAddress.city);
+            }
+
+            resolve(orders);
+
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+
 const getCities = (cod)=>{
     return new Promise(async (resolve, reject)=>{
         let response = await PostRequest(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, { cod : cod }).catch((e)=>reject(e));
-        console.log("response", response);
         resolve(response.data);
     });
 }
 
-export { getCourrier, getCities }
+export { getCourrier, getCities, mapCourrier }

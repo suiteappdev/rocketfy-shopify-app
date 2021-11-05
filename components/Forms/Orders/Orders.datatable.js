@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
 import moment from 'moment';
-import { getCourrier } from '../../../helpers/location.helper';
+import { mapCourrier } from '../../../helpers/location.helper';
 
 const Datatable = (props)=>{
       let orders = [];
@@ -11,15 +11,12 @@ const Datatable = (props)=>{
         plural: 'orders',
       };
 
-      /*if(props.orders.length > 0 && props.cities.length > 0){
-        let cities = props.cities;
-        orders = props.orders.map(async (o)=>{
-          o.courrier = await getCourrier(cities, o.node.shippingAddress.city);
-          return o;
-        });
-
-        console.log("orders", orders);
-      }*/
+      if(props.orders.length > 0 && props.cities.length > 0){
+        (async () => {
+            let orders = await mapCourrier(props.orders, props.cities);
+            console.log("orders", orders);
+        })()
+      }
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
       useIndexResourceState(props.orders);
