@@ -8,16 +8,20 @@ const getCourrier = (cities, city)=>{
         }
 
         try {
-                console.log("CITIES", cities);
                 let courriers = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
-                let avaliable = courriers.filter(mapperCourrier);
 
-                if(avaliable > 0){
-                    console.log("avalible", avaliable);
-                    return resolve(avaliable[0]);
+                if(courriers.length > 0){
+                    let avaliable = courriers[0].courriers.filter(mapperCourrier);
+
+                    if(avaliable > 0){
+                        return resolve(avaliable[0]);
+                    }else{
+                        resolve('Sin cobertura')
+                    }                    
+                }else{
+                    resolve('Sin cobertura');
                 }
 
-                resolve('Sin cobertura');
         } catch (error) {
             reject(error);
         }
