@@ -9,14 +9,7 @@ const Datatable = (props)=>{
         plural: 'orders',
       };
 
-      useEffect(()=>{
-        
-        if(props.cities){
-          console.log("cities in usseffect", props.cities);
-          console.log("orders in  usefeefct", props.orders);
-        }
-
-      }, []);
+      console.log("c", props.cities);
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
       useIndexResourceState(props.orders);
