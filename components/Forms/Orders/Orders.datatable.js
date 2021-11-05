@@ -11,8 +11,9 @@ const Datatable = (props)=>{
 
       useEffect(()=>{
         
-        if(props.cities && props.cities.length){
+        if(props.cities){
           console.log("cities in usseffect", props.cities);
+          console.log("orders in  usefeefct", props.orders);
         }
 
       }, []);
