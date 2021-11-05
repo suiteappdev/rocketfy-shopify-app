@@ -13,13 +13,13 @@ const Datatable = (props)=>{
 
       if(props.orders.length > 0 && props.cities.length > 0){
         (async () => {
-            let orders = await mapCourrier(props.orders, props.cities);
+            orders = await mapCourrier(props.orders, props.cities);
             console.log("orders", orders);
         })()
       }
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
-      useIndexResourceState(props.orders);
+      useIndexResourceState(orders);
 
       const rowMarkup = orders.map(
          ({node}, index) => {
@@ -47,7 +47,7 @@ const Datatable = (props)=>{
         <Card>
           <IndexTable
             resourceName={resourceName}
-            itemCount={props.orders.length}
+            itemCount={orders.length}
             selectedItemsCount={
               allResourcesSelected ? 'All' : selectedResources.length
             }
