@@ -4,7 +4,7 @@ import moment from 'moment';
 import { mapCourrier } from '../../../helpers/location.helper';
 
 const Datatable = (props)=>{
-      let orders = [];
+     const [orders, setOrders]  = useState([]);
 
       const resourceName = {
         singular: 'order',
@@ -15,15 +15,15 @@ const Datatable = (props)=>{
 
       if(props.orders.length > 0 && props.cities.length > 0){
         (async () => {
-            orders = await mapCourrier(props.orders, props.cities);
-            console.log("orders", orders);
+          let orderList = await mapCourrier(props.orders, props.cities);
+           setOrders(orderList);
         })()
       }
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
-      useIndexResourceState(props.orders);
+      useIndexResourceState(orders);
 
-      const rowMarkup = props.orders.map(
+      const rowMarkup = orders.map(
          ({node}, index) => {
            return(
             <IndexTable.Row
@@ -49,7 +49,7 @@ const Datatable = (props)=>{
         <Card>
           <IndexTable
             resourceName={resourceName}
-            itemCount={props.orders.length}
+            itemCount={orders.length}
             selectedItemsCount={
               allResourcesSelected ? 'All' : selectedResources.length
             }
