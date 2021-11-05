@@ -9,7 +9,9 @@ const Datatable = (props)=>{
         plural: 'orders',
       };
 
-      console.log("c", props.cities);
+      if(props.orders.length > 0){
+        console.log("cities", props.cities);
+      }
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
       useIndexResourceState(props.orders);
