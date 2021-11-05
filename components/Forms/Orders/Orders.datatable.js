@@ -19,9 +19,9 @@ const Datatable = (props)=>{
       }
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
-      useIndexResourceState(orders);
+      useIndexResourceState(props.orders);
 
-      const rowMarkup = orders.map(
+      const rowMarkup = props.orders.map(
          ({node}, index) => {
            return(
             <IndexTable.Row
@@ -47,7 +47,7 @@ const Datatable = (props)=>{
         <Card>
           <IndexTable
             resourceName={resourceName}
-            itemCount={orders.length}
+            itemCount={props.orders.length}
             selectedItemsCount={
               allResourcesSelected ? 'All' : selectedResources.length
             }
