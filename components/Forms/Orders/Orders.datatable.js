@@ -1,22 +1,28 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
 import moment from 'moment';
 import { getCourrier } from '../../../helpers/location.helper';
 
 const Datatable = (props)=>{
+      let orders = [];
+
       const resourceName = {
         singular: 'order',
         plural: 'orders',
       };
 
       if(props.orders.length > 0){
-        console.log("cities", props.cities);
+        orders = props.orders.map((o)=>{
+          o.node.courrier = 'servientrega';
+          
+          return o;
+        })
       }
     
       const {selectedResources, allResourcesSelected, handleSelectionChange} =
-      useIndexResourceState(props.orders);
+      useIndexResourceState(orders);
 
-      const rowMarkup = props.orders.map(
+      const rowMarkup = orders.map(
          ({node}, index) => {
            return(
             <IndexTable.Row
@@ -42,7 +48,7 @@ const Datatable = (props)=>{
         <Card>
           <IndexTable
             resourceName={resourceName}
-            itemCount={props.orders.length}
+            itemCount={orders.length}
             selectedItemsCount={
               allResourcesSelected ? 'All' : selectedResources.length
             }
