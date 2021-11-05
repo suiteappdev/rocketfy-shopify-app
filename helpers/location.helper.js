@@ -2,7 +2,6 @@ import { PostRequest } from "./request.helper";
 
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
-        console.log("cities", cities);
         let mapperCourrier  =  (c)=>{
             return c.cod
         }
@@ -14,6 +13,7 @@ const getCourrier = (cities, city)=>{
                     let avaliable = courriers[0].courriers.filter(mapperCourrier);
 
                     if(avaliable > 0){
+                        console.log("avaliable", avaliable);
                         return resolve(avaliable[0]);
                     }else{
                         resolve('Sin cobertura')
