@@ -33,7 +33,7 @@ const mapCourrier = (orders, cities)=>{
 
             for (let index = 0; index < orders.length; index++) {
                 const order = orders[index];
-                order.courrier = await getCourrier(cities, order.node.shippingAddress.city);
+                order.node.courrier = await getCourrier(cities, order.node.shippingAddress.city);
             }
 
             resolve(orders);
