@@ -2,10 +2,21 @@ import { PostRequest } from "./request.helper";
 
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
+        
+        let mapperCourrier  =  (c)=>{
+            return c.cod
+        }
+
         try {
             if(cities && cities.length > 0){
-                let courrier = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
-                resolve(courrier);
+                let courriers = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
+                let avaliable = courriers.filter(mapperCourrier);
+
+                if(avaliable > 0){
+                    return resolve(avaliable[0].name);
+                }
+
+                resolve('Sin cobertura');
             }
         } catch (error) {
             reject(error);
