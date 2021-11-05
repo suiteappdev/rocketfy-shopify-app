@@ -8,7 +8,7 @@ const getCourrier = (cities, city)=>{
 
         try {
                 let courriers = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
-
+                console.log("courriers", courriers);
                 if(courriers.length > 0){
                     let avaliable = courriers[0].courriers.filter(mapperCourrier);
 

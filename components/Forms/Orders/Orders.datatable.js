@@ -11,6 +11,8 @@ const Datatable = (props)=>{
         plural: 'orders',
       };
 
+      console.log("cities", props.cities);
+
       if(props.orders.length > 0 && props.cities.length > 0){
         (async () => {
             orders = await mapCourrier(props.orders, props.cities);
