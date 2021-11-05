@@ -3,11 +3,12 @@ import { PostRequest } from "./request.helper";
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
         let mapperCourrier  =  (c)=>{
-            return c.cod && c.default
+            return (c.cod && c.default);
         }
 
         try {
                 let courriers = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
+                console.log("courriers --", courriers);
                 if(courriers.length > 0){
                     let avaliable = courriers[0].courriers.filter(mapperCourrier);
 
