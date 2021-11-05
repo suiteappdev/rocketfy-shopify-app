@@ -13,12 +13,9 @@ const Datatable = (props)=>{
 
       if(props.orders.length > 0){
         let cities = props.cities;
-        console.log("cities", cities);
-
         orders = props.orders.map(async (o)=>{
-          console.log("o", o);
-          o.courrier = await getCourrier(cities, o.node.shippingAddress.city)
-
+          o.courrier = await getCourrier(cities, o.node.shippingAddress.city);
+          
           return o;
         })
       }
