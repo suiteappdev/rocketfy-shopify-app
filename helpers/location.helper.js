@@ -12,7 +12,7 @@ const getCourrier = (cities, city)=>{
                     let avaliable = courriers[0].courriers.filter(mapperCourrier);
                     console.log("avaliable", avaliable);
                     if(avaliable > 0){
-                        return resolve(avaliable[0].name);
+                        return resolve(avaliable[0]);
                     }else{
                         resolve('Sin cobertura')
                     }                    
@@ -33,7 +33,8 @@ const mapCourrier = (orders, cities)=>{
 
             for (let index = 0; index < orders.length; index++) {
                 const order = orders[index];
-                order.node.courrier = await getCourrier(cities, order.node.shippingAddress.city);
+                let curr = await getCourrier(cities, order.node.shippingAddress.city);
+                order.node.courrier = curr.name;
             }
 
             resolve(orders);
