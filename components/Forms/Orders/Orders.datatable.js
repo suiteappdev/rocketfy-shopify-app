@@ -13,8 +13,9 @@ const Datatable = (props)=>{
 
       if(props.orders.length > 0){
         let cities = props.cities;
+
         orders = props.orders.map(async (o)=>{
-          o.node.courrier = await getCourrier(cities, node.shippingAddress.city)
+          o.courrier = await getCourrier(cities, node.shippingAddress.city)
 
           return o;
         })
@@ -38,7 +39,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
-            <IndexTable.Cell>{node.courrier || 'Sin cobertura'}</IndexTable.Cell>
+            <IndexTable.Cell>{node.courrier}</IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
             </IndexTable.Row>
           )
