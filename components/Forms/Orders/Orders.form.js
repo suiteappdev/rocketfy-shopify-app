@@ -43,6 +43,16 @@ const OrdersForm = (props)=>{
             setOrdersData(data[DATA_KEY].edges);
         }
 
+        (async () => {
+            if(getJson('cities-cache')){
+                const list = await getlist();
+                setCities(list);
+                setJson('cities-cache', list);
+            }else{
+                setCities(getJson('cities-cache'));
+            }
+        })()
+
     }, [application, data, ordersData]);
 
     const open = async (event)=>{
