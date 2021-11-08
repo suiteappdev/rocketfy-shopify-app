@@ -123,12 +123,6 @@ app.prepare().then(async () => {
           console.log('Failed to register cart update webhook', ordersWebhooks.result);
         }
 
-        if (registration.success) {
-            console.log('Successfully registered webhook!');
-        } else {
-            console.log('Failed to register webhook', registration.result);
-        }
-
         ctx.redirect(`/?shop=${shop}&host=${host}`);
 
       },
