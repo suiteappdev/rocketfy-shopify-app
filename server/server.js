@@ -6,7 +6,6 @@ import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
-import {receiveWebhook, registerWebhook} from '@shopify/koa-shopify-webhooks';
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
@@ -44,12 +43,11 @@ app.prepare().then(async () => {
   server.use(cors());
   server.use(koaBody());
 
-  const webhook = receiveWebhook({ secret: process.env.SHOPIFY_API_SECRET });
-
-  apiRoutes.post('/api/webhook-notification', webhook, async (ctx)=>{
-      console.log("context", ctx.state);
-      ctx.respond = false;
-      ctx.res.statusCode = 200;
+  apiRoutes.post('/api/webhook-notification', async (ctx)=>{
+      await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
+      ctx.response.status = 200;
+      console.log(`Webhook processed, returned status code 200`);
+      return ctx.response.body = '';
   });
 
   
@@ -108,15 +106,22 @@ app.prepare().then(async () => {
             );
         }
 
-        const  registration = await Shopify.Webhooks.Registry.register({
-            address: `/api/webhook-notification`,
-            topic: 'ORDERS_CREATE',
-            accessToken,
+        const ordersWebhooks = await Shopify.Webhooks.Registry.register({
             shop,
-            apiVersion: 'unstable',
+            accessToken,
+            path: '/api/webhook-notification',
+            topic: 'ORDERS_CREATE',
+            webhookHandler: async (_topic, shop, body) => {
+            console.log('received cart update webhook: ');
+            console.log(body);
+          },
         });
 
-        console.log("webhook host", `${process.env.HOST}/api/webhook-notification`);
+        if (ordersWebhooks.success) {
+          console.log('Successfully registered cart update webhook!');
+        } else {
+          console.log('Failed to register cart update webhook', ordersWebhooks.result);
+        }
 
         if (registration.success) {
             console.log('Successfully registered webhook!');
@@ -136,14 +141,14 @@ app.prepare().then(async () => {
     ctx.res.statusCode = 200;
   };
 
-  router.post("/webhooks", async (ctx) => {
+  /*router.post("/webhooks", async (ctx) => {
     try {
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
       console.log(`Webhook processed, returned status code 200`);
     } catch (error) {
       console.log(`Failed to process webhook: ${error}`);
     }
-  });
+  });*/
 
 
   router.post(

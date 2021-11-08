@@ -15,7 +15,6 @@ const Datatable = (props)=>{
         (async () => {
           let orderList = await mapCourrier(props.orders, props.cities);
            setOrders(orderList);
-           console.log("orders", orderList);
         })()
       }
     
