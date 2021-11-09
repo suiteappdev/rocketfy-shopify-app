@@ -5,10 +5,9 @@ import { gql } from '@apollo/client';
 
 const ORDERS_QUERY = gql`
     query {
-        orders(first: 60, query: "fulfillment_status:unfulfilled", sortKey: CREATED_AT){
+        orders(first: 100, query: "fulfillment_status:fullfilled", sortKey: CREATED_AT){
             edges{
                 node{
-                    paymentGatewayNames
                     name
                     customer{
                         firstName
