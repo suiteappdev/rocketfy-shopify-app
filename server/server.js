@@ -43,14 +43,6 @@ app.prepare().then(async () => {
   server.use(cors());
   server.use(koaBody());
 
-  apiRoutes.post('/api/webhook-notification', async (ctx)=>{
-      await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
-      ctx.response.status = 200;
-      console.log(`Webhook processed, returned status code 200`);
-      return ctx.response.body = '';
-  });
-
-  
   apiRoutes.post('/api/verify', async (ctx)=>{
     let redirectUrl = ctx.request.body.redirectUrl;
 
@@ -135,14 +127,14 @@ app.prepare().then(async () => {
     ctx.res.statusCode = 200;
   };
 
-  /*router.post("/webhooks", async (ctx) => {
+  router.post("/webhooks", async (ctx) => {
     try {
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
       console.log(`Webhook processed, returned status code 200`);
     } catch (error) {
       console.log(`Failed to process webhook: ${error}`);
     }
-  });*/
+  });
 
 
   router.post(
