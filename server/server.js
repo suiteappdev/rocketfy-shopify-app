@@ -45,6 +45,7 @@ app.prepare().then(async () => {
 
   router.post('/api/webhook-notification', async (ctx)=>{
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
+      console.log("BODY", ctx.request.body);
       ctx.response.status = 200;
       console.log(`Webhook processed, returned status code 200`);
       return ctx.response.body = '';
