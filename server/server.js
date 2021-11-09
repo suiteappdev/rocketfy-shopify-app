@@ -42,14 +42,6 @@ app.prepare().then(async () => {
   const cors = require('@koa/cors');
   server.use(cors());
   server.use(koaBody());
-
-  apiRoutes.post('/api/webhook-notification', async (ctx)=>{
-      await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
-      ctx.response.status = 200;
-      console.log(`Webhook processed, returned status code 200`);
-      return ctx.response.body = ctx.request.body;
-  });
-
   
   apiRoutes.post('/api/verify', async (ctx)=>{
     let redirectUrl = ctx.request.body.redirectUrl;
@@ -109,7 +101,7 @@ app.prepare().then(async () => {
         const ordersWebhooks = await Shopify.Webhooks.Registry.register({
             shop,
             accessToken,
-            path: '/api/webhook-notification',
+            path: '/webhooks',
             topic: 'ORDERS_CREATE',
             webhookHandler: async (_topic, shop, body) => {
             console.log('received order create webhook: ');
