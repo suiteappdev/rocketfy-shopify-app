@@ -112,15 +112,15 @@ app.prepare().then(async () => {
             path: '/api/webhook-notification',
             topic: 'ORDERS_CREATE',
             webhookHandler: async (_topic, shop, body) => {
-            console.log('received cart update webhook: ');
+            console.log('received order update webhook: ');
             console.log(body);
           },
         });
 
         if (ordersWebhooks.success) {
-          console.log('Successfully registered cart update webhook!');
+          console.log('Successfully registered order update webhook!');
         } else {
-          console.log('Failed to register cart update webhook', ordersWebhooks.result);
+          console.log('Failed to register order update webhook', ordersWebhooks.result);
         }
 
         ctx.redirect(`/?shop=${shop}&host=${host}`);
