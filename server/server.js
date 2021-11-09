@@ -44,11 +44,10 @@ app.prepare().then(async () => {
   server.use(koaBody());
 
   apiRoutes.post('/api/webhook-notification', async (ctx)=>{
-      console.log("req", ctx);
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
       ctx.response.status = 200;
       console.log(`Webhook processed, returned status code 200`);
-      return ctx.response.body = '';
+      return ctx.response.body = ctx.request.body;
   });
 
   
@@ -113,15 +112,15 @@ app.prepare().then(async () => {
             path: '/api/webhook-notification',
             topic: 'ORDERS_CREATE',
             webhookHandler: async (_topic, shop, body) => {
-            console.log('received order update webhook: ');
+            console.log('received order create webhook: ');
             console.log(body);
           },
         });
 
         if (ordersWebhooks.success) {
-          console.log('Successfully registered order update webhook!');
+          console.log('Successfully registered order create webhook!');
         } else {
-          console.log('Failed to register order update webhook', ordersWebhooks.result);
+          console.log('Failed to register order update create', ordersWebhooks.result);
         }
 
         ctx.redirect(`/?shop=${shop}&host=${host}`);
