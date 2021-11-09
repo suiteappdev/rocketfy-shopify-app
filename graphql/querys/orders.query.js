@@ -9,6 +9,7 @@ const ORDERS_QUERY = gql`
             edges{
                 node{
                     name
+                    displayFulfillmentStatus
                     paymentGatewayNames
                     customer{
                         firstName
