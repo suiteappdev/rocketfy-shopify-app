@@ -42,6 +42,14 @@ app.prepare().then(async () => {
   const cors = require('@koa/cors');
   server.use(cors());
   server.use(koaBody());
+
+  apiRoutes.post('/api/webhook-notification', async (ctx)=>{
+      await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
+      ctx.response.status = 200;
+      console.log(`Webhook processed, returned status code 200`);
+      return ctx.response.body = '';
+  });
+
   
   apiRoutes.post('/api/verify', async (ctx)=>{
     let redirectUrl = ctx.request.body.redirectUrl;
@@ -101,7 +109,7 @@ app.prepare().then(async () => {
         const ordersWebhooks = await Shopify.Webhooks.Registry.register({
             shop,
             accessToken,
-            path: '/webhooks',
+            path: '/api/webhook-notification',
             topic: 'ORDERS_CREATE',
             webhookHandler: async (_topic, shop, body) => {
             console.log('received order create webhook: ');
@@ -121,6 +129,16 @@ app.prepare().then(async () => {
     })
   );
 
+  router.post("/webhooks", async (ctx) => {
+    try {
+      //Process webhook
+      await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
+      console.log(`Webhook processed, returned status code 200`);
+    } catch (error) {
+      console.log(`Failed to process webhook: ${error}`);
+    }
+  });
+
   const handleRequest = async (ctx) => {
     await handle(ctx.req, ctx.res);
     ctx.respond = false;
@@ -134,16 +152,6 @@ app.prepare().then(async () => {
       await Shopify.Utils.graphqlProxy(ctx.req, ctx.res);
     }
   );
-
-  router.post("/webhooks", async (ctx) => {
-    try {
-      //Process webhook
-      await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
-      console.log(`Webhook processed, returned status code 200`);
-    } catch (error) {
-      console.log(`Failed to process webhook: ${error}`);
-    }
-  });
 
   router.get("(/_next/static/.*)", handleRequest); // Static content is clear
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
