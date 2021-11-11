@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
 import moment from 'moment';
 import { mapCourrier } from '../../../helpers/location.helper';
+import { mapDimension } from '../../../helpers/package.helper';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);

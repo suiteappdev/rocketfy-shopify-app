@@ -1,4 +1,5 @@
 import { PostRequest } from "./request.helper";
+import { mapDimension } from "./package.helper";
 
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
@@ -31,6 +32,8 @@ const mapCourrier = (orders, cities)=>{
             for (let index = 0; index < orders.length; index++) {
                 const order = orders[index];
                 let curr = await getCourrier(cities, order.node.shippingAddress.city);
+                let dimension = mapDimension(order.lineItems);
+                order  = {...order, ...dimension};
                 order.node.courrier = curr.name;
             }
 

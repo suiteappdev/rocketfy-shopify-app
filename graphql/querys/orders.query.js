@@ -53,6 +53,28 @@ const ORDERS_QUERY = gql`
                             amount
                         }
                     }
+                    lineItems(first:50) {
+                        edges {
+                          cursor
+                          node {
+                            name
+                            image {
+                                transformedSrc(maxWidth: 60, scale: 1)
+                            }
+                            refundableQuantity
+                            discountedTotalSet {
+                                shopMoney {
+                                    amount
+                                    currencyCode
+                                }
+                                presentmentMoney {
+                                    amount
+                                    currencyCode
+                                }
+                            }
+                          }
+                        }
+                    }
                     fullyPaid
                 }
             }
