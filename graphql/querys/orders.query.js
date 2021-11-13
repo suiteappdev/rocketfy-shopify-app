@@ -47,14 +47,6 @@ const ORDERS_QUERY = gql`
                             amount
                         }
                     }
-                    lineItems(first:50) {
-                        edges {
-                          cursor
-                          node {
-                            name
-                          }
-                        }
-                    }
                 }
             }
         }
