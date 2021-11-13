@@ -93,13 +93,11 @@ const OrdersForm = (props)=>{
                 <FormLayout>
                     { connected ? (
                     <React.Fragment>
-                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} cities={cities} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
+                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} cities={cities} ToApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
                             {(ordersData.length > 0 )  ? (
                                 <React.Fragment>
                                     <ButtonGroup>
                                         <Button primary onClick={open}>Ir a envios en Rocketfy</Button>
-                                        <Button onClick={sync}>Sincronizar pedidos</Button>
-                                        <Checkbox label="Recibir pedidos automaticamente en rocketfy" checked={checked} onChange={subscribe} />
                                     </ButtonGroup>
                                 </React.Fragment>
                             ) : (null) }
