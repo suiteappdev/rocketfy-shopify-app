@@ -22,6 +22,17 @@ const Datatable = (props)=>{
       const resourceIDResolver = (orders) => {
         return orders.node.id;
       };
+
+      const bulkActions = [
+        {
+          content: 'Enviar a envios Rocketfy',
+          onAction: () => console.log('Todo: implement bulk add tags'),
+        },
+        {
+          content: 'Abrir panel de envios',
+          onAction: () => console.log('Todo: implement bulk remove tags'),
+        }
+      ];
     
       const {
         selectedResources,
@@ -59,9 +70,8 @@ const Datatable = (props)=>{
             selectedItemsCount={
               allResourcesSelected ? 'All' : selectedResources.length
             }
-            onSelectionChange={()=>{
-              console.log("selectedResources",  selectedResources)
-            }}
+            onSelectionChange={handleSelectionChange}
+            bulkActions={bulkActions}
             headings={[
               {title: '# Pedido'},
               {title: 'Fecha del Pedido'},
