@@ -26,9 +26,9 @@ const Datatable = (props)=>{
          ({node}, index) => {
            return(
             <IndexTable.Row
-              id={node.id}
-              key={node.id}
-              selected={selectedResources.includes(node.id)}
+              id={index}
+              key={index}
+              selected={selectedResources.includes(index)}
               position={index}
             >
             <IndexTable.Cell>{node.name}</IndexTable.Cell>
