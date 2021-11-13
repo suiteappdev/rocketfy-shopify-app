@@ -44,7 +44,6 @@ app.prepare().then(async () => {
   server.use(koaBody());
 
   apiRoutes.post('/api/webhook-notification', async (ctx)=>{
-      console.log("BODY", ctx.request.body);
       ctx.response.status = 200;
       ctx.request.body
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
