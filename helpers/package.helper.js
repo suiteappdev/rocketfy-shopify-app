@@ -18,7 +18,7 @@ const mapDimension = (lineItems) => {
     return dimension;
 };
 
-const getDimensionFromwWeight = (lineItem)=>{
+const getDimensionFromWeight = (lineItem)=>{
   let dimensions = {
     height: 0,
     width:0,
