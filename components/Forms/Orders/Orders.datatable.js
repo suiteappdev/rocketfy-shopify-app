@@ -18,9 +18,16 @@ const Datatable = (props)=>{
            setOrders(orderList);
         })()
       }
+
+      const resourceIDResolver = (orders) => {
+        return orders.node.id;
+      };
     
-      const {selectedResources, allResourcesSelected, handleSelectionChange} =
-      useIndexResourceState(orders);
+      const {
+        selectedResources,
+        allResourcesSelected,
+        handleSelectionChange,
+      } = useIndexResourceState(orders, { resourceIDResolver });
 
       const rowMarkup = orders.map(
          ({node}, index) => {
