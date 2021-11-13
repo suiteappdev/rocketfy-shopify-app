@@ -22,8 +22,6 @@ const Datatable = (props)=>{
       const resourceIDResolver = (orders) => {
         return orders.node.id;
       };
-
-
     
       const {
         selectedResources,
@@ -38,7 +36,10 @@ const Datatable = (props)=>{
         },
         {
           content: 'Ir a Rocketfy',
-          onAction: () => console.log('Todo: implement bulk edit', selectedResources),
+          onAction: () => {
+            console.log('Todo: implement bulk edit', selectedResources);
+            props.toApp()
+          },
         },
       ];
 
@@ -73,7 +74,7 @@ const Datatable = (props)=>{
               allResourcesSelected ? 'All' : selectedResources.length
             }
             onSelectionChange={handleSelectionChange}
-            promotedBulkActions={bulkActions}
+            promotedBulkActions={promotedBulkActions}
             headings={[
               {title: '# Pedido'},
               {title: 'Fecha del Pedido'},
