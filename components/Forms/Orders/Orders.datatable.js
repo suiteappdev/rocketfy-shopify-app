@@ -59,7 +59,9 @@ const Datatable = (props)=>{
             selectedItemsCount={
               allResourcesSelected ? 'All' : selectedResources.length
             }
-            onSelectionChange={handleSelectionChange}
+            onSelectionChange={()=>{
+              console.log("selectedResources",  selectedResources)
+            }}
             headings={[
               {title: '# Pedido'},
               {title: 'Fecha del Pedido'},
