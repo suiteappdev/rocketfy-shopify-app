@@ -8,14 +8,21 @@ const ORDERS_QUERY = gql`
         orders(first: 60, query: "fulfillment_status:unfulfilled", sortKey: CREATED_AT){
             edges{
                 node{
-                    id
                     name
+                    id
                     paymentGatewayNames
                     customer{
                         firstName
                         lastName
                     }
                     createdAt
+                    billingAddress {
+                        address1
+                        address2
+                        zip
+                        city
+                        province
+                    }
                     shippingAddress {
                         firstName
                         lastName
@@ -38,6 +45,14 @@ const ORDERS_QUERY = gql`
                     currentTotalPriceSet {
                         shopMoney{
                             amount
+                        }
+                    }
+                    lineItems(first:50) {
+                        edges {
+                          cursor
+                          node {
+                            name
+                          }
                         }
                     }
                 }
