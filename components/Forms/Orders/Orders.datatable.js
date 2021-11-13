@@ -23,22 +23,24 @@ const Datatable = (props)=>{
         return orders.node.id;
       };
 
-      const bulkActions = [
-        {
-          content: 'Enviar a envios Rocketfy',
-          onAction: () => console.log('Todo: implement bulk add tags'),
-        },
-        {
-          content: 'Abrir panel de envios',
-          onAction: () => console.log('Todo: implement bulk remove tags'),
-        }
-      ];
+
     
       const {
         selectedResources,
         allResourcesSelected,
         handleSelectionChange,
       } = useIndexResourceState(orders, { resourceIDResolver });
+
+      const promotedBulkActions = [
+        {
+          content: 'Enviar envios rocketfy',
+          onAction: () => console.log('Todo: implement bulk edit', selectedResources),
+        },
+        {
+          content: 'Ir a Rocketfy',
+          onAction: () => console.log('Todo: implement bulk edit', selectedResources),
+        },
+      ];
 
       const rowMarkup = orders.map(
          ({node}, index) => {
@@ -71,7 +73,7 @@ const Datatable = (props)=>{
               allResourcesSelected ? 'All' : selectedResources.length
             }
             onSelectionChange={handleSelectionChange}
-            bulkActions={bulkActions}
+            promotedBulkActions={bulkActions}
             headings={[
               {title: '# Pedido'},
               {title: 'Fecha del Pedido'},
