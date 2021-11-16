@@ -31,7 +31,7 @@ const Datatable = (props)=>{
 
       const promotedBulkActions = [
         {
-          content: 'Enviar envios rocketfy',
+          content: 'Enviar ordenes a rocketfy',
           onAction: () => console.log('Todo: implement bulk edit', selectedResources),
         },
         {
