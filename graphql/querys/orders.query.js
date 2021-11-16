@@ -5,7 +5,7 @@ import { gql } from '@apollo/client';
 
 const ORDERS_QUERY = gql`
     query {
-        orders(first: 1, query: "fulfillment_status:unfulfilled", sortKey: CREATED_AT){
+        orders(first: 5, query: "fulfillment_status:unfulfilled", sortKey: CREATED_AT){
             edges{
                 node{
                     name
