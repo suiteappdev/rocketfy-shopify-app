@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
 import moment from 'moment';
 import { mapCourrier } from '../../../helpers/location.helper';
-import { mapDimension } from '../../../helpers/package.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
-import { useLazyQuery, useQuery } from '@apollo/client';
+import { createOrder } from '../../../helpers/order.helper';
+import { useQuery } from '@apollo/client';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
-     
+
      const useImperativeQuery = (query) => {
       const { refetch } = useQuery(query, { skip: true });
       
@@ -49,8 +49,12 @@ const Datatable = (props)=>{
           onAction: async () =>{
             for (let index = 0; index < selectedResources.length; index++) {
                   let o = selectedResources[index];
-                  let response = await callQuery({ id : o});
-                  console.log("response", response);
+                  let response = await callQuery({ id : o}).catch((e)=>console.log(e.message));
+                  if(response){
+                    console.log("response", response);
+                    let order = await createOrder(response.data);
+                    console.log("o", order)
+                  }
             }
           },
         },

@@ -1,20 +1,18 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import { Button, Spinner, Toast, Form, FormLayout, Banner, ButtonGroup, AppProvider, Checkbox} from '@shopify/polaris'
+import { Button, Spinner, Toast, Form, FormLayout, Banner, ButtonGroup, AppProvider} from '@shopify/polaris'
 import { Datatable } from './Orders.datatable';
 import EmptyState from '../../EmptyState';
 import styles from './Orders.module.css';
-import { useMutation, useQuery } from '@apollo/client';
+import {  useQuery } from '@apollo/client';
 import  {ORDERS_QUERY, DATA_KEY}  from '../../../graphql/querys/orders.query';
 import { isConnected, getAppToken, setJson, getJson} from '../../../helpers/storage.helper';
 import { getCities as getlist } from '../../../helpers/location.helper';
-import {WEBHOOK_MUTATION } from '../../../graphql/mutations/webhook.mutation';
 
 const OrdersForm = (props)=>{
     const [ordersData, setOrdersData] = useState([]);
     const [cities, setCities] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [checked, setChecked] = useState(false);
-    const [addWebhook, { data : dataWebhook, loading : loadingWebhook, error : errorWebhook }] = useMutation(WEBHOOK_MUTATION);
     const {loading, error, data} = useQuery(ORDERS_QUERY);
     const [connected, setConnected] = useState(false);
     const [application, setApplication] = useState("");
@@ -45,13 +43,17 @@ const OrdersForm = (props)=>{
 
         (async () => {
             if(!cities || cities.length == 0){
-                if(!getJson('cities-cache')){
-                    const list = await getlist(true);
-                    setCities(list);
-                    setJson('cities-cache', list);
-                }else{
-                    setCities(getJson('cities-cache'));
-                }                
+                try {
+                    if(!getJson('cities-cache')){
+                        const list = await getlist(true);
+                        setCities(list);
+                        setJson('cities-cache', list);
+                    }else{
+                        setCities(getJson('cities-cache'));
+                    }                        
+                } catch (e) {
+                   console.log(`Error getting cities : ${e.message}`); 
+                }
             }
         })()
 
@@ -93,7 +95,7 @@ const OrdersForm = (props)=>{
                 <FormLayout>
                     { connected ? (
                     <React.Fragment>
-                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} cities={cities} ToApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
+                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} cities={cities} toApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
                             {(ordersData.length > 0 )  ? (
                                 <React.Fragment>
                                     <ButtonGroup>
