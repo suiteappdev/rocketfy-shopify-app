@@ -9,6 +9,7 @@ const ORDERS_QUERY = gql`
     edges {
       node {
         id
+        currentTotalWeight
         name
         displayFulfillmentStatus
         cancelledAt
