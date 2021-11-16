@@ -3,6 +3,8 @@ import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
 import moment from 'moment';
 import { mapCourrier } from '../../../helpers/location.helper';
 import { mapDimension } from '../../../helpers/package.helper';
+import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
+import { useLazyQuery } from '@apollo/client';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -32,12 +34,19 @@ const Datatable = (props)=>{
       const promotedBulkActions = [
         {
           content: 'Enviar ordenes a rocketfy',
-          onAction: () => console.log('Todo: implement bulk edit', selectedResources),
+          onAction: async () =>{
+            for (let index = 0; index < selectedResources.length; index++) {
+                  let o = selectedResources[index];
+                  let query =  useLazyQuery(ORDER_BY_ID, { variables : { id : o}});
+                  let response = await query();
+
+                  console.log("response", response);
+            }
+          },
         },
         {
           content: 'Ir a Rocketfy',
           onAction: () => {
-            console.log('Todo: implement bulk edit', selectedResources);
             props.toApp()
           },
         },
