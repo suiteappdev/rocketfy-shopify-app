@@ -4,10 +4,22 @@ import moment from 'moment';
 import { mapCourrier } from '../../../helpers/location.helper';
 import { mapDimension } from '../../../helpers/package.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
-import { useLazyQuery } from '@apollo/client';
+import { useLazyQuery, useQuery } from '@apollo/client';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
+     
+     const useImperativeQuery = (query) => {
+      const { refetch } = useQuery(query, { skip: true });
+      
+      const imperativelyCallQuery = (variables) => {
+        return refetch(variables);
+      } 
+      
+      return imperativelyCallQuery;
+    }
+    
+    const callQuery = useImperativeQuery(ORDER_BY_ID);
 
       const resourceName = {
         singular: 'order',
@@ -37,9 +49,7 @@ const Datatable = (props)=>{
           onAction: async () =>{
             for (let index = 0; index < selectedResources.length; index++) {
                   let o = selectedResources[index];
-                  let query =  useLazyQuery(ORDER_BY_ID, { variables : { id : o}});
-                  let response = await query();
-
+                  let response = await callQuery({ id : o});
                   console.log("response", response);
             }
           },
@@ -51,6 +61,8 @@ const Datatable = (props)=>{
           },
         },
       ];
+
+
 
       const rowMarkup = orders.map(
          ({node}, index) => {
