@@ -23,7 +23,7 @@ const setCustomerId = (value)=>{
 }
 
 const getCustomerId = ()=>{
-    return window.localStorage.setItem('rocketfy-customerid');
+    return window.localStorage.getItem('rocketfy-customerid');
 }
 
 const isConnected = ()=>{
