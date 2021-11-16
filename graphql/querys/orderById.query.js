@@ -42,15 +42,19 @@ const ORDER_BY_ID = gql`query getOrdeyById($id :ID!){
                                         amount
                                     }
                                 }
-                                lineItems(first:50) {
+                                lineItems(first:200) {
                                     edges {
                                       cursor
                                       node {
                                         variant 
                                         { 
-                                            weight
+                                          weight
+                                          displayName
+                                          price
                                         }
                                         name
+                                        sku
+                                        quantity
                                         image {
                                             transformedSrc(maxWidth: 60, scale: 1)
                                         }
