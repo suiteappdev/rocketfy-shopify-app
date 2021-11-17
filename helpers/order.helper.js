@@ -73,9 +73,12 @@ const shippingCost = (data)=>{
             }
         }
 
-        console.log("shippong", shipping);
+        let response = await PostRequest('https://api.rocketfy.co/api/public/calculateShipping', shipping).catch((e)=>reject(e));
 
-        resolve(shipping);
+        if(response){
+            console.log("response", response);
+            resolve(response);
+        }
     });
 }
 
