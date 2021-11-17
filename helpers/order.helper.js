@@ -53,7 +53,7 @@ const createOrder = (data)=>{
 const shippingCost = (data)=>{
     return new Promise(async (resolve, reject)=>{
        let shipping = {
-            weight : (parseint(data.order.currentTotalWeight) / 1000),
+            weight : (parseInt(data.order.currentTotalWeight) / 1000),
             large : 10,
             height : 10,
             width : 10,
