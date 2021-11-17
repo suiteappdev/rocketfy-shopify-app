@@ -9,6 +9,8 @@ const ORDER_BY_ID = gql`query getOrdeyById($id :ID!){
                                 customer{
                                     firstName
                                     lastName
+                                    validEmailAddress
+                                    verifiedEmail
                                 }
                                 createdAt
                                 billingAddress {
