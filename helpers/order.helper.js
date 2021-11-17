@@ -3,7 +3,7 @@ import {getCustomerId} from './storage.helper';
 
 const createOrder = (data)=>{
     return new Promise(async (resolve, reject)=>{
-        let shippingCost = await shippingCost(data.shippingAddress);
+        let shippingCost = await shippingCost(data);
         console.log("shippingCost", shippingCost);
         resolve();
         /*let order = {
@@ -60,6 +60,7 @@ const shippingCost = (order)=>{
             height : 10,
             width : 10,
             cod : true,
+            total : parseInt(data.currentTotalPriceSet.shopMoney.amount),
             lines : { 
                 from: { 
                   city:order.shop.billingAddress.city, 
