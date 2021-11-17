@@ -3,7 +3,7 @@ import {getCustomerId} from './storage.helper';
 
 const createOrder = (data)=>{
     return new Promise(async (resolve, reject)=>{
-        let shippingCost = await shippingCost(data).catch((e)=>console.log(e.message));
+        let shippingCost = await shippingCost(data).catch((e)=>console.log(e));
 
         console.log("shippingCost", shippingCost);
         /*let order = {
@@ -63,9 +63,9 @@ const shippingCost = (data)=>{
             total : parseInt(data.order.currentTotalPriceSet.shopMoney.amount),
             lines : { 
                 from: { 
-                  city:data.order.shop.billingAddress.city, 
-                  departament: data.order.shop.billingAddress.province, 
-                  address:data.order.shop.billingAddress.address1
+                  city:data.shop.billingAddress.city, 
+                  departament: data.shop.billingAddress.province, 
+                  address:data.shop.billingAddress.address1
                 }, 
                 to: { 
                   city: data.order.shippingAddress.city, 
@@ -75,11 +75,13 @@ const shippingCost = (data)=>{
             }
         }
 
-        let response = await PostRequest('https://api.rocketfy.co/api/public/calculateShipping', shipping).catch((e)=>reject(e));
+        console.log("shipp", shipping)
+
+        /*let response = await PostRequest('https://api.rocketfy.co/api/public/calculateShipping', shipping).catch((e)=>reject(e));
         
         if(response){
             resolve(response);
-        }
+        }*/
     });
 }
 
