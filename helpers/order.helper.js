@@ -3,6 +3,8 @@ import {getCustomerId} from './storage.helper';
 
 const createOrder = (data)=>{
     return new Promise(async (resolve, reject)=>{
+        let rs = await shippingCost(data);
+        console.log("rs",rs);
         resolve(data);
         /*let order = {
             "customerID":getCustomerId(),
@@ -50,5 +52,12 @@ const createOrder = (data)=>{
     });
 }
 
+const shippingCost  = (data)=>{
+    return new Promise((resolve, reject)=>{
+        console.log("data", data);
+        resolve(data);
+    });
+}
 
-export {createOrder}
+
+export {createOrder, shippingCost}
