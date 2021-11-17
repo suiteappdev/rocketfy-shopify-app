@@ -13,7 +13,7 @@ const createOrder = (data)=>{
             "payment_method": "cod",
             "billing": {
               "first_name":data.customer.firstName,
-              "last_name": data.customer.lastname,
+              "last_name": data.customer.lastName,
               "company": "KonopimiTech",
               "address_1":  data.shippingAddress.address1,
               "address_2":  data.shippingAddress.address2,
@@ -26,17 +26,17 @@ const createOrder = (data)=>{
             "line_items": data.lineItems.edges.map((item)=>{
                 return {
                     "id": 35,
-                    "name": "Mouse",
-                    "variation_name": "Mouse rojo",
+                    "name": item.name,
+                    "variation_name": item.variant.displayName,
                     "product_id": 13,
                     "variation_id": 0,
-                    "quantity": 5,
+                    "quantity": item.quantity,
                     "total": "160000.00",
-                    "price": 80000,
+                    "price": parseint(item.variant.price),
                     "width": 10,
                     "height": 10,
-                    "large": 1,
-                    "weight": 2
+                    "large": 10,
+                    "weight": item.variant.weight
                 }
             })
         }

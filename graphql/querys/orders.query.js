@@ -12,6 +12,7 @@ const ORDERS_QUERY = gql`
                     customer{
                         firstName
                         lastName
+                        email
                     }
                     createdAt
                     billingAddress {
