@@ -3,9 +3,7 @@ import {getCustomerId} from './storage.helper';
 
 const createOrder = (data)=>{
     return new Promise(async (resolve, reject)=>{
-        let rs = await shippingCost(data);
-        console.log("rs",rs);
-        resolve(data);
+        let shipping = await shippingCost(data);
         /*let order = {
             "customerID":getCustomerId(),
             "id": 1,
@@ -52,12 +50,39 @@ const createOrder = (data)=>{
     });
 }
 
-const shippingCost  = (data)=>{
-    return new Promise((resolve, reject)=>{
+const shippingCost = (data)=>{
+    return new Promise(async (resolve, reject)=>{
         console.log("data", data);
-        resolve(data);
+        resolve();
+       /* let shipping = {
+            weight : (parseint(data.order.currentTotalWeight) / 1000),
+            large : 10,
+            height : 10,
+            width : 10,
+            cod : true,
+            total : parseInt(data.order.currentTotalPriceSet.shopMoney.amount),
+            lines : { 
+                from: { 
+                  city:data.shop.billingAddress.city, 
+                  departament: data.shop.billingAddress.province, 
+                  address:data.shop.billingAddress.address1
+                }, 
+                to: { 
+                  city: data.order.shippingAddress.city, 
+                  departament: data.order.shippingAddress.province, 
+                  address: data.order.shippingAddress.address1 
+                } 
+            }
+        }*/
+
+        //console.log("shipp", shipping)
+
+        /*let response = await PostRequest('https://api.rocketfy.co/api/public/calculateShipping', shipping).catch((e)=>reject(e));
+        
+        if(response){
+            resolve(response);
+        }*/
     });
 }
-
 
 export {createOrder, shippingCost}
