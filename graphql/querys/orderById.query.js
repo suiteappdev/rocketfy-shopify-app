@@ -10,6 +10,7 @@ const ORDER_BY_ID = gql`query getOrdeyById($id :ID!){
                             }
                             order(id :$id){
                                 name
+                                email
                                 id
                                 paymentGatewayNames
                                 currentTotalWeight

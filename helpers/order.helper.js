@@ -9,7 +9,7 @@ const createOrder = (data)=>{
         /*let order = {
             "customerID":getCustomerId(),
             "id": 1,
-            "currency": data.currentTotalPriceSet.shopMoney.currencyCode,
+            "currency": data.order.currentTotalPriceSet.shopMoney.currencyCode,
             "shipping_total": shippingCost,
             "subtotal": parseInt(data.currentSubtotalPriceSet.shopMoney.amount),
             "total": parseInt(data.currentTotalPriceSet.shopMoney.amount),
@@ -52,25 +52,25 @@ const createOrder = (data)=>{
     });
 }
 
-const shippingCost = (order)=>{
+const shippingCost = (data)=>{
     return new Promise(async (resolve, reject)=>{
         let shipping = {
-            weight : order.weight,
+            weight : data.order.weight,
             large : 10,
             height : 10,
             width : 10,
             cod : true,
-            total : parseInt(data.currentTotalPriceSet.shopMoney.amount),
+            total : parseInt(data.order.currentTotalPriceSet.shopMoney.amount),
             lines : { 
                 from: { 
-                  city:order.shop.billingAddress.city, 
-                  departament: order.shop.billingAddress.province, 
-                  address:order.shop.billingAddress.address1
+                  city:data.order.shop.billingAddress.city, 
+                  departament: data.order.shop.billingAddress.province, 
+                  address:data.order.shop.billingAddress.address1
                 }, 
                 to: { 
-                  city: order.shippingAddress.city, 
-                  departament: order.shippingAddress.province, 
-                  address: order.shippingAddress.address1 
+                  city: data.order.shippingAddress.city, 
+                  departament: data.order.shippingAddress.province, 
+                  address: data.order.shippingAddress.address1 
                 } 
             }
         }
