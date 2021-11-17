@@ -53,7 +53,6 @@ const Datatable = (props)=>{
                   if(response){
                     console.log("response", response);
                     let order = await createOrder(response.data);
-                    //console.log("o", order)
                   }
             }
           },

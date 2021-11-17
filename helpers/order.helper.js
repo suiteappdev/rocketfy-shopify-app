@@ -4,9 +4,9 @@ import {getCustomerId} from './storage.helper';
 const createOrder = (data)=>{
     console.log("order", data);
     return new Promise(async (resolve, reject)=>{
-        let shippingCost = await shippingCost(data).catch((e)=>console.log(e.message));
-        console.log("shippingCost", shippingCost);
         resolve();
+        /*let shippingCost = await shippingCost(data).catch((e)=>console.log(e.message));
+        console.log("shippingCost", shippingCost);*/
         /*let order = {
             "customerID":getCustomerId(),
             "id": 1,
