@@ -2,11 +2,10 @@ import { PostRequest } from "./request.helper";
 import {getCustomerId} from './storage.helper';
 
 const createOrder = (data)=>{
-    console.log("order", data);
     return new Promise(async (resolve, reject)=>{
-        resolve();
-        /*let shippingCost = await shippingCost(data).catch((e)=>console.log(e.message));
-        console.log("shippingCost", shippingCost);*/
+        let shippingCost = await shippingCost(data).catch((e)=>console.log(e.message));
+
+        console.log("shippingCost", shippingCost);
         /*let order = {
             "customerID":getCustomerId(),
             "id": 1,
@@ -56,7 +55,7 @@ const createOrder = (data)=>{
 const shippingCost = (data)=>{
     return new Promise(async (resolve, reject)=>{
         let shipping = {
-            weight : data.order.weight,
+            weight : (parseint(data.order.currentTotalWeight) / 1000),
             large : 10,
             height : 10,
             width : 10,
