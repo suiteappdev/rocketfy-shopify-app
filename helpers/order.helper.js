@@ -3,25 +3,28 @@ import {getCustomerId} from './storage.helper';
 
 const createOrder = (data)=>{
     return new Promise(async (resolve, reject)=>{
-        let order = {
+        let shippingCost = await shippingCost(data.shippingAddress);
+        console.log("shippingCost", shippingCost);
+        resolve();
+        /*let order = {
             "customerID":getCustomerId(),
             "id": 1,
-            "currency": "COP",
-            "shipping_total": "0",
+            "currency": data.currentTotalPriceSet.shopMoney.currencyCode,
+            "shipping_total": shippingCost,
             "subtotal": parseInt(data.currentSubtotalPriceSet.shopMoney.amount),
             "total": parseInt(data.currentTotalPriceSet.shopMoney.amount),
             "payment_method": "cod",
             "billing": {
               "first_name":data.customer.firstName,
               "last_name": data.customer.lastName,
-              "company": "KonopimiTech",
+              "company": "",
               "address_1":  data.shippingAddress.address1,
               "address_2":  data.shippingAddress.address2,
               "city":  data.shippingAddress.city,
               "state": data.shippingAddress.province,
               "country": data.shippingAddress.countryCodeV2,
-              "email": "konopimi@hotmail.com",
-              "phone": "3329822"
+              "email": "",
+              "phone": ""
             },
             "line_items": data.lineItems.edges.map((item)=>{
                 return {
@@ -31,12 +34,12 @@ const createOrder = (data)=>{
                     "product_id": 13,
                     "variation_id": 0,
                     "quantity": item.quantity,
-                    "total": "160000.00",
+                    "total": parseInt(item.discountedTotalSet.shopMoney.amount),
                     "price": parseint(item.variant.price),
                     "width": 10,
                     "height": 10,
                     "large": 10,
-                    "weight": item.variant.weight
+                    "weight": parseInt(item.variant.weight)
                 }
             })
         }
@@ -45,8 +48,38 @@ const createOrder = (data)=>{
         console.log("response orders", order);
         if(response){
             resolve(response);
+        }*/
+    });
+}
+
+const shippingCost = (order)=>{
+    return new Promise(async (resolve, reject)=>{
+        let shipping = {
+            weight : order.weight,
+            large : 10,
+            height : 10,
+            width : 10,
+            cod : true,
+            lines : { 
+                from: { 
+                  city:order.shop.billingAddress.city, 
+                  departament: order.shop.billingAddress.province, 
+                  address:order.shop.billingAddress.address1
+                }, 
+                to: { 
+                  city: order.shippingAddress.city, 
+                  departament: order.shippingAddress.province, 
+                  address: order.shippingAddress.address1 
+                } 
+            }
+        }
+
+        let response = await PostRequest('https://api.rocketfy.co/api/public/calculateShipping', shipping).catch((e)=>reject(e));
+        
+        if(response){
+            resolve(response);
         }
     });
 }
 
-export {createOrder}
+export {createOrder, shippingCost}

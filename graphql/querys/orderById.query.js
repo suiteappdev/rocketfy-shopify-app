@@ -1,6 +1,13 @@
 import { gql } from '@apollo/client';
 
 const ORDER_BY_ID = gql`query getOrdeyById($id :ID!){
+                            shop{
+                              billingAddress{
+                                city
+                                province
+                                address1
+                              }
+                            }
                             order(id :$id){
                                 name
                                 id
