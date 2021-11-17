@@ -52,9 +52,7 @@ const createOrder = (data)=>{
 
 const shippingCost = (data)=>{
     return new Promise(async (resolve, reject)=>{
-        console.log("data", data);
-        resolve();
-       /* let shipping = {
+       let shipping = {
             weight : (parseint(data.order.currentTotalWeight) / 1000),
             large : 10,
             height : 10,
@@ -73,15 +71,11 @@ const shippingCost = (data)=>{
                   address: data.order.shippingAddress.address1 
                 } 
             }
-        }*/
+        }
 
-        //console.log("shipp", shipping)
+        console.log("shippong", shipping);
 
-        /*let response = await PostRequest('https://api.rocketfy.co/api/public/calculateShipping', shipping).catch((e)=>reject(e));
-        
-        if(response){
-            resolve(response);
-        }*/
+        resolve(shipping);
     });
 }
 
