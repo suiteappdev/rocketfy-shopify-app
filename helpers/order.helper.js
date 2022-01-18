@@ -73,7 +73,7 @@ const shippingCost = (data)=>{
             }
         }
 
-        let response = await PostRequest('https://api.rocketfy.co/api/public/calculateShipping', shipping).catch((e)=>reject(e));
+        let response = await PostRequest('http://localhost:3000/api/public/calculateShipping', shipping).catch((e)=>reject(e));
 
         if(response){
             console.log("response", response);
