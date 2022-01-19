@@ -3,12 +3,12 @@ import {getCustomerId} from './storage.helper';
 
 const createOrder = (data)=>{
     return new Promise(async (resolve, reject)=>{
-        let shipping = await shippingCost(data);
-        /*let order = {
+        //let shipping = await shippingCost(data);
+        let order = {
             "customerID":getCustomerId(),
             "id": 1,
             "currency": data.order.currentTotalPriceSet.shopMoney.currencyCode,
-            "shipping_total": shippingCost,
+            "shipping_total": 10000,
             "subtotal": parseInt(data.currentSubtotalPriceSet.shopMoney.amount),
             "total": parseInt(data.currentTotalPriceSet.shopMoney.amount),
             "payment_method": "cod",
@@ -21,8 +21,8 @@ const createOrder = (data)=>{
               "city":  data.shippingAddress.city,
               "state": data.shippingAddress.province,
               "country": data.shippingAddress.countryCodeV2,
-              "email": "",
-              "phone": ""
+              "email": "test@gmail.com",
+              "phone": "301290552"
             },
             "line_items": data.lineItems.edges.map((item)=>{
                 return {
@@ -37,7 +37,7 @@ const createOrder = (data)=>{
                     "width": 10,
                     "height": 10,
                     "large": 10,
-                    "weight": parseInt(item.variant.weight)
+                    "weight": parseInt(item.variant.weight || 2)
                 }
             })
         }
@@ -46,7 +46,7 @@ const createOrder = (data)=>{
         console.log("response orders", order);
         if(response){
             resolve(response);
-        }*/
+        }
     });
 }
 
