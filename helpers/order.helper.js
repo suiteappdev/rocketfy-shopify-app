@@ -5,6 +5,7 @@ const createOrder = (data)=>{
     return new Promise(async (resolve, reject)=>{
         //let shipping = await shippingCost(data);
         let order = {
+            "id" : data.order.name,
             "customerID":getCustomerId(),
             "currency": data.order.currentTotalPriceSet.shopMoney.currencyCode,
             "shipping_total": 10000,
