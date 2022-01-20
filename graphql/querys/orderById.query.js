@@ -45,11 +45,13 @@ const ORDER_BY_ID = gql`query getOrdeyById($id :ID!){
                                 currentSubtotalPriceSet{
                                     shopMoney{
                                         amount
+                                        currencyCode
                                     } 
                                 }
                                 currentTotalPriceSet {
                                     shopMoney{
                                         amount
+                                        currencyCode
                                     }
                                 }
                                 lineItems(first:200) {
