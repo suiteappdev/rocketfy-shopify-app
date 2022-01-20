@@ -88,7 +88,8 @@ const Datatable = (props)=>{
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
             <IndexTable.Cell>
             <TextField
-                label="Peso (kg)"
+                prefix="kg"
+                label="Peso"
                 value={''}
                 onChange={()=>{}}
                 autoComplete="off"
@@ -96,7 +97,8 @@ const Datatable = (props)=>{
             </IndexTable.Cell>
             <IndexTable.Cell>
             <TextField
-                label="Alto (cms)"
+                prefix="cms"
+                label="Alto"
                 value={''}
                 onChange={()=>{}}
                 autoComplete="off"
@@ -104,7 +106,7 @@ const Datatable = (props)=>{
             </IndexTable.Cell>
             <IndexTable.Cell>
             <TextField
-                label="Ancho (cms)"
+                prefix="cms"
                 value={''}
                 onChange={()=>{}}
                 autoComplete="off"
@@ -112,7 +114,7 @@ const Datatable = (props)=>{
             </IndexTable.Cell>
             <IndexTable.Cell>
             <TextField
-                label="Largo"
+                prefix="cms"
                 value={''}
                 onChange={()=>{}}
                 autoComplete="off"

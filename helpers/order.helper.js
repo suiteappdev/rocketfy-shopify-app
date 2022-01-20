@@ -28,16 +28,16 @@ const createOrder = (data)=>{
                 return {
                     "id": 35,
                     "name": item.name,
-                    "variation_name": item.variant.displayName,
+                    "variation_name": item.node.variant.displayName,
                     "product_id": 13,
                     "variation_id": 0,
-                    "quantity": item.quantity,
-                    "total": parseInt(item.discountedTotalSet.shopMoney.amount),
-                    "price": parseint(item.variant.price),
+                    "quantity": item.quantity.quantity,
+                    "total": parseInt(item.node.discountedTotalSet.shopMoney.amount),
+                    "price": parseint(item.node.variant.price),
                     "width": 10,
                     "height": 10,
                     "large": 10,
-                    "weight": parseInt(item.variant.weight || 2)
+                    "weight": parseInt(item.node.variant.weight || 2)
                 }
             })
         }

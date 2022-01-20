@@ -10,3 +10,8 @@
     justify-content: center!important;
     flex-direction: column!important;
 }
+
+.Polaris-Page{
+    width: 100%!important;
+    max-width: 100%!important;
+}
