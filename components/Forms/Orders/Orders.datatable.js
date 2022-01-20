@@ -3,7 +3,7 @@ import {useIndexResourceState, Card, IndexTable, TextField} from '@shopify/polar
 import moment from 'moment';
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
-import { createOrder } from '../../../helpers/order.helper';
+import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
 
 const Datatable = (props)=>{
@@ -17,6 +17,10 @@ const Datatable = (props)=>{
       } 
       
       return imperativelyCallQuery;
+    }
+
+    const shipping = (order)=>{
+        console.log(order);
     }
     
     const callQuery = useImperativeQuery(ORDER_BY_ID);
@@ -84,7 +88,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
-            <IndexTable.Cell>{node.courrier}</IndexTable.Cell>
+            <IndexTable.Cell><Button primary onClick={()=>shipping(node)}>Cotizar envio</Button></IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
             <IndexTable.Cell>
             <TextField
