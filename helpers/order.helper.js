@@ -42,8 +42,8 @@ const createOrder = (data)=>{
             })
         }
 
-        let response = await PostRequest('https://api.rocketfy.co/api/public/createOrder', order).catch((e)=>reject(e));
-        console.log("response orders", order);
+        let response = await PostRequest(`${process.env.ROCKETFY_API_PUBLIC}api/public/createOrder`, order).catch((e)=>reject(e));
+        
         if(response){
             resolve(response);
         }
