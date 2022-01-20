@@ -54,7 +54,7 @@ const Datatable = (props)=>{
                   console.log("orderById", response);
 
                   if(response){
-                    let order = await createOrder(response.data);
+                    let order = await createOrder(response.data.data);
                   }
             }
           },
