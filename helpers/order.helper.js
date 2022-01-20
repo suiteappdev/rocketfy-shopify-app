@@ -31,7 +31,7 @@ const createOrder = (data)=>{
                     "variation_name": item.node.variant.displayName,
                     "product_id": 13,
                     "variation_id": 0,
-                    "quantity": item.quantity.quantity,
+                    "quantity": item.node.quantity,
                     "total": parseInt(item.node.discountedTotalSet.shopMoney.amount),
                     "price": parseint(item.node.variant.price),
                     "width": 10,

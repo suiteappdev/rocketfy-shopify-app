@@ -89,7 +89,6 @@ const Datatable = (props)=>{
             <IndexTable.Cell>
             <TextField
                 prefix="kg"
-                label="Peso"
                 value={''}
                 onChange={()=>{}}
                 autoComplete="off"
@@ -98,7 +97,6 @@ const Datatable = (props)=>{
             <IndexTable.Cell>
             <TextField
                 prefix="cms"
-                label="Alto"
                 value={''}
                 onChange={()=>{}}
                 autoComplete="off"
@@ -143,6 +141,7 @@ const Datatable = (props)=>{
               {title: 'Ciudad'},
               {title: 'Provincia'},
               {title: 'Transportadora'},
+              {title: 'Total'},
               {title: 'Peso'},
               {title: 'Alto'},
               {title: 'Ancho'},
