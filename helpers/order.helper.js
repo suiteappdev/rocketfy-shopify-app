@@ -42,7 +42,7 @@ const createOrder = (data)=>{
             })
         }
 
-        let response = await PostRequest(`http://localhost:9000/api/public/createOrder`, order).catch((e)=>reject(e));
+        let response = await PostRequest(`http://localhost:3000/api/public/createOrder`, order).catch((e)=>reject(e));
         
         if(response){
             resolve(response);
