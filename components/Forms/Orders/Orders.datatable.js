@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useIndexResourceState, Card, IndexTable} from '@shopify/polaris';
+import {useIndexResourceState, Card, IndexTable, TextField} from '@shopify/polaris';
 import moment from 'moment';
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
@@ -86,6 +86,38 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
             <IndexTable.Cell>{node.courrier}</IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
+            <IndexTable.Cell>
+            <TextField
+                label="Peso (kg)"
+                value={''}
+                onChange={()=>{}}
+                autoComplete="off"
+              />
+            </IndexTable.Cell>
+            <IndexTable.Cell>
+            <TextField
+                label="Alto (cms)"
+                value={''}
+                onChange={()=>{}}
+                autoComplete="off"
+              />
+            </IndexTable.Cell>
+            <IndexTable.Cell>
+            <TextField
+                label="Ancho (cms)"
+                value={''}
+                onChange={()=>{}}
+                autoComplete="off"
+              />
+            </IndexTable.Cell>
+            <IndexTable.Cell>
+            <TextField
+                label="Largo"
+                value={''}
+                onChange={()=>{}}
+                autoComplete="off"
+              />
+            </IndexTable.Cell>
             </IndexTable.Row>
           )
       }
@@ -109,7 +141,10 @@ const Datatable = (props)=>{
               {title: 'Ciudad'},
               {title: 'Provincia'},
               {title: 'Transportadora'},
-              {title: 'Total'}
+              {title: 'Peso'},
+              {title: 'Alto'},
+              {title: 'Ancho'},
+              {title: 'Largo'}
             ]}
           >
             {rowMarkup}
