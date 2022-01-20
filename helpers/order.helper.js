@@ -9,22 +9,22 @@ const createOrder = (data)=>{
             "id": 1,
             "currency": data.order.currentTotalPriceSet.shopMoney.currencyCode,
             "shipping_total": 10000,
-            "subtotal": parseInt(data.currentSubtotalPriceSet.shopMoney.amount),
-            "total": parseInt(data.currentTotalPriceSet.shopMoney.amount),
+            "subtotal": parseInt(data.order.currentSubtotalPriceSet.shopMoney.amount),
+            "total": parseInt(data.order.currentTotalPriceSet.shopMoney.amount),
             "payment_method": "cod",
             "billing": {
-              "first_name":data.customer.firstName,
-              "last_name": data.customer.lastName,
+              "first_name":data.order.customer.firstName,
+              "last_name": data.order.customer.lastName,
               "company": "",
-              "address_1":  data.shippingAddress.address1,
-              "address_2":  data.shippingAddress.address2,
-              "city":  data.shippingAddress.city,
-              "state": data.shippingAddress.province,
-              "country": data.shippingAddress.countryCodeV2,
+              "address_1":  data.order.shippingAddress.address1,
+              "address_2":  data.order.shippingAddress.address2,
+              "city":  data.order.shippingAddress.city,
+              "state": data.order.shippingAddress.province,
+              "country": data.order.shippingAddress.countryCodeV2,
               "email": "test@gmail.com",
               "phone": "301290552"
             },
-            "line_items": data.lineItems.edges.map((item)=>{
+            "line_items": data.order.lineItems.edges.map((item)=>{
                 return {
                     "id": 35,
                     "name": item.name,
