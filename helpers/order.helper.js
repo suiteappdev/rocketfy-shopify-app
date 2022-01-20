@@ -6,7 +6,6 @@ const createOrder = (data)=>{
         //let shipping = await shippingCost(data);
         let order = {
             "customerID":getCustomerId(),
-            "id": 1,
             "currency": data.order.currentTotalPriceSet.shopMoney.currencyCode,
             "shipping_total": 10000,
             "subtotal": parseInt(data.order.currentSubtotalPriceSet.shopMoney.amount),
