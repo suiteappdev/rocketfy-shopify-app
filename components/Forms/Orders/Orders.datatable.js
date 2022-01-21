@@ -42,8 +42,6 @@ const Datatable = (props)=>{
   
     const toggleModal = useCallback(() => setActive((active) => !active), []);
   
-    const activator = <Button onClick={toggleModal}>Open</Button>;
-    
     const callQuery = useImperativeQuery(ORDER_BY_ID);
 
       const resourceName = {
@@ -141,12 +139,11 @@ const Datatable = (props)=>{
           </IndexTable>
           <div style={{height: '500px'}}>
       <Modal
-        activator={activator}
         open={active}
         onClose={toggleModal}
-        title="Get a shareable link"
+        title="Cotizador de envios"
         primaryAction={{
-          content: 'Close',
+          content: 'Cerrar',
           onAction: toggleModal,
         }}
       >
