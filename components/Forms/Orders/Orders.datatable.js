@@ -185,12 +185,15 @@ const Datatable = (props)=>{
                   onChange={() => {}}
                   autoComplete="off"
                 /> 
-                <p>
-                 Seleccione el destino del paquete.
-                </p>
               </FormLayout.Group>
               <div style={{height: '225px'}}>
+                <p>
+                 Seleccione origen del paquete.
+                </p>
                 <Select options={options} />
+                <p>
+                 Seleccione destino del paquete.
+                </p>
                 <Select options={options} />
               </div>
             </FormLayout>
