@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {useIndexResourceState, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField} from '@shopify/polaris';
+import {useIndexResourceState, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
@@ -157,19 +157,22 @@ const Datatable = (props)=>{
               </TextContainer>
             </Stack.Item>
             <Stack.Item fill>
-              <TextField
-                ref={node}
-                label="Discount link"
-                onFocus={handleFocus}
-                value={DISCOUNT_LINK}
-                onChange={() => {}}
-                autoComplete="off"
-                connectedRight={
-                  <Button primary onClick={handleClick}>
-                    Copy link
-                  </Button>
-                }
-              />
+            <FormLayout>
+              <FormLayout.Group>
+                <TextField
+                  type="number"
+                  label="Minimum order"
+                  onChange={() => {}}
+                  autoComplete="off"
+                />
+                <TextField
+                  type="number"
+                  label="Maximum order"
+                  onChange={() => {}}
+                  autoComplete="off"
+                />
+              </FormLayout.Group>
+            </FormLayout>
             </Stack.Item>
           </Stack>
         </Modal.Section>
