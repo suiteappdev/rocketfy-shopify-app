@@ -1,11 +1,11 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {Icon , Autocomplete, useIndexResourceState, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
+import {useIndexResourceState, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
-import {LocationMajor} from '@shopify/polaris-icons';
+import Select from 'react-select';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -21,61 +21,11 @@ const Datatable = (props)=>{
       return imperativelyCallQuery;
     }
 
-    const deselectedOptions = [
-      {value: 'rustic', label: 'Rustic'},
-      {value: 'antique', label: 'Antique'},
-      {value: 'vinyl', label: 'Vinyl'},
-      {value: 'vintage', label: 'Vintage'},
-      {value: 'refurbished', label: 'Refurbished'},
-    ];
-
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    const [inputValue, setInputValue] = useState('');
-    const [options, setOptions] = useState(deselectedOptions);
-
-    const updateText = useCallback(
-      (value) => {
-        setInputValue(value);
-  
-        if (value === '') {
-          setOptions(deselectedOptions);
-          return;
-        }
-  
-        const filterRegex = new RegExp(value, 'i');
-        const resultOptions = deselectedOptions.filter((option) =>
-          option.label.match(filterRegex),
-        );
-        setOptions(resultOptions);
-      },
-      [deselectedOptions],
-    );
-  
-    const updateSelection = useCallback(
-      (selected) => {
-        const selectedValue = selected.map((selectedItem) => {
-          const matchedOption = options.find((option) => {
-            return option.value.match(selectedItem);
-          });
-
-          return matchedOption && matchedOption.label;
-        });
-  
-        setSelectedOptions(selected);
-        setInputValue(selectedValue[0]);
-      },
-      [options],
-    );
-
-    const textField = (
-      <Autocomplete.TextField
-        onChange={updateText}
-        label="Seleccione la ciudad de origen"
-        value={inputValue}
-        prefix={<Icon source={LocationMajor} color="base" />}
-        placeholder="Ciudad de origen"
-      />
-    );
+    const options = [
+      { value: 'chocolate', label: 'Chocolate' },
+      { value: 'strawberry', label: 'Strawberry' },
+      { value: 'vanilla', label: 'Vanilla' }
+    ]
 
     const DISCOUNT_LINK = 'https://polaris.shopify.com/';
 
@@ -84,14 +34,6 @@ const Datatable = (props)=>{
   
     const handleClick = useCallback(() => {
       node.current && node.current.input.focus();
-    }, []);
-  
-    const handleFocus = useCallback(() => {
-      if (node.current == null) {
-        return;
-      }
-      node.current.input.select();
-      document.execCommand('copy');
     }, []);
   
     const toggleModal = useCallback((order) => {
@@ -247,14 +189,7 @@ const Datatable = (props)=>{
                  Seleccione el destino del paquete.
                 </p>
               </FormLayout.Group>
-              <div style={{height: '225px'}}>
-                <Autocomplete
-                  options={options}
-                  selected={selectedOptions}
-                  onSelect={updateSelection}
-                  textField={textField}
-                />
-              </div>
+              <Select options={options} />
             </FormLayout>
             </Stack.Item>
           </Stack>
