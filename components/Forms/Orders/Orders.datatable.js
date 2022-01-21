@@ -106,8 +106,8 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
-            <IndexTable.Cell><Button onClick={toggleModal}>Cotizar</Button></IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
+            <IndexTable.Cell><Button onClick={toggleModal}>Cotizar</Button></IndexTable.Cell>
             </IndexTable.Row>
           )
       }
@@ -130,8 +130,8 @@ const Datatable = (props)=>{
               {title: 'Dirección'},
               {title: 'Ciudad'},
               {title: 'Provincia'},
-              {title: 'Transportadora'},
-              {title: 'Total'}
+              {title: 'Total'},
+              {title: 'Transportadora'}
             ]}
           >
             {rowMarkup}
