@@ -247,12 +247,14 @@ const Datatable = (props)=>{
                  Seleccione el destino del paquete.
                 </p>
               </FormLayout.Group>
+              <div style={{height: '225px'}}>
                 <Autocomplete
                   options={options}
                   selected={selectedOptions}
                   onSelect={updateSelection}
                   textField={textField}
-               />
+                />
+              </div>
             </FormLayout>
             </Stack.Item>
           </Stack>
