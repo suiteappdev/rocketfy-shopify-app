@@ -139,9 +139,9 @@ const Datatable = (props)=>{
       <Modal
         open={active}
         onClose={toggleModal}
-        title="Get a shareable link"
+        title="Cotizar envio"
         primaryAction={{
-          content: 'Close',
+          content: 'Cerrar',
           onAction: toggleModal,
         }}
       >
@@ -150,9 +150,7 @@ const Datatable = (props)=>{
             <Stack.Item>
               <TextContainer>
                 <p>
-                  You can share this discount link with your customers via email
-                  or social media. Your discount will be automatically applied
-                  at checkout.
+                  Por favor configure las dimensiones de su paquete.
                 </p>
               </TextContainer>
             </Stack.Item>
