@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useIndexResourceState, Card, IndexTable, TextField, Button } from '@shopify/polaris';
+import React, {useCallback, useRef, useState} from 'react';
+import {useIndexResourceState, Card, IndexTable, Button, Modal, Stack, TextContainer,} from '@shopify/polaris';
 import moment from 'moment';
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
@@ -22,6 +22,27 @@ const Datatable = (props)=>{
     const shipping = (order)=>{
         console.log(order);
     }
+
+    const DISCOUNT_LINK = 'https://polaris.shopify.com/';
+
+    const [active, setActive] = useState(true);
+    const node = useRef(null);
+  
+    const handleClick = useCallback(() => {
+      node.current && node.current.input.focus();
+    }, []);
+  
+    const handleFocus = useCallback(() => {
+      if (node.current == null) {
+        return;
+      }
+      node.current.input.select();
+      document.execCommand('copy');
+    }, []);
+  
+    const toggleModal = useCallback(() => setActive((active) => !active), []);
+  
+    const activator = <Button onClick={toggleModal}>Open</Button>;
     
     const callQuery = useImperativeQuery(ORDER_BY_ID);
 
@@ -88,40 +109,8 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
-            <IndexTable.Cell><Button primary onClick={()=>shipping(node)}>Cotizar envio</Button></IndexTable.Cell>
+            <IndexTable.Cell>{activator}</IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
-            <IndexTable.Cell>
-            <TextField
-                prefix="kg"
-                value={''}
-                onChange={()=>{}}
-                autoComplete="off"
-              />
-            </IndexTable.Cell>
-            <IndexTable.Cell>
-            <TextField
-                prefix="cms"
-                value={''}
-                onChange={()=>{}}
-                autoComplete="off"
-              />
-            </IndexTable.Cell>
-            <IndexTable.Cell>
-            <TextField
-                prefix="cms"
-                value={''}
-                onChange={()=>{}}
-                autoComplete="off"
-              />
-            </IndexTable.Cell>
-            <IndexTable.Cell>
-            <TextField
-                prefix="cms"
-                value={''}
-                onChange={()=>{}}
-                autoComplete="off"
-              />
-            </IndexTable.Cell>
             </IndexTable.Row>
           )
       }
@@ -145,15 +134,52 @@ const Datatable = (props)=>{
               {title: 'Ciudad'},
               {title: 'Provincia'},
               {title: 'Transportadora'},
-              {title: 'Total'},
-              {title: 'Peso'},
-              {title: 'Alto'},
-              {title: 'Ancho'},
-              {title: 'Largo'}
+              {title: 'Total'}
             ]}
           >
             {rowMarkup}
           </IndexTable>
+          <div style={{height: '500px'}}>
+      <Modal
+        activator={activator}
+        open={active}
+        onClose={toggleModal}
+        title="Get a shareable link"
+        primaryAction={{
+          content: 'Close',
+          onAction: toggleModal,
+        }}
+      >
+        <Modal.Section>
+          <Stack vertical>
+            <Stack.Item>
+              <TextContainer>
+                <p>
+                  You can share this discount link with your customers via email
+                  or social media. Your discount will be automatically applied
+                  at checkout.
+                </p>
+              </TextContainer>
+            </Stack.Item>
+            <Stack.Item fill>
+              <TextField
+                ref={node}
+                label="Discount link"
+                onFocus={handleFocus}
+                value={DISCOUNT_LINK}
+                onChange={() => {}}
+                autoComplete="off"
+                connectedRight={
+                  <Button primary onClick={handleClick}>
+                    Copy link
+                  </Button>
+                }
+              />
+            </Stack.Item>
+          </Stack>
+        </Modal.Section>
+      </Modal>
+    </div>
         </Card>
       );
 }
