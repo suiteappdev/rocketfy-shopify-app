@@ -5,7 +5,7 @@ import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
-import {SearchMinor} from '@shopify/polaris-icons';
+import {LocationMajor} from '@shopify/polaris-icons';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -72,7 +72,7 @@ const Datatable = (props)=>{
         onChange={updateText}
         label="Seleccione la ciudad de origen"
         value={inputValue}
-        prefix={<Icon source={SearchMinor} color="base" />}
+        prefix={<Icon source={LocationMajor} color="base" />}
         placeholder="Ciudad de origen"
       />
     );
@@ -246,13 +246,19 @@ const Datatable = (props)=>{
                 <p>
                  Seleccione el destino del paquete.
                 </p>
+              </FormLayout.Group>
                 <Autocomplete
                   options={options}
                   selected={selectedOptions}
                   onSelect={updateSelection}
                   textField={textField}
                />
-              </FormLayout.Group>
+                <Autocomplete
+                  options={options}
+                  selected={selectedOptions}
+                  onSelect={updateSelection}
+                  textField={textField}
+               />
             </FormLayout>
             </Stack.Item>
           </Stack>
