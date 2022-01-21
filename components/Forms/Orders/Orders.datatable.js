@@ -25,7 +25,7 @@ const Datatable = (props)=>{
 
     const DISCOUNT_LINK = 'https://polaris.shopify.com/';
 
-    const [active, setActive] = useState(true);
+    const [active, setActive] = useState(false);
     const node = useRef(null);
   
     const handleClick = useCallback(() => {
@@ -136,7 +136,6 @@ const Datatable = (props)=>{
           >
             {rowMarkup}
           </IndexTable>
-          <div style={{height: '500px'}}>
       <Modal
         open={active}
         onClose={toggleModal}
@@ -175,7 +174,6 @@ const Datatable = (props)=>{
           </Stack>
         </Modal.Section>
       </Modal>
-    </div>
         </Card>
       );
 }
