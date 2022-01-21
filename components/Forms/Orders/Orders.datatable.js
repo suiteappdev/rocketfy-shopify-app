@@ -41,8 +41,7 @@ const Datatable = (props)=>{
     }, []);
   
     const toggleModal = useCallback(() => setActive((active) => !active), []);
-  
-    const callQuery = useImperativeQuery(ORDER_BY_ID);
+       const callQuery = useImperativeQuery(ORDER_BY_ID);
 
       const resourceName = {
         singular: 'order',
@@ -107,7 +106,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
-            <IndexTable.Cell>{activator}</IndexTable.Cell>
+            <IndexTable.Cell><Button onClick={toggleModal}>Cotizar</Button></IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
             </IndexTable.Row>
           )
@@ -141,9 +140,9 @@ const Datatable = (props)=>{
       <Modal
         open={active}
         onClose={toggleModal}
-        title="Cotizador de envios"
+        title="Get a shareable link"
         primaryAction={{
-          content: 'Cerrar',
+          content: 'Close',
           onAction: toggleModal,
         }}
       >
