@@ -189,7 +189,9 @@ const Datatable = (props)=>{
                  Seleccione el destino del paquete.
                 </p>
               </FormLayout.Group>
-              <Select options={options} />
+              <div style={{height: '225px'}}>
+                <Select options={options} />
+              </div>
             </FormLayout>
             </Stack.Item>
           </Stack>
