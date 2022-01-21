@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/client';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
+     const [currentOrder, setCurrentOrder]  = useState({});
 
      const useImperativeQuery = (query) => {
       const { refetch } = useQuery(query, { skip: true });
@@ -40,7 +41,11 @@ const Datatable = (props)=>{
       document.execCommand('copy');
     }, []);
   
-    const toggleModal = useCallback(() => setActive((active) => !active), []);
+    const toggleModal = useCallback((order) => {
+      setActive((active) => !active)
+      setCurrentOrder(order);
+      console.log("currentOrder", order);
+    }, []);
        const callQuery = useImperativeQuery(ORDER_BY_ID);
 
       const resourceName = {
@@ -185,6 +190,9 @@ const Datatable = (props)=>{
                   onChange={() => {}}
                   autoComplete="off"
                 /> 
+                <p>
+                 Seleccione el destino del paquete.
+                </p>
               </FormLayout.Group>
             </FormLayout>
             </Stack.Item>
