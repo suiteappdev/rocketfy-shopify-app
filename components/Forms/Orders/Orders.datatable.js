@@ -158,7 +158,7 @@ const Datatable = (props)=>{
             </Stack.Item>
             <Stack.Item fill>
             <FormLayout>
-              <FormLayout.Group>
+              <FormLayout.Group condensed>
                 <TextField
                   prefix="kg"
                   type="number"
