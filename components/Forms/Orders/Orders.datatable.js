@@ -253,12 +253,6 @@ const Datatable = (props)=>{
                   onSelect={updateSelection}
                   textField={textField}
                />
-                <Autocomplete
-                  options={options}
-                  selected={selectedOptions}
-                  onSelect={updateSelection}
-                  textField={textField}
-               />
             </FormLayout>
             </Stack.Item>
           </Stack>
