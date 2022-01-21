@@ -191,6 +191,7 @@ const Datatable = (props)=>{
               </FormLayout.Group>
               <div style={{height: '225px'}}>
                 <Select options={options} />
+                <Select options={options} />
               </div>
             </FormLayout>
             </Stack.Item>
