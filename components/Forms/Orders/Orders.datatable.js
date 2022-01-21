@@ -160,17 +160,33 @@ const Datatable = (props)=>{
             <FormLayout>
               <FormLayout.Group>
                 <TextField
+                  prefix="kg"
                   type="number"
-                  label="Minimum order"
+                  label="Peso"
                   onChange={() => {}}
                   autoComplete="off"
                 />
                 <TextField
+                  prefix="cms"
                   type="number"
-                  label="Maximum order"
+                  label="Alto"
                   onChange={() => {}}
                   autoComplete="off"
                 />
+                <TextField
+                  prefix="cms"
+                  type="number"
+                  label="Ancho"
+                  onChange={() => {}}
+                  autoComplete="off"
+                />
+                <TextField
+                  prefix="cms"
+                  type="number"
+                  label="Largo"
+                  onChange={() => {}}
+                  autoComplete="off"
+                /> 
               </FormLayout.Group>
             </FormLayout>
             </Stack.Item>
