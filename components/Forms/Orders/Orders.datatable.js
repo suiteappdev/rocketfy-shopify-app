@@ -1,10 +1,11 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {useIndexResourceState, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
+import {Autocomplete, useIndexResourceState, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
+import {SearchMinor} from '@shopify/polaris-icons';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -20,9 +21,61 @@ const Datatable = (props)=>{
       return imperativelyCallQuery;
     }
 
-    const shipping = (order)=>{
-        console.log(order);
-    }
+    const deselectedOptions = [
+      {value: 'rustic', label: 'Rustic'},
+      {value: 'antique', label: 'Antique'},
+      {value: 'vinyl', label: 'Vinyl'},
+      {value: 'vintage', label: 'Vintage'},
+      {value: 'refurbished', label: 'Refurbished'},
+    ];
+
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [inputValue, setInputValue] = useState('');
+    const [options, setOptions] = useState(deselectedOptions);
+
+    const updateText = useCallback(
+      (value) => {
+        setInputValue(value);
+  
+        if (value === '') {
+          setOptions(deselectedOptions);
+          return;
+        }
+  
+        const filterRegex = new RegExp(value, 'i');
+        const resultOptions = deselectedOptions.filter((option) =>
+          option.label.match(filterRegex),
+        );
+        setOptions(resultOptions);
+      },
+      [deselectedOptions],
+    );
+  
+    const updateSelection = useCallback(
+      (selected) => {
+        const selectedValue = selected.map((selectedItem) => {
+          const matchedOption = options.find((option) => {
+            return option.value.match(selectedItem);
+          });
+
+          return matchedOption && matchedOption.label;
+        });
+  
+        setSelectedOptions(selected);
+        setInputValue(selectedValue[0]);
+      },
+      [options],
+    );
+
+    const textField = (
+      <Autocomplete.TextField
+        onChange={updateText}
+        label="Tags"
+        value={inputValue}
+        prefix={<Icon source={SearchMinor} color="base" />}
+        placeholder="Search"
+      />
+    );
 
     const DISCOUNT_LINK = 'https://polaris.shopify.com/';
 
@@ -193,6 +246,12 @@ const Datatable = (props)=>{
                 <p>
                  Seleccione el destino del paquete.
                 </p>
+                <Autocomplete
+                  options={options}
+                  selected={selectedOptions}
+                  onSelect={updateSelection}
+                  textField={textField}
+               />
               </FormLayout.Group>
             </FormLayout>
             </Stack.Item>
