@@ -70,10 +70,10 @@ const Datatable = (props)=>{
     const textField = (
       <Autocomplete.TextField
         onChange={updateText}
-        label="Tags"
+        label="Seleccione la ciudad de origen"
         value={inputValue}
         prefix={<Icon source={SearchMinor} color="base" />}
-        placeholder="Search"
+        placeholder="Ciudad de origen"
       />
     );
 
