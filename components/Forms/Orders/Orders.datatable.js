@@ -5,11 +5,17 @@ import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
-import Select from 'react-select';
+import City from '../../Control/select';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
      const [currentOrder, setCurrentOrder]  = useState({});
+     const [shipping, setshipping]  = useState({
+       Alto : 0,
+       Ancho : 0,
+       Largo : 0,
+       Peso : null
+     });
 
      const useImperativeQuery = (query) => {
       const { refetch } = useQuery(query, { skip: true });
@@ -160,12 +166,14 @@ const Datatable = (props)=>{
                 <TextField
                   prefix="kg"
                   type="number"
+                  value={shipping.Peso}
                   label="Peso"
                   onChange={() => {}}
                   autoComplete="off"
                 />
                 <TextField
                   prefix="cms"
+                  value={shipping.Alto}
                   type="number"
                   label="Alto"
                   onChange={() => {}}
@@ -173,6 +181,7 @@ const Datatable = (props)=>{
                 />
                 <TextField
                   prefix="cms"
+                  value={shipping.Ancho}
                   type="number"
                   label="Ancho"
                   onChange={() => {}}
@@ -180,6 +189,7 @@ const Datatable = (props)=>{
                 />
                 <TextField
                   prefix="cms"
+                  value={shipping.Largo}
                   type="number"
                   label="Largo"
                   onChange={() => {}}
@@ -190,11 +200,15 @@ const Datatable = (props)=>{
                 <p>
                  Seleccione origen del paquete.
                 </p>
-                <Select options={options} />
+                <City options={options} selectProps={{
+                  placeholder : "Ciudad origen"
+                }} name={'from'}></City>
                 <p>
                  Seleccione destino del paquete.
                 </p>
-                <Select options={options} />
+                <City options={options} selectProps={{
+                  placeholder : "Ciudad Destino"
+                }} name={'to'}></City>
               </div>
             </FormLayout>
             </Stack.Item>
