@@ -51,6 +51,7 @@ const createOrder = (data)=>{
 }
 
 const shippingCost = (order, shipping)=>{
+    console.log({order, shipping});
     return new Promise(async (resolve, reject)=>{
 
 
