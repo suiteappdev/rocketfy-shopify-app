@@ -215,9 +215,10 @@ const Datatable = (props)=>{
                     }} value={shipping.to} selectProps={{
                       placeholder : "Ciudad destino"
                     }} name={'to'}></City>
+                    <Button primary onClick={()=>{}}>Cotizar</Button>
                 </div>
                 <div style={{width:'50%'}}>
-                    <p>Resultado de cotización</p>
+                    <p className='text-cener'>Resultado de cotización</p>
                 </div>
               </div>
             </FormLayout>

@@ -10,7 +10,7 @@ const City  = (props)=>{
             let mapOptions = (data)=>{
                 return data.map((c)=>({
                     label : `${c.name} - ${c.state.name}`,
-                    value : c.id,
+                    value : c._id,
                     state : c.state.id
                 }));
             };
