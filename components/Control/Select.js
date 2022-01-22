@@ -6,11 +6,16 @@ const City  = (props)=>{
     const [cities, setCities] = useState([]);
 
     useEffect(()=>{
-        let response  = await getCities();
-        console.log("cties response", response);
-        if(response){
-            setCities(response.data);
+        let cities =  async ()=>{
+            let response  = await getCities();
+            console.log("cties response", response);
+            if(response){
+                setCities(response.data);
+            }
         }
+
+        cities();
+
     }, []);
 
     return (
