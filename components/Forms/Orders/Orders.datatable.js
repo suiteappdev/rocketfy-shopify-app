@@ -17,8 +17,8 @@ const Datatable = (props)=>{
        Peso : null
      });
 
-     const OnChangedShipping  = (event)=>{
-       console.log("event", event);
+     const OnChangedShipping  = (value, key)=>{
+       setshipping({...shipping, [key] : value});
      }
 
      const useImperativeQuery = (query) => {
@@ -159,7 +159,7 @@ const Datatable = (props)=>{
                   type="number"
                   value={shipping.Peso}
                   label="Peso"
-                  onChange={OnChangedShipping}
+                  onChange={(value)=>OnChangedShipping(value, 'Peso')}
                   autoComplete="off"
                 />
                 <TextField
@@ -167,7 +167,7 @@ const Datatable = (props)=>{
                   value={shipping.Alto}
                   type="number"
                   label="Alto"
-                  onChange={OnChangedShipping}
+                  onChange={(value)=>OnChangedShipping(value, 'Alto')}
                   autoComplete="off"
                 />
                 <TextField
@@ -175,7 +175,7 @@ const Datatable = (props)=>{
                   value={shipping.Ancho}
                   type="number"
                   label="Ancho"
-                  onChange={OnChangedShipping}
+                  onChange={(value)=>OnChangedShipping(value, 'Ancho')}
                   autoComplete="off"
                 />
                 <TextField
@@ -183,7 +183,7 @@ const Datatable = (props)=>{
                   value={shipping.Largo}
                   type="number"
                   label="Largo"
-                  onChange={OnChangedShipping}
+                  onChange={(value)=>OnChangedShipping(value, 'Largo')}
                   autoComplete="off"
                 /> 
               </FormLayout.Group>
