@@ -44,7 +44,7 @@ const Datatable = (props)=>{
   
     const toggleModal = useCallback((order) => {
       setActive((active) => !active)
-      console.log("currentOrder", order);
+      setCurrentOrder(order);
     }, []);
        const callQuery = useImperativeQuery(ORDER_BY_ID);
 
