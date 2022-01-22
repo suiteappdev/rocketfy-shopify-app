@@ -158,6 +158,7 @@ const Datatable = (props)=>{
                   label="Peso"
                   onChange={(event) => {
                     console.log("event", event)
+                    console.log("shipping", shipping)
                   }}
                   autoComplete="off"
                 />
