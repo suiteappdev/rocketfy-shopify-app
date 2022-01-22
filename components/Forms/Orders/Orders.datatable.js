@@ -14,7 +14,9 @@ const Datatable = (props)=>{
        Alto : 0,
        Ancho : 0,
        Largo : 0,
-       Peso : 1
+       Peso : 1,
+       from : {},
+       to : {}
      });
 
      const OnChangedShipping  = (value, key)=>{
@@ -197,14 +199,20 @@ const Datatable = (props)=>{
                     <p>
                     Seleccione origen del paquete.
                     </p>
-                    <City placeholder="Ciudad origen" selectProps={{
+                    <City placeholder="Ciudad origen" onChange={(value)=>{
+                      console.log("ciudad origen", value);
+                      setshipping({...shipping, from : value});
+                    }} value={shipping.from} selectProps={{
                       placeholder : "Ciudad origen"
                     }} name={'from'}></City>
                     <br />
                     <p>
                     Seleccione destino del paquete.
                     </p>
-                    <City placeholder="Ciudad destino" selectProps={{
+                    <City placeholder="Ciudad destino" onChange={(value)=>{
+                      console.log("ciudad destino", value);
+                      setshipping({...shipping, to : value});
+                    }} value={shipping.to} selectProps={{
                       placeholder : "Ciudad destino"
                     }} name={'to'}></City>
                 </div>
