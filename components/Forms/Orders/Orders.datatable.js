@@ -200,14 +200,15 @@ const Datatable = (props)=>{
                 <p>
                  Seleccione origen del paquete.
                 </p>
-                <City options={options} selectProps={{
+                <City options={options} placeholder="Ciudad origen" selectProps={{
                   placeholder : "Ciudad origen"
                 }} name={'from'}></City>
+                <br />
                 <p>
                  Seleccione destino del paquete.
                 </p>
-                <City options={options} selectProps={{
-                  placeholder : "Ciudad Destino"
+                <City options={options} placeholder="Ciudad destino" selectProps={{
+                  placeholder : "Ciudad destino"
                 }} name={'to'}></City>
               </div>
             </FormLayout>
