@@ -171,7 +171,7 @@ const Datatable = (props)=>{
                 />
                 <TextField
                   prefix="cms"
-                  value={50}
+                  value={shipping.Alto}
                   type="text"
                   label="Alto"
                   onChange={(value)=>OnChangedShipping(value, 'Alto')}
@@ -200,8 +200,8 @@ const Datatable = (props)=>{
                     Seleccione origen del paquete.
                     </p>
                     <City placeholder="Ciudad origen" onChange={(value)=>{
-                      console.log("ciudad origen", value);
                       setshipping({...shipping, from : value});
+                      console.log("shipping", shipping);
                     }} value={shipping.from} selectProps={{
                       placeholder : "Ciudad origen"
                     }} name={'from'}></City>
@@ -210,15 +210,15 @@ const Datatable = (props)=>{
                     Seleccione destino del paquete.
                     </p>
                     <City placeholder="Ciudad destino" onChange={(value)=>{
-                      console.log("ciudad destino", value);
                       setshipping({...shipping, to : value});
                     }} value={shipping.to} selectProps={{
                       placeholder : "Ciudad destino"
                     }} name={'to'}></City>
-                    <Button primary onClick={()=>{}}>Cotizar</Button>
+                    <br />
+                    <Button primary onClick={()=>getShippingCost()}>Cotizar</Button>
                 </div>
                 <div style={{width:'50%'}}>
-                    <p className='text-cener'>Resultado de cotización</p>
+                    <p className='text-center'>Resultado de cotización</p>
                 </div>
               </div>
             </FormLayout>
