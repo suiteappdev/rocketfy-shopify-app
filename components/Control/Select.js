@@ -1,7 +1,18 @@
 import Select from 'react-select';
+import { useEffect, useState } from 'react';
+import { getCities } from '../../helpers/location.helper';
 
 const City  = (props)=>{
-    console.log("properties", props);
+    const [cities, setCities] = useState([]);
+
+    useEffect(()=>{
+        let response  = await getCities();
+        console.log("cties response", response);
+        if(response){
+            setCities(response.data);
+        }
+    }, []);
+
     return (
         <Select {...props} />
     )
