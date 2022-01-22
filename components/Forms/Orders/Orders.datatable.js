@@ -14,7 +14,7 @@ const Datatable = (props)=>{
        Alto : 0,
        Ancho : 0,
        Largo : 0,
-       Peso : null
+       Peso : 1
      });
 
      const OnChangedShipping  = (value, key)=>{
@@ -156,7 +156,7 @@ const Datatable = (props)=>{
               <FormLayout.Group condensed>
                 <TextField
                   prefix="kg"
-                  type="number"
+                  type="text"
                   value={shipping.Peso}
                   label="Peso"
                   onChange={(value)=>OnChangedShipping(value, 'Peso')}
@@ -165,7 +165,7 @@ const Datatable = (props)=>{
                 <TextField
                   prefix="cms"
                   value={shipping.Alto}
-                  type="number"
+                  type="text"
                   label="Alto"
                   onChange={(value)=>OnChangedShipping(value, 'Alto')}
                   autoComplete="off"
@@ -173,7 +173,7 @@ const Datatable = (props)=>{
                 <TextField
                   prefix="cms"
                   value={shipping.Ancho}
-                  type="number"
+                  type="text"
                   label="Ancho"
                   onChange={(value)=>OnChangedShipping(value, 'Ancho')}
                   autoComplete="off"
@@ -181,7 +181,7 @@ const Datatable = (props)=>{
                 <TextField
                   prefix="cms"
                   value={shipping.Largo}
-                  type="number"
+                  type="text"
                   label="Largo"
                   onChange={(value)=>OnChangedShipping(value, 'Largo')}
                   autoComplete="off"
