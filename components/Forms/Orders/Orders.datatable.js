@@ -32,7 +32,6 @@ const Datatable = (props)=>{
   
     const toggleModal = useCallback((order) => {
       setActive((active) => !active)
-      setCurrentOrder(order);
       console.log("currentOrder", order);
     }, []);
        const callQuery = useImperativeQuery(ORDER_BY_ID);
@@ -101,7 +100,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
-            <IndexTable.Cell><Button onClick={toggleModal}>Cotizar</Button></IndexTable.Cell>
+            <IndexTable.Cell><Button onClick={()=>toggleModal(node)}>Cotizar</Button></IndexTable.Cell>
             </IndexTable.Row>
           )
       }
