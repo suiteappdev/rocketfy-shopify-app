@@ -7,10 +7,19 @@ const City  = (props)=>{
 
     useEffect(()=>{
         let cities =  async ()=>{
+            let mapOptions = (data)=>{
+                data.map((c)=>({
+                    label : `${c.name} - ${c.state.name}`,
+                    value : c.id,
+                    state : c.state.id
+                }));
+            };
+
             let response  = await getCities();
-            console.log("cties response", response);
+
             if(response){
-                setCities(response.data);
+                setCities(mapOptions(response.data));
+                console.log("cities state", cities);
             }
         }
 
