@@ -169,7 +169,7 @@ const Datatable = (props)=>{
                 />
                 <TextField
                   prefix="cms"
-                  value={shipping.Alto}
+                  value={50}
                   type="text"
                   label="Alto"
                   onChange={(value)=>OnChangedShipping(value, 'Alto')}
@@ -195,7 +195,7 @@ const Datatable = (props)=>{
                 <p>
                  Seleccione origen del paquete.
                 </p>
-              <div style={{height: '225px', display:'flex', alignItems:'left', flexDirection:'column'}}>
+              <div style={{height: '225px', display:'flex', alignItems:'left', flexDirection:'row'}}>
                 <div style={{ width : '50%'}}>
                     <City placeholder="Ciudad origen" selectProps={{
                       placeholder : "Ciudad origen"
