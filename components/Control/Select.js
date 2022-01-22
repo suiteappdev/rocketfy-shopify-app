@@ -15,7 +15,7 @@ const City  = (props)=>{
                 }));
             };
 
-            let response  = await getCities().catch(()=>console.log("No se pudieron recuperar las ciudades"));
+            let response  = await getCities(true).catch(()=>console.log("No se pudieron recuperar las ciudades"));
             setCities(mapOptions(response));
         }
 
