@@ -156,7 +156,9 @@ const Datatable = (props)=>{
                   type="number"
                   value={shipping.Peso}
                   label="Peso"
-                  onChange={() => {}}
+                  onChange={(event) => {
+                    console.log("event", event)
+                  }}
                   autoComplete="off"
                 />
                 <TextField
