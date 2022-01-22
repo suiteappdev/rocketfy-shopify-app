@@ -8,7 +8,7 @@ const City  = (props)=>{
     useEffect(()=>{
         let cities =  async ()=>{
             let mapOptions = (data)=>{
-                data.map((c)=>({
+                return data.map((c)=>({
                     label : `${c.name} - ${c.state.name}`,
                     value : c.id,
                     state : c.state.id
@@ -28,7 +28,7 @@ const City  = (props)=>{
     }, []);
 
     return (
-        <Select {...props} />
+        <Select options={cities || []} {...props} />
     )
 }
 
