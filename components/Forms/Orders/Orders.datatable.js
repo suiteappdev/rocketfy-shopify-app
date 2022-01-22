@@ -5,7 +5,7 @@ import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
-import City from '../../Control/select';
+import City from '../../Control/Select';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
