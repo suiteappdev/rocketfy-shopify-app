@@ -27,20 +27,8 @@ const Datatable = (props)=>{
       return imperativelyCallQuery;
     }
 
-    const options = [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
-      { value: 'vanilla', label: 'Vanilla' }
-    ]
-
-    const DISCOUNT_LINK = 'https://polaris.shopify.com/';
-
     const [active, setActive] = useState(false);
     const node = useRef(null);
-  
-    const handleClick = useCallback(() => {
-      node.current && node.current.input.focus();
-    }, []);
   
     const toggleModal = useCallback((order) => {
       setActive((active) => !active)
@@ -200,14 +188,14 @@ const Datatable = (props)=>{
                 <p>
                  Seleccione origen del paquete.
                 </p>
-                <City options={options} placeholder="Ciudad origen" selectProps={{
+                <City placeholder="Ciudad origen" selectProps={{
                   placeholder : "Ciudad origen"
                 }} name={'from'}></City>
                 <br />
                 <p>
                  Seleccione destino del paquete.
                 </p>
-                <City options={options} placeholder="Ciudad destino" selectProps={{
+                <City placeholder="Ciudad destino" selectProps={{
                   placeholder : "Ciudad destino"
                 }} name={'to'}></City>
               </div>
