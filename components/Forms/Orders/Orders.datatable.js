@@ -10,6 +10,7 @@ import City from '../../Control/Select';
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
      const [currentOrder, setCurrentOrder]  = useState({});
+     const [OrderSuccess, setOrderSuccess]  = useState(false);
      const [shipping, setshipping]  = useState({
        Alto : '0',
        Ancho : '0',
@@ -25,6 +26,7 @@ const Datatable = (props)=>{
 
      const getShipping = async ()=>{
         let response = await shippingCost(currentOrder, shipping);
+        console.log(response)
      }
 
      const useImperativeQuery = (query) => {
