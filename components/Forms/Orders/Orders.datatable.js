@@ -11,10 +11,10 @@ const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
      const [currentOrder, setCurrentOrder]  = useState({});
      const [shipping, setshipping]  = useState({
-       Alto : 0,
-       Ancho : 0,
-       Largo : 0,
-       Peso : 1,
+       Alto : '0',
+       Ancho : '0',
+       Largo : '0',
+       Peso : '1',
        from : {},
        to : {}
      });
@@ -211,6 +211,7 @@ const Datatable = (props)=>{
                     </p>
                     <City placeholder="Ciudad destino" onChange={(value)=>{
                       setshipping({...shipping, to : value});
+                      console.log("shipping", shipping);
                     }} value={shipping.to} selectProps={{
                       placeholder : "Ciudad destino"
                     }} name={'to'}></City>
