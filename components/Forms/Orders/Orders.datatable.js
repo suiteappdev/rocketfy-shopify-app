@@ -164,7 +164,7 @@ const Datatable = (props)=>{
                 <TextField
                   prefix="kg"
                   type="text"
-                  value={shipping.Peso}
+                  value="adsdsds"
                   label="Peso"
                   onChange={(value)=>OnChangedShipping(value, 'Peso')}
                   autoComplete="off"
