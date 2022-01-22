@@ -192,11 +192,11 @@ const Datatable = (props)=>{
                   autoComplete="off"
                 /> 
               </FormLayout.Group>
-                <p>
-                 Seleccione origen del paquete.
-                </p>
               <div style={{height: '225px', display:'flex', alignItems:'left', flexDirection:'row'}}>
                 <div style={{ width : '50%'}}>
+                    <p>
+                    Seleccione origen del paquete.
+                    </p>
                     <City placeholder="Ciudad origen" selectProps={{
                       placeholder : "Ciudad origen"
                     }} name={'from'}></City>
@@ -209,16 +209,7 @@ const Datatable = (props)=>{
                     }} name={'to'}></City>
                 </div>
                 <div style={{width:'50%'}}>
-                <City placeholder="Ciudad origen" selectProps={{
-                      placeholder : "Ciudad origen"
-                    }} name={'from'}></City>
-                    <br />
-                    <p>
-                    Seleccione destino del paquete.
-                    </p>
-                    <City placeholder="Ciudad destino" selectProps={{
-                      placeholder : "Ciudad destino"
-                    }} name={'to'}></City>
+                    <p>Resultado de cotización</p>
                 </div>
               </div>
             </FormLayout>
