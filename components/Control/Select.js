@@ -24,7 +24,7 @@ const City  = (props)=>{
     }, []);
 
     return (
-        <Select maxMenuHeight={6} options={cities || []} {...props} />
+        <Select options={cities || []} {...props} />
     )
 }
 

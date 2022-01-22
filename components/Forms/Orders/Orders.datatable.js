@@ -147,10 +147,9 @@ const Datatable = (props)=>{
             <Stack.Item>
               <TextContainer>
               <Banner
-              title="Tu orden a sido enviada a rocketfy correctamente"
-              status="success"
-              action={{content: 'Ir a rocketfy'}}
-               onDismiss={() => {}}
+                title="Tu orden a sido enviada a rocketfy correctamente"
+                status="success"
+                onDismiss={() => {}}
               />
                 <p>
                   Por favor configure las dimensiones de su paquete.
@@ -193,20 +192,34 @@ const Datatable = (props)=>{
                   autoComplete="off"
                 /> 
               </FormLayout.Group>
-              <div style={{height: '225px'}}>
                 <p>
                  Seleccione origen del paquete.
                 </p>
+              <div style={{height: '225px', display:'flex', alignItems:'left', flexDirection:'column'}}>
+                <div style={{ width : '50%'}}>
+                    <City placeholder="Ciudad origen" selectProps={{
+                      placeholder : "Ciudad origen"
+                    }} name={'from'}></City>
+                    <br />
+                    <p>
+                    Seleccione destino del paquete.
+                    </p>
+                    <City placeholder="Ciudad destino" selectProps={{
+                      placeholder : "Ciudad destino"
+                    }} name={'to'}></City>
+                </div>
+                <div style={{width:'50%'}}>
                 <City placeholder="Ciudad origen" selectProps={{
-                  placeholder : "Ciudad origen"
-                }} name={'from'}></City>
-                <br />
-                <p>
-                 Seleccione destino del paquete.
-                </p>
-                <City placeholder="Ciudad destino" selectProps={{
-                  placeholder : "Ciudad destino"
-                }} name={'to'}></City>
+                      placeholder : "Ciudad origen"
+                    }} name={'from'}></City>
+                    <br />
+                    <p>
+                    Seleccione destino del paquete.
+                    </p>
+                    <City placeholder="Ciudad destino" selectProps={{
+                      placeholder : "Ciudad destino"
+                    }} name={'to'}></City>
+                </div>
               </div>
             </FormLayout>
             </Stack.Item>
