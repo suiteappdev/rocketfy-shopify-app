@@ -15,17 +15,13 @@ const City  = (props)=>{
                 }));
             };
 
-            let response  = await getCities();
-
-            if(response){
-                setCities(mapOptions(response.data));
-                console.log("cities state", cities);
-            }
+            let response  = await getCities().catch(()=>console.log("No se pudieron recuperar las ciudades"));
+            setCities(mapOptions(response.data));
         }
 
         cities();
 
-    }, []);
+    }, [cities]);
 
     return (
         <Select options={cities || []} {...props} />
