@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {useIndexResourceState, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
+import {useIndexResourceState,Banner, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
@@ -146,6 +146,12 @@ const Datatable = (props)=>{
           <Stack vertical>
             <Stack.Item>
               <TextContainer>
+              <Banner
+              title="Tu orden a sido enviada a rocketfy correctamente"
+              status="success"
+              action={{content: 'Ir a rocketfy'}}
+               onDismiss={() => {}}
+              />
                 <p>
                   Por favor configure las dimensiones de su paquete.
                 </p>
