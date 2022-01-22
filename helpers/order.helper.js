@@ -60,22 +60,22 @@ const shippingCost = (order, shipping)=>{
             cod:true,
             dimensions:{ width:parseInt(shipping.Ancho), height:parseInt(shipping.Alto), large:parseInt(shipping.Largo), weight:parseInt(shipping.Peso) },
             from:{
-                city:shipping.from,
+                city:shipping.from.vale,
                 state:shipping.from.state, address:"", location:null
             },
             to:{ 
-                city :shipping.to,
-                state:shipping.state,
+                city :shipping.to.vale,
+                state:shipping.to.state,
                 address:"",
                 location:null
             }, 
-            quantity:parseInt(order.quantity)
+            quantity:parseInt(order.quantity || 1)
         }
 
         let response = await PostRequest('https://rest.rocketfy.co/api/public/calc/shipping', body).catch((e)=>reject(e));
 
         if(response){
-            console.log("response", response);
+            console.log("response shipping calc", response);
             resolve(response);
         }
     });

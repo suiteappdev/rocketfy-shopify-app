@@ -23,6 +23,10 @@ const Datatable = (props)=>{
        setshipping({...shipping, [key] : value});
      }
 
+     const getShipping = async ()=>{
+        let response = await shippingCost(currentOrder, shipping);
+     }
+
      const useImperativeQuery = (query) => {
       const { refetch } = useQuery(query, { skip: true });
       
@@ -148,11 +152,13 @@ const Datatable = (props)=>{
           <Stack vertical>
             <Stack.Item>
               <TextContainer>
-              <Banner
-                title="Tu orden a sido enviada a rocketfy correctamente"
-                status="success"
-                onDismiss={() => {}}
-              />
+                {OrderSuccess ? (
+                   <Banner
+                   title="Tu orden a sido enviada a rocketfy correctamente"
+                   status="success"
+                   onDismiss={() => {}}
+                 />
+                ) : (null)}
                 <p>
                   Por favor configure las dimensiones de su paquete.
                 </p>
@@ -164,7 +170,7 @@ const Datatable = (props)=>{
                 <TextField
                   prefix="kg"
                   type="text"
-                  value="adsdsds"
+                  value={shipping.Peso}
                   label="Peso"
                   onChange={(value)=>OnChangedShipping(value, 'Peso')}
                   autoComplete="off"
@@ -216,10 +222,10 @@ const Datatable = (props)=>{
                       placeholder : "Ciudad destino"
                     }} name={'to'}></City>
                     <br />
-                    <Button primary onClick={()=>getShippingCost()}>Cotizar</Button>
+                    <Button primary onClick={()=>getShipping()}>Cotizar</Button>
                 </div>
                 <div style={{width:'50%'}}>
-                    <p className='text-center'>Resultado de cotización</p>
+                    <p style={{textAlign:'center'}}>Resultado de cotización</p>
                 </div>
               </div>
             </FormLayout>
