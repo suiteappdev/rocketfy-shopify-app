@@ -76,8 +76,7 @@ const shippingCost = (order, shipping)=>{
         let response = await PostRequest('https://rest.rocketfy.co/api/calc/shipping', body).catch((e)=>reject(e));
 
         if(response){
-            console.log("response shipping calc", response);
-            resolve(response);
+            resolve(response.data.data);
         }
     });
 }
