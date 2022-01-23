@@ -10,3 +10,21 @@
     justify-content: center!important;
     flex-direction: column!important;
 }
+
+.carrier-logo{
+    width: 15%;
+  }
+  
+  .carrier-item{
+    border: 2px solid #f4f4f4;
+    padding: 5px;
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    cursor:pointer;
+  
+    &:hover{
+      background-color: #e2f0d3;
+    }
+  }
+  

@@ -29,9 +29,7 @@ const Datatable = (props)=>{
      const getShipping = async ()=>{
         setLoading(true);
         let response = await shippingCost(currentOrder, shipping);
-        console.log(response)
-        setCurriers(response.curriers);
-
+        setCurriers(response.courriers);
         setLoading(false);
      }
 
