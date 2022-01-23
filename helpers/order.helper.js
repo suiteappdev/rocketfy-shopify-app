@@ -61,11 +61,11 @@ const shippingCost = (order, shipping)=>{
             cod:true,
             dimensions:{ width:parseInt(shipping.Ancho), height:parseInt(shipping.Alto), large:parseInt(shipping.Largo), weight:parseInt(shipping.Peso) },
             from:{
-                city:shipping.from.vale,
+                city:shipping.from.value,
                 state:shipping.from.state, address:"", location:null
             },
             to:{ 
-                city :shipping.to.vale,
+                city :shipping.to.value,
                 state:shipping.to.state,
                 address:"",
                 location:null
