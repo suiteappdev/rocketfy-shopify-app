@@ -22,9 +22,9 @@
     width: 100%;
     border-radius: 5px;
     cursor:pointer;
-  
-    &:hover{
-      background-color: #e2f0d3;
-    }
-  }
+}
+
+.carrier-logo:hover{
+    background-color: #e2f0d3;
+}
   
