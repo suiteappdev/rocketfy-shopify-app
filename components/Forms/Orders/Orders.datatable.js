@@ -12,6 +12,7 @@ const Datatable = (props)=>{
      const [curriers, setCurriers]  = useState([]);
      const [currentOrder, setCurrentOrder]  = useState({});
      const [OrderSuccess, setOrderSuccess]  = useState(false);
+     const [loading, setLoading]  = useState(false);
      const [shipping, setshipping]  = useState({
        Alto : '0',
        Ancho : '0',
@@ -26,8 +27,12 @@ const Datatable = (props)=>{
      }
 
      const getShipping = async ()=>{
+        setLoading(true);
         let response = await shippingCost(currentOrder, shipping);
         console.log(response)
+        setCurriers(response.data.curriers);
+
+        setLoading(false);
      }
 
      const useImperativeQuery = (query) => {
@@ -244,8 +249,12 @@ const Datatable = (props)=>{
                     <Button primary onClick={()=>getShipping()}>Cotizar</Button>
                 </div>
                 <div style={{width:'50%'}}>
-                    <p style={{textAlign:'center'}}>Resultado de cotización</p>
-                    {mapCurrier(currentOrder)}
+                  {loading  ? ( <Spinner accessibilityLabel="Spinner example" size="large" />) : (
+                    <div>
+                      <p style={{textAlign:'center'}}>Resultado de cotización</p>
+                      {mapCurrier(currentOrder)}
+                    </div>
+                  )}
                 </div>
               </div>
             </FormLayout>
