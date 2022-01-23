@@ -9,6 +9,7 @@ import City from '../../Control/Select';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
+     const [curriers, setCurriers]  = useState([]);
      const [currentOrder, setCurrentOrder]  = useState({});
      const [OrderSuccess, setOrderSuccess]  = useState(false);
      const [shipping, setshipping]  = useState({
@@ -94,7 +95,23 @@ const Datatable = (props)=>{
         },
       ];
 
+      const mapCurrier = (order)=>{
+        return curriers.map((c)=>{
+            return (
+                <p onClick={()=>{}} className=''><img  className='carrier-logo' src={c.img} alt="" /> {c.name}  <span> {formatCurrency("es-CO", "COP", 2,c.shipping_value)} </span></p>
+            )
+        });
+    }
 
+    const formatCurrency  = (locales, currency, fractionDigits, number)  =>{
+      let formatted = new Intl.NumberFormat(locales, {
+        style: 'currency',
+        currency: currency,
+        minimumFractionDigits: fractionDigits
+      }).format(number);
+
+      return formatted;
+    }
 
       const rowMarkup = orders.map(
          ({node}, index) => {
@@ -228,6 +245,7 @@ const Datatable = (props)=>{
                 </div>
                 <div style={{width:'50%'}}>
                     <p style={{textAlign:'center'}}>Resultado de cotización</p>
+                    {mapCurrier(currentOrder)}
                 </div>
               </div>
             </FormLayout>
