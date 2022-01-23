@@ -51,10 +51,7 @@ const createOrder = (data)=>{
 }
 
 const shippingCost = (order, shipping)=>{
-    console.log({order, shipping});
     return new Promise(async (resolve, reject)=>{
-
-
         let body = {
             calculate_all:true,
             total:parseInt(order.currentTotalPriceSet.shopMoney.amount),
@@ -76,7 +73,7 @@ const shippingCost = (order, shipping)=>{
         let response = await PostRequest('https://rest.rocketfy.co/api/calc/shipping', body).catch((e)=>reject(e));
 
         if(response){
-            resolve(response.data.data);
+            resolve(response.data);
         }
     });
 }
