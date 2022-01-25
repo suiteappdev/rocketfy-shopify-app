@@ -133,7 +133,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.customer.firstName} ${node.customer.lastName}`}</IndexTable.Cell>
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
-            <IndexTable.Cell>{node.shippingAddress.province}</IndexTable.Cell>
+            <IndexTable.Cell>{'Pendiente'}</IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
             <IndexTable.Cell><Button onClick={()=>toggleModal(node)}>Cotizar</Button></IndexTable.Cell>
             </IndexTable.Row>
@@ -157,7 +157,7 @@ const Datatable = (props)=>{
               {title: 'Cliente'},
               {title: 'Dirección'},
               {title: 'Ciudad'},
-              {title: 'Provincia'},
+              {title: 'Estado'},
               {title: 'Total'},
               {title: 'Transportadora'}
             ]}
@@ -168,8 +168,14 @@ const Datatable = (props)=>{
         open={active}
         onClose={toggleModal}
         title= {`Cotizar envio - ${currentOrder.name}`}
+        secondaryActions={
+          {
+            content: 'Cerrar',
+            onAction: toggleModal,
+          }
+        }
         primaryAction={{
-          content: 'Cerrar',
+          content: 'Enviar a Rocketfy',
           onAction: toggleModal,
         }}
       >
@@ -263,15 +269,14 @@ const Datatable = (props)=>{
                               name: c.name,
                               location: c.shipping_value,
                           }))}
-                          selectedItems={selectedResources}
-                          onSelectionChange={(e)=>{
-                            console.log("e", e)
-                          }}
                           renderItem={(item) => {
                             const {id, url, avatarSource, name, location} = item;
 
                             return (
                               <ResourceItem
+                                onClick = {()=>{
+                                  setResource(item);
+                                }}
                                 id={id}
                                 url={url}
                                 media={
