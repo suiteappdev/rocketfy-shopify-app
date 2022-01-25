@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {Avatar,Checkbox , ResourceItem, ResourceList, TextStyle, useIndexResourceState,Banner,Spinner, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
+import {Avatar,RadioButton , ResourceItem, ResourceList, TextStyle, useIndexResourceState,Banner,Spinner, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
@@ -249,7 +249,7 @@ const Datatable = (props)=>{
                 <div style={{width:'50%', paddingLeft:'10px', paddingRight:'10px'}}>
                   {loading  ? ( <Spinner className="spinner" accessibilityLabel="Spinner example" size="large" />) : (
                     <div>
-                      <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>
+                      {curriers.length > 0 ? ( <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>) : (null)}
                       <Card>
                         <ResourceList
                           resourceName={{singular: 'transportadora', plural: 'transportadoras'}}
@@ -276,6 +276,12 @@ const Datatable = (props)=>{
                                 accessibilityLabel={`Transportadora ${name}`}
                                 name={name}
                               >
+                                  <RadioButton
+                                    checked={true}
+                                    id="disabled"
+                                    name="accounts"
+                                    onChange={()=>{}}
+                                  />
                                 <h3>
                                   <TextStyle variation="strong">{name}</TextStyle>
                                 </h3>
