@@ -17,11 +17,11 @@ const createOrder = (data, shipping)=>{
               "company": "",
               "address_1":  data.order.shippingAddress.address1,
               "address_2":  data.order.shippingAddress.address2,
-              "city":  data.order.shippingAddress.city,
-              "state": data.order.shippingAddress.province,
+              "city":  shipping.to.value,
+              "state":shipping.to.state,
               "country": data.order.shippingAddress.countryCodeV2,
-              "email": "test@gmail.com",
-              "phone": "301290552"
+              "email": data.order.customer.email,
+              "phone": data.order.customer.phone || '0'
             },
             "line_items": data.order.lineItems.edges.map((item)=>{
                 return {
