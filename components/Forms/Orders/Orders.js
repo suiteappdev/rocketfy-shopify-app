@@ -138,6 +138,13 @@ const Datatable = (props)=>{
     
       return (
         <Card>
+           {OrderSuccess ? (
+                   <Banner
+                   title="Tu orden a sido enviada a rocketfy correctamente"
+                   status="success"
+                   onDismiss={() => {}}
+                 />
+            ) : (null)}
           <IndexTable
             resourceName={resourceName}
             itemCount={orders.length}
@@ -177,10 +184,12 @@ const Datatable = (props)=>{
               
               if(response){
                 let order = await createOrder(response.data, shipping).catch((e)=>console.log(e.message));
-                 console.log("order res", order);
+                
+                if(order && order.orderData){
+                    setOrderSuccess(true);
+                }
               }
-
-            },
+            }
           }
         ) : null}
       >
@@ -188,14 +197,7 @@ const Datatable = (props)=>{
           <Stack vertical>
             <Stack.Item>
               <TextContainer>
-                {OrderSuccess ? (
-                   <Banner
-                   title="Tu orden a sido enviada a rocketfy correctamente"
-                   status="success"
-                   onDismiss={() => {}}
-                 />
-                ) : (null)}
-                <p>
+                               <p>
                   Por favor configure las dimensiones de su paquete.
                 </p>
               </TextContainer>
@@ -243,7 +245,6 @@ const Datatable = (props)=>{
                     </p>
                     <City placeholder="Ciudad origen" onChange={(value)=>{
                       setshipping({...shipping, from : value});
-                      console.log("shipping", shipping);
                     }} value={shipping.from} selectProps={{
                       placeholder : "Ciudad origen"
                     }} name={'from'}></City>
@@ -253,7 +254,6 @@ const Datatable = (props)=>{
                     </p>
                     <City placeholder="Ciudad destino" onChange={(value)=>{
                       setshipping({...shipping, to : value});
-                      console.log("shipping", shipping);
                     }} value={shipping.to} selectProps={{
                       placeholder : "Ciudad destino"
                     }} name={'to'}></City>
