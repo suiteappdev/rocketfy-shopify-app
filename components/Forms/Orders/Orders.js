@@ -152,9 +152,10 @@ const Datatable = (props)=>{
         <Card>
            {OrderSuccess ? (
                    <Banner
+                   style={{marginBottom:'30px'}}
                    title="Tu orden a sido enviada a rocketfy correctamente"
                    status="success"
-                   onDismiss={() => {}}
+                   onDismiss={() => setOrderSuccess(false)}
                  />
             ) : (null)}
           <IndexTable
