@@ -270,18 +270,22 @@ const Datatable = (props)=>{
                                 }}
                                 id={id}
                                 url={url}
-                                media={
-                                  <Avatar customer size="medium" name={name} source={avatarSource} />
-                                }
-                                accessibilityLabel={`Transportadora ${name}`}
-                                name={name}
-                              >
+                                media={(
+                                  <>
                                   <RadioButton
                                     checked={true}
                                     id="disabled"
                                     name="accounts"
                                     onChange={()=>{}}
                                   />
+                                    <Avatar customer size="medium" name={name} source={avatarSource} />
+                                  </>
+                                )
+                                }
+                                accessibilityLabel={`Transportadora ${name}`}
+                                name={name}
+                              >
+
                                 <h3>
                                   <TextStyle variation="strong">{name}</TextStyle>
                                 </h3>
