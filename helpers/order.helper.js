@@ -17,8 +17,8 @@ const createOrder = (data, shipping)=>{
               "company": "",
               "address_1":  data.order.shippingAddress.address1,
               "address_2":  data.order.shippingAddress.address2,
-              "city":  shipping.destination.to.city,
-              "state":shipping.destination.to.state,
+              "city":  shipping.to.cityName,
+              "state":shipping.to.stateName,
               "country": data.order.shippingAddress.countryCodeV2,
               "email": data.order.customer.email,
               "phone": data.order.customer.phone || '0'
@@ -38,6 +38,8 @@ const createOrder = (data, shipping)=>{
                 }
             })
         }
+
+        console.log("order", order);
 
         let response = await PostRequest(`http://localhost:3000/api/public/createOrder`, order).catch((e)=>reject(e));
         

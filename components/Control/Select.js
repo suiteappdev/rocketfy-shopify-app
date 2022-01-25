@@ -11,7 +11,9 @@ const City  = (props)=>{
                 return data.map((c)=>({
                     label : `${c.name} - ${c.state.name}`,
                     value : c._id,
-                    state : c.state.id
+                    state : c.state.id,
+                    stateName : c.state.name,
+                    cityName : c.name
                 }));
             };
 
