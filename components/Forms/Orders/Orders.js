@@ -272,9 +272,6 @@ const Datatable = (props)=>{
 
                             return (
                               <ResourceItem
-                                onClick={()=>{
-                                  alert("Hola");
-                                }}
                                 id={id}
                                 url={url}
                                 media={
