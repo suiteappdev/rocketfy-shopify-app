@@ -270,17 +270,7 @@ const Datatable = (props)=>{
                                 }}
                                 id={id}
                                 url={url}
-                                media={(
-                                  <>
-                                  <RadioButton
-                                    checked={true}
-                                    id="disabled"
-                                    name="accounts"
-                                    onChange={()=>{}}
-                                  />
-                                    <Avatar customer size="medium" name={name} source={avatarSource} />
-                                  </>
-                                )
+                                media={<Avatar customer size="medium" name={name} source={avatarSource} />
                                 }
                                 accessibilityLabel={`Transportadora ${name}`}
                                 name={name}
