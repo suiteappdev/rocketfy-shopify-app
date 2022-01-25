@@ -17,8 +17,8 @@ const createOrder = (data, shipping)=>{
               "company": "",
               "address_1":  data.order.shippingAddress.address1,
               "address_2":  data.order.shippingAddress.address2,
-              "city":  shipping.to.value,
-              "state":shipping.to.state,
+              "city":  shipping.to.name,
+              "state":shipping.to.state.name,
               "country": data.order.shippingAddress.countryCodeV2,
               "email": data.order.customer.email,
               "phone": data.order.customer.phone || '0'
@@ -28,8 +28,6 @@ const createOrder = (data, shipping)=>{
                     "id": 35,
                     "name": item.name,
                     "variation_name": item.node.variant.displayName,
-                   /* "product_id": 13,
-                    "variation_id": 0,*/
                     "quantity": item.node.quantity,
                     "total": parseInt(item.node.discountedTotalSet.shopMoney.amount),
                     "price": parseInt(item.node.variant.price),
