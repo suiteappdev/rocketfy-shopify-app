@@ -47,6 +47,7 @@ export default function MainTabs(props) {
         }}
       >
       <Card>
+        <img src="https://app.rocketfy.co/assets/img/logo3.png" class="rocketfy-logo p-4" alt="logo"></img>
         <Tabs tabs={tabs} selected={selected} onSelect={handleTabChange}>
           <Card.Section title={''}>
             {tabs[selected].render}

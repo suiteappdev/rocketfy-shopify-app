@@ -26,6 +26,7 @@ const Home = (props) => {
         <Page>
             {token ? (
                 <Frame>
+                    <img src="https://app.rocketfy.co/assets/img/logo3.png" class="rocketfy-logo p-4" alt="logo"></img>
                     <MainTabs {...token}/>
                 </Frame>
             ) : null}
