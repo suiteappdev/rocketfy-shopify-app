@@ -171,9 +171,7 @@ const Datatable = (props)=>{
               let response = await callQuery({ id : currentOrder.id}).catch((e)=>console.log(e.message));
               
               if(response){
-                 console.log("SHIPP", shipping)
-                 let order = await createOrder(response.data).catch((e)=>console.log(e.message));
-
+                 let order = await createOrder(response.data, shipping).catch((e)=>console.log(e.message));
                  console.log("order res", order);
               }
 
