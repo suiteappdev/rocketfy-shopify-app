@@ -54,7 +54,9 @@ const Datatable = (props)=>{
   
     const toggleModal = useCallback((order) => {
       setActive((active) => !active)
-      setCurrentOrder(order);
+      if(order){
+        setCurrentOrder(order);
+      }
       setCurriers([]);
       setshipping({
         Alto : '0',
@@ -194,7 +196,7 @@ const Datatable = (props)=>{
               
               if(response){
                 let order = await createOrder(response.data, shipping).catch((e)=>console.log(e.message));
-                
+                console.log("response order", order);
                 if(order && order.orderData){
                     setOrderSuccess(true);
                     toggleModal();
