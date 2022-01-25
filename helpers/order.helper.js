@@ -1,9 +1,8 @@
 import { PostRequest } from "./request.helper";
 import {getCustomerId} from './storage.helper';
 
-const createOrder = (data)=>{
+const createOrder = (data, shipping)=>{
     return new Promise(async (resolve, reject)=>{
-        //let shipping = await shippingCost(data);
         let order = {
             "id" : data.order.name,
             "customerID":getCustomerId(),
