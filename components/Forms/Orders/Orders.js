@@ -187,6 +187,7 @@ const Datatable = (props)=>{
                 
                 if(order && order.orderData){
                     setOrderSuccess(true);
+                    toggleModal();
                 }
               }
             }
