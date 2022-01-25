@@ -1,5 +1,4 @@
 import { PostRequest } from "./request.helper";
-import { mapDimension } from "./package.helper";
 
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
