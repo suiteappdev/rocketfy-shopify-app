@@ -98,6 +98,7 @@ const Datatable = (props)=>{
         },
       ];
 
+
     const formatCurrency  = (locales, currency, fractionDigits, number)  =>{
       let formatted = new Intl.NumberFormat(locales, {
         style: 'currency',
@@ -157,17 +158,18 @@ const Datatable = (props)=>{
         open={active}
         onClose={toggleModal}
         title= {`Cotizar envio - ${currentOrder.name}`}
-        secondaryActions={ selectedResources.id ? (
+        secondaryActions={
           {
             content: 'Cerrar',
             onAction: toggleModal,
           }
-        ) : (null)
         }
-        primaryAction={{
-          content: 'Enviar a Rocketfy',
-          onAction: toggleModal,
-        }}
+        primaryAction={ selectedResource.id ? (
+          {
+            content: 'Enviar a Rocketfy',
+            onAction: toggleModal,
+          }
+        ) : null}
       >
         <Modal.Section>
           <Stack vertical>
