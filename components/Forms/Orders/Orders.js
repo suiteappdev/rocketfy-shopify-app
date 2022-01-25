@@ -31,7 +31,6 @@ const Datatable = (props)=>{
      const getShipping = async ()=>{
         setLoading(true);
         let response = await shippingCost(currentOrder, shipping);
-        console.log("R", response);
         setCurriers(response.courriers);
         setLoading(false);
      }
@@ -85,8 +84,6 @@ const Datatable = (props)=>{
                   let o = selectedResources[index];
                   let response = await callQuery({ id : o}).catch((e)=>console.log(e.message));
 
-                  console.log("orderById", response);
-
                   if(response){
                     let order = await createOrder(response.data);
                   }
@@ -100,14 +97,6 @@ const Datatable = (props)=>{
           },
         },
       ];
-
-      const mapCurrier = (order)=>{
-        return curriers.map((c)=>{
-            return (
-                <p onClick={()=>{}} className=''><img  className='carrier-logo' src={c.img} alt="" /> {c.name}  <span> {formatCurrency("es-CO", "COP", 2,c.shipping_value)} </span></p>
-            )
-        });
-    }
 
     const formatCurrency  = (locales, currency, fractionDigits, number)  =>{
       let formatted = new Intl.NumberFormat(locales, {
@@ -168,11 +157,12 @@ const Datatable = (props)=>{
         open={active}
         onClose={toggleModal}
         title= {`Cotizar envio - ${currentOrder.name}`}
-        secondaryActions={
+        secondaryActions={ selectedResources.id ? (
           {
             content: 'Cerrar',
             onAction: toggleModal,
           }
+        ) : (null)
         }
         primaryAction={{
           content: 'Enviar a Rocketfy',
