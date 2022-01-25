@@ -28,15 +28,15 @@ const createOrder = (data, shipping)=>{
                     "id": 35,
                     "name": item.name,
                     "variation_name": item.node.variant.displayName,
-                    "product_id": 13,
-                    "variation_id": 0,
+                   /* "product_id": 13,
+                    "variation_id": 0,*/
                     "quantity": item.node.quantity,
                     "total": parseInt(item.node.discountedTotalSet.shopMoney.amount),
                     "price": parseInt(item.node.variant.price),
-                    "width": 10,
-                    "height": 10,
-                    "large": 10,
-                    "weight": parseInt(item.node.variant.weight || 2)
+                    "width": shipping.Ancho,
+                    "height": shipping.Alto,
+                    "large": shipping.Largo,
+                    "weight": parseInt(item.node.variant.weight || shipping.Peso || 2)
                 }
             })
         }
