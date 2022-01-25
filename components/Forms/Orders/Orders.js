@@ -122,7 +122,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.customer.firstName} ${node.customer.lastName}`}</IndexTable.Cell>
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
-            <IndexTable.Cell>{'Pendiente'}</IndexTable.Cell>
+            <IndexTable.Cell>{node.displayFinancialStatus}</IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
             <IndexTable.Cell><Button onClick={()=>toggleModal(node)}>Cotizar</Button></IndexTable.Cell>
             </IndexTable.Row>
@@ -165,7 +165,7 @@ const Datatable = (props)=>{
         }
         primaryAction={ selectedResource.id ? (
           {
-            content: 'Enviar a Rocketfy',
+            content: `Enviar a Rocketfy - ${selectedResource.id}`,
             onAction: toggleModal,
           }
         ) : null}
