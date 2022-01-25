@@ -7,6 +7,7 @@ const ORDERS_QUERY = gql`
                 node{
                     name
                     id
+                    displayFinancialStatus
                     paymentGatewayNames
                     currentTotalWeight
                     customer{
