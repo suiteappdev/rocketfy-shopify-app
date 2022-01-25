@@ -167,7 +167,7 @@ const Datatable = (props)=>{
       <Modal
         open={active}
         onClose={toggleModal}
-        title="Cotizar envio"
+        title= {`Cotizar envio - ${currentOrder.name}`}
         primaryAction={{
           content: 'Cerrar',
           onAction: toggleModal,
