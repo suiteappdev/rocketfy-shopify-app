@@ -166,7 +166,15 @@ const Datatable = (props)=>{
         primaryAction={ selectedResource.id ? (
           {
             content: `Enviar a Rocketfy - ${selectedResource.id}`,
-            onAction: toggleModal,
+            onAction: async ()=>{
+              let response = await callQuery({ id : currentOrder.id}).catch((e)=>console.log(e.message));
+              
+              if(response){
+                console.log(response);
+                //let order = await createOrder(response.data);
+              }
+
+            },
           }
         ) : null}
       >
