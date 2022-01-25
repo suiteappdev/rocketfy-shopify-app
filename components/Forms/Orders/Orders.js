@@ -142,7 +142,7 @@ const Datatable = (props)=>{
             promotedBulkActions={promotedBulkActions}
             headings={[
               {title: '# Pedido'},
-              {title: 'Fecha del Pedido'},
+              {title: 'Fecha'},
               {title: 'Cliente'},
               {title: 'Dirección'},
               {title: 'Ciudad'},
@@ -264,11 +264,6 @@ const Datatable = (props)=>{
                             const {id, url, avatarSource, name, location} = item;
 
                             return (
-                              <div>
-                                <Checkbox
-                                  checked={true}
-                                  onChange={()=>{}}
-                                />
                               <ResourceItem
                                 onClick = {()=>{
                                   setResource(item);
@@ -281,13 +276,11 @@ const Datatable = (props)=>{
                                 accessibilityLabel={`Transportadora ${name}`}
                                 name={name}
                               >
-                                
                                 <h3>
                                   <TextStyle variation="strong">{name}</TextStyle>
                                 </h3>
                                 <div>{formatCurrency("es-CO", "COP", 2, location)}</div>                                  
                               </ResourceItem>
-                              </div>
                             );
                           }}
                         />
