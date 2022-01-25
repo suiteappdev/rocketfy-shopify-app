@@ -267,6 +267,9 @@ const Datatable = (props)=>{
 
                             return (
                               <ResourceItem
+                                onClick={()=>{
+                                  alert("Hola");
+                                }}
                                 id={id}
                                 url={url}
                                 media={
@@ -278,13 +281,12 @@ const Datatable = (props)=>{
                                 <h3>
                                   <TextStyle variation="strong">{name}</TextStyle>
                                 </h3>
-                                <div>{location}</div>
+                                <div>{formatCurrency("es-CO", "COP", 2, location)}</div>
                               </ResourceItem>
                             );
                           }}
                         />
                       </Card>
-                      {mapCurrier(currentOrder)}
                     </div>
                   )}
                 </div>
