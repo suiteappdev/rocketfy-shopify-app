@@ -277,7 +277,7 @@ const Datatable = (props)=>{
                                 media={
                                   <Avatar customer size="medium" name={name} source={avatarSource} />
                                 }
-                                accessibilityLabel={`View details for ${name}`}
+                                accessibilityLabel={`Transportadora ${name}`}
                                 name={name}
                               >
                                 <h3>
