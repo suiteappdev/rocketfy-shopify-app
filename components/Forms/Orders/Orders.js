@@ -226,7 +226,7 @@ const Datatable = (props)=>{
               </FormLayout.Group>
               <div style={{height: '225px', display:'flex', alignItems:'left', flexDirection:'row'}}>
                 <div style={{ width : '50%'}}>
-                    <p>
+                    <p style={{ marginBottom:'10px'}}>
                     Seleccione origen del paquete.
                     </p>
                     <City placeholder="Ciudad origen" onChange={(value)=>{
@@ -236,7 +236,7 @@ const Datatable = (props)=>{
                       placeholder : "Ciudad origen"
                     }} name={'from'}></City>
                     <br />
-                    <p>
+                    <p style={{ marginBottom:'10px'}}>
                     Seleccione destino del paquete.
                     </p>
                     <City placeholder="Ciudad destino" onChange={(value)=>{
@@ -251,7 +251,7 @@ const Datatable = (props)=>{
                 <div style={{width:'50%', paddingLeft:'10px', paddingRight:'10px'}}>
                   {loading  ? ( <Spinner accessibilityLabel="Spinner example" size="large" />) : (
                     <div>
-                      <p style={{textAlign:'center'}}>Resultado de cotización</p>
+                      <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>
                       <Card>
                         <ResourceList
                           resourceName={{singular: 'customer', plural: 'customers'}}
