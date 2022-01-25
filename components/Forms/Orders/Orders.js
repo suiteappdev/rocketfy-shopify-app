@@ -20,7 +20,8 @@ const Datatable = (props)=>{
        Largo : '0',
        Peso : '1',
        from : {},
-       to : {}
+       to : {},
+       destination :{}
      });
 
      const OnChangedShipping  = (value, key)=>{
@@ -31,6 +32,10 @@ const Datatable = (props)=>{
         setLoading(true);
         let response = await shippingCost(currentOrder, shipping);
         setCurriers(response.courriers);
+        setshipping({
+          ...shipping,
+          destination : response.to
+        })
         setLoading(false);
      }
 
