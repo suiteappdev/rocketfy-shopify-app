@@ -6,7 +6,7 @@ import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
 import City from '../../Control/Select';
-import './Orders.module.css';
+import './Orders.scss';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -268,7 +268,6 @@ const Datatable = (props)=>{
                               <ResourceItem
                                 onClick = {()=>{
                                   setResource(item);
-                                  console.log("selected", item);
                                 }}
                                 id={id}
                                 url={url}
@@ -278,12 +277,10 @@ const Datatable = (props)=>{
                                 accessibilityLabel={`Transportadora ${name}`}
                                 name={name}
                               >
-                                <div>
-                                  <h3>
-                                    <TextStyle variation="strong">{name}</TextStyle>
-                                  </h3>
-                                  <div>{formatCurrency("es-CO", "COP", 2, location)}</div>                                  
-                                </div>
+                                <h3>
+                                  <TextStyle variation="strong">{name}</TextStyle>
+                                </h3>
+                                <div>{formatCurrency("es-CO", "COP", 2, location)}</div>                                  
                               </ResourceItem>
                             );
                           }}
