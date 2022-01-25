@@ -55,6 +55,16 @@ const Datatable = (props)=>{
     const toggleModal = useCallback((order) => {
       setActive((active) => !active)
       setCurrentOrder(order);
+      setCurriers([]);
+      setshipping({
+        Alto : '0',
+        Ancho : '0',
+        Largo : '0',
+        Peso : '1',
+        from : {},
+        to : {},
+        destination :{}
+      });
     }, []);
        const callQuery = useImperativeQuery(ORDER_BY_ID);
 
