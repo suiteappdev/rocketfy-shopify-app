@@ -12,6 +12,7 @@ const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
      const [curriers, setCurriers]  = useState([]);
      const [currentOrder, setCurrentOrder]  = useState({});
+     const [selectedResource, setResource]  = useState({});
      const [OrderSuccess, setOrderSuccess]  = useState(false);
      const [loading, setLoading]  = useState(false);
      const [shipping, setshipping]  = useState({
@@ -254,7 +255,7 @@ const Datatable = (props)=>{
                       <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>
                       <Card>
                         <ResourceList
-                          resourceName={{singular: 'customer', plural: 'customers'}}
+                          resourceName={{singular: 'transportadora', plural: 'transportadoras'}}
                           items={curriers.map(c=>({
                               id: c.key,
                               url: '',
@@ -262,6 +263,10 @@ const Datatable = (props)=>{
                               name: c.name,
                               location: c.shipping_value,
                           }))}
+                          onSelectionChange = {(event, item)=>{
+                            console.log({event, item});
+                          }}
+                          selectedItems={selectedResources}
                           renderItem={(item) => {
                             const {id, url, avatarSource, name, location} = item;
 
