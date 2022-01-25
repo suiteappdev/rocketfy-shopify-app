@@ -248,7 +248,7 @@ const Datatable = (props)=>{
                     <br />
                     <Button primary onClick={()=>getShipping()}>Cotizar</Button>
                 </div>
-                <div style={{width:'50%'}}>
+                <div style={{width:'50%', paddingLeft:'10px', paddingRight:'10px'}}>
                   {loading  ? ( <Spinner accessibilityLabel="Spinner example" size="large" />) : (
                     <div>
                       <p style={{textAlign:'center'}}>Resultado de cotización</p>
