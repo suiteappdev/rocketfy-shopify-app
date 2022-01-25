@@ -2,7 +2,7 @@ import React, {useCallback, useState, useEffect} from 'react';
 import { Button, Spinner, Toast, Form, FormLayout, Banner, ButtonGroup, AppProvider} from '@shopify/polaris'
 import { Datatable } from './Orders';
 import EmptyState from '../../EmptyState';
-import styles from './Orders.module.css';
+import styles from './Orders.module.scss';
 import {  useQuery } from '@apollo/client';
 import  {ORDERS_QUERY, DATA_KEY}  from '../../../graphql/querys/orders.query';
 import { isConnected, getAppToken, setJson, getJson} from '../../../helpers/storage.helper';
