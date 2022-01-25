@@ -6,7 +6,6 @@ import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
 import City from '../../Control/Select';
-import './Orders.scss';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -248,7 +247,7 @@ const Datatable = (props)=>{
                     <Button primary onClick={()=>getShipping()}>Cotizar</Button>
                 </div>
                 <div style={{width:'50%', paddingLeft:'10px', paddingRight:'10px'}}>
-                  {loading  ? ( <Spinner accessibilityLabel="Spinner example" size="large" />) : (
+                  {loading  ? ( <Spinner className="spinner" accessibilityLabel="Spinner example" size="large" />) : (
                     <div>
                       <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>
                       <Card>
