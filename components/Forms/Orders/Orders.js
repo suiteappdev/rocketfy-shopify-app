@@ -151,14 +151,14 @@ const Datatable = (props)=>{
       return (
         <Card>
            {OrderSuccess ? (
-                  <>
+                  <div style={{paddingBootom:'30px'}}>
                     <Banner
+                    style={{marginBottom:'30px'}}
                     title="Tu orden a sido enviada a rocketfy correctamente"
                     status="success"
                     onDismiss={() => setOrderSuccess(false)}
                   />
-                  <div style={{marginBottom : '30px'}}></div>
-                  </>
+                  </div>
             ) : (null)}
           <IndexTable
             resourceName={resourceName}
