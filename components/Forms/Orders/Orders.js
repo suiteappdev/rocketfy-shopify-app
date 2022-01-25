@@ -276,6 +276,7 @@ const Datatable = (props)=>{
                               <ResourceItem
                                 onClick = {()=>{
                                   setResource(item);
+                                  console.log("selected", selectedResources);
                                 }}
                                 id={id}
                                 url={url}
