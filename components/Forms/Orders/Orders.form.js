@@ -97,7 +97,7 @@ const OrdersForm = (props)=>{
                     <React.Fragment>
                     {((ordersData.length) > 0) ? <Datatable orders={ordersData} cities={cities} toApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
                             {(ordersData.length > 0 )  ? (
-                                <React.Fragment>
+                                <React.Fragment styles={{marginTop:'30px'}}>
                                     <ButtonGroup>
                                         <Button primary onClick={open}>Ir a envios en Rocketfy</Button>
                                     </ButtonGroup>
