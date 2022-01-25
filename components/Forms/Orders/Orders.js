@@ -267,7 +267,6 @@ const Datatable = (props)=>{
                           onSelectionChange={(e)=>{
                             console.log("e", e)
                           }}
-                          selectable
                           renderItem={(item) => {
                             const {id, url, avatarSource, name, location} = item;
 
