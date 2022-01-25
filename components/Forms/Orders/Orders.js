@@ -255,7 +255,7 @@ const Datatable = (props)=>{
                       <Card>
                         <ResourceList
                           resourceName={{singular: 'customer', plural: 'customers'}}
-                          items={courriers.map(c=>({
+                          items={curriers.map(c=>({
                               id: c.key,
                               url: '',
                               avatarSource:c.img,
