@@ -82,9 +82,10 @@ const Datatable = (props)=>{
             for (let index = 0; index < selectedResources.length; index++) {
                   let o = selectedResources[index];
                   let response = await callQuery({ id : o}).catch((e)=>console.log(e.message));
-                  console.log(response);
+
                   if(response){
                     let order = await createOrder(response.data, shipping);
+                    console.log(order);
                   }
             }
           },
@@ -171,7 +172,9 @@ const Datatable = (props)=>{
               
               if(response){
                  console.log("SHIPP", shipping)
-                 //let order = await createOrder(response.data).catch((e)=>console.log(e.message));
+                 let order = await createOrder(response.data).catch((e)=>console.log(e.message));
+
+                 console.log("order res", order);
               }
 
             },
