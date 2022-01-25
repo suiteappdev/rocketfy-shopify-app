@@ -278,10 +278,12 @@ const Datatable = (props)=>{
                                 accessibilityLabel={`Transportadora ${name}`}
                                 name={name}
                               >
-                                <h3>
-                                  <TextStyle variation="strong">{name}</TextStyle>
-                                </h3>
-                                <div>{formatCurrency("es-CO", "COP", 2, location)}</div>
+                                <div>
+                                  <h3>
+                                    <TextStyle variation="strong">{name}</TextStyle>
+                                  </h3>
+                                  <div>{formatCurrency("es-CO", "COP", 2, location)}</div>                                  
+                                </div>
                               </ResourceItem>
                             );
                           }}
