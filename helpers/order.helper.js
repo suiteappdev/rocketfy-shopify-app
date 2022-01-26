@@ -11,6 +11,7 @@ const createOrder = (data, shipping)=>{
             "subtotal": parseInt(data.order.currentSubtotalPriceSet.shopMoney.amount),
             "total": parseInt(data.order.currentTotalPriceSet.shopMoney.amount),
             "payment_method": "cod",
+            "shipping" : shipping,
             "billing": {
               "first_name":data.order.customer.firstName,
               "last_name": data.order.customer.lastName,
