@@ -41,7 +41,7 @@ const createOrder = (data, shipping)=>{
 
         console.log("order", order);
 
-        let response = await PostRequest(`http://localhost:4001/api/public/createOrder`, order).catch((e)=>reject(e));
+        let response = await PostRequest(`http://localhost:4001/api/public/v2/createOrders`, order).catch((e)=>reject(e));
         
         if(response){
             resolve(response);
