@@ -24,7 +24,7 @@ const getAcessToken  = ()=>{
             })
         };
        
-        const response = await fetch(`http://localhost:3000/api/public/connect`, options).catch(e=>reject(e));
+        const response = await fetch(`http://localhost:4001/api/public/connect`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
 
         resolve(data);        
@@ -42,7 +42,7 @@ const refreshToken = ()=>{
             })
         };
 
-        const response = await fetch(`http://localhost:3000/api/public/refreshCustomerToken`, options).catch(e=>reject(e));
+        const response = await fetch(`http://localhost:4001/api/public/refreshCustomerToken`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
     
         resolve(data);
