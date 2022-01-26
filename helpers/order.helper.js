@@ -11,7 +11,8 @@ const createOrder = (data, shipping)=>{
             "subtotal": parseInt(data.order.currentSubtotalPriceSet.shopMoney.amount),
             "total": parseInt(data.order.currentTotalPriceSet.shopMoney.amount),
             "payment_method": "cod",
-            "shipping" : shipping,
+            "dimensions" : shipping,
+            "shipping" : data.order.shippingAddress,
             "billing": {
               "first_name":data.order.customer.firstName,
               "last_name": data.order.customer.lastName,
@@ -26,7 +27,6 @@ const createOrder = (data, shipping)=>{
             },
             "line_items": data.order.lineItems.edges.map((item)=>{
                 return {
-                    "id": 35,
                     "name": item.node.variant.displayName,
                     "variation_name": item.node.variant.displayName,
                     "quantity": item.node.quantity,
