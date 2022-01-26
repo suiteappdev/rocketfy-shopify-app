@@ -84,17 +84,15 @@ const SignupForm = (props)=>{
 
         if(response){
             if(response.data.redirectUrl){
-                let url = await verifyUrl({ redirectUrl : response.data.redirectUrl}).catch(async (e)=>console.log("error", e));
-                if(url){
+                //let url = await verifyUrl({ redirectUrl : response.data.redirectUrl}).catch(async (e)=>console.log("error", e));
                     setConnected(true);
                     setLoading(false);
-                    setAppToken(url.application);
+                    setAppToken(response.data.redirectUrl);
                     setCustomerId(response.data.customerID);
                     toast({
                         content : "Cuenta conectada.",
                         active : true,
                     });
-                }
             }
         }
     }
