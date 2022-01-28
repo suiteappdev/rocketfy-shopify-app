@@ -277,8 +277,8 @@ const Datatable = (props)=>{
                     <br />
                     <Button primary onClick={()=>getShipping()}>Cotizar</Button>
                 </div>
-                <div style={{width:'50%', paddingLeft:'10px', paddingRight:'10px', backgroundColor:'gray', display:'flex', alignItems : 'center', justifyContent:'center', flexDirection:'column', marginTop:'60px'}}>
-                  {loading  ? ( <Spinner className="spinner" accessibilityLabel="Spinner example" size="large" />) : (
+                <div style={{width:'50%', paddingLeft:'10px', paddingRight:'10px', display:'flex', alignItems : 'center', justifyContent:'center', flexDirection:'column', marginTop:'60px'}}>
+                  {loading  ? (<img src="svg-loaders/puff.svg" width="50" alt="" />) : (
                     <div style={{width:'100%'}}>
                       {curriers.length > 0 ? ( <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>) : (null)}
                       <Card>
