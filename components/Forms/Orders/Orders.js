@@ -277,7 +277,7 @@ const Datatable = (props)=>{
                     <br />
                     <Button primary onClick={()=>getShipping()}>Cotizar</Button>
                 </div>
-                <div style={{width:'50%', paddingLeft:'10px', paddingRight:'10px', display:'flex', alignItems : 'center', justifyContent:'center', flexDirection:'column', marginTop:'60px'}}>
+                <div style={{width:'50%', paddingLeft:'10px', paddingRight:'10px', display:'flex', alignItems : 'center', justifyContent:'center', flexDirection:'column'}}>
                   {loading  ? (
                     <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44" stroke="#7a13c1">
                     <g fill="none" fill-rule="evenodd" stroke-width="2">
@@ -293,8 +293,8 @@ const Datatable = (props)=>{
                   </svg>
                   ) : (
                     <div style={{width:'100%'}}>
-                      {curriers.length > 0 ? ( <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>) : (null)}
                       <Card>
+                        {curriers.length > 0 ? ( <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>) : (null)}
                         <ResourceList
                           resourceName={{singular: 'transportadora', plural: 'transportadoras'}}
                           items={curriers.map(c=>({
