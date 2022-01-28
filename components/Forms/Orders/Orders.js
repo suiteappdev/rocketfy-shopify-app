@@ -271,7 +271,7 @@ const Datatable = (props)=>{
                     }} name={'from'}></City>
                     <br />
                     <p style={{ marginBottom:'10px'}}>
-                    Destino del paquete. - {currentOrder ? currentOrder.shippingAddress.city : ''}
+                    Destino del paquete
                     </p>
                     <City placeholder="Ciudad destino" onChange={(value)=>{
                       setshipping({...shipping, to : value});
