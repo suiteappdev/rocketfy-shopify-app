@@ -324,9 +324,10 @@ const Datatable = (props)=>{
                               >
 
                                 <h3>
-                                  <TextStyle variation="strong">{name} <Icon source={CircleTickMajor} color="primary" /></TextStyle>
+                                  <TextStyle variation="strong">{name} </TextStyle>
                                 </h3>
-                                <div>{formatCurrency("es-CO", "COP", 2, location)}</div>                                  
+                                <div>{formatCurrency("es-CO", "COP", 2, location)}</div>  
+                                <Icon source={CircleTickMajor} style={{position : 'absolute', top : '0px', right : '0px'}} color="primary" />                                
                               </ResourceItem>
                             );
                           }}
