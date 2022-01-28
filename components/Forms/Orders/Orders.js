@@ -142,7 +142,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.customer.firstName} ${node.customer.lastName}`}</IndexTable.Cell>
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
-            <IndexTable.Cell><Badge status="warning">{node.displayFinancialStatus}</Badge></IndexTable.Cell>
+            <IndexTable.Cell><Badge status="warning">{node.displayFinancialStatus.toLowerCase()}</Badge></IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
             <IndexTable.Cell><Button primary onClick={()=>toggleModal(node)}>Cotizar</Button></IndexTable.Cell>
             </IndexTable.Row>

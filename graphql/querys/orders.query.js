@@ -19,6 +19,7 @@ const ORDERS_QUERY = gql`
                         }
                         status
                     }
+                    totalWeight
                     paymentGatewayNames
                     currentTotalWeight
                     customer{
