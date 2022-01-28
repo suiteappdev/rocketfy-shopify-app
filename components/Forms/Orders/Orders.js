@@ -55,6 +55,7 @@ const Datatable = (props)=>{
     const toggleModal = useCallback(async (order) => {
       setActive((active) => !active)
       if(order){
+        console.log("o", order);
         setCurrentOrder(order);
         let response = await callQuery({ id : order.id}).catch((e)=>console.log(e.message));
         setCurriers([]);
@@ -62,7 +63,7 @@ const Datatable = (props)=>{
           Alto : '0',
           Ancho : '0',
           Largo : '0',
-          Peso : parseInt(response.data.currentTotalWeight / 1000).toFixed().toString(),
+          Peso : parseInt(response.data.order.currentTotalWeight / 1000).toFixed().toString(),
           from : {},
           to : {},
           destination :{}
