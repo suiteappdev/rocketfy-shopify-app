@@ -326,10 +326,12 @@ const Datatable = (props)=>{
                                 <h3>
                                   <TextStyle variation="strong">{name} </TextStyle>
                                 </h3>
-                                <div>{formatCurrency("es-CO", "COP", 2, location)}</div>  
-                                <div style={{position : 'absolute', top : '0px', right : '0px'}}>
-                                    <Icon source={CircleTickMajor} color="primary" />                                
-                                </div>
+                                <div>{formatCurrency("es-CO", "COP", 2, location)}</div>
+                                {(selectedResource.id === id) ? (
+                                  <div style={{position : 'absolute', top : '21px', right : '21px'}}>
+                                      <Icon source={CircleTickMajor} color="primary" />                                
+                                  </div>
+                                ) : (null)} 
                               </ResourceItem>
                             );
                           }}
