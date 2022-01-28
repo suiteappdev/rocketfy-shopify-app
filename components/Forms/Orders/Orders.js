@@ -1,5 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {Avatar,RadioButton , ResourceItem, ResourceList, TextStyle, useIndexResourceState,Banner,Spinner, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
+import {Avatar,Badge , ResourceItem, ResourceList, TextStyle, useIndexResourceState,Banner,Spinner, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
 import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
@@ -142,7 +142,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{`${node.customer.firstName} ${node.customer.lastName}`}</IndexTable.Cell>
             <IndexTable.Cell>{`${node.billingAddress.address1} ${node.billingAddress.address2}`}</IndexTable.Cell>
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
-            <IndexTable.Cell>{node.displayFinancialStatus}</IndexTable.Cell>
+            <IndexTable.Cell><Badge status="warning">{node.displayFinancialStatus}</Badge></IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
             <IndexTable.Cell><Button primary onClick={()=>toggleModal(node)}>Cotizar</Button></IndexTable.Cell>
             </IndexTable.Row>
