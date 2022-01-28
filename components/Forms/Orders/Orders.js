@@ -52,21 +52,23 @@ const Datatable = (props)=>{
     const [active, setActive] = useState(false);
     const node = useRef(null);
   
-    const toggleModal = useCallback((order) => {
+    const toggleModal = useCallback(async (order) => {
       setActive((active) => !active)
       if(order){
         setCurrentOrder(order);
+        let response = await callQuery({ id : o.id}).catch((e)=>console.log(e.message));
+        console.log("response", response);
+        setCurriers([]);
+        setshipping({
+          Alto : '0',
+          Ancho : '0',
+          Largo : '0',
+          Peso : /*totalWeight*/ '1',
+          from : {},
+          to : {},
+          destination :{}
+        });
       }
-      setCurriers([]);
-      setshipping({
-        Alto : '0',
-        Ancho : '0',
-        Largo : '0',
-        Peso : '1',
-        from : {},
-        to : {},
-        destination :{}
-      });
     }, []);
        const callQuery = useImperativeQuery(ORDER_BY_ID);
 
