@@ -294,7 +294,6 @@ const Datatable = (props)=>{
                   ) : (
                     <div style={{width:'100%'}}>
                       <Card>
-                        {curriers.length > 0 ? ( <p style={{textAlign:'center', marginBottom:'10px'}}>Resultado de cotización</p>) : (null)}
                         <ResourceList
                           resourceName={{singular: 'transportadora', plural: 'transportadoras'}}
                           items={curriers.map(c=>({
