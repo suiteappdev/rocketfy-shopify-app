@@ -56,7 +56,7 @@ const Datatable = (props)=>{
       setActive((active) => !active)
       if(order){
         setCurrentOrder(order);
-        let response = await callQuery({ id : o.id}).catch((e)=>console.log(e.message));
+        let response = await callQuery({ id : order.id}).catch((e)=>console.log(e.message));
         console.log("response", response);
         setCurriers([]);
         setshipping({
@@ -144,7 +144,7 @@ const Datatable = (props)=>{
             <IndexTable.Cell>{node.shippingAddress.city}</IndexTable.Cell>
             <IndexTable.Cell>{node.displayFinancialStatus}</IndexTable.Cell>
             <IndexTable.Cell>${node.currentTotalPriceSet.shopMoney.amount}</IndexTable.Cell>
-            <IndexTable.Cell><Button onClick={()=>toggleModal(node)}>Cotizar</Button></IndexTable.Cell>
+            <IndexTable.Cell><Button primary onClick={()=>toggleModal(node)}>Cotizar</Button></IndexTable.Cell>
             </IndexTable.Row>
           )
       }
@@ -202,7 +202,6 @@ const Datatable = (props)=>{
               
               if(response){
                 let order = await createOrder(response.data, shipping).catch((e)=>console.log(e.message));
-                console.log("response order", order);
                 if(order && order.orderData){
                     setOrderSuccess(true);
                     toggleModal();
