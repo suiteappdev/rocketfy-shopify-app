@@ -6,6 +6,9 @@ import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
 import City from '../../Control/Select';
+import {
+  CircleTickMajor
+} from '@shopify/polaris-icons';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -321,7 +324,7 @@ const Datatable = (props)=>{
                               >
 
                                 <h3>
-                                  <TextStyle variation="strong">{name}</TextStyle>
+                                  <TextStyle variation="strong">{name} <Icon source={CircleTickMajor} color="primary" /></TextStyle>
                                 </h3>
                                 <div>{formatCurrency("es-CO", "COP", 2, location)}</div>                                  
                               </ResourceItem>
