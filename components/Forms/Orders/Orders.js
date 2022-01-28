@@ -57,13 +57,12 @@ const Datatable = (props)=>{
       if(order){
         setCurrentOrder(order);
         let response = await callQuery({ id : order.id}).catch((e)=>console.log(e.message));
-        console.log("response", response);
         setCurriers([]);
         setshipping({
           Alto : '0',
           Ancho : '0',
           Largo : '0',
-          Peso : /*totalWeight*/ '1',
+          Peso : parseInt(response.data.currentTotalWeight / 1000).toFixed().toString(),
           from : {},
           to : {},
           destination :{}

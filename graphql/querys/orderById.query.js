@@ -14,6 +14,7 @@ const ORDER_BY_ID = gql`query getOrdeyById($id :ID!){
                                 id
                                 paymentGatewayNames
                                 currentTotalWeight
+                                totalWeight
                                 customer{
                                     firstName
                                     lastName
