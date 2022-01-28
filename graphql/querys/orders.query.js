@@ -8,6 +8,17 @@ const ORDERS_QUERY = gql`
                     name
                     id
                     displayFinancialStatus
+                    fulfillments{
+                        displayStatus
+                        deliveredAt
+                        inTransitAt
+                        trackingInfo {
+                          company
+                          number
+                          url
+                        }
+                        status
+                    }
                     paymentGatewayNames
                     currentTotalWeight
                     customer{
