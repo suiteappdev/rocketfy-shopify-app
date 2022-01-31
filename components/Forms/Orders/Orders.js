@@ -205,7 +205,7 @@ const Datatable = (props)=>{
               
               if(response){
                 let order = await createOrder(response.data, shipping).catch((e)=>console.log(e.message));
-                if(order && order.orderData){
+                if(order){
                     setOrderSuccess(true);
                     toggleModal();
                 }
