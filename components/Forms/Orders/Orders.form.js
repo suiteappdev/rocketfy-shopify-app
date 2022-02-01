@@ -7,6 +7,7 @@ import {  useQuery } from '@apollo/client';
 import  {ORDERS_QUERY, DATA_KEY}  from '../../../graphql/querys/orders.query';
 import { isConnected, getAppToken, setJson, getJson} from '../../../helpers/storage.helper';
 import { getCities as getlist } from '../../../helpers/location.helper';
+import {refreshToken}  from '../../../helpers/request.helper';
 
 const OrdersForm = (props)=>{
     const [ordersData, setOrdersData] = useState([]);
@@ -61,6 +62,8 @@ const OrdersForm = (props)=>{
 
     const open = async (event)=>{
         event.preventDefault();
+        let refresh = await refreshToken();
+        console.log("refresh", refresh)
         window.open(application); 
     }
 
