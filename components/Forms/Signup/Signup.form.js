@@ -58,6 +58,7 @@ const SignupForm = (props)=>{
         setConnected(false);
         removeRocketfyToken();
         setLoading(false);
+        localStorage.clear();
     }
 
     const connect = async ()=>{
