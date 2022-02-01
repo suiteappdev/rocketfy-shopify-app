@@ -1,5 +1,7 @@
 const getRocketfyToken = ()=>{
-    return window.localStorage.getItem('rocketfy-token').replace("https://app.rocketfy.co/", "http://localhost:4200/");
+    if(window.localStorage.getItem('rocketfy-token')){
+        return window.localStorage.getItem('rocketfy-token').replace("https://app.rocketfy.co/", "http://localhost:4200/");
+    }
 }
 
 const setRocketfyToken = (value)=>{
