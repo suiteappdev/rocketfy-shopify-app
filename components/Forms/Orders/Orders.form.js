@@ -62,8 +62,6 @@ const OrdersForm = (props)=>{
 
     const open = async (event)=>{
         event.preventDefault();
-        let refresh = await refreshToken();
-        console.log("refresh", refresh)
         window.open(application); 
     }
 
