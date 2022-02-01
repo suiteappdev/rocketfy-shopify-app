@@ -17,6 +17,7 @@ const Datatable = (props)=>{
      const [selectedResource, setResource]  = useState({});
      const [OrderSuccess, setOrderSuccess]  = useState(false);
      const [loading, setLoading]  = useState(false);
+     const [orderLoading, setOrderLoading]  = useState(false);
      const [shipping, setshipping]  = useState({
        Alto : '0',
        Ancho : '0',
@@ -58,7 +59,6 @@ const Datatable = (props)=>{
     const toggleModal = useCallback(async (order) => {
       setActive((active) => !active)
       if(order){
-        console.log("o", order);
         setCurrentOrder(order);
         let response = await callQuery({ id : order.id}).catch((e)=>console.log(e.message));
         setCurriers([]);
@@ -201,16 +201,19 @@ const Datatable = (props)=>{
           {
             content: `Enviar a Rocketfy - ${selectedResource.id}`,
             onAction: async ()=>{
+              setOrderLoading(true);
               let response = await callQuery({ id : currentOrder.id}).catch((e)=>console.log(e.message));
               
               if(response){
                 let order = await createOrder(response.data, shipping).catch((e)=>console.log(e.message));
                 if(order){
                     setOrderSuccess(true);
+                    setOrderLoading(false);
                     toggleModal();
                 }
               }
-            }
+            },
+            loading : (orderLoading ? true : false)
           }
         ) : null}
       >
