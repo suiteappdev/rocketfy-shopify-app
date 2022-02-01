@@ -25,7 +25,14 @@ const AccountStatus  = (props)=> {
         title={props.shop}
         action={{
           content: buttonText,
-          onAction: connected  ?  props.actionConnect : props.actionDisconnect,
+          onAction: ()=>{
+            if(connected){
+              console.log("connected", connected)
+                props.actionDisconnect()
+            }else{
+               props.actionConnect()
+            }
+          },
         }}
         details={details}
         termsOfService={terms}
