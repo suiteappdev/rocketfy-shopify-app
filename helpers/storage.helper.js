@@ -11,10 +11,7 @@ const removeRocketfyToken = (value)=>{
 }
 
 const getAppToken = ()=>{
-    if( window.localStorage.getItem('rocketfy-app-token')){
-        let str = window.localStorage.getItem('rocketfy-app-token').replace("https://app.rocketfy.co/", "http://localhost:4200/");
-        return str;
-    }
+    return window.localStorage.getItem('rocketfy-app-token')
 }
 
 const setAppToken = (value)=>{
