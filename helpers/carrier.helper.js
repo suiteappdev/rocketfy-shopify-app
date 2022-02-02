@@ -1,13 +1,19 @@
 import Shopify, { DataType } from '@shopify/shopify-api';
-const client = new Shopify.Clients.Rest(`${process.env.shop}`, 'access_token here');
+import { useLocation } from "react-router-dom";
 
 const createCarrier = () =>{
     return new Promise((resolve, reject)=>{
+        const search = useLocation().search;
+        const at = new URLSearchParams(search).get('at');
+        const client = new Shopify.Clients.Rest(`${process.env.shop}`, at);
+
         const data = await client.put({
-            path: 'carrier_services/1036894957',
-            data: {"carrier_service":{"id":1036894957,"name":"Some new name","active":false}},
+            path: 'carrier_services',
+            data: {"carrier_service":{"name":"Shipping Rate Provider","callback_url":"http:\/\/shippingrateprovider.com","service_discovery":true}},
             type: DataType.JSON,
-          }).catch(reject);
+        }).catch((e)=>reject(e));
+        
+        resolve(data);
     });
 }
 
