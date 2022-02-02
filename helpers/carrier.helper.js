@@ -1,18 +1,24 @@
-import Shopify, { DataType } from '@shopify/shopify-api';
 import { useLocation } from "react-router-dom";
+import axios from  from "axios";
 
 const createCarrier = () =>{
     return new Promise(async (resolve, reject)=>{
         const search = useLocation().search;
         const at = new URLSearchParams(search).get('at');
-        const client = new Shopify.Clients.Rest(`${process.env.shop}`, at);
+        let body ={
+                carrier_service:
+                {
+                    name:"TCC",
+                    callback_url:"http:\/\/tcc.com",
+                    service_discovery:true
+                }
+            }
 
-        const data = await client.put({
-            path: 'carrier_services',
-            data: {"carrier_service":{"name":"Shipping Rate Provider","callback_url":"http:\/\/shippingrateprovider.com","service_discovery":true}},
-            type: DataType.JSON,
-        }).catch((e)=>reject(e));
-        
+        let data =  axios.post(`https://rocketfystore.myshopify.com/admin/api/2022-01/carrier_services.json`, body, {
+            "X-Shopify-Access-Token": `${at}`
+        }).catch(()=>reject(e));
+       
+        console.log("data", data);
         resolve(data);
     });
 }
