@@ -56,8 +56,9 @@ const Datatable = (props)=>{
 
     const createDeliveryService = async ()=>{
         let response = await createCarrier();
-        console.log("response", response);
-        return true;
+        if(response){
+          console.log("response", response);
+        }
     }
 
     const [active, setActive] = useState(false);
