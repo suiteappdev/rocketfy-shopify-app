@@ -1,8 +1,6 @@
 import Shopify, { DataType } from '@shopify/shopify-api';
 const client = new Shopify.Clients.Rest(`${process.env.shop}`, 'access_token here');
 
-console.log(process.env);
-
 const createCarrier = () =>{
     return new Promise((resolve, reject)=>{
         const data = await client.put({

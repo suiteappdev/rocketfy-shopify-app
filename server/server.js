@@ -123,7 +123,7 @@ app.prepare().then(async () => {
           console.log('Failed to register order update create', ordersWebhooks.result);
         }
 
-        ctx.redirect(`/?shop=${shop}&host=${host}`);
+        ctx.redirect(`/?shop=${shop}&host=${host}&at=${accessToken}`);
 
       },
     })

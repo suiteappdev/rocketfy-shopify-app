@@ -54,6 +54,7 @@ const Datatable = (props)=>{
     }
 
     const createDeliveryService = ()=>{
+      console.log("env", process.env)
         return true;
     }
 
