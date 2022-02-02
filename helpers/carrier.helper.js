@@ -2,7 +2,7 @@ import Shopify, { DataType } from '@shopify/shopify-api';
 import { useLocation } from "react-router-dom";
 
 const createCarrier = () =>{
-    return new Promise((resolve, reject)=>{
+    return new Promise(async (resolve, reject)=>{
         const search = useLocation().search;
         const at = new URLSearchParams(search).get('at');
         const client = new Shopify.Clients.Rest(`${process.env.shop}`, at);
