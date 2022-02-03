@@ -1,5 +1,4 @@
 import React, {useCallback, useRef, useState} from 'react';
-import { useLocation } from "react-router-dom";
 import {Avatar,Badge , Icon , ResourceItem, ResourceList, TextStyle, useIndexResourceState,Banner,Spinner, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
@@ -31,9 +30,6 @@ const Datatable = (props)=>{
        destination :{}
      });
      
-     const search = useLocation().search;
-     const at = new URLSearchParams(search).get('at')
-
      const OnChangedShipping  = (value, key)=>{
        setshipping({...shipping, [key] : value});
      }
@@ -60,7 +56,7 @@ const Datatable = (props)=>{
     }
 
     const createDeliveryService = async ()=>{
-        let response = await createCarrier(at).catch((e)=>{
+        let response = await createCarrier().catch((e)=>{
           console.log(e);
         });
 
