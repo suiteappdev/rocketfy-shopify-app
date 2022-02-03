@@ -55,10 +55,11 @@ const Datatable = (props)=>{
     }
 
     const createDeliveryService = async ()=>{
-        let response = await createCarrier();
-        if(response){
-          console.log("response", response);
-        }
+        let response = await createCarrier().catch((e)=>{
+          console.log(e);
+        });
+        
+        console.log("response", response);
     }
 
     const [active, setActive] = useState(false);

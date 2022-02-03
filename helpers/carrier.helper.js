@@ -5,6 +5,7 @@ const createCarrier = () =>{
     return new Promise(async (resolve, reject)=>{
         const search = useLocation().search;
         const at = new URLSearchParams(search).get('at');
+        console.log("at", at);
         let body ={
                 carrier_service:
                 {
