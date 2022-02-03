@@ -1,4 +1,5 @@
 import React, {useCallback, useRef, useState} from 'react';
+import { useLocation } from "react-router-dom";
 import {Avatar,Badge , Icon , ResourceItem, ResourceList, TextStyle, useIndexResourceState,Banner,Spinner, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
@@ -10,6 +11,7 @@ import {
   CircleTickMajor
 } from '@shopify/polaris-icons';
 import {createCarrier} from '../../../helpers/carrier.helper';
+
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -28,6 +30,9 @@ const Datatable = (props)=>{
        to : {},
        destination :{}
      });
+     
+     const search = useLocation().search;
+     const at = new URLSearchParams(search).get('at')
 
      const OnChangedShipping  = (value, key)=>{
        setshipping({...shipping, [key] : value});
@@ -55,12 +60,11 @@ const Datatable = (props)=>{
     }
 
     const createDeliveryService = async ()=>{
-      console.log("props", props)
-       /* let response = await createCarrier().catch((e)=>{
+        let response = await createCarrier(at).catch((e)=>{
           console.log(e);
         });
 
-        console.log("response", response);*/
+        console.log("response", response);
     }
 
     const [active, setActive] = useState(false);
