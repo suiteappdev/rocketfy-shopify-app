@@ -1,4 +1,4 @@
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Avatar,Badge , Icon , ResourceItem, ResourceList, TextStyle, useIndexResourceState,Banner,Spinner, Card, IndexTable, Button, Modal, Stack, TextContainer, TextField, FormLayout} from '@shopify/polaris';
 import moment from 'moment'; 
 import { mapCourrier } from '../../../helpers/location.helper';
@@ -6,11 +6,13 @@ import { ORDER_BY_ID } from '../../../graphql/querys/orderById.query';
 import { createOrder, shippingCost } from '../../../helpers/order.helper';
 import { useQuery } from '@apollo/client';
 import City from '../../Control/Select';
+import { getSessionToken } from "@shopify/app-bridge-utils";
+import { useAppBridge } from "@shopify/app-bridge-react";
+
 import {
   CircleTickMajor
 } from '@shopify/polaris-icons';
 import {createCarrier} from '../../../helpers/carrier.helper';
-
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -29,6 +31,16 @@ const Datatable = (props)=>{
        to : {},
        destination :{}
      });
+     const app = useAppBridge();
+
+     useEffect(()=>{
+        let getToken = async ()=>{
+          const token = await getSessionToken(app);
+          console.log(token, token);
+        }
+        
+        getToken();
+     }, []);
 
      const params = (new URL(window.location)).searchParams;
      console.log(params.get('at'));
