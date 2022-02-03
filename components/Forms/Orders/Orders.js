@@ -18,6 +18,7 @@ const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
      const [curriers, setCurriers]  = useState([]);
      const [currentOrder, setCurrentOrder]  = useState({});
+     const [shopifyToken, setShopifyToken]  = useState("");
      const [selectedResource, setResource]  = useState({});
      const [OrderSuccess, setOrderSuccess]  = useState(false);
      const [loading, setLoading]  = useState(false);
@@ -36,15 +37,14 @@ const Datatable = (props)=>{
      useEffect(()=>{
         let getToken = async ()=>{
           const token = await getSessionToken(app);
-          console.log(token, token);
+          if(token){
+            setShopifyToken(token);
+          }
         }
-        
         getToken();
+
      }, []);
 
-     const params = (new URL(window.location)).searchParams;
-     console.log(params.get('at'));
-     
      const OnChangedShipping  = (value, key)=>{
        setshipping({...shipping, [key] : value});
      }
@@ -71,7 +71,7 @@ const Datatable = (props)=>{
     }
 
     const createDeliveryService = async ()=>{
-        let response = await createCarrier(params.get('at')).catch((e)=>{
+        let response = await createCarrier(shopifyToken).catch((e)=>{
           console.log(e);
         });
 
