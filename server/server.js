@@ -169,8 +169,7 @@ app.prepare().then(async () => {
     ctx.status = 200;
   });
 
-  apiRoutes.delete("/api/carrier-service", async (ctx) => {
-    //60234793128
+  router.delete("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
