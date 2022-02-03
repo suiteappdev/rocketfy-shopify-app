@@ -30,7 +30,7 @@ const Datatable = (props)=>{
        destination :{}
      });
 
-     const params = (new URL(location.search)).searchParams;
+     const params = (new URL(window.location.search)).searchParams;
      
      const OnChangedShipping  = (value, key)=>{
        setshipping({...shipping, [key] : value});
