@@ -1,12 +1,7 @@
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const createCarrier = () =>{
     return new Promise(async (resolve, reject)=>{
-        const search = useLocation().search;
-        const at = new URLSearchParams(search).get('at');
-        console.log("at", at);
-
         let body ={
                 carrier_service:
                 {
@@ -17,7 +12,7 @@ const createCarrier = () =>{
             }
 
         let data = await axios.post(`https://rocketfystore.myshopify.com/admin/api/2022-01/carrier_services.json`, body, {
-            "X-Shopify-Access-Token": `${at}`
+            "X-Shopify-Access-Token": `asdsa`
         }).catch((e)=>reject(e));
        
         console.log("data", data);
