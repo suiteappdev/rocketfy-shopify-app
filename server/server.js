@@ -142,6 +142,24 @@ app.prepare().then(async () => {
     }
   });
 
+  router.post("/create-carrier-service", async (ctx) => {
+    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+    const carrier = await client.post({
+    	path: 'carrier_services',
+      data: ctx.body,
+      type: DataType.JSON,
+    });
+
+    ctx.body = {
+      status: "OK_CARRIERS",
+      data: carrier,
+    };
+    
+    ctx.status = 200;
+  });
+
   const handleRequest = async (ctx) => {
     await handle(ctx.req, ctx.res);
     ctx.respond = false;
