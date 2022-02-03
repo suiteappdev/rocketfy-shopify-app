@@ -51,7 +51,12 @@ app.prepare().then(async () => {
   });
 
   apiRoutes.post('/api/cotizador', async (ctx)=>{
-    ctx.request.body = { "rates": [ { "service_name": "canadapost-overnight", "service_code": "ON", "total_price": "1295", "description": "This is the fastest option by far", "currency": "CAD", "min_delivery_date": "2013-04-12 14:48:45 -0400", "max_delivery_date": "2013-04-12 14:48:45 -0400" }, { "service_name": "fedex-2dayground", "service_code": "2D", "total_price": "2934", "currency": "USD", "min_delivery_date": "2013-04-12 14:48:45 -0400", "max_delivery_date": "2013-04-12 14:48:45 -0400" }, { "service_name": "fedex-priorityovernight", "service_code": "1D", "total_price": "3587", "currency": "USD", "min_delivery_date": "2013-04-12 14:48:45 -0400", "max_delivery_date": "2013-04-12 14:48:45 -0400" } ] }
+    ctx.body = {
+        status: "COTIZADOR",
+        data: { "rates": [ { "service_name": "canadapost-overnight", "service_code": "ON", "total_price": "1295", "description": "This is the fastest option by far", "currency": "CAD", "min_delivery_date": "2013-04-12 14:48:45 -0400", "max_delivery_date": "2013-04-12 14:48:45 -0400" }, { "service_name": "fedex-2dayground", "service_code": "2D", "total_price": "2934", "currency": "USD", "min_delivery_date": "2013-04-12 14:48:45 -0400", "max_delivery_date": "2013-04-12 14:48:45 -0400" }, { "service_name": "fedex-priorityovernight", "service_code": "1D", "total_price": "3587", "currency": "USD", "min_delivery_date": "2013-04-12 14:48:45 -0400", "max_delivery_date": "2013-04-12 14:48:45 -0400" } ] },
+    };
+
+    ctx.status = 200;
   });
 
   apiRoutes.post('/api/verify', async (ctx)=>{
@@ -143,6 +148,8 @@ app.prepare().then(async () => {
   });
 
   router.post("/create-carrier-service", async (ctx) => {
+
+    //60234793128
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     console.log(session.shop, session.accessToken)
     console.log("Body", ctx.body)
@@ -161,6 +168,24 @@ app.prepare().then(async () => {
     
     ctx.status = 200;
   });
+
+  router.delete("/carrier-service", async (ctx) => {
+    //60234793128
+    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+    const data = await client.delete({
+      path: 'carrier_services/60234793128',
+    });
+
+    ctx.body = {
+      status: "OK_CARRIERS",
+      data: data,
+    };
+    
+    ctx.status = 200;
+  });
+
 
   const handleRequest = async (ctx) => {
     await handle(ctx.req, ctx.res);
