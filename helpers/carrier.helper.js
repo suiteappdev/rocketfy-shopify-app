@@ -3,16 +3,21 @@ import axios from "axios";
 
 const createCarrier = () =>{
     return new Promise(async (resolve, reject)=>{
-        let body ={
-            carrier_service: {
-                name:"TCC",
-                callback_url:"http:\/\/tcc.com",
-                service_discovery:true
-            }
-        }
+        const search = useLocation().search;
+        const at = new URLSearchParams(search).get('at');
+        console.log("at", at);
 
-        let data =  axios.post(`https://rocketfystore.myshopify.com/admin/api/2022-01/carrier_services.json`, body, {
-            "X-Shopify-Access-Token": `${''}`
+        let body ={
+                carrier_service:
+                {
+                    name:"TCC",
+                    callback_url:"http:\/\/tcc.com",
+                    service_discovery:true
+                }
+            }
+
+        let data = await axios.post(`https://rocketfystore.myshopify.com/admin/api/2022-01/carrier_services.json`, body, {
+            "X-Shopify-Access-Token": `${at}`
         }).catch((e)=>reject(e));
        
         console.log("data", data);
