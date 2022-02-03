@@ -22,4 +22,4 @@ const createCarrier = () =>{
     });
 }
 
-export default {createCarrier}
+export {createCarrier}

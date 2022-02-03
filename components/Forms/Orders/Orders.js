@@ -9,7 +9,7 @@ import City from '../../Control/Select';
 import {
   CircleTickMajor
 } from '@shopify/polaris-icons';
-import createCarrier from '../../../helpers/carrier.helper';
+import {createCarrier} from '../../../helpers/carrier.helper';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -58,7 +58,7 @@ const Datatable = (props)=>{
         let response = await createCarrier().catch((e)=>{
           console.log(e);
         });
-        
+
         console.log("response", response);
     }
 
