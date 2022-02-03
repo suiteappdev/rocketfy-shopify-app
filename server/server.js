@@ -145,17 +145,18 @@ app.prepare().then(async () => {
   router.post("/create-carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     console.log(session.shop, session.accessToken)
-    /*const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+    console.log("Body", ctx.body)
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     const carrier = await client.post({
     	path: 'carrier_services',
-      data: ctx.body,
+      data: {"carrier_service":{"name":"TCC","callback_url":"http:\/\/shippingrateprovider.com","service_discovery":true}},
       type: DataType.JSON,
-    });*/
+    });
 
     ctx.body = {
       status: "OK_CARRIERS",
-      data: session,
+      data: carrier,
     };
     
     ctx.status = 200;
