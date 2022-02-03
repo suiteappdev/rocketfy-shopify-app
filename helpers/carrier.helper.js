@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import axios from  from "axios";
+import axios from "axios";
 
 const createCarrier = () =>{
     return new Promise(async (resolve, reject)=>{
