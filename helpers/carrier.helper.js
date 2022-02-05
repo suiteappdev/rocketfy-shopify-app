@@ -36,4 +36,18 @@ const deleteCarrier = (token, id) =>{
     });
 }
 
-export {createCarrier, deleteCarrier}
+const getCarriers = (token) =>{
+    return new Promise(async (resolve, reject)=>{
+            const opts = {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            };
+    
+            const response = await fetch(`/carrier-service`, opts).catch(e=>reject(e));
+            const data = await response.json().catch(e=>reject(e));
+        
+            resolve(data);
+    });
+}
+
+export {createCarrier, deleteCarrier, getCarriers}

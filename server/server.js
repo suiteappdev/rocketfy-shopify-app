@@ -169,8 +169,7 @@ app.prepare().then(async () => {
   router.get('/carriers-service', async (ctx)=>{
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
-
-    const client = new Shopify.Clients.Rest(session.shop, sessionaccessToken);
+    
     const data = await client.get({
       path: 'carrier_services'
     });
