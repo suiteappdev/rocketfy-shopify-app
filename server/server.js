@@ -139,7 +139,6 @@ app.prepare().then(async () => {
 
   router.post("/webhooks", async (ctx) => {
     try {
-      //Process webhook
       await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);
       console.log(`Webhook processed, returned status code 200`);
     } catch (error) {
@@ -147,9 +146,7 @@ app.prepare().then(async () => {
     }
   });
 
-  router.post("/create-carrier-service", async (ctx) => {
-
-    //60234793128
+  router.post("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     console.log(session.shop, session.accessToken)
     console.log("Body", ctx.body)
@@ -169,16 +166,31 @@ app.prepare().then(async () => {
     ctx.status = 200;
   });
 
+  router.get('/carriers-service', async (ctx)=>{
+    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+    const client = new Shopify.Clients.Rest(session.shop, sessionaccessToken);
+    const data = await client.get({
+      path: 'carrier_services'
+    });
+
+    ctx.body = {
+      status: "LIST_CARRIER",
+      data: data,
+    };
+  });
+
   router.delete("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     const data = await client.delete({
-      path: 'carrier_services/60234793128',
+      path: `carrier_services/${ctx.body.id}`,
     });
 
     ctx.body = {
-      status: "OK_CARRIERS",
+      status: "DELETE_CARRIER",
       data: data,
     };
     
