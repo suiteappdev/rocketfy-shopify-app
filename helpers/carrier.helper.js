@@ -10,7 +10,7 @@ const createCarrier = (token) =>{
                 body : JSON.stringify(body)
             };
     
-            const response = await fetch(`/create-carrier-service`, opts).catch(e=>reject(e));
+            const response = await fetch(`/carrier-service`, opts).catch(e=>reject(e));
             const data = await response.json().catch(e=>reject(e));
         
             resolve(data);
