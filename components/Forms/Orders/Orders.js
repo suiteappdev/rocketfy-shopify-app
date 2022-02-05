@@ -12,7 +12,7 @@ import { useAppBridge } from "@shopify/app-bridge-react";
 import {
   CircleTickMajor
 } from '@shopify/polaris-icons';
-import {createCarrier} from '../../../helpers/carrier.helper';
+import {createCarrier as CreateCarrier, deleteCarrier as DeleteCarrier, getCarriers as GetCarriers} from '../../../helpers/carrier.helper';
 
 const Datatable = (props)=>{
      const [orders, setOrders]  = useState([]);
@@ -39,8 +39,13 @@ const Datatable = (props)=>{
           const token = await getSessionToken(app);
           if(token){
             setShopifyToken(token);
+            const c = await GetCarriers(app);
+            console.log("C", c);
           }
         }
+
+
+
         getToken();
 
      }, []);
@@ -70,13 +75,21 @@ const Datatable = (props)=>{
       return imperativelyCallQuery;
     }
 
-    const createDeliveryService = async ()=>{
-        let response = await createCarrier(shopifyToken).catch((e)=>{
+    const createCarrier = async ()=>{
+        let response = await CreateCarrier(shopifyToken).catch((e)=>{
           console.log(e);
         });
 
         console.log("response", response);
     }
+
+    const deleteCarrier = async ()=>{
+      let response = await DeleteCarrier(shopifyToken, '').catch((e)=>{
+        console.log(e);
+      });
+
+      console.log("response", response);
+  }
 
     const [active, setActive] = useState(false);
     const node = useRef(null);
@@ -212,7 +225,8 @@ const Datatable = (props)=>{
           >
             {rowMarkup}
           </IndexTable>
-          <Button primary onClick={()=>createDeliveryService()}>Crear Transportadoras</Button>
+          <Button primary onClick={()=>createCarrier()}>Crear Transportadoras</Button>
+          <Button primary onClick={()=>deleteCarrier()}>Borrar transportadora</Button>
       <Modal
         open={active}
         onClose={toggleModal}
