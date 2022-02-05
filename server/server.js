@@ -175,7 +175,7 @@ app.prepare().then(async () => {
 
     ctx.body = {
       status: "LIST_CARRIER",
-      data: data,
+      data: data.body,
     };
   });
 

@@ -44,8 +44,6 @@ const Datatable = (props)=>{
           }
         }
 
-
-
         getToken();
 
      }, []);
@@ -84,11 +82,17 @@ const Datatable = (props)=>{
     }
 
     const deleteCarrier = async ()=>{
-      let response = await DeleteCarrier(shopifyToken, '').catch((e)=>{
+      //{id: 60234793128, name: "TCC", active: true, service_discovery: true, carrier_service_type: "api",…}
+      //{id: 60224176296, name: "Parcelify", active: true, service_discovery: true,…}
+      let r = await DeleteCarrier(shopifyToken, '60234793128').catch((e)=>{
         console.log(e);
       });
 
-      console.log("response", response);
+      let t = await DeleteCarrier(shopifyToken, '60234793128').catch((e)=>{
+        console.log(e);
+      });
+
+      console.log("response", r);
   }
 
     const [active, setActive] = useState(false);
