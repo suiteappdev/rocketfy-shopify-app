@@ -82,8 +82,6 @@ const Datatable = (props)=>{
     }
 
     const deleteCarrier = async ()=>{
-      //{id: 60234793128, name: "TCC", active: true, service_discovery: true, carrier_service_type: "api",…}
-      //{id: 60224176296, name: "Parcelify", active: true, service_discovery: true,…}
       let r = await DeleteCarrier(shopifyToken, '60234793128').catch((e)=>{
         console.log(e);
       });
@@ -230,7 +228,6 @@ const Datatable = (props)=>{
             {rowMarkup}
           </IndexTable>
           <Button primary onClick={()=>createCarrier()}>Crear Transportadoras</Button>
-          <Button primary onClick={()=>deleteCarrier()}>Borrar transportadora</Button>
       <Modal
         open={active}
         onClose={toggleModal}
