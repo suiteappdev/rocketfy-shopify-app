@@ -155,7 +155,7 @@ app.prepare().then(async () => {
       path: 'carrier_services',
       data: { "carrier_services" : {"name":"Test","callback_url":"http://shippingrateprovider.com","service_discovery":true} },
       type: DataType.JSON,
-    }).catch((e)=>console.log(e));
+    }).catch((e)=>console.log(e.response.body));
 
     ctx.body = {
       status: "OK_CARRIERS",
