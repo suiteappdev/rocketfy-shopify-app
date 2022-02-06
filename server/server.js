@@ -132,7 +132,7 @@ app.prepare().then(async () => {
           console.log('Failed to register order update create', ordersWebhooks.result);
         }
 
-        ctx.redirect(`/?shop=${shop}&host=${host}&at=${accessToken}`);
+        ctx.redirect(`/?shop=${shop}&host=${host}`);
 
       },
     })
@@ -153,8 +153,7 @@ app.prepare().then(async () => {
 
     const carrier = await client.post({
       path: 'carrier_services',
-      data: { "carrier_services" : {"name":"Test","callback_url":"http://shippingrateprovider.com","service_discovery":true} },
-      type: DataType.JSON,
+      data: {"carrier_service":{"name":"Test Carriers","callback_url":"http:\/\/shippingrateprovider.com","service_discovery":true}},
     }).catch((e)=>console.log(e));
 
     ctx.body = {
