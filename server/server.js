@@ -6,7 +6,6 @@ import Shopify, { ApiVersion, DataType } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
-const koaBody = require('koa-body');
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
@@ -225,7 +224,6 @@ app.prepare().then(async () => {
   });
 
 
-  server.use(koaBody());
   server.use(router.allowedMethods());
   server.use(router.routes());
   server.listen(port, () => {
