@@ -223,7 +223,6 @@ app.prepare().then(async () => {
     }
   });
 
-
   server.use(router.allowedMethods());
   server.use(router.routes());
   server.listen(port, () => {
