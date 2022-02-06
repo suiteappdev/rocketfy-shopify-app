@@ -153,7 +153,7 @@ app.prepare().then(async () => {
 
     const carrier = await client.post({
     	path: 'carrier_services',
-      data: {"carrier_services":{"name":"Rocketfy","callback_url":"https:\/\/rocketfy-shopify-app.herokuapp.com/api/cotizador","service_discovery":true}},
+      data: {"carrier_service":{"name":"Rocketfy","callback_url":"https:\/\/rocketfy-shopify-app.herokuapp.com/api/cotizador","service_discovery":true}},
       type: DataType.JSON,
     });
 
