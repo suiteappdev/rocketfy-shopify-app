@@ -150,8 +150,13 @@ app.prepare().then(async () => {
   router.post("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+    if (session === undefined || ACTIVE_SHOPIFY_SHOPS[shop] === undefined) {
+      ctx.redirect(`/auth?shop=${shop}`);
+      return;
+    }
     
-    let carrier_data = { carrier_service: { name:"Beta", callback_url:"http:\/\/shippingrateprovider.com", service_discovery:true }}
+    let carrier_data = { carrier_service: { name:"Rocketfy", callback_url:"https:\/\/rocketfy-shopify-app.herokuapp.com\/api\/cotizador", service_discovery:true }}
 
     const carrier = await client.post({
       path: 'carrier_services',
