@@ -152,10 +152,10 @@ app.prepare().then(async () => {
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     const carrier = await client.post({
-    	path: 'carrier_services',
-      data: {"carrier_service":{"name":"Ship Rocketfy","callback_url":"http:\/\/shippingrateprovider.com","service_discovery":true}},
+      path: 'carrier_services',
+      data: {"carrier_service":{"name":"Test","callback_url":"http:\/\/shippingrateprovider.com","service_discovery":true}},
       type: DataType.JSON,
-    });
+    }).catch((e)=>console.log(e));
 
     ctx.body = {
       status: "OK_CARRIERS",
