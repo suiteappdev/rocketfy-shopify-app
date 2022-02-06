@@ -82,11 +82,11 @@ const Datatable = (props)=>{
     }
 
     const deleteCarrier = async ()=>{
-      let r = await DeleteCarrier(shopifyToken, '60234793128').catch((e)=>{
+      let r = await DeleteCarrier(shopifyToken, '').catch((e)=>{
         console.log(e);
       });
 
-      let t = await DeleteCarrier(shopifyToken, '60234793128').catch((e)=>{
+      let t = await DeleteCarrier(shopifyToken, '').catch((e)=>{
         console.log(e);
       });
 
