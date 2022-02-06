@@ -154,6 +154,7 @@ app.prepare().then(async () => {
     const carrier = await client.post({
       path: 'carrier_services',
       data: {"carrier_service":{"name":"Test Carriers","callback_url":"http:\/\/shippingrateprovider.com","service_discovery":true}},
+      type: DataType.JSON,
     }).catch((e)=>console.log(e));
 
     ctx.body = {
