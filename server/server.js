@@ -47,7 +47,7 @@ app.prepare().then(async () => {
       ctx.response.status = 200;
       ctx.request.body
       /*await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);*/
-      console.log(`Webhook processed, returned status code 200`);
+      console.log(`Webhook processed, returned status code 200`, ctx.request.body);
   });
 
   apiRoutes.post('/api/cotizador', async (ctx)=>{
