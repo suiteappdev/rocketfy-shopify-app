@@ -23,7 +23,13 @@ const SignupForm = (props)=>{
     });
     
     useEffect(()=>{
-        setConnected(isConnected());
+        let isConnected  = async ()=>{
+            let connected = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`);
+            
+            if(connected){
+                setConnected(true);
+            }
+        }
 
         if (data){
            setStoreData(data[DATA_KEY]);
@@ -39,6 +45,8 @@ const SignupForm = (props)=>{
                txtCountry : getISO(data[DATA_KEY].billingAddress.countryCodeV2).iso3,
                txtCity : data[DATA_KEY].billingAddress.city
            });
+
+           isConnected();
         }
     }, [data, connected]);
 
@@ -95,7 +103,7 @@ const SignupForm = (props)=>{
                     active : true,
                 }));
 
-                if(setting.data){
+                if(setting){
                     setConnected(true);
                     setLoading(false);
                     toast({

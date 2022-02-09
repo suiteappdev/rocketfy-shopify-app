@@ -28,6 +28,21 @@ const Post = (url, body)=>{
     });
 }
 
+const Get = (url)=>{
+    return new Promise(async (resolve, reject)=>{
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body : JSON.stringify(body)
+        };
+
+        const response = await fetch(url, options).catch(e=>reject(e));
+        const data = await response.json().catch(e=>reject(e));
+    
+        resolve(data);
+    });
+}
+
 const getAcessToken  = ()=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
@@ -79,4 +94,4 @@ const verifyUrl = (body)=>{
     });
 }
 
-export { PostRequest, getAcessToken, refreshToken, verifyUrl, Post }
+export { PostRequest, getAcessToken, refreshToken, verifyUrl, Post , Get}
