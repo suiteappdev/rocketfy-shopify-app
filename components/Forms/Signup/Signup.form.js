@@ -3,9 +3,9 @@ import {Button, Spinner, TextField, Form, FormLayout, Banner, Toast} from '@shop
 import styles from './Signup.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
-import { Post, PostRequest, refreshToken, verifyUrl } from '../../../helpers/request.helper';
+import { Post, Get, PostRequest, refreshToken, verifyUrl } from '../../../helpers/request.helper';
 
-import { isConnected, removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
+import { removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
 import { getISO } from '../../../helpers/country.helper';
 import AccountStatus from '../../AccountStatus';
 
