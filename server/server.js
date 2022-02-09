@@ -31,7 +31,8 @@ app.prepare().then(async () => {
   const environment = process.env.NODE_ENV == 'development' ? process.env.MONGODB_CONNECTION_STRING_DEV : process.env.MONGODB_CONNECTION_STRING_PRO;
   console.log("environment", process.env);
   console.log("process.env.NODE_ENV ", process.env.NODE_ENV );
-  await mongoose.connect(environment).catch((e)=>console.log(`Error connecting database : ${e.message}`));
+  let connection =  await mongoose.connect(environment).catch((e)=>console.log(`Error connecting database : ${e.message}`));
+  console.log("conecction", connection);
   const server = new Koa();
   const router = new Router();
   const koaBody = require('koa-body');
