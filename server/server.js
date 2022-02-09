@@ -7,7 +7,7 @@ import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
 import mongoose from 'mongoose';
-const environment = NODE_ENV == 'development' ? process.env.MONGODB_CONNECTION_STRING_DEV : rocess.env.MONGODB_CONNECTION_STRING_PRO;
+const environment = process.env.NODE_ENV == 'development' ? process.env.MONGODB_CONNECTION_STRING_DEV : process.env.MONGODB_CONNECTION_STRING_PRO;
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
 const dev = process.env.NODE_ENV !== "production";
