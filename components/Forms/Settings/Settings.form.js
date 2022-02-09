@@ -49,27 +49,7 @@ const Settings = (props)=>{
     
     useEffect(()=>{
         //setConnected(isConnected());
-
-        if (data){
-           setStoreData(data[DATA_KEY]);
-           setForm({
-               txtShop : data[DATA_KEY].name,
-               email : data[DATA_KEY].email,
-               txtAddress : data[DATA_KEY].billingAddress.address1,
-               txtPhone : data[DATA_KEY].billingAddress.phone,
-               txtEmail : data[DATA_KEY].email,
-               txtFullname : `${data[DATA_KEY].billingAddress.firstName || ''} ${data[DATA_KEY].billingAddress.lastName || ''}`,
-               txtDomain : data[DATA_KEY].myshopifyDomain,
-               txtProvince :  data[DATA_KEY].billingAddress.province,
-               txtCountry : getISO(data[DATA_KEY].billingAddress.countryCodeV2).iso3,
-               txtCity : data[DATA_KEY].billingAddress.city
-           });
-        }
-    }, [data, connected]);
-
-    const onChange = (value, id)=>{
-        setForm({...form, [id] : (value)});
-    }
+    }, []);
 
     const toast = (options)=>{
         setShowToast({
