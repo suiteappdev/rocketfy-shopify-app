@@ -17,6 +17,9 @@ const SettingsSchema = new Schema({
     type: Boolean,
     default : false
   },
+  rocketfy_token : {
+    type : String,
+  }
 });
 
 export default mongoose.model('Settings', SettingsSchema);

@@ -7,7 +7,10 @@ import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
 import mongoose from 'mongoose';
+import Settings from '../models/Settings';
+
 dotenv.config();
+
 const port = parseInt(process.env.PORT, 10) || 8081;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({
@@ -29,10 +32,8 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 app.prepare().then(async () => {
   const environment = process.env.NODE_ENV == 'development' ? process.env.MONGODB_CONNECTION_STRING_DEV : process.env.MONGODB_CONNECTION_STRING_PRO;
-  console.log("environment", process.env);
-  console.log("process.env.NODE_ENV ", process.env.NODE_ENV );
-  let connection =  await mongoose.connect(environment).catch((e)=>console.log(`Error connecting database : ${e.message}`));
-  console.log("conecction", connection);
+  await mongoose.connect(environment).catch((e)=>console.log(`Error connecting database : ${e.message}`));
+
   const server = new Koa();
   const router = new Router();
   const koaBody = require('koa-body');
