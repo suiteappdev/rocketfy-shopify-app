@@ -52,14 +52,24 @@ app.prepare().then(async () => {
       console.log(`Webhook processed, returned status code 200`, ctx.request.body);
   });
 
-  apiRoutes.post('/api/settings', async (ctx)=>{
+  apiRoutes.get('/api/settings/me/:shop', async (ctx)=>{
+    let s = await Settings.findOne({ id : ctx.params.shop });
     ctx.response.status = 200;
-    ctx.request.body
+    ctx.response.body = s
+  });
+
+  apiRoutes.post('/api/settings', async (ctx)=>{
+    const s = new Settings(req.body);
+    await s.save();
+    ctx.response.status = 200;
+    ctx.response.body = s
   });
 
   apiRoutes.put('/api/settings/status/:id', async (ctx)=>{
+    let s = await Settings.updateOne({ _id : ctx.params.id}, {...ctx.request.body});
+    
     ctx.response.status = 200;
-    ctx.request.body
+    ctx.response.body = s;
   });
 
   apiRoutes.post('/api/cotizador', async (ctx)=>{
