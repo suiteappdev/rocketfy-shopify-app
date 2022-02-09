@@ -6,3 +6,8 @@
     justify-content: center!important;
     flex-direction: column!important;
 }
+
+.Polaris-Avatar--styleFive {
+    color: rgb(255, 255, 255)!important;
+    background: rgb(162, 0, 255)!important;
+}
