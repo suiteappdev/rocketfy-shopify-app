@@ -67,7 +67,6 @@ app.prepare().then(async () => {
 
   apiRoutes.put('/api/settings/status/:id', async (ctx)=>{
     let s = await Settings.updateOne({ _id : ctx.params.id}, {...ctx.request.body});
-    
     ctx.response.status = 200;
     ctx.response.body = s;
   });

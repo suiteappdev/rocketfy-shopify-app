@@ -32,8 +32,7 @@ const Get = (url)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body : JSON.stringify(body)
+            headers: { 'Content-Type': 'application/json'}
         };
 
         const response = await fetch(url, options).catch(e=>reject(e));
