@@ -42,6 +42,7 @@
     "koa-session": "^6.1.0",
     "milligram": "^1.4.1",
     "moment": "^2.29.1",
+    "mongoose": "^6.2.1",
     "next": "^10.0.4",
     "next-env": "^1.1.0",
     "node-fetch": "^2.6.1",

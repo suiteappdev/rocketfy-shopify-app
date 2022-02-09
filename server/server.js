@@ -6,7 +6,8 @@ import Shopify, { ApiVersion, DataType } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
-
+import mongoose from 'mongoose';
+const environment = NODE_ENV == 'development' ? process.env.MONGODB_CONNECTION_STRING_DEV : rocess.env.MONGODB_CONNECTION_STRING_PRO;
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
 const dev = process.env.NODE_ENV !== "production";
@@ -22,15 +23,14 @@ Shopify.Context.initialize({
   HOST_NAME: process.env.HOST.replace(/https:\/\//, ""),
   API_VERSION: ApiVersion.October20,
   IS_EMBEDDED_APP: true,
-  // This should be replaced with your preferred storage strategy
   SESSION_STORAGE: new Shopify.Session.MemorySessionStorage(),
 });
 
-// Storing the currently active shops in memory will force them to re-login when your server restarts. You should
-// persist this object in your app.
 const ACTIVE_SHOPIFY_SHOPS = {};
 
 app.prepare().then(async () => {
+  console.log("environment", environment);
+  await mongoose.connect(environment).catch((e)=>console.log(`Error connecting database : ${e.message}`));
   const server = new Koa();
   const router = new Router();
   const koaBody = require('koa-body');
@@ -46,8 +46,17 @@ app.prepare().then(async () => {
   apiRoutes.post('/api/webhook-notification', async (ctx)=>{
       ctx.response.status = 200;
       ctx.request.body
-      /*await Shopify.Webhooks.Registry.process(ctx.req, ctx.res);*/
       console.log(`Webhook processed, returned status code 200`, ctx.request.body);
+  });
+
+  apiRoutes.post('/api/settings', async (ctx)=>{
+    ctx.response.status = 200;
+    ctx.request.body
+  });
+
+  apiRoutes.put('/api/settings/status/:id', async (ctx)=>{
+    ctx.response.status = 200;
+    ctx.request.body
   });
 
   apiRoutes.post('/api/cotizador', async (ctx)=>{
