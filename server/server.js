@@ -53,7 +53,7 @@ app.prepare().then(async () => {
   });
 
   apiRoutes.get('/api/settings/me/:domain', async (ctx)=>{
-    let s = await Settings.findOne({ domain : ctx.params.domain });
+    let s = await Settings.findOne({ domain : ctx.request.params.domain });
     ctx.response.status = 200;
     ctx.response.body = s;
   });
