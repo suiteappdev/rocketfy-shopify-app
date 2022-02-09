@@ -25,6 +25,12 @@ export default function MainTabs(props) {
         content: 'Pedidos',
         panelID: 'accepts-marketing-content-1',
         render :<OrdersForm setSelectedTab={handleTabChange} />
+      },
+      {
+        id: 'accepts-marketing-1',
+        content: 'Configuración',
+        panelID: 'accepts-marketing-content-1',
+        render :<OrdersForm setSelectedTab={handleTabChange} />
       }
     ];
   

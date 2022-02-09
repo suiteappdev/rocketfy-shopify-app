@@ -227,7 +227,6 @@ const Datatable = (props)=>{
           >
             {rowMarkup}
           </IndexTable>
-          <Button primary onClick={()=>createCarrier()}>Crear Transportadoras</Button>
       <Modal
         open={active}
         onClose={toggleModal}
