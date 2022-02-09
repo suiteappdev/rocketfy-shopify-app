@@ -9,7 +9,7 @@ import { isConnected, removeRocketfyToken, setAppToken, setCustomerId} from '../
 import { getISO } from '../../../helpers/country.helper';
 import AccountStatus from '../../AccountStatus';
 
-const ROCKETFY_APIHOST = process.env.ROCKETFY_APIHOST;
+const ROCKETFY_APIHOST = process.env.ROCKETFY_APIHOST 
 
 const SignupForm = (props)=>{
     const [form, setForm] = useState({});
@@ -77,7 +77,7 @@ const SignupForm = (props)=>{
             partnerID:process.env.ROCKETFY_PARTNERID,
         }
 
-        let response = await PostRequest(`http://localhost:4001/api/public/createAccount` , data).catch(e=>toast({
+        let response = await PostRequest(`${ROCKETFY_APIHOST}/api/public/createAccount` , data).catch(e=>toast({
             content : "Ocurrio un error al conectar la cuenta.",
             active : true,
         }));
@@ -91,7 +91,7 @@ const SignupForm = (props)=>{
                     customer : data.customer,
                     customerID : response.data.customerID
                 }).catch(e=>toast({
-                    content : "Ocurrio un error al conectar la cuenta.",
+                    content : `Ocurrio un error al conectar la cuenta. ${e.message}`,
                     active : true,
                 }));
 
