@@ -84,7 +84,7 @@ const SignupForm = (props)=>{
 
         if(response){
             if(response.data.redirectUrl){
-                let setting = await Post(`/settings` , {
+                let setting = await Post(`/api/settings` , {
                     shop : data.name,
                     domain : data.domain,
                     urlRedirect : response.data.redirectUrl,

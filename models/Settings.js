@@ -10,7 +10,8 @@ const SettingsSchema = new Schema({
     connected : {type: Boolean, default : false },
     webhook: { type: Boolean, default : false  },
     carrier: { type: Boolean, default : false  },
-    urlRedirect : {  type : String }
+    urlRedirect : {  type : String },
+    metadata : { type : Object}
 });
 
 export default mongoose.model('Settings', SettingsSchema);
