@@ -27,12 +27,11 @@ const Settings = (props)=>{
     }, [connected]);
   
     const buttonText = connected ? 'Desconectar' : 'Conectar';
-    const details = connected ? 'Webhook Conectado' : 'Webhook no conectado';
+    const details = connected ? 'Conectado' : 'No conectado';
     const terms = connected ? null : (
       <p>
-        By clicking <strong>Connect</strong>, you agree to accept Sample App’s{' '}
-        <Link url="Example App">terms and conditions</Link>. You’ll pay a
-        commission rate of 15% on sales made through Sample App.
+        Haciendo click en <strong>Conectar</strong>, habilitas la sincronización automatica de pedidos en nuestro
+        <Link url="Example App">Panel de Envios Rocketfy</Link>.
     </p>)
     
     useEffect(()=>{
@@ -130,6 +129,17 @@ const Settings = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
+                  <AccountConnection
+                        accountName={accountName}
+                        connected={connected}
+                        title="Importar transportadoras Rocketfy"
+                        action={{
+                            content: buttonText,
+                            onAction: handleAction,
+                        }}
+                        details={details}
+                        termsOfService={terms}
+                 /> 
                   <AccountConnection
                         accountName={accountName}
                         connected={connected}
