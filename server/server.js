@@ -52,10 +52,10 @@ app.prepare().then(async () => {
       console.log(`Webhook processed, returned status code 200`, ctx.request.body);
   });
 
-  apiRoutes.get('/api/settings/me/:shop', async (ctx)=>{
-    let s = await Settings.findOne({ id : ctx.params.shop });
+  apiRoutes.get('/api/settings/me/:domain', async (ctx)=>{
+    let s = await Settings.findOne({ domain : ctx.params.domain });
     ctx.response.status = 200;
-    ctx.response.body = s
+    ctx.response.body = s;
   });
 
   apiRoutes.post('/api/settings', async (ctx)=>{
