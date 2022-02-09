@@ -59,7 +59,7 @@ app.prepare().then(async () => {
   });
 
   apiRoutes.post('/api/settings', async (ctx)=>{
-    const s = new Settings(req.body);
+    const s = new Settings(ctx.request.body);
     await s.save();
     ctx.response.status = 200;
     ctx.response.body = s
