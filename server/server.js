@@ -29,7 +29,7 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 app.prepare().then(async () => {
   const environment = process.env.NODE_ENV == 'development' ? process.env.MONGODB_CONNECTION_STRING_DEV : process.env.MONGODB_CONNECTION_STRING_PRO;
-  console.log("environment", environment);
+  console.log("environment", process.env);
   await mongoose.connect(environment).catch((e)=>console.log(`Error connecting database : ${e.message}`));
   const server = new Koa();
   const router = new Router();
