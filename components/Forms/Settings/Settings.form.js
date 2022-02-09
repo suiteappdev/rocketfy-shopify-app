@@ -1,6 +1,6 @@
 import React, {useCallback, useState, useEffect} from 'react';
 import {Form, FormLayout, Banner, Toast, AccountConnection, Link} from '@shopify/polaris'
-import styles from './Signup.module.css';
+import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
 import { PostRequest, refreshToken, verifyUrl } from '../../../helpers/request.helper';

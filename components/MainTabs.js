@@ -3,6 +3,7 @@ import {Card, Tabs, AppProvider} from '@shopify/polaris';
 
 import SignupForm from './Forms/Signup/Signup.form.js';
 import OrdersForm from './Forms/Orders/Orders.form.js';
+import Settings from './Forms/Settings/Settings.form.js';
 
 export default function MainTabs(props) {
     const [selected, setSelected] = useState(0);
@@ -27,10 +28,10 @@ export default function MainTabs(props) {
         render :<OrdersForm setSelectedTab={handleTabChange} />
       },
       {
-        id: 'accepts-marketing-1',
+        id: 'Setting-tab',
         content: 'Configuración',
-        panelID: 'accepts-marketing-content-1',
-        render :<OrdersForm setSelectedTab={handleTabChange} />
+        panelID: 'setting-tab-content',
+        render :<Settings setSelectedTab={handleTabChange} />
       }
     ];
   
