@@ -14,28 +14,41 @@ const Settings = (props)=>{
     const [storeData, setStoreData] = useState({});
     const [isLoading, setLoading] = useState(false);
     const {loading, error, data} = useQuery(STORE_QUERY);
-    const [connected, setConnected] = useState(false);
+    const [connectedWebhook, setConnectedWebhook] = useState(false);
+    const [connectedCarriers, setConnectedCarriers] = useState(false);
     const [showToast, setShowToast] = useState({
         content : '',
         active : false,
     });
 
-    const accountName = connected ? 'Jane Appleseed' : '';
+    const accountName = connectedWebhook || connectedCarriers ? 'Rocketfy' : '';
   
-    const handleAction = useCallback(() => {
-      setConnected((connected) => !connected);
-    }, [connected]);
+    const handleActionConnectWebhook = useCallback(() => {
+      setConnectedWebhook((connectedWebhook) => !connectedWebhook);
+    }, [connectedWebhook]);
+
+    const handleActionConnectCarriers = useCallback(() => {
+        setConnectedCarriers((connectedCarriers) => !connectedCarriers);
+      }, [connectedCarriers]);
   
-    const buttonText = connected ? 'Desconectar' : 'Conectar';
-    const details = connected ? 'Conectado' : 'No conectado';
-    const terms = connected ? null : (
+    const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
+    const detailsWebhook = connectedWebhook ? 'Conectado' : 'No conectado';
+    const termsWebhook = connectedWebhook ? null : (
       <p>
+        Haciendo click en <strong>Conectar</strong>, habilitas la sincronización automatica de pedidos en nuestro
+        <Link url="Example App">Panel de Envios Rocketfy</Link>.
+    </p>)
+
+    const buttonTextCarriers = connectedCarriers ? 'Desconectar' : 'Conectar';
+    const detailsCarriers = connectedCarriers ? 'Conectado' : 'No conectado';
+    const termsCarriers = connectedCarriers ? null : (
+    <p>
         Haciendo click en <strong>Conectar</strong>, habilitas la sincronización automatica de pedidos en nuestro
         <Link url="Example App">Panel de Envios Rocketfy</Link>.
     </p>)
     
     useEffect(()=>{
-        setConnected(isConnected());
+        //setConnected(isConnected());
 
         if (data){
            setStoreData(data[DATA_KEY]);
@@ -67,7 +80,7 @@ const Settings = (props)=>{
 
     const disconnect = ()=>{
         setLoading(true);
-        setConnected(false);
+        //setConnected(false);
         removeRocketfyToken();
         setLoading(false);
         localStorage.clear();
@@ -98,7 +111,7 @@ const Settings = (props)=>{
         if(response){
             if(response.data.redirectUrl){
                 //let url = await verifyUrl({ redirectUrl : response.data.redirectUrl}).catch(async (e)=>console.log("error", e));
-                    setConnected(true);
+                    //setConnected(true);
                     setLoading(false);
                     setAppToken(response.data.redirectUrl);
                     setCustomerId(response.data.customerID);
@@ -131,27 +144,27 @@ const Settings = (props)=>{
                 <FormLayout>
                   <AccountConnection
                         accountName={accountName}
-                        connected={connected}
+                        connected={connectedCarriers}
                         title="Importar transportadoras Rocketfy"
                         action={{
-                            content: buttonText,
-                            onAction: handleAction,
+                            content: buttonTextCarriers,
+                            onAction: handleActionConnectCarriers,
                         }}
-                        details={details}
-                        termsOfService={terms}
+                        details={detailsCarriers}
+                        termsOfService={termsCarriers}
                  /> 
                   <AccountConnection
                         accountName={accountName}
-                        connected={connected}
+                        connected={connectedWebhook}
                         title="Sincronizar automaticamente pedidos"
                         action={{
-                            content: buttonText,
-                            onAction: handleAction,
+                            content: buttonTextWebhook,
+                            onAction: handleActionConnectWebhook,
                         }}
-                        details={details}
-                        termsOfService={terms}
+                        details={detailsWebhook}
+                        termsOfService={termsWebhook}
                  />
-                   {connected ? (null) : (
+                   {connectedWebhook ? (null) : (
                     <React.Fragment>
                      
                    </React.Fragment>)}
