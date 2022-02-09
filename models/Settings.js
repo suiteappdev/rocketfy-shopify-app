@@ -1,25 +1,16 @@
 import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
+
 const SettingsSchema = new Schema({
-  shop: {
-      type: String,
-      required: true
-  },
-  url: {
-      type: String,
-  },
-  webhook: {
-    type: Boolean,
-    default : false
-  },
-  carrier: {
-    type: Boolean,
-    default : false
-  },
-  rocketfy_token : {
-    type : String,
-  }
+    shop: { type: String, required: true  },
+    customer : { type : String},
+    customerID : {type: String },
+    domain: { type: String },
+    connected : {type: Boolean, default : false },
+    webhook: { type: Boolean, default : false  },
+    carrier: { type: Boolean, default : false  },
+    urlRedirect : {  type : String }
 });
 
 export default mongoose.model('Settings', SettingsSchema);

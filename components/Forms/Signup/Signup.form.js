@@ -3,7 +3,7 @@ import {Button, Spinner, TextField, Form, FormLayout, Banner, Toast} from '@shop
 import styles from './Signup.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
-import { PostRequest, refreshToken, verifyUrl } from '../../../helpers/request.helper';
+import { Post, PostRequest, refreshToken, verifyUrl } from '../../../helpers/request.helper';
 
 import { isConnected, removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
 import { getISO } from '../../../helpers/country.helper';
@@ -56,7 +56,6 @@ const SignupForm = (props)=>{
     const disconnect = ()=>{
         setLoading(true);
         setConnected(false);
-        removeRocketfyToken();
         setLoading(false);
         localStorage.clear();
     }
@@ -85,15 +84,25 @@ const SignupForm = (props)=>{
 
         if(response){
             if(response.data.redirectUrl){
-                //let url = await verifyUrl({ redirectUrl : response.data.redirectUrl}).catch(async (e)=>console.log("error", e));
+                let setting = await Post(`/settings` , {
+                    shop : data.name,
+                    domain : data.domain,
+                    urlRedirect : response.data.redirectUrl,
+                    customer : data.customer,
+                    customerID : response.data.customerID
+                }).catch(e=>toast({
+                    content : "Ocurrio un error al conectar la cuenta.",
+                    active : true,
+                }));
+
+                if(setting.data){
                     setConnected(true);
                     setLoading(false);
-                    setAppToken(response.data.redirectUrl);
-                    setCustomerId(response.data.customerID);
                     toast({
                         content : "Cuenta conectada.",
                         active : true,
-                    });
+                    });                    
+                }
             }
         }
     }

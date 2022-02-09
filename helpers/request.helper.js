@@ -1,8 +1,23 @@
-const PostRequest = (url, body)=>{
+const PostRequest = (url, body, headers)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${window.localStorage.getItem('rocketfy-token')}`},
+            body : JSON.stringify(body)
+        };
+
+        const response = await fetch(url, options).catch(e=>reject(e));
+        const data = await response.json().catch(e=>reject(e));
+    
+        resolve(data);
+    });
+}
+
+const Post = (url, body)=>{
+    return new Promise(async (resolve, reject)=>{
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
             body : JSON.stringify(body)
         };
 
@@ -64,4 +79,4 @@ const verifyUrl = (body)=>{
     });
 }
 
-export { PostRequest, getAcessToken, refreshToken, verifyUrl }
+export { PostRequest, getAcessToken, refreshToken, verifyUrl, Post }
