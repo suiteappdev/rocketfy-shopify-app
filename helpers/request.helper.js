@@ -31,7 +31,7 @@ const Post = (url, body)=>{
 const Get = (url)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
-            method: 'POST',
+            method: 'GET',
             headers: { 'Content-Type': 'application/json'}
         };
 
