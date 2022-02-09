@@ -28,7 +28,7 @@ const SignupForm = (props)=>{
             let connected = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                 setLoading(false);
                 toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
-            }};
+            });
             
             if(connected){
                 setConnected(true);
