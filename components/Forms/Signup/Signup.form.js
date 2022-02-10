@@ -113,7 +113,6 @@ const SignupForm = (props)=>{
 
                 if(setting){
                     setConnected(true);
-                    console.log("connected", connected);
                     setLoading(false);
                     toast({
                         content : "Cuenta conectada.",
