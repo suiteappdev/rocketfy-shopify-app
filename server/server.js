@@ -67,8 +67,9 @@ app.prepare().then(async () => {
 
   apiRoutes.put('/api/settings/status/:id', async (ctx)=>{
     let s = await Settings.updateOne({ _id : ctx.params.id}, {...ctx.request.body});
+    let r = await Settings.findOne({ id :  ctx.params.id});
     ctx.response.status = 200;
-    ctx.response.body = s;
+    ctx.response.body = r;
   });
 
   apiRoutes.post('/api/cotizador', async (ctx)=>{
