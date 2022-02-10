@@ -44,7 +44,7 @@ const mapCourrier = (orders, cities)=>{
 
 const getCities = (cod)=>{
     return new Promise(async (resolve, reject)=>{
-        let response = await Post(`${process.env.ROCKETFY_APIHOST}/api/public/cities`, 
+        let response = await Post(`${'https://api.rocketfy.co' || process.env.ROCKETFY_APIHOST}/api/public/cities`, 
         {"query":{"courriers.cod":true},"sort":{"name":1},"limit":0,"skip":0}
         ).catch((e)=>reject(e));
         resolve(response.data);
