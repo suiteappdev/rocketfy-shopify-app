@@ -2,6 +2,7 @@ import React, {useCallback, useState, useEffect } from 'react';
 import {AccountConnection, Link} from '@shopify/polaris';
 
 const AccountStatus  = (props)=> {
+  console.log("AccountStatus", props);
     const buttonText = props.status ? 'Desconectar' : 'Conectar';
     const details = props.status ? 'Cuenta conectada' : 'Cuenta no conectada';
     const terms = props.status ? null : (

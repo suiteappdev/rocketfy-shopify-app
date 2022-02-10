@@ -32,6 +32,7 @@ const SignupForm = (props)=>{
             
             if(rs.length > 0){
                 setConnected(true);
+                console.log("rs", rs);
                 setLoading(false);
             }else{
                 setConnected(false);
