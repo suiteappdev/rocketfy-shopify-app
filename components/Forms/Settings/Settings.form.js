@@ -1,17 +1,14 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {Form, FormLayout, Banner, Toast, AccountConnection, Link} from '@shopify/polaris'
+import {Form, FormLayout,Toast, AccountConnection, Link} from '@shopify/polaris'
 import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
-import { PostRequest, Get } from '../../../helpers/request.helper';
-import { isConnected, removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
-import { getISO } from '../../../helpers/country.helper';
+import { PostRequest, Get, Put } from '../../../helpers/request.helper';
+import {removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
 
 const ROCKETFY_APIHOST = process.env.ROCKETFY_APIHOST;
 
 const Settings = (props)=>{
-    const [form, setForm] = useState({});
-    const [storeData, setStoreData] = useState({});
     const [isLoading, setLoading] = useState(false);
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connectedWebhook, setConnectedWebhook] = useState(false);
@@ -36,6 +33,8 @@ const Settings = (props)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
                 webhook : status
             });
+
+            console.log("r", r);
         }
 
         if(!connectedCarriers){
