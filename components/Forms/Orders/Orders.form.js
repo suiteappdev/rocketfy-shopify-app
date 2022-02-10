@@ -5,9 +5,9 @@ import EmptyState from '../../EmptyState';
 import styles from './Orders.module.css';
 import {  useQuery } from '@apollo/client';
 import  {ORDERS_QUERY, DATA_KEY}  from '../../../graphql/querys/orders.query';
-import { isConnected, getAppToken, setJson, getJson} from '../../../helpers/storage.helper';
+import { setJson, getJson} from '../../../helpers/storage.helper';
 import { getCities as getlist } from '../../../helpers/location.helper';
-import {refreshToken}  from '../../../helpers/request.helper';
+import { Get }  from '../../../helpers/request.helper';
 
 const OrdersForm = (props)=>{
     const [ordersData, setOrdersData] = useState([]);
@@ -16,6 +16,7 @@ const OrdersForm = (props)=>{
     const [checked, setChecked] = useState(false);
     const {loading, error, data} = useQuery(ORDERS_QUERY);
     const [connected, setConnected] = useState(false);
+    const [user, setUser] = useState({});
     const [application, setApplication] = useState("");
     const [showToast, setShowToast] = useState({
         content : '',
@@ -31,11 +32,21 @@ const OrdersForm = (props)=>{
     }, []);
   
     useEffect(()=>{
-        setConnected(isConnected());
-        let app = getAppToken();
-        
-        if(app){
-            setApplication(app);
+        let isConnected  = async ()=>{
+            setLoading(true);
+            let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
+                setLoading(false);
+                toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
+            });
+
+            if(rs && rs.connected){
+                setConnected(true);
+                setLoading(false);
+                setUser(rs);
+            }else{
+                setConnected(false);
+                setLoading(false);
+            }
         }
 
         if(data){
@@ -58,6 +69,8 @@ const OrdersForm = (props)=>{
             }
         })()
 
+        isConnected();
+
     }, [application, data, ordersData]);
 
     const open = async (event)=>{
@@ -67,6 +80,13 @@ const OrdersForm = (props)=>{
 
     const sync = (event)=>{
         event.preventDefault();
+    }
+
+    const toast = (options)=>{
+        setShowToast({
+            active : options.active,
+            content :options.content
+        });
     }
 
     return (
