@@ -76,6 +76,7 @@ const Settings = (props)=>{
             }else{
                 setConnectedWebhook(false);
                 setLoading(false);
+                setUser(rs);
             }
 
             if(rs && rs.carrier){
@@ -83,6 +84,7 @@ const Settings = (props)=>{
                 setUser(rs);
             }else{
                 setConnectedCarriers(false);
+                setUser(rs);
             }
 
             console.log("setuser", user);
