@@ -13,7 +13,7 @@ const AccountStatus  = (props)=> {
   
     return (
       <AccountConnection
-        accountName={shop}
+        accountName={props.shop}
         connected={props.status}
         title={props.shop}
         action={{
