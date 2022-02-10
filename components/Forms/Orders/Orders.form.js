@@ -43,6 +43,7 @@ const OrdersForm = (props)=>{
 
         if(data){
             setOrdersData(data[DATA_KEY].edges);
+            isConnected();
         }
 
         (async () => {
@@ -52,7 +53,6 @@ const OrdersForm = (props)=>{
             }
         })()
 
-        isConnected();
 
     }, [application, data, ordersData]);
 
