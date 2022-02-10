@@ -32,6 +32,7 @@ const AccountStatus  = (props)=> {
                 setConnected(false)
             }else{
                 props.actionConnect()
+                setConnected(true);
             }
           },
         }}
