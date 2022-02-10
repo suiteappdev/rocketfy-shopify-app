@@ -120,13 +120,6 @@ const Datatable = (props)=>{
         plural: 'orders',
       };
 
-      if(props.orders.length > 0 && props.cities.length > 0){
-        (async () => {
-          let orderList = await mapCourrier(props.orders, props.cities);
-           setOrders(orderList);
-        })()
-      }
-
       const resourceIDResolver = (orders) => {
         return orders.node.id;
       };

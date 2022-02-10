@@ -11,7 +11,6 @@ import { Get }  from '../../../helpers/request.helper';
 
 const OrdersForm = (props)=>{
     const [ordersData, setOrdersData] = useState([]);
-    const [cities, setCities] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [checked, setChecked] = useState(false);
     const {loading, error, data} = useQuery(ORDERS_QUERY);
@@ -45,14 +44,6 @@ const OrdersForm = (props)=>{
             setOrdersData(data[DATA_KEY].edges);
             isConnected();
         }
-
-        (async () => {
-            if(!cities || cities.length == 0){
-                const list = await getlist(true);
-                setCities(list);
-            }
-        })()
-
 
     }, [application, data, ordersData]);
 
@@ -110,7 +101,7 @@ const OrdersForm = (props)=>{
                 <FormLayout>
                     { connected ? (
                     <React.Fragment>
-                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} cities={cities} toApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
+                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} toApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
                             {(ordersData.length > 0 )  ? (
                                 <React.Fragment styles={{marginTop:'30px'}}>
                                     <ButtonGroup>
