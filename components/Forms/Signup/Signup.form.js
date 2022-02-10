@@ -64,8 +64,10 @@ const SignupForm = (props)=>{
                txtCity : data[DATA_KEY].billingAddress.city
            });
 
-           isConnected();
         }
+
+        isConnected();
+
     }, [data, connected]);
 
     const onChange = (value, id)=>{
