@@ -8,6 +8,7 @@ import {removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/
 
 const Settings = (props)=>{
     const [isLoading, setLoading] = useState(false);
+    const [storeData, setStoreData] = useState({});
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connectedWebhook, setConnectedWebhook] = useState(false);
     const [connectedCarriers, setConnectedCarriers] = useState(false);
@@ -98,51 +99,6 @@ const Settings = (props)=>{
             active : options.active,
             content :options.content
         });
-    }
-
-    const disconnect = ()=>{
-        setLoading(true);
-        //setConnected(false);
-        removeRocketfyToken();
-        setLoading(false);
-        localStorage.clear();
-    }
-
-    const connect = async ()=>{
-        setLoading(true);
-        
-        let data = {
-            email: form.txtEmail,
-            name: form.txtShop,
-            customer_name : form.txtFullname,
-            country : form.txtCountry,
-            phone : form.txtPhone,
-            terms : true,
-            origin_city :form.txtCity,
-            origin_departament: form.txtProvince,
-            address_shop:form.txtAddress,
-            customer_domain : form.txtDomain,
-            partnerID:process.env.ROCKETFY_PARTNERID,
-        }
-
-        let response = await PostRequest(`http://localhost:4001/api/public/createAccount` , data).catch(e=>toast({
-            content : "Ocurrio un error al conectar la cuenta.",
-            active : true,
-        }));
-
-        if(response){
-            if(response.data.redirectUrl){
-                //let url = await verifyUrl({ redirectUrl : response.data.redirectUrl}).catch(async (e)=>console.log("error", e));
-                    //setConnected(true);
-                    setLoading(false);
-                    setAppToken(response.data.redirectUrl);
-                    setCustomerId(response.data.customerID);
-                    toast({
-                        content : "Cuenta conectada.",
-                        active : true,
-                    });
-            }
-        }
     }
 
     return (
