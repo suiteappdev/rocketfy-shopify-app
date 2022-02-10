@@ -3,7 +3,7 @@ import {Form, FormLayout, Banner, Toast, AccountConnection, Link} from '@shopify
 import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
-import { PostRequest, refreshToken, verifyUrl } from '../../../helpers/request.helper';
+import { PostRequest, Get } from '../../../helpers/request.helper';
 import { isConnected, removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
 import { getISO } from '../../../helpers/country.helper';
 
