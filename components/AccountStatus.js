@@ -19,11 +19,7 @@ const AccountStatus  = (props)=> {
         action={{
           content: buttonText,
           onAction: ()=>{
-            if(props.status){
-                props.actionDisconnect();
-            }else{
-                props.actionConnect()
-            }
+            props.actionConnect()
           },
         }}
         details={details}
