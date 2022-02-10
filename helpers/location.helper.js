@@ -1,4 +1,4 @@
-import { PostRequest } from "./request.helper";
+import { PostRequest, Post } from "./request.helper";
 
 const getCourrier = (cities, city)=>{
     return new Promise(async (resolve, reject)=>{
