@@ -66,9 +66,8 @@ const SignupForm = (props)=>{
                txtCity : data[DATA_KEY].billingAddress.city
            });
 
+            isConnected();
         }
-
-        isConnected();
 
     }, [data, connected]);
 
@@ -158,7 +157,7 @@ const SignupForm = (props)=>{
                 <FormLayout>
                 <AccountConnection
                     accountName={form.txtShop}
-                    connected={true}
+                    connected={connected}
                     title={form.txtShop}
                     action={{
                     content: buttonText,
