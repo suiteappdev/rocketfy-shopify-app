@@ -16,6 +16,7 @@ const Settings = (props)=>{
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connectedWebhook, setConnectedWebhook] = useState(false);
     const [connectedCarriers, setConnectedCarriers] = useState(false);
+    const [user, setUser] = useState({});
 
     const [showToast, setShowToast] = useState({
         content : '',
@@ -30,11 +31,19 @@ const Settings = (props)=>{
 
     const handleActionConnectCarriers = useCallback(() => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
-        if(!connectedCarriers){
-            alert("conectado")
-        }else{
-            alert("no conectado")
+        
+        let changeStatus =  async (status)=>{
+            let status = await Put(`/api/settings/status/${user._id}`, {
+                webhook : status
+            });
         }
+
+        if(!connectedCarriers){
+            changeStatus(false);
+        }else{
+            changeStatus(true);
+        }
+        
       }, [connectedCarriers]);
   
     const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
@@ -63,14 +72,16 @@ const Settings = (props)=>{
 
             if(rs && rs.webhook){
                 setLoading(false);
-                setConnectedWebhook(true)
+                setConnectedWebhook(true);
+                setUser(rs);
             }else{
                 setConnectedWebhook(false);
                 setLoading(false);
             }
 
             if(rs && rs.carrier){
-                setConnectedCarriers(true)
+                setConnectedCarriers(true);
+                setUser(rs);
             }else{
                 setConnectedCarriers(false);
             }

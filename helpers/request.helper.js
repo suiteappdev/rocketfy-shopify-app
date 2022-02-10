@@ -28,6 +28,21 @@ const Post = (url, body)=>{
     });
 }
 
+const Put = (url, body)=>{
+    return new Promise(async (resolve, reject)=>{
+        const options = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body : JSON.stringify(body)
+        };
+
+        const response = await fetch(url, options).catch(e=>reject(e));
+        const data = await response.json().catch(e=>reject(e));
+    
+        resolve(data);
+    });
+}
+
 const Get = (url)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
@@ -93,4 +108,4 @@ const verifyUrl = (body)=>{
     });
 }
 
-export { PostRequest, getAcessToken, refreshToken, verifyUrl, Post , Get}
+export { PostRequest, getAcessToken, refreshToken, verifyUrl, Post , Get, Put}
