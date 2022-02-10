@@ -23,18 +23,10 @@ const OrdersForm = (props)=>{
         active : false,
     });
 
-    const subscribe = useCallback((newChecked) => {
-        if(newChecked){
-            setChecked(newChecked);
-        }else{
-            setChecked(newChecked);
-        }
-    }, []);
-  
     useEffect(()=>{
         let isConnected  = async ()=>{
             setLoading(true);
-            let rs = await Get(`/api/settings/me/${data[DATA_KEY].shop.myshopifyDomain}`).catch((e)=>{
+            let rs = await Get(`/api/settings/me/${data.shop.myshopifyDomain}`).catch((e)=>{
                 setLoading(false);
                 toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
             });
@@ -65,6 +57,9 @@ const OrdersForm = (props)=>{
                     }                        
                 } catch (e) {
                    console.log(`Error getting cities : ${e.message}`); 
+                   const list = await getlist(true);
+                   setCities(list);
+                   setJson('cities-cache', list);
                 }
             }
         })()
