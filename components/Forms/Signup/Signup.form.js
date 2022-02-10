@@ -34,7 +34,7 @@ const SignupForm = (props)=>{
                 setConnected(true);
                 setLoading(false);
             }else{
-                setConnected(true);
+                setConnected(false);
                 setLoading(false);
             }
         }
