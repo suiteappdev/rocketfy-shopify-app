@@ -1,4 +1,4 @@
-const PostRequest = (url, body, headers)=>{
+const PostRequest = (url, body)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
             method: 'POST',
