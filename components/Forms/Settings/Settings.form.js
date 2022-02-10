@@ -30,6 +30,11 @@ const Settings = (props)=>{
 
     const handleActionConnectCarriers = useCallback(() => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
+        if(!connectedCarriers){
+            alert("conectado")
+        }else{
+            alert("no conectado")
+        }
       }, [connectedCarriers]);
   
     const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
@@ -154,7 +159,9 @@ const Settings = (props)=>{
                         title="Importar transportadoras Rocketfy"
                         action={{
                             content: buttonTextCarriers,
-                            onAction: handleActionConnectCarriers,
+                            onAction: ()=>{
+                                handleActionConnectCarriers()
+                            },
                         }}
                         details={detailsCarriers}
                         termsOfService={termsCarriers}
