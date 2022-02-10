@@ -152,9 +152,9 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                    <AccountConnection
+                <AccountConnection
                     accountName={form.txtShop}
-                    connected={connected}
+                    connected={true}
                     title={form.txtShop}
                     action={{
                     content: buttonText,
