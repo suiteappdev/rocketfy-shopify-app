@@ -102,7 +102,7 @@ const OrdersForm = (props)=>{
                 <FormLayout>
                     { connected ? (
                     <React.Fragment>
-                    {((ordersData.length) > 0) ? <Datatable orders={ordersData || []} toApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
+                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} toApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
                             {(ordersData.length > 0 )  ? (
                                 <React.Fragment styles={{marginTop:'30px'}}>
                                     <ButtonGroup>
@@ -110,7 +110,6 @@ const OrdersForm = (props)=>{
                                     </ButtonGroup>
                                 </React.Fragment>
                             ) : (null) }
-
                     </React.Fragment>
                     ) : (
                         <Banner

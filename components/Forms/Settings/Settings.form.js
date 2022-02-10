@@ -16,6 +16,7 @@ const Settings = (props)=>{
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connectedWebhook, setConnectedWebhook] = useState(false);
     const [connectedCarriers, setConnectedCarriers] = useState(false);
+
     const [showToast, setShowToast] = useState({
         content : '',
         active : false,
@@ -36,19 +37,44 @@ const Settings = (props)=>{
     const termsWebhook = connectedWebhook ? null : (
       <p>
         Haciendo click en <strong>Conectar</strong>, habilitas la sincronización automatica de pedidos en nuestro
-        <Link url="Example App">Panel de Envios Rocketfy</Link>.
+        <Link url="Example App"> Panel de Envios Rocketfy</Link>.
     </p>)
 
     const buttonTextCarriers = connectedCarriers ? 'Desconectar' : 'Conectar';
     const detailsCarriers = connectedCarriers ? 'Conectado' : 'No conectado';
     const termsCarriers = connectedCarriers ? null : (
     <p>
-        Haciendo click en <strong>Conectar</strong>, habilitas la sincronización automatica de pedidos en nuestro
-        <Link url="Example App">Panel de Envios Rocketfy</Link>.
+        Haciendo click en <strong>Conectar</strong>, habilitas todas las transportadoras disponibles en Rocketfy
+        <Link url="Example App"> Panel de Envios Rocketfy</Link>.
     </p>)
     
     useEffect(()=>{
-        //setConnected(isConnected());
+       let isConnectedSettings =  async ()=>{
+            setLoading(true);
+            let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
+                setLoading(false);
+                toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
+            });
+
+            if(rs && rs.webhook){
+                setLoading(false);
+                setConnectedWebhook(true)
+            }else{
+                setConnectedWebhook(false);
+                setLoading(false);
+            }
+
+            if(rs && rs.carrier){
+                setConnectedCarriers(true)
+            }else{
+                setConnectedCarriers(false);
+            }
+        }
+
+       if (data){
+            setStoreData(data[DATA_KEY]);
+            isConnectedSettings();
+        }
     }, []);
 
     const toast = (options)=>{
