@@ -47,20 +47,8 @@ const OrdersForm = (props)=>{
 
         (async () => {
             if(!cities || cities.length == 0){
-                try {
-                    if(!getJson('cities-cache')){
-                        const list = await getlist(true);
-                        setCities(list);
-                        setJson('cities-cache', list);
-                    }else{
-                        setCities(getJson('cities-cache'));
-                    }                        
-                } catch (e) {
-                   console.log(`Error getting cities : ${e.message}`); 
-                   const list = await getlist(true);
-                   setCities(list);
-                   setJson('cities-cache', list);
-                }
+                const list = await getlist(true);
+                setCities(list);
             }
         })()
 
