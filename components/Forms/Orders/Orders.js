@@ -15,6 +15,7 @@ import {
 import {createCarrier as CreateCarrier, deleteCarrier as DeleteCarrier, getCarriers as GetCarriers} from '../../../helpers/carrier.helper';
 
 const Datatable = (props)=>{
+    console.log("dattatble props", props)
      const [orders, setOrders]  = useState([]);
      const [curriers, setCurriers]  = useState([]);
      const [currentOrder, setCurrentOrder]  = useState({});
