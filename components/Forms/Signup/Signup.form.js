@@ -25,12 +25,12 @@ const SignupForm = (props)=>{
     useEffect(()=>{
         let isConnected  = async ()=>{
             setLoading(true);
-            let connected = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
+            let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                 setLoading(false);
                 toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
             });
             
-            if(connected.length > 0){
+            if(rs.length > 0){
                 setConnected(true);
                 setLoading(false);
             }else{

@@ -27,7 +27,6 @@ const AccountStatus  = (props)=> {
           content: buttonText,
           onAction: ()=>{
             if(connected){
-              console.log("connected", connected)
                 props.actionDisconnect();
                 setConnected(false)
             }else{
