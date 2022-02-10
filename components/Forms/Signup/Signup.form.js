@@ -30,14 +30,9 @@ const SignupForm = (props)=>{
                 toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
             });
 
-            console.log("RS", rs);
-            
-            if(rs.length > 0){
+            if(rs){
                 setConnected(true);
-                console.log("rs", rs);
-                setLoading(false);
-            }else{
-                setConnected(false);
+                console.log("rs - 2", rs);
                 setLoading(false);
             }
         }
