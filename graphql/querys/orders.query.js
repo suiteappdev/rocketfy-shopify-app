@@ -63,6 +63,10 @@ const ORDERS_QUERY = gql`
                 }
             }
         }
+        shop {
+            email
+            myshopifyDomain
+        } 
     }
 `
 
