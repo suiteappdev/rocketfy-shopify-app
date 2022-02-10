@@ -33,7 +33,7 @@ const Settings = (props)=>{
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
         
         let changeStatus =  async (status)=>{
-            let status = await Put(`/api/settings/status/${user._id}`, {
+            let r = await Put(`/api/settings/status/${user._id}`, {
                 webhook : status
             });
         }
@@ -43,7 +43,7 @@ const Settings = (props)=>{
         }else{
             changeStatus(true);
         }
-        
+
       }, [connectedCarriers]);
   
     const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
