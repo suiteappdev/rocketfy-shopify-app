@@ -6,8 +6,6 @@ import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
 import { PostRequest, Get, Put } from '../../../helpers/request.helper';
 import {removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
 
-const ROCKETFY_APIHOST = process.env.ROCKETFY_APIHOST;
-
 const Settings = (props)=>{
     const [isLoading, setLoading] = useState(false);
     const {loading, error, data} = useQuery(STORE_QUERY);
@@ -30,6 +28,7 @@ const Settings = (props)=>{
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
         
         let changeStatus =  async (status)=>{
+            console.log("change stataus user", user)
             let r = await Put(`/api/settings/status/${user._id}`, {
                 webhook : status
             });
@@ -84,6 +83,8 @@ const Settings = (props)=>{
             }else{
                 setConnectedCarriers(false);
             }
+
+            console.log("setuser", user);
         }
 
        if (data){
