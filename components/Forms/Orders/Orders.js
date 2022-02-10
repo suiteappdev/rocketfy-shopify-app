@@ -166,6 +166,7 @@ const Datatable = (props)=>{
 
       const rowMarkup = orders.map(
          ({node}, index) => {
+           console.log("node", {node})
            return(
             <IndexTable.Row
               id={node.id}

@@ -42,6 +42,7 @@ const OrdersForm = (props)=>{
 
         if(data){
             setOrdersData(data[DATA_KEY].edges);
+            console.log("data[DATA_KEY].edges", data[DATA_KEY].edges)
             isConnected();
         }
 
@@ -101,7 +102,7 @@ const OrdersForm = (props)=>{
                 <FormLayout>
                     { connected ? (
                     <React.Fragment>
-                    {((ordersData.length) > 0) ? <Datatable orders={ordersData} toApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
+                    {((ordersData.length) > 0) ? <Datatable orders={ordersData || []} toApp={open} /> : <EmptyState heading={'No tienes pedidos por preparar'}  content={'ir a Rocketfy'} />}
                             {(ordersData.length > 0 )  ? (
                                 <React.Fragment styles={{marginTop:'30px'}}>
                                     <ButtonGroup>
