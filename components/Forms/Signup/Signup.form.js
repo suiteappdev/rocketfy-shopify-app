@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {Button, Spinner, TextField, Form, FormLayout, Banner, Toast} from '@shopify/polaris'
+import {Button, Spinner, TextField, Form, FormLayout, Banner, Toast, Link, AccountConnection} from '@shopify/polaris'
 import styles from './Signup.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
@@ -21,6 +21,15 @@ const SignupForm = (props)=>{
         content : '',
         active : false,
     });
+
+    const buttonText = connected ? 'Desconectar' : 'Conectar';
+    const details = connected ? 'Cuenta conectada' : 'Cuenta no conectada';
+    const terms = connected ? null : (
+      <p>
+        Haciendo click en<strong> Conectar</strong>, Usted esta aceptando los
+        <Link external url="https://www.rocketfy.co/terminos/"> terminos y condiciones</Link> de rocketfy.
+      </p>
+    );
     
     useEffect(()=>{
         let isConnected  = async ()=>{
@@ -143,7 +152,19 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                   <AccountStatus status={connected} actionDisconnect={disconnect} actionConnect={connect} shop={form.txtShop} />
+                    <AccountConnection
+                    accountName={txtShop}
+                    connected={connected}
+                    title={txtShop}
+                    action={{
+                    content: buttonText,
+                    onAction: ()=>{
+                        connect()
+                    },
+                    }}
+                    details={details}
+                    termsOfService={terms}
+                />
                    {connected ? (null) : (
                     <React.Fragment>
                         <TextField
