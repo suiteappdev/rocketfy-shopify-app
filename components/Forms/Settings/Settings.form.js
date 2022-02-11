@@ -28,20 +28,17 @@ const Settings = (props)=>{
     const handleActionConnectCarriers = useCallback(() => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
         
-        let changeStatus =  async (status)=>{
-            console.log("change stataus user", user)
-            let r = await Put(`/api/settings/status/${user._id}`, {
-                webhook : status
-            });
+        let changeStatus =  async ()=>{
+            console.log("user  change status", user);
 
-            console.log("r", r);
+            if(user){
+                let r = await Put(`/api/settings/status/${user._id}`, {
+                    webhook : connectedCarriers
+                });
+            }
         }
 
-        if(!connectedCarriers){
-            changeStatus(false);
-        }else{
-            changeStatus(true);
-        }
+        changeStatus();
 
       }, [connectedCarriers]);
   
