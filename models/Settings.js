@@ -11,6 +11,7 @@ const SettingsSchema = new Schema({
     webhook: { type: Boolean, default : false  },
     carrier: { type: Boolean, default : false  },
     urlRedirect : {  type : String },
+    access_token : { type: String },
     metadata : { type : Object}
 });
 
