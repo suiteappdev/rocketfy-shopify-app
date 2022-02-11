@@ -161,12 +161,10 @@ app.prepare().then(async () => {
 
   router.post('/webhook-notification', async (ctx)=>{
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
-    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     ctx.response.status = 200;
     ctx.response.body  =  ctx.request.body;
-    console.log(`Webhook processed, returned status code 200`, ctx.request.body);
-    console.log(`SHOP`, session.shop);
+    console.log(`Webhook processed, returned status code 200`, session);
   });
 
   router.post("/carrier-service", async (ctx) => {
