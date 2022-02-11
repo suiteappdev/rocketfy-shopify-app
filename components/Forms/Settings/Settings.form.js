@@ -64,27 +64,26 @@ const Settings = (props)=>{
     useEffect(()=>{
        let isConnectedSettings =  async ()=>{
             setLoading(true);
+            
             let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                 setLoading(false);
                 toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
             });
 
+            setUser(rs);
+
             if(rs && rs.webhook){
                 setLoading(false);
                 setConnectedWebhook(true);
-                setUser(rs);
             }else{
                 setConnectedWebhook(false);
                 setLoading(false);
-                setUser(rs);
             }
 
             if(rs && rs.carrier){
                 setConnectedCarriers(true);
-                setUser(rs);
             }else{
                 setConnectedCarriers(false);
-                setUser(rs);
             }
 
             console.log("setuser", user);
