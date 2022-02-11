@@ -81,8 +81,6 @@ const Datatable = (props)=>{
         let response = await CreateCarrier(shopifyToken).catch((e)=>{
           console.log(e);
         });
-
-        console.log("response", response);
     }
 
     const deleteCarrier = async ()=>{
@@ -170,7 +168,6 @@ const Datatable = (props)=>{
 
       const rowMarkup = orders.map(
          ({node}, index) => {
-           console.log("node", {node})
            return(
             <IndexTable.Row
               id={node.id}

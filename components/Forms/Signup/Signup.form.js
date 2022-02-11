@@ -112,8 +112,6 @@ const SignupForm = (props)=>{
                     active : true,
                 }));
 
-                console.log("settings", setting)
-
                 if(setting){
                     setConnected(true);
                     setLoading(false);
@@ -145,7 +143,7 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                    <AccountStatus status={connected} actionDisconnect={disconnect} actionConnect={connect} shop={form.txtShop} />
+                    <AccountStatus status={connected} actionDisconnect={disconnect} actionConnect={connect} shop={form.txtShop || ''} />
                    {connected ? (null) : (
                     <React.Fragment>
                         <TextField
