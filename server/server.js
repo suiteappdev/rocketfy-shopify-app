@@ -161,6 +161,14 @@ app.prepare().then(async () => {
 
   router.post('/webhook-notification', async (ctx)=>{
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+    console.log("body", ctx.request.body)
+
+    if (session === undefined || ACTIVE_SHOPIFY_SHOPS[session.shop] === undefined) {
+        ctx.redirect(`/auth?shop=${session.shop}`);
+        return;
+    }
 
     ctx.response.status = 200;
     ctx.response.body  =  ctx.request.body;
