@@ -161,6 +161,7 @@ app.prepare().then(async () => {
   });
 
   router.post('/webhook-notification', async (ctx)=>{
+    console.log("body", ctx.request.body);
     let host = new URL(ctx.request.body.order_status_url).host;
     let auth = await Settings.findOne({ domain :  host});
 
