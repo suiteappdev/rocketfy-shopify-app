@@ -164,7 +164,7 @@ app.prepare().then(async () => {
     let host = new URL(ctx.request.body.order_status_url).host;
     let r = await Settings.findOne({ domain :  host});
 
-    let order = {
+    let data = {
         "id" : ctx.request.body.name,
         "customerID":r.customerID,
         "currency": ctx.request.body.current_total_price_set.shop_money.currency_code,
@@ -173,7 +173,7 @@ app.prepare().then(async () => {
         "total": parseInt(ctx.request.body.current_total_price_set.shop_money.amount),
         "payment_method": "cod",
         "dimensions" : {
-          width : 0, height : 0 , weight : 2, large : 0
+          width : 0, height : 0 , weight : ctx.request.body.total_weight, large : 0
         },
         "shipping" : ctx.request.body.shipping_address,
         "billing": {
@@ -183,10 +183,10 @@ app.prepare().then(async () => {
           "address_1":  ctx.request.body.billing_address.address1,
           "address_2":  ctx.request.body.billing_address.address2,
           "city":  ctx.request.body.billing_address.city,
-          "state": ctx.request.body.billing_address.state,
+          "state": ctx.request.body.shipping_address.province,
           "country": ctx.request.body.billing_address.country_code,
           "email": ctx.request.body.customer.email,
-          "phone": ctx.request.body.customer.phone || '0'
+          "phone": ctx.request.body.phone || '0'
         },
         "line_items": ctx.request.body.line_items.map((item)=>{
             return {
@@ -203,11 +203,12 @@ app.prepare().then(async () => {
         })
     }
 
-    console.log("order", order);
+    let order = await createOrder(data);
 
     ctx.response.status = 200;
-    ctx.response.body  =  response.data;
+    ctx.response.body  = order;
     console.log(`Webhook processed, returned status code 200`);
+    
   });
 
   router.post("/carrier-service", async (ctx) => {
