@@ -28,6 +28,8 @@ const Settings = (props)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
                 webhook : connectedWebhook
             });
+
+            toast({ content : `${connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
          }
 
         changeStatus();
@@ -41,6 +43,8 @@ const Settings = (props)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
                 carrier : connectedCarriers
             });
+
+            toast({ content : `${connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
 
         changeStatus();
@@ -69,7 +73,7 @@ const Settings = (props)=>{
                 
                 let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                     setLoading(false);
-                    toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
+                    toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true});
                 });
 
                 setConnectedCarriers(rs.carrier);
