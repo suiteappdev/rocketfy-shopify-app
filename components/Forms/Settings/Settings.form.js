@@ -60,7 +60,7 @@ const Settings = (props)=>{
     
     useEffect(()=>{
         let isConnectedSettings =  async ()=>{
-            return new Promise((resolve, reject)=>{
+            return new Promise(async (resolve, reject)=>{
                 setLoading(true);
                 
                 let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
