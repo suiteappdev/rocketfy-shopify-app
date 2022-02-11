@@ -22,13 +22,20 @@ const Settings = (props)=>{
     const accountName = connectedWebhook || connectedCarriers ? 'Rocketfy' : '';
   
     const handleActionConnectWebhook = useCallback(() => {
-      setConnectedWebhook((connectedWebhook) => !connectedWebhook);
+        setConnectedWebhook((connectedWebhook) => !connectedWebhook);
+
+        let changeStatus =  async ()=>{
+            let r = await Put(`/api/settings/status/${user._id}`, {
+                webhook : connectedWebhook
+            });
+         }
+
+        changeStatus();
+
     }, [connectedWebhook]);
 
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
-
-        alert(user._id);
 
         let changeStatus =  async ()=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
