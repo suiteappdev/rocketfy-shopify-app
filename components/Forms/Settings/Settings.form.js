@@ -29,7 +29,7 @@ const Settings = (props)=>{
                 webhook : connectedWebhook
             });
 
-            toast({ content : `${connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
+            toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
          }
 
         changeStatus();
@@ -44,7 +44,7 @@ const Settings = (props)=>{
                 carrier : connectedCarriers
             });
 
-            toast({ content : `${connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
+            toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
 
         changeStatus();
