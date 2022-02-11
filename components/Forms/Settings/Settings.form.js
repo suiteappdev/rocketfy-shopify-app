@@ -64,11 +64,13 @@ const Settings = (props)=>{
     useEffect(()=>{
        let isConnectedSettings =  async ()=>{
             setLoading(true);
-            
+
             let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                 setLoading(false);
                 toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
             });
+
+            console.log("rs", rs);
 
             setUser(rs);
 
@@ -86,7 +88,6 @@ const Settings = (props)=>{
                 setConnectedCarriers(false);
             }
 
-            console.log("setuser", user);
         }
 
        if (data){
