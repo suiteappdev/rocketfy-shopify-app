@@ -79,8 +79,11 @@ const Settings = (props)=>{
                 setLoading(false);
             }
 
-            setStoreData(data[DATA_KEY]);
-            isConnectedSettings();
+            if(data[DATA_KEY]){
+                setStoreData(data[DATA_KEY]);
+                isConnectedSettings();
+            }
+
     }, []);
 
     const toast = (options)=>{
