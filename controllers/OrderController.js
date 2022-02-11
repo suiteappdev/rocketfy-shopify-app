@@ -3,6 +3,8 @@ import axios from "axios";
 const OrderController  = {
     createOrder : (data, auth)=>{
         return new Promise(async (resolve, reject)=>{
+                let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
+
                 let order = {
                     "id" : data.name,
                     "customerID":auth.customerID,
@@ -41,11 +43,11 @@ const OrderController  = {
                     })
                 }
 
-                let o = await axios.post(`http://localhost:4001/api/public/v2/createOrders`,{ orders : [order], dbname : auth.customerID}, {
-                    headers: { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
-                }).catch((e)=>reject(e));
-
-                console.log("o", o);
+                let o = await axios.post(`http://localhost:4001/api/public/v2/createOrders`, 
+                        { orders : [order], dbname : auth.customerID}, 
+                        { headers : headers }).catch((e)=>reject(e));
+                
+                        console.log("o", o);
 
                 if(o && o.data){
                     return resolve(o.data);
