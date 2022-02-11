@@ -162,10 +162,7 @@ app.prepare().then(async () => {
 
   router.post('/webhook-notification', async (ctx)=>{
     let host = new URL(ctx.request.body.order_status_url).host;
-    console.log("host", host);
     let r = await Settings.findOne({ domain :  host});
-
-    console.log("r", r);
 
     let order = {
         "id" : ctx.request.body.name,
@@ -210,7 +207,7 @@ app.prepare().then(async () => {
 
     ctx.response.status = 200;
     ctx.response.body  =  response.data;
-    console.log(`Webhook processed, returned status code 200`, y);
+    console.log(`Webhook processed, returned status code 200`);
   });
 
   router.post("/carrier-service", async (ctx) => {
