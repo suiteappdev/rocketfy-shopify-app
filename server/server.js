@@ -8,7 +8,7 @@ import next from "next";
 import Router, { url } from "koa-router";
 import mongoose from 'mongoose';
 import Settings from '../models/Settings';
-import {createOrder} from '../helpers/order.helper';
+import { createOrder } from '../controllers/OrderController'
 
 dotenv.config();
 
@@ -163,22 +163,22 @@ app.prepare().then(async () => {
   router.post('/webhook-notification', async (ctx)=>{
     let host = new URL(ctx.request.body.order_status_url).host;
     console.log("host", host);
-    let r = await Settings.findOne({ url :  host});
+    let r = await Settings.findOne({ domain :  host});
 
     console.log("r", r);
 
     let order = {
         "id" : ctx.request.body.name,
         "customerID":r.customerID,
-        "currency": ctx.request.body.currentTotalPriceSet.shopMoney.currency_code,
+        "currency": ctx.request.body.current_total_price_set.shop_money.currency_code,
         "shipping_total": 10000,
-        "subtotal": parseInt(ctx.request.body.currentSubtotalPriceSet.shopMoney.amount),
-        "total": parseInt(ctx.request.body.currentTotalPriceSet.shopMoney.amount),
+        "subtotal": parseInt(ctx.request.body.current_subtotal_price_set.shop_money.amount),
+        "total": parseInt(ctx.request.body.current_total_price_set.shop_money.amount),
         "payment_method": "cod",
         "dimensions" : {
           width : 0, height : 0 , weight : 2, large : 0
         },
-        "shipping" : ctx.request.body.shippingAddress,
+        "shipping" : ctx.request.body.shipping_address,
         "billing": {
           "first_name":ctx.request.body.billing_address.first_name,
           "last_name": ctx.request.body.billing_address.last_name,
@@ -193,10 +193,10 @@ app.prepare().then(async () => {
         },
         "line_items": ctx.request.body.line_items.map((item)=>{
             return {
-                "name": item.variant.name,
+                "name": item.name,
                 "variation_name": item.title,
                 "quantity": item.quantity,
-                "total": (parseInt(item.discountedTotalSet.shopMoney.amount) * item.quantity),
+                "total": (parseInt(item.price) * item.quantity),
                 "price": parseInt(item.price),
                 "width": 0,
                 "height": 0,
