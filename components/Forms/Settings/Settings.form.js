@@ -25,8 +25,10 @@ const Settings = (props)=>{
       setConnectedWebhook((connectedWebhook) => !connectedWebhook);
     }, [connectedWebhook]);
 
-    const handleActionConnectCarriers = useCallback((user) => {
+    const handleActionConnectCarriers = useCallback(() => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
+
+        console.log("USER", user)
 
         let changeStatus =  async ()=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
@@ -65,6 +67,7 @@ const Settings = (props)=>{
 
                 console.log("rs", rs);
                 setUser(rs);
+                setLoading(false);
             }
 
             setStoreData(data[DATA_KEY]);
