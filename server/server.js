@@ -164,11 +164,12 @@ app.prepare().then(async () => {
     let host = new URL(ctx.request.body.order_status_url).host;
     let auth = await Settings.findOne({ domain :  host});
 
-    let order = await createOrder(ctx.request.body, auth);
-
-    ctx.response.status = 200;
-    ctx.response.body  = order;
-    console.log(`Webhook processed, returned status code 200`);
+    if(auth.webhook){
+        let order = await createOrder(ctx.request.body, auth);
+        ctx.response.status = 200;
+        ctx.response.body  = order;
+        console.log(`Webhook processed, returned status code 200`);
+    }
 
   });
 
