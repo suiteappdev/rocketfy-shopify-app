@@ -162,53 +162,14 @@ app.prepare().then(async () => {
 
   router.post('/webhook-notification', async (ctx)=>{
     let host = new URL(ctx.request.body.order_status_url).host;
-    let r = await Settings.findOne({ domain :  host});
+    let auth = await Settings.findOne({ domain :  host});
 
-    let data = {
-        "id" : ctx.request.body.name,
-        "customerID":r.customerID,
-        "currency": ctx.request.body.current_total_price_set.shop_money.currency_code,
-        "shipping_total": 10000,
-        "subtotal": parseInt(ctx.request.body.current_subtotal_price_set.shop_money.amount),
-        "total": parseInt(ctx.request.body.current_total_price_set.shop_money.amount),
-        "payment_method": "cod",
-        "dimensions" : {
-          width : 0, height : 0 , weight : ctx.request.body.total_weight, large : 0
-        },
-        "shipping" : ctx.request.body.shipping_address,
-        "billing": {
-          "first_name":ctx.request.body.billing_address.first_name,
-          "last_name": ctx.request.body.billing_address.last_name,
-          "company": "",
-          "address_1":  ctx.request.body.billing_address.address1,
-          "address_2":  ctx.request.body.billing_address.address2,
-          "city":  ctx.request.body.billing_address.city,
-          "state": ctx.request.body.shipping_address.province,
-          "country": ctx.request.body.billing_address.country_code,
-          "email": ctx.request.body.customer.email,
-          "phone": ctx.request.body.phone || '0'
-        },
-        "line_items": ctx.request.body.line_items.map((item)=>{
-            return {
-                "name": item.name,
-                "variation_name": item.title,
-                "quantity": item.quantity,
-                "total": (parseInt(item.price) * item.quantity),
-                "price": parseInt(item.price),
-                "width": 0,
-                "height": 0,
-                "large":0,
-                "weight": parseInt(item.grams / 1000)
-            }
-        })
-    }
-
-    let order = await createOrder(data);
+    let order = await createOrder(ctx.request.body, auth);
 
     ctx.response.status = 200;
     ctx.response.body  = order;
     console.log(`Webhook processed, returned status code 200`);
-    
+
   });
 
   router.post("/carrier-service", async (ctx) => {
