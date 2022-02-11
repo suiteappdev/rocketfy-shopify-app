@@ -18,9 +18,8 @@ const OrderController  = {
                     "billing": {
                     "first_name":data.billing_address.first_name,
                     "last_name": data.billing_address.last_name,
-                    "company": "",
                     "address_1":  data.billing_address.address1,
-                    "address_2":  ctx.request.body.billing_address.address2,
+                    "address_2":  data.billing_address.address2,
                     "city":  data.billing_address.city,
                     "state": data.shipping_address.province,
                     "country": data.billing_address.country_code,
