@@ -27,10 +27,10 @@ const Settings = (props)=>{
 
         let changeStatus =  async (status)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
-                webhook : status
+                webhook : !status
             });
 
-            toast({ content : `${connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
+            toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
          }
 
         changeStatus(connectedWebhook);
@@ -40,14 +40,12 @@ const Settings = (props)=>{
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
 
-        console.log("connectedCarriers", connectedCarriers);
-
         let changeStatus =  async (status)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
-                carrier : status
+                carrier : !status
             });
 
-            toast({ content : `${connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
+            toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
 
         changeStatus(connectedCarriers);
