@@ -28,21 +28,13 @@ const Settings = (props)=>{
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
 
-        console.log("handleActionConnectCarriers", user);
-
-        let changeStatus =  async (status)=>{
-            if(user._id){
-                let r = await Put(`/api/settings/status/${user._id}`, {
-                    carrier : status
-                });
-            }
+        let changeStatus =  async ()=>{
+            let r = await Put(`/api/settings/status/${user._id}`, {
+                carrier : connectedCarriers
+            });
         }
 
-        if(connectedCarriers){
-            changeStatus(true);
-        }else{
-            changeStatus(false);
-        }
+        changeStatus();
 
       }, [connectedCarriers]);
   
@@ -63,25 +55,21 @@ const Settings = (props)=>{
     </p>)
     
     useEffect(()=>{
-        let isConnectedSettings =  async ()=>{
-            setLoading(true);
-            
-            let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
-                setLoading(false);
-                toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
-            });
+            let isConnectedSettings =  async ()=>{
+                setLoading(true);
+                
+                let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
+                    setLoading(false);
+                    toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
+                });
 
-            console.log("rs", rs);
-
-            setUser(rs);
-        }
-
-            if (data){
-                setStoreData(data[DATA_KEY]);
-                isConnectedSettings();
+                console.log("rs", rs);
+                setUser(rs);
             }
 
-    }, [user]);
+            setStoreData(data[DATA_KEY]);
+            isConnectedSettings();
+    }, []);
 
     const toast = (options)=>{
         setShowToast({
@@ -115,9 +103,7 @@ const Settings = (props)=>{
                         title="Importar transportadoras Rocketfy"
                         action={{
                             content: buttonTextCarriers,
-                            onAction: ()=>{
-                                handleActionConnectCarriers(user)
-                            },
+                            onAction: ()=>handleActionConnectCarriers,
                         }}
                         details={detailsCarriers}
                         termsOfService={termsCarriers}
