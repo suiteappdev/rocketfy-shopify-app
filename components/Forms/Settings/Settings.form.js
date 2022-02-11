@@ -70,9 +70,9 @@ const Settings = (props)=>{
                 toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
             });
 
-            console.log("rs", rs);
-
             setUser(rs);
+
+            console.log("user", user);
 
             if(rs && rs.webhook){
                 setLoading(false);
