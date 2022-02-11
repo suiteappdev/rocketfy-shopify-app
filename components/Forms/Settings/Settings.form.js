@@ -25,20 +25,24 @@ const Settings = (props)=>{
       setConnectedWebhook((connectedWebhook) => !connectedWebhook);
     }, [connectedWebhook]);
 
-    const handleActionConnectCarriers = useCallback(() => {
+    const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
-        
-        let changeStatus =  async ()=>{
-            console.log("user  change status", user);
 
+        console.log("handleActionConnectCarriers", user);
+
+        let changeStatus =  async (status)=>{
             if(user._id){
                 let r = await Put(`/api/settings/status/${user._id}`, {
-                    webhook : connectedCarriers
+                    carrier : status
                 });
             }
         }
 
-        changeStatus();
+        if(connectedCarriers){
+            changeStatus(true);
+        }else{
+            changeStatus(false);
+        }
 
       }, [connectedCarriers]);
   
@@ -60,26 +64,22 @@ const Settings = (props)=>{
     
     useEffect(()=>{
         let isConnectedSettings =  async ()=>{
-            return new Promise(async (resolve, reject)=>{
-                setLoading(true);
-                
-                let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
-                    setLoading(false);
-                    toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
-                    reject(e);
-                });
+            setLoading(true);
+            
+            let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
+                setLoading(false);
+                toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
+            });
 
-                resolve(rs);
-             });
+            console.log("rs", rs);
+
+            setUser(rs);
         }
 
-        (async ()=>{
             if (data){
                 setStoreData(data[DATA_KEY]);
-                let user = await isConnectedSettings();
-                setUser(user);
+                isConnectedSettings();
             }
-        })()
 
     }, [user]);
 
@@ -116,7 +116,7 @@ const Settings = (props)=>{
                         action={{
                             content: buttonTextCarriers,
                             onAction: ()=>{
-                                handleActionConnectCarriers()
+                                handleActionConnectCarriers(user)
                             },
                         }}
                         details={detailsCarriers}
