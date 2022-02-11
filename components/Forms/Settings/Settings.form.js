@@ -106,7 +106,9 @@ const Settings = (props)=>{
                         title="Importar transportadoras Rocketfy"
                         action={{
                             content: buttonTextCarriers,
-                            onAction: ()=>handleActionConnectCarriers,
+                            onAction: ()=>{
+                                handleActionConnectCarriers();
+                            },
                         }}
                         details={detailsCarriers}
                         termsOfService={termsCarriers}
