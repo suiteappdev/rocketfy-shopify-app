@@ -12,7 +12,7 @@ const Settings = (props)=>{
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connectedWebhook, setConnectedWebhook] = useState(false);
     const [connectedCarriers, setConnectedCarriers] = useState(false);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState("");
 
     const [showToast, setShowToast] = useState({
         content : '',
@@ -31,7 +31,7 @@ const Settings = (props)=>{
         console.log("USER", user)
 
         let changeStatus =  async ()=>{
-            let r = await Put(`/api/settings/status/${user._id}`, {
+            let r = await Put(`/api/settings/status/${user}`, {
                 carrier : connectedCarriers
             });
         }
@@ -65,8 +65,7 @@ const Settings = (props)=>{
                     toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
                 });
 
-                console.log("rs", rs);
-                setUser(rs);
+                setUser(rs._id);
                 setLoading(false);
             }
 
