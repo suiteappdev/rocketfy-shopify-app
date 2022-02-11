@@ -27,13 +27,13 @@ const Settings = (props)=>{
 
         let changeStatus =  async (status)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
-                webhook : !status
+                webhook : status
             });
 
             toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
          }
 
-        changeStatus(connectedWebhook);
+        changeStatus(!connectedWebhook);
 
     }, [connectedWebhook]);
 
@@ -42,13 +42,13 @@ const Settings = (props)=>{
 
         let changeStatus =  async (status)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
-                carrier : !status
+                carrier : status
             });
 
             toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
 
-        changeStatus(connectedCarriers);
+        changeStatus(!connectedCarriers);
 
       }, [connectedCarriers]);
   
