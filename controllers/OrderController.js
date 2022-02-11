@@ -12,14 +12,14 @@ const OrderController  = {
                     "total": parseInt(data.current_total_price_set.shop_money.amount),
                     "payment_method": "cod",
                     "dimensions" : {
-                    width : 0, height : 0 , weight :data.total_weight, large : 0
+                        width : 0, height : 0 , weight :data.total_weight, large : 0
                     },
                     "shipping" : data.shipping_address,
                     "billing": {
                     "first_name":data.billing_address.first_name,
                     "last_name": data.billing_address.last_name,
                     "company": "",
-                    "address_1":  datay.billing_address.address1,
+                    "address_1":  data.billing_address.address1,
                     "address_2":  ctx.request.body.billing_address.address2,
                     "city":  data.billing_address.city,
                     "state": data.shipping_address.province,
