@@ -46,16 +46,6 @@ app.prepare().then(async () => {
   server.use(cors());
   server.use(koaBody());
 
-  apiRoutes.post('/api/webhook-notification', async (ctx)=>{
-      const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
-      const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
-
-      ctx.response.status = 200;
-      ctx.response.body  =  ctx.request.body;
-      console.log(`Webhook processed, returned status code 200`, ctx.request.body);
-      console.log(`SHOP`, session.shop);
-  });
-
   apiRoutes.get('/api/settings/me/:domain', async (ctx)=>{
     let s = await Settings.findOne({ domain : ctx.request.params.domain });
     ctx.response.status = 200;
@@ -171,6 +161,16 @@ app.prepare().then(async () => {
     } catch (error) {
       console.log(`Failed to process webhook: ${error}`);
     }
+  });
+
+  router.post('/api/webhook-notification', async (ctx)=>{
+    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+    ctx.response.status = 200;
+    ctx.response.body  =  ctx.request.body;
+    console.log(`Webhook processed, returned status code 200`, ctx.request.body);
+    console.log(`SHOP`, session.shop);
   });
 
   router.post("/carrier-service", async (ctx) => {
