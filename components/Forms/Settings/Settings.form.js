@@ -31,7 +31,7 @@ const Settings = (props)=>{
         let changeStatus =  async ()=>{
             console.log("user  change status", user);
 
-            if(user){
+            if(user._id){
                 let r = await Put(`/api/settings/status/${user._id}`, {
                     webhook : connectedCarriers
                 });
@@ -91,7 +91,7 @@ const Settings = (props)=>{
             setStoreData(data[DATA_KEY]);
             isConnectedSettings();
         }
-    }, []);
+    }, [user]);
 
     const toast = (options)=>{
         setShowToast({
