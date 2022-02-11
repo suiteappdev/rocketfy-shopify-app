@@ -25,8 +25,10 @@ const Settings = (props)=>{
       setConnectedWebhook((connectedWebhook) => !connectedWebhook);
     }, [connectedWebhook]);
 
-    const handleActionConnectCarriers = useCallback(() => {
+    const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
+
+        alert(user._id);
 
         let changeStatus =  async ()=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
@@ -107,8 +109,7 @@ const Settings = (props)=>{
                         action={{
                             content: buttonTextCarriers,
                             onAction: ()=>{
-                                console.log("USER STATE", user);
-                                //handleActionConnectCarriers();
+                                handleActionConnectCarriers(user);
                             },
                         }}
                         details={detailsCarriers}
