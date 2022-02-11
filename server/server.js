@@ -160,6 +160,7 @@ app.prepare().then(async () => {
   });
 
   router.post('/webhook-notification', async (ctx)=>{
+    console.log("state", ctx.state);
     ctx.response.status = 200;
     ctx.response.body  =  ctx.request.body;
     console.log(`Webhook processed, returned status code 200`, ctx.request.body);
