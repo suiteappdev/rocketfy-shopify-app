@@ -8,7 +8,7 @@ import next from "next";
 import Router, { url } from "koa-router";
 import mongoose from 'mongoose';
 import Settings from '../models/Settings';
-import { createOrder } from '../controllers/OrderController'
+import OrderController from '../controllers/OrderController'
 
 dotenv.config();
 
@@ -165,7 +165,7 @@ app.prepare().then(async () => {
     let auth = await Settings.findOne({ domain :  host});
 
     if(auth.webhook){
-        let order = await createOrder(ctx.request.body, auth);
+        let order = await OrderController.createOrder(ctx.request.body, auth);
         ctx.response.status = 200;
         ctx.response.body  = order;
         console.log(`Webhook processed, returned status code 200`);

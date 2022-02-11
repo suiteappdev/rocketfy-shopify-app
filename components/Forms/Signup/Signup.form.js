@@ -100,6 +100,7 @@ const SignupForm = (props)=>{
         if(response){
             if(response.data.redirectUrl){
                 let setting = await Post(`/api/settings` , {
+                    connected : true,
                     shop : form.txtShop,
                     domain : form.txtDomain,
                     urlRedirect : response.data.redirectUrl,
