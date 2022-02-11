@@ -70,14 +70,13 @@ const Settings = (props)=>{
                 });
 
                 resolve(rs);
-        });
-
+             });
         }
 
         (async ()=>{
             if (data){
                 setStoreData(data[DATA_KEY]);
-                let user = await  isConnectedSettings();
+                let user = await isConnectedSettings();
                 setUser(user);
             }
         })()
