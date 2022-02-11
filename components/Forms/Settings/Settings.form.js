@@ -21,7 +21,7 @@ const Settings = (props)=>{
 
     const accountName = connectedWebhook || connectedCarriers ? 'Rocketfy' : '';
   
-    const handleActionConnectWebhook = useCallback(() => {
+    const handleActionConnectWebhook = useCallback((user) => {
         setConnectedWebhook((connectedWebhook) => !connectedWebhook);
 
         let changeStatus =  async ()=>{
@@ -128,7 +128,9 @@ const Settings = (props)=>{
                         title="Sincronizar automaticamente pedidos"
                         action={{
                             content: buttonTextWebhook,
-                            onAction: handleActionConnectWebhook,
+                            onAction: ()=>{
+                                handleActionConnectWebhook(user);
+                            },
                         }}
                         details={detailsWebhook}
                         termsOfService={termsWebhook}
