@@ -3,8 +3,7 @@ import {Form, FormLayout,Toast, AccountConnection, Link} from '@shopify/polaris'
 import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
-import { PostRequest, Get, Put } from '../../../helpers/request.helper';
-import {removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
+import { Get, Put } from '../../../helpers/request.helper';
 
 const Settings = (props)=>{
     const [isLoading, setLoading] = useState(false);
@@ -24,30 +23,34 @@ const Settings = (props)=>{
     const handleActionConnectWebhook = useCallback((user) => {
         setConnectedWebhook((connectedWebhook) => !connectedWebhook);
 
-        let changeStatus =  async ()=>{
+        console.log("connectedWebhook", connectedWebhook);
+
+        let changeStatus =  async (status)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
-                webhook : connectedWebhook
+                webhook : status
             });
 
-            toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
+            toast({ content : `${connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
          }
 
-        changeStatus();
+        changeStatus(connectedWebhook);
 
     }, [connectedWebhook]);
 
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
 
-        let changeStatus =  async ()=>{
+        console.log("connectedCarriers", connectedCarriers);
+
+        let changeStatus =  async (status)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
-                carrier : connectedCarriers
+                carrier : status
             });
 
-            toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
+            toast({ content : `${connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
 
-        changeStatus();
+        changeStatus(connectedCarriers);
 
       }, [connectedCarriers]);
   
