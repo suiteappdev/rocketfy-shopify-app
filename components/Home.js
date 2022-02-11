@@ -12,14 +12,11 @@ const Home = (props) => {
             let response = await getAcessToken().catch(e=>console.log(e));
             
             if(response && response.token){
-
-                setToken({ token : response.token});
                 setRocketfyToken(response.token);                
             }
-
         }; 
 
-        if(!getAppToken() && !getRocketfyToken()){
+        if(!getRocketfyToken()){
             fetch();
         }
 

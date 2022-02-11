@@ -4,8 +4,7 @@ import styles from './Signup.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
 import { Post, Get, PostRequest, refreshToken, verifyUrl } from '../../../helpers/request.helper';
-
-import { removeRocketfyToken, setAppToken, setCustomerId} from '../../../helpers/storage.helper';
+import {getRocketfyToken} from '../../../helpers/storage.helper';
 import { getISO } from '../../../helpers/country.helper';
 import AccountStatus from '../../AccountStatus';
 
@@ -105,7 +104,8 @@ const SignupForm = (props)=>{
                     domain : form.txtDomain,
                     urlRedirect : response.data.redirectUrl,
                     customer : data.customer,
-                    customerID : response.data.customerID
+                    customerID : response.data.customerID,
+                    access_token : getRocketfyToken()
                 }).catch(e=>toast({
                     content : `Ocurrio un error al conectar la cuenta. ${e.message}`,
                     active : true,
