@@ -5,9 +5,10 @@ import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
 import Shopify, { ApiVersion, DataType } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
-import Router from "koa-router";
+import Router, { url } from "koa-router";
 import mongoose from 'mongoose';
 import Settings from '../models/Settings';
+import {createOrder} from '../helpers/order.helper';
 
 dotenv.config();
 
@@ -160,12 +161,56 @@ app.prepare().then(async () => {
   });
 
   router.post('/webhook-notification', async (ctx)=>{
-    const session = await Shopify.Utils.loadCurrentSession(ctx.request, ctx.response);
-    console.log("session", session);
+    let host = new URL(ctx.request.body.order_status_url).host;
+    console.log("host", host);
+    let r = await Settings.findOne({ url :  host});
+
+    console.log("r", r);
+
+    let order = {
+        "id" : ctx.request.body.name,
+        "customerID":r.customerID,
+        "currency": ctx.request.body.currentTotalPriceSet.shopMoney.currency_code,
+        "shipping_total": 10000,
+        "subtotal": parseInt(ctx.request.body.currentSubtotalPriceSet.shopMoney.amount),
+        "total": parseInt(ctx.request.body.currentTotalPriceSet.shopMoney.amount),
+        "payment_method": "cod",
+        "dimensions" : {
+          width : 0, height : 0 , weight : 2, large : 0
+        },
+        "shipping" : ctx.request.body.shippingAddress,
+        "billing": {
+          "first_name":ctx.request.body.billing_address.first_name,
+          "last_name": ctx.request.body.billing_address.last_name,
+          "company": "",
+          "address_1":  ctx.request.body.billing_address.address1,
+          "address_2":  ctx.request.body.billing_address.address2,
+          "city":  ctx.request.body.billing_address.city,
+          "state": ctx.request.body.billing_address.state,
+          "country": ctx.request.body.billing_address.country_code,
+          "email": ctx.request.body.customer.email,
+          "phone": ctx.request.body.customer.phone || '0'
+        },
+        "line_items": ctx.request.body.line_items.map((item)=>{
+            return {
+                "name": item.variant.name,
+                "variation_name": item.title,
+                "quantity": item.quantity,
+                "total": (parseInt(item.discountedTotalSet.shopMoney.amount) * item.quantity),
+                "price": parseInt(item.price),
+                "width": 0,
+                "height": 0,
+                "large":0,
+                "weight": parseInt(item.grams / 1000)
+            }
+        })
+    }
+
+    console.log("order", order);
 
     ctx.response.status = 200;
-    ctx.response.body  =  ctx.request.body;
-    console.log(`Webhook processed, returned status code 200`, ctx.request.body);
+    ctx.response.body  =  response.data;
+    console.log(`Webhook processed, returned status code 200`, y);
   });
 
   router.post("/carrier-service", async (ctx) => {
