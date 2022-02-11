@@ -69,8 +69,6 @@ const Settings = (props)=>{
 
             setUser(rs);
 
-            console.log("user", user);
-
             if(rs && rs.webhook){
                 setLoading(false);
                 setConnectedWebhook(true);
@@ -87,10 +85,12 @@ const Settings = (props)=>{
 
         }
 
-       if (data){
+        if (data){
             setStoreData(data[DATA_KEY]);
-            isConnectedSettings();
         }
+
+        isConnectedSettings();
+
     }, [user]);
 
     const toast = (options)=>{
