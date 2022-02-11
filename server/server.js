@@ -134,7 +134,7 @@ app.prepare().then(async () => {
         const ordersWebhooks = await Shopify.Webhooks.Registry.register({
             shop,
             accessToken,
-            path: '/api/webhook-notification',
+            path: '/webhook-notification',
             topic: 'ORDERS_CREATE',
             webhookHandler: async (_topic, shop, body) => {
             console.log('received order create webhook: ');
@@ -163,7 +163,7 @@ app.prepare().then(async () => {
     }
   });
 
-  router.post('/api/webhook-notification', async (ctx)=>{
+  router.post('/webhook-notification', async (ctx)=>{
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
