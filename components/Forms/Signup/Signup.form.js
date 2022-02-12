@@ -90,7 +90,7 @@ const SignupForm = (props)=>{
     const connect = async ()=>{
         setLoading(true);
 
-        if(!user){
+        if(!user._id){
             let data = {
                 email: form.txtEmail,
                 name: form.txtShop,
