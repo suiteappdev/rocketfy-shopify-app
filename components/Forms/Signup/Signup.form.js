@@ -168,8 +168,8 @@ const SignupForm = (props)=>{
                 ) : (
                 <FormLayout>
                     <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
-                    { user && user.connected  ? (null) : (
-                        <React.Fragment>
+                    {!user ? () : (
+                         <React.Fragment>
                             <TextField
                                 value={form.txtAddress}
                                 onChange={onChange}
@@ -214,7 +214,7 @@ const SignupForm = (props)=>{
                             />
                     </React.Fragment>
                     )}
-            </FormLayout>
+                    </FormLayout>
             )}
             { showToast.active ? (<Toast content={showToast.content} onDismiss={()=>setShowToast({ active : false })} />) : null } 
         </Form>
