@@ -142,6 +142,8 @@ const SignupForm = (props)=>{
 
             if(r){
                 toast({ content : `Conectado`, active : true});
+                setConnected(true);
+                setLoading(false);
             }
         }
     }
