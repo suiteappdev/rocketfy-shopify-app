@@ -89,7 +89,7 @@ const Settings = (props)=>{
                 isConnectedSettings();
             }
 
-    }, []);
+    }, [storeData]);
 
     const toast = (options)=>{
         setShowToast({
