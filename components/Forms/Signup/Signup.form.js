@@ -18,6 +18,8 @@ const SignupForm = (props)=>{
     const [isLoading, setLoading] = useState(false);
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connected, setConnected] = useState(false);
+    const [user, setUser] = useState({});
+
     const [showToast, setShowToast] = useState({
         content : '',
         active : false,
@@ -30,6 +32,8 @@ const SignupForm = (props)=>{
                 setLoading(false);
                 toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true,});
             });
+
+            setUser(rs);
 
             if(rs && rs.connected){
                 setConnected(true);
