@@ -56,7 +56,7 @@ const OrderController  = {
     },
     
     getShippingRates : (data)=>{
-        return new Promise((resolve, reject)=>{
+        return new Promise(async (resolve, reject)=>{
             let rates = await axios.post(`https://ef4a-190-28-227-176.ngrok.io/api/public/v2/createOrders`, {
                 
             }).catch((e)=>reject(e));
