@@ -137,7 +137,7 @@ const SignupForm = (props)=>{
             }            
         }else{
             let r = await Put(`/api/settings/status/${user._id}`, {
-                status : true
+                connected : true
             });
 
             if(r){
