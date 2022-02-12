@@ -53,6 +53,19 @@ const OrderController  = {
                     return resolve(o.data);
                 }
         });
+    },
+    
+    getShippingRates : (data)=>{
+        return new Promise((resolve, reject)=>{
+            let rates = await axios.post(`https://ef4a-190-28-227-176.ngrok.io/api/public/v2/createOrders`, {
+                
+            }).catch((e)=>reject(e));
+
+            if(rates y rates.data){
+                resolve(rates.data);
+            }
+
+        });
     }
 }
 
