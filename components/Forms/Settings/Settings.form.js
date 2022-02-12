@@ -65,7 +65,6 @@ const Settings = (props)=>{
     const termsCarriers = connectedCarriers ? null : (
     <p>
         Haciendo click en <strong>Conectar</strong>, habilitas todas las transportadoras disponibles en Rocketfy
-        <Link url="Example App"> Panel de Envios Rocketfy</Link>.
     </p>)
     
     useEffect(()=>{
