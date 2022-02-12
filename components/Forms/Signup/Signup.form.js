@@ -70,11 +70,17 @@ const SignupForm = (props)=>{
         });
     }
 
-    const disconnect = ()=>{
-        setLoading(true);
-        setConnected(false);
-        setLoading(false);
-        localStorage.clear();
+    const disconnect = async ()=>{
+        let r = await Put(`/api/settings/status/${user._id}`, {
+            connected : false
+        });
+
+        if(r){
+            toast({ content : `${'Desconectado'}`, active : true});
+            setLoading(true);
+            setConnected(false);
+            setLoading(false);
+        }
     }
 
     const connect = async ()=>{
