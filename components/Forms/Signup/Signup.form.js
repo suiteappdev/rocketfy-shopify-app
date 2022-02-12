@@ -3,7 +3,7 @@ import {Button, Spinner, TextField, Form, FormLayout, Banner, Toast} from '@shop
 import styles from './Signup.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
-import { Post, Get, PostRequest, refreshToken, verifyUrl } from '../../../helpers/request.helper';
+import { Post, Get, PostRequest, refreshToken, verifyUrl, Put } from '../../../helpers/request.helper';
 import {getRocketfyToken} from '../../../helpers/storage.helper';
 import { getISO } from '../../../helpers/country.helper';
 import AccountStatus from '../../AccountStatus';
