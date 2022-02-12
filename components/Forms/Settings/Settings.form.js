@@ -71,7 +71,7 @@ const Settings = (props)=>{
             let isConnectedSettings =  async ()=>{
                 setLoading(true);
                 
-                let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
+                let rs = await Get(`/api/settings/me/${storeData.myshopifyDomain}`).catch((e)=>{
                     setLoading(false);
                     toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true});
                 });
