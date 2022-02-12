@@ -11,7 +11,9 @@ import AccountStatus from '../../AccountStatus';
 const ROCKETFY_APIHOST = process.env.ROCKETFY_APIHOST 
 
 const SignupForm = (props)=>{
-    const [form, setForm] = useState({});
+    const [form, setForm] = useState({
+        txtShop : ''
+    });
     const [storeData, setStoreData] = useState({});
     const [isLoading, setLoading] = useState(false);
     const {loading, error, data} = useQuery(STORE_QUERY);
