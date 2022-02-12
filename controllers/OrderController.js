@@ -61,7 +61,7 @@ const OrderController  = {
                 
             }).catch((e)=>reject(e));
 
-            if(rates y rates.data){
+            if(rates && rates.data){
                 resolve(rates.data);
             }
 
