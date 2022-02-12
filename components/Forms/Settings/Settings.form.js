@@ -84,7 +84,8 @@ const Settings = (props)=>{
                 setLoading(false);
             }
 
-            if(data[DATA_KEY]){
+            if(data && data[DATA_KEY]){
+                console.log("data", data);
                 setStoreData(data[DATA_KEY]);
                 isConnectedSettings();
             }

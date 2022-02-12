@@ -28,10 +28,10 @@ export default function MainTabs(props) {
         render :<OrdersForm setSelectedTab={handleTabChange} />
       },
       {
-        id: 'orders-tab',
-        content: 'Ordenes',
-        panelID: 'orders-tab-content',
-        render :<OrdersForm setSelectedTab={handleTabChange} />
+        id: 'settings-tab',
+        content: 'Configuración',
+        panelID: 'settings-tab-content',
+        render :<Settings setSelectedTab={handleTabChange} />
       }
     ];
   
