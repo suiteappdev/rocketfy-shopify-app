@@ -89,50 +89,54 @@ const SignupForm = (props)=>{
 
     const connect = async ()=>{
         setLoading(true);
-        
-        let data = {
-            email: form.txtEmail,
-            name: form.txtShop,
-            customer_name : form.txtFullname,
-            country : form.txtCountry,
-            phone : form.txtPhone,
-            terms : true,
-            origin_city :form.txtCity,
-            origin_departament: form.txtProvince,
-            address_shop:form.txtAddress,
-            customer_domain : form.txtDomain,
-            partnerID:process.env.ROCKETFY_PARTNERID,
-        }
 
-        let response = await PostRequest(`${ROCKETFY_APIHOST}/api/public/createAccount` , data).catch(e=>toast({
-            content : "Ocurrio un error al conectar la cuenta.",
-            active : true,
-        }));
-
-        if(response){
-            if(response.data.redirectUrl){
-                let setting = await Post(`/api/settings` , {
-                    connected : true,
-                    shop : form.txtShop,
-                    domain : form.txtDomain,
-                    urlRedirect : response.data.redirectUrl,
-                    customer : data.customer,
-                    customerID : response.data.customerID,
-                    access_token : getRocketfyToken()
-                }).catch(e=>toast({
-                    content : `Ocurrio un error al conectar la cuenta. ${e.message}`,
-                    active : true,
-                }));
-
-                if(setting){
-                    setConnected(true);
-                    setLoading(false);
-                    toast({
-                        content : "Cuenta conectada.",
-                        active : true,
-                    });                    
-                }
+        if(!user){
+            let data = {
+                email: form.txtEmail,
+                name: form.txtShop,
+                customer_name : form.txtFullname,
+                country : form.txtCountry,
+                phone : form.txtPhone,
+                terms : true,
+                origin_city :form.txtCity,
+                origin_departament: form.txtProvince,
+                address_shop:form.txtAddress,
+                customer_domain : form.txtDomain,
+                partnerID:process.env.ROCKETFY_PARTNERID,
             }
+
+            let response = await PostRequest(`${ROCKETFY_APIHOST}/api/public/createAccount` , data).catch(e=>toast({
+                content : "Ocurrio un error al conectar la cuenta.",
+                active : true,
+            }));
+
+            if(response){
+                if(response.data.redirectUrl){
+                    let setting = await Post(`/api/settings` , {
+                        connected : true,
+                        shop : form.txtShop,
+                        domain : form.txtDomain,
+                        urlRedirect : response.data.redirectUrl,
+                        customer : data.customer,
+                        customerID : response.data.customerID,
+                        access_token : getRocketfyToken()
+                    }).catch(e=>toast({
+                        content : `Ocurrio un error al conectar la cuenta. ${e.message}`,
+                        active : true,
+                    }));
+
+                    if(setting){
+                        setConnected(true);
+                        setLoading(false);
+                        toast({
+                            content : "Cuenta conectada.",
+                            active : true,
+                        });                    
+                    }
+                }
+            }            
+        }else{
+            disconnect(user);
         }
     }
 
