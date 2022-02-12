@@ -74,7 +74,7 @@ const SignupForm = (props)=>{
         });
     }
 
-    const disconnect = async ()=>{
+    const disconnect = async (user)=>{
         let r = await Put(`/api/settings/status/${user._id}`, {
             connected : false
         });
@@ -155,7 +155,7 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                    <AccountStatus status={connected} actionDisconnect={disconnect} actionConnect={connect} shop={form.txtShop || ''} />
+                    <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
                    {connected ? (null) : (
                     <React.Fragment>
                         <TextField
