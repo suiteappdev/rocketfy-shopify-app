@@ -168,7 +168,7 @@ const SignupForm = (props)=>{
                 ) : (
                 <FormLayout>
                     <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
-                    {user ? (null) : (
+                    {user._id ? (null) : (
                          <React.Fragment>
                             <TextField
                                 value={form.txtAddress}
