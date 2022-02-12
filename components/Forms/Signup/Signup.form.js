@@ -136,7 +136,13 @@ const SignupForm = (props)=>{
                 }
             }            
         }else{
-            disconnect(user);
+            let r = await Put(`/api/settings/status/${user._id}`, {
+                status : true
+            });
+
+            if(r){
+                toast({ content : `Conectado`, active : true});
+            }
         }
     }
 
