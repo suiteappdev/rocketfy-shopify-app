@@ -156,51 +156,52 @@ const SignupForm = (props)=>{
                 ) : (
                 <FormLayout>
                     <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
-                   {(user.connected || connected  ) ? (null) : (
-                    <React.Fragment>
-                        <TextField
-                            value={form.txtAddress}
-                            onChange={onChange}
-                            label="Dirección de recolección"
-                            id="txtAddress"
-                            type="text"
-                        />
-                        <TextField
-                            value={form.txtPhone}
-                            onChange={onChange}
-                            label="Télefono"
-                            id="txtPhone"
-                            type="text"
-                        />
-                        <TextField
-                            value={form.txtDocument}
-                            onChange={onChange}
-                            label="Número documento"
-                            id="txtDocument"
-                            type="text"
-                        />
-                        <TextField
-                            value={form.txtShop}
-                            onChange={onChange}
-                            label="Nombre de la tienda"
-                            id="txtShop"
-                            type="text"
-                        />
-                        <TextField
-                            value={form.txtFullname}
-                            onChange={onChange}
-                            label="Nombre completo"
-                            id="txtFullname"
-                            type="text"
-                        />
-                        <TextField
-                            value={form.txtEmail}
-                            onChange={onChange}
-                            label="Email"
-                            id="txtEmail"
-                            type="text"
-                        />
-                   </React.Fragment>)}
+                    { user.connected ? (null) : (
+                        <React.Fragment>
+                            <TextField
+                                value={form.txtAddress}
+                                onChange={onChange}
+                                label="Dirección de recolección"
+                                id="txtAddress"
+                                type="text"
+                            />
+                            <TextField
+                                value={form.txtPhone}
+                                onChange={onChange}
+                                label="Télefono"
+                                id="txtPhone"
+                                type="text"
+                            />
+                            <TextField
+                                value={form.txtDocument}
+                                onChange={onChange}
+                                label="Número documento"
+                                id="txtDocument"
+                                type="text"
+                            />
+                            <TextField
+                                value={form.txtShop}
+                                onChange={onChange}
+                                label="Nombre de la tienda"
+                                id="txtShop"
+                                type="text"
+                            />
+                            <TextField
+                                value={form.txtFullname}
+                                onChange={onChange}
+                                label="Nombre completo"
+                                id="txtFullname"
+                                type="text"
+                            />
+                            <TextField
+                                value={form.txtEmail}
+                                onChange={onChange}
+                                label="Email"
+                                id="txtEmail"
+                                type="text"
+                            />
+                    </React.Fragment>
+                    )}
             </FormLayout>
             )}
             { showToast.active ? (<Toast content={showToast.content} onDismiss={()=>setShowToast({ active : false })} />) : null } 
