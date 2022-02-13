@@ -96,20 +96,17 @@ const Settings = (props)=>{
             let getToken = async ()=>{
                 const token = await getSessionToken(app);
                 console.log("gettoken", token);
-                if(token){
-                  setShopifyToken(token);
-                }
-              }
+                setShopifyToken(token);
+            }
 
             if(data && data[DATA_KEY]){
-                console.log("data", data);
                 setStoreData(data[DATA_KEY]);
                 isConnectedSettings();
             }
 
             getToken();
 
-    }, []);
+    }, [shopifyToken]);
 
     const createCarrier = async ()=>{
         let response = await CreateCarrier(shopifyToken).catch((e)=>{
