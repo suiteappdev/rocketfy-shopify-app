@@ -45,6 +45,7 @@ app.prepare().then(async () => {
   server.keys = [Shopify.Context.API_SECRET_KEY];
   const cors = require('@koa/cors');
   server.use(cors());
+  server.use(koaBody());
 
   apiRoutes.get('/api/settings/me/:domain', async (ctx)=>{
     let s = await Settings.findOne({ domain : ctx.request.params.domain });
@@ -185,8 +186,6 @@ app.prepare().then(async () => {
   router.post("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
-
-    console.log("session", session);
 
     const carrier = await client.post({
       path: 'carrier_services',
