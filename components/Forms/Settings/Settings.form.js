@@ -4,6 +4,9 @@ import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
 import { Get, Put } from '../../../helpers/request.helper';
+import {createCarrier as CreateCarrier} from '../../../helpers/carrier.helper';
+import { getSessionToken } from "@shopify/app-bridge-utils";
+import { useAppBridge } from "@shopify/app-bridge-react";
 
 const Settings = (props)=>{
     const [isLoading, setLoading] = useState(false);
@@ -12,6 +15,8 @@ const Settings = (props)=>{
     const [connectedWebhook, setConnectedWebhook] = useState(false);
     const [connectedCarriers, setConnectedCarriers] = useState(false);
     const [user, setUser] = useState({});
+    const [shopifyToken, setShopifyToken]  = useState("");
+    const app = useAppBridge();
 
     const [showToast, setShowToast] = useState({
         content : '',
@@ -42,6 +47,12 @@ const Settings = (props)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
                 carrier : status
             });
+
+            let c = await createCarrier();
+
+            if(c){
+                console.log(c);
+            }
 
             toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
@@ -82,13 +93,27 @@ const Settings = (props)=>{
                 setLoading(false);
             }
 
+            let getToken = async ()=>{
+                const token = await getSessionToken(app);
+                if(token){
+                  setShopifyToken(token);
+                }
+              }
+
             if(data && data[DATA_KEY]){
                 console.log("data", data);
                 setStoreData(data[DATA_KEY]);
                 isConnectedSettings();
+                getToken();
             }
 
     }, []);
+
+    const createCarrier = async ()=>{
+        let response = await CreateCarrier(shopifyToken).catch((e)=>{
+          console.log(e);
+        });
+    }
 
     const toast = (options)=>{
         setShowToast({

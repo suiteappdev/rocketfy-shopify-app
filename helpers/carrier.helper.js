@@ -1,7 +1,7 @@
 const createCarrier = (token) =>{
     return new Promise(async (resolve, reject)=>{
             let body = { carrier_services : {
-                name:"TCC Cumple", callback_url:"https:\/\/rocketfy-shopify-app.herokuapp.com/api/cotizador", service_discovery:true }
+                name:"Rocketfy Carriers", callback_url:"https:\/\/rocketfy-shopify-app.herokuapp.com/api/shipping", service_discovery:true }
             }
 
             const opts = {
