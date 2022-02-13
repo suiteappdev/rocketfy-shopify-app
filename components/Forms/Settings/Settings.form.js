@@ -97,8 +97,7 @@ const Settings = (props)=>{
             let getToken = async ()=>{
                 const token = await getSessionToken(app);
                 if(token){
-                    setJson('st', token);
-                    setSt(token);
+                    setJson('st',{ st : token });
                 }
             }
 
@@ -112,7 +111,7 @@ const Settings = (props)=>{
 
     const createCarrier = async ()=>{
         if(getJson('st')){
-            let response = await CreateCarrier(getJson('st')).catch((e)=>{
+            let response = await CreateCarrier(getJson('st').st).catch((e)=>{
                 console.log(e);
               });
             console.log("getJson('st')", getJson('st'))
