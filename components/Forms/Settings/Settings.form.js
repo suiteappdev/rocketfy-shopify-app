@@ -111,10 +111,11 @@ const Settings = (props)=>{
     }, []);
 
     const createCarrier = async ()=>{
-        console.log("spt", st)
-        /*let response = await CreateCarrier(shopifyToken).catch((e)=>{
+        let response = await CreateCarrier(st).catch((e)=>{
           console.log(e);
-        });*/
+        });
+
+        console.log("response", response)
     }
 
     const toast = (options)=>{
