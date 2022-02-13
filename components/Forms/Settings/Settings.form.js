@@ -95,6 +95,7 @@ const Settings = (props)=>{
 
             let getToken = async ()=>{
                 const token = await getSessionToken(app);
+                console.log("gettoken", token);
                 if(token){
                   setShopifyToken(token);
                 }
@@ -104,8 +105,9 @@ const Settings = (props)=>{
                 console.log("data", data);
                 setStoreData(data[DATA_KEY]);
                 isConnectedSettings();
-                getToken();
             }
+
+            getToken();
 
     }, []);
 
