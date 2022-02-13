@@ -23,8 +23,6 @@ const Settings = (props)=>{
     const handleActionConnectWebhook = useCallback((user) => {
         setConnectedWebhook((connectedWebhook) => !connectedWebhook);
 
-        console.log("connectedWebhook", connectedWebhook);
-
         let changeStatus =  async (status)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
                 webhook : status
@@ -83,8 +81,7 @@ const Settings = (props)=>{
                 setLoading(false);
             }
 
-            if(data && data[DATA_KEY]){
-                console.log("data", data);
+            if(data[DATA_KEY]){
                 setStoreData(data[DATA_KEY]);
                 isConnectedSettings();
             }
