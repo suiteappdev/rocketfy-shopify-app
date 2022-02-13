@@ -60,9 +60,9 @@ const OrderController  = {
             "total" : 10000,
             "lines" : {
                 "from": { 
-                    "city": data.shipping.city, 
-                    "departament": data.shipping.province, 
-                    "address": data.shipping.adresss1 
+                    "city": data.origin.city, 
+                    "departament": data.origin.province, 
+                    "address": data.origin.adresss1 
                 }, 
                 "to": { 
                     "city":data.destination.city, 
