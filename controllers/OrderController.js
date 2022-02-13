@@ -56,13 +56,36 @@ const OrderController  = {
     },
     
     getShippingRates : (data, auth)=>{
+
+        let body  = { 
+            "total" : data.current_total_price,
+            "lines" : {
+                "from": { 
+                    "city": "Medellin", 
+                    "departament": "Antioquia", 
+                    "address": "Carrera 77b # 48b -131, 201" 
+                }, 
+                "to": { 
+                    "city":data.shipping_address.city, 
+                    "departament": data.shipping_address.province, 
+                    "address": data.shipping_address.address1 
+                }
+             },
+            "weight" : data.total_weight,
+            "large" : 0,
+            "height" : 0,
+            "width" : 0,
+            "cod" : true
+        }
+
         return new Promise(async (resolve, reject)=>{
             let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
-            let rates = await axios.post(`https://62eb-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, data, {
+            let rates = await axios.post(`https://62eb-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, body, {
                 headers : headers
             }).catch((e)=>reject(e));
 
             if(rates && rates.data){
+                console.logh("rates req". rates);
                 resolve(rates.data.data);
             }
 
@@ -75,7 +98,7 @@ const OrderController  = {
                 "service_name": c.name,
                 "service_code": !c.disabled  ? "ON" : "OFF", 
                 "total_price": c.shipping_value, 
-                "description": "This is the fastest option by far",
+                "description": "Descripcion de transportadora ejemplor",
                 "currency": "COP", 
                 "min_delivery_date": "2013-04-12 14:48:45 -0400",
                 "max_delivery_date": "2013-04-12 14:48:45 -0400" 

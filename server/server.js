@@ -73,6 +73,9 @@ app.prepare().then(async () => {
     let auth = await Settings.findOne({ domain :  host});
 
     if(auth.carrier){
+        console.log("body", ctx.request.body);
+        console.log("auth", auth);
+        
         let rates = await OrderController.getShippingRates(ctx.request.body, auth);
         ctx.body = { rates :  OrderController.mapCarrier(rates.courriers)}
         ctx.status = 200;
