@@ -45,7 +45,6 @@ app.prepare().then(async () => {
   server.keys = [Shopify.Context.API_SECRET_KEY];
   const cors = require('@koa/cors');
   server.use(cors());
-  server.use(koaBody());
 
   apiRoutes.get('/api/settings/me/:domain', async (ctx)=>{
     let s = await Settings.findOne({ domain : ctx.request.params.domain });
