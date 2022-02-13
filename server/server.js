@@ -184,7 +184,7 @@ app.prepare().then(async () => {
   });
 
   router.post("/carrier-service", async (ctx) => {
-    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const session = await Shopify.Utils.loadCurrentSession(ctx.request, ctx.response);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     const carrier = await client.post({
