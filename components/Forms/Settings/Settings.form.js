@@ -15,7 +15,7 @@ const Settings = (props)=>{
     const [connectedWebhook, setConnectedWebhook] = useState(false);
     const [connectedCarriers, setConnectedCarriers] = useState(false);
     const [user, setUser] = useState({});
-    const [shopifyToken, setShopifyToken]  = useState({});
+    const [setSt, st]  = useState({});
     const app = useAppBridge();
 
     const [showToast, setShowToast] = useState({
@@ -96,7 +96,7 @@ const Settings = (props)=>{
             let getToken = async ()=>{
                 const token = await getSessionToken(app);
                 console.log("t", token);
-                setShopifyToken({ st : token });
+                setSt({ st : token.toString() });
             }
 
             if(data && data[DATA_KEY]){
@@ -109,7 +109,8 @@ const Settings = (props)=>{
     }, []);
 
     const createCarrier = async ()=>{
-        console.log("shopifyToken", shopifyToken)
+        let spt = st;
+        console.log("spt", spt)
         /*let response = await CreateCarrier(shopifyToken).catch((e)=>{
           console.log(e);
         });*/
