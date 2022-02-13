@@ -7,6 +7,7 @@ import { Get, Put } from '../../../helpers/request.helper';
 import {createCarrier as CreateCarrier} from '../../../helpers/carrier.helper';
 import { getSessionToken } from "@shopify/app-bridge-utils";
 import { useAppBridge } from "@shopify/app-bridge-react";
+import { getJson, setJson } from '../../../helpers/storage.helper';
 
 const Settings = (props)=>{
     const [isLoading, setLoading] = useState(false);
@@ -96,7 +97,7 @@ const Settings = (props)=>{
             let getToken = async ()=>{
                 const token = await getSessionToken(app);
                 if(token){
-                    console.log("t", token);
+                    setJson('st', token);
                     setSt(token);
                 }
             }
@@ -106,19 +107,16 @@ const Settings = (props)=>{
                 isConnectedSettings();
             }
 
-            if(!st){
-                getToken();
-            }
-
-
-    }, [st]);
+            getToken();
+    }, []);
 
     const createCarrier = async ()=>{
-        let response = await CreateCarrier(st).catch((e)=>{
-          console.log(e);
-        });
-
-        console.log("response", response)
+        if(getJson('st')){
+            let response = await CreateCarrier(getJson('st')).catch((e)=>{
+                console.log(e);
+              });
+            console.log("getJson('st')", getJson('st'))
+        }
     }
 
     const toast = (options)=>{
