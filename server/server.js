@@ -187,16 +187,11 @@ app.prepare().then(async () => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
-    if (session === undefined || ACTIVE_SHOPIFY_SHOPS[session.shop] === undefined) {
-        ctx.redirect(`/auth?shop=${session.shop}`);
-      return;
-    }
-    
-    let carrier_data = { carrier_service: { name:"Rocketfy", callback_url:"https:\/\/rocketfy-shopify-app.herokuapp.com\/api\/cotizador", service_discovery:true }}
+    console.log("session", session);
 
     const carrier = await client.post({
       path: 'carrier_services',
-      data: carrier_data,
+      data: ctx.request.body,
       type: DataType.JSON,
     }).catch((e)=>console.log(e.message));
 
