@@ -97,7 +97,7 @@ const Settings = (props)=>{
                 const token = await getSessionToken(app);
                 if(token){
                     console.log("t", token);
-                    setSt(token.toString());
+                    setSt(token);
                 }
             }
 
@@ -106,9 +106,12 @@ const Settings = (props)=>{
                 isConnectedSettings();
             }
 
-            getToken();
+            if(!st){
+                getToken();
+            }
 
-    }, []);
+
+    }, [st]);
 
     const createCarrier = async ()=>{
         let response = await CreateCarrier(st).catch((e)=>{
