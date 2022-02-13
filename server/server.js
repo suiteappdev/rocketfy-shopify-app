@@ -69,9 +69,8 @@ app.prepare().then(async () => {
 
   apiRoutes.post('/api/shippings', async (ctx)=>{
     console.log("body shipping", ctx.request.body);
-    let host = new URL(ctx.request.body.order_status_url).host;
 
-    let auth = await Settings.findOne({ domain :  host});
+    let auth = await Settings.findOne({ shop :  ctx.request.body.rate.company_name});
 
     console.log("auth", auth);
 
@@ -79,7 +78,7 @@ app.prepare().then(async () => {
         console.log("body", ctx.request.body);
         console.log("auth", auth);
         
-        let rates = await OrderController.getShippingRates(ctx.request.body, auth);
+        let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth);
         ctx.body = { rates :  OrderController.mapCarrier(rates.courriers)}
         ctx.status = 200;
     }

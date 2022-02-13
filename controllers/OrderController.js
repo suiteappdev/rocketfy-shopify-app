@@ -56,22 +56,21 @@ const OrderController  = {
     },
     
     getShippingRates : (data, auth)=>{
-
         let body  = { 
-            "total" : data.current_total_price,
+            "total" : 10000,
             "lines" : {
                 "from": { 
-                    "city": "Medellin", 
-                    "departament": "Antioquia", 
-                    "address": "Carrera 77b # 48b -131, 201" 
+                    "city": data.shipping.city, 
+                    "departament": data.shipping.province, 
+                    "address": data.shipping.adresss1 
                 }, 
                 "to": { 
-                    "city":data.shipping_address.city, 
-                    "departament": data.shipping_address.province, 
-                    "address": data.shipping_address.address1 
+                    "city":data.destination.city, 
+                    "departament":data.destination.province, 
+                    "address": data.destination.address1 
                 }
              },
-            "weight" : data.total_weight,
+            "weight" : 2,
             "large" : 0,
             "height" : 0,
             "width" : 0,
