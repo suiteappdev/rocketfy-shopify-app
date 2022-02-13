@@ -69,24 +69,26 @@ const Settings = (props)=>{
             let isConnectedSettings =  async ()=>{
                 setLoading(true);
                 
-                let rs = await Get(`/api/settings/me/${storeData.myshopifyDomain}`).catch((e)=>{
+                let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                     setLoading(false);
                     toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true});
                 });
 
+                setUser(rs);
+
                 setConnectedCarriers(rs.carrier);
                 setConnectedWebhook(rs.webhook);
-                setUser(rs);
 
                 setLoading(false);
             }
 
-            if(data[DATA_KEY]){
+            if(data && data[DATA_KEY]){
+                console.log("data", data);
                 setStoreData(data[DATA_KEY]);
                 isConnectedSettings();
             }
 
-    }, [storeData]);
+    }, []);
 
     const toast = (options)=>{
         setShowToast({
