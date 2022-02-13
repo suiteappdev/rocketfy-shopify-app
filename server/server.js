@@ -68,9 +68,12 @@ app.prepare().then(async () => {
   });
 
   apiRoutes.post('/api/shippings', async (ctx)=>{
+    console.log("body shipping", ctx.request.body);
     let host = new URL(ctx.request.body.order_status_url).host;
 
     let auth = await Settings.findOne({ domain :  host});
+
+    console.log("auth", auth);
 
     if(auth.carrier){
         console.log("body", ctx.request.body);
