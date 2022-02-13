@@ -109,7 +109,7 @@ const Settings = (props)=>{
 
     }, []);
 
-    const createCarrier = async (shopifyToken)=>{
+    const createCarrier = async ()=>{
         let response = await CreateCarrier(shopifyToken).catch((e)=>{
           console.log(e);
         });

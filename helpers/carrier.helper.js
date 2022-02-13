@@ -4,6 +4,8 @@ const createCarrier = (token) =>{
                 name:"Rocketfy Carriers", callback_url:"https:\/\/rocketfy-shopify-app.herokuapp.com/api/shipping", service_discovery:true }
             }
 
+            console.log("token", token);
+
             const opts = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
