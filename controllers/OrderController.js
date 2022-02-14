@@ -75,7 +75,8 @@ const OrderController  = {
             "large" : 0,
             "height" : 0,
             "width" : 0,
-            "cod" : true
+            "cod" : true,
+            "quantity" : 1
         }
 
         return new Promise(async (resolve, reject)=>{
