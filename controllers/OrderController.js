@@ -18,15 +18,15 @@ const OrderController  = {
                     },
                     "shipping" : data.shipping_address,
                     "billing": {
-                    "first_name":data.billing_address.first_name,
-                    "last_name": data.billing_address.last_name,
-                    "address_1":  data.billing_address.address1,
-                    "address_2":  data.billing_address.address2,
-                    "city":  data.billing_address.city,
-                    "state": data.shipping_address.province,
-                    "country": data.billing_address.country_code,
-                    "email": data.customer.email,
-                    "phone": data.phone,
+                        "first_name":data.billing_address.first_name,
+                        "last_name": data.billing_address.last_name,
+                        "address_1":  data.billing_address.address1,
+                        "address_2":  data.billing_address.address2,
+                        "city":  data.billing_address.city,
+                        "state": data.shipping_address.province,
+                        "country": data.billing_address.country_code,
+                        "email": data.customer.email,
+                        "phone": data.phone,
                     },
                     "line_items": data.line_items.map((item)=>{
                         return {
@@ -44,7 +44,7 @@ const OrderController  = {
                     "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega')
                 }
 
-                let o = await axios.post(`http://3a83-190-28-227-176.ngrok.io/api/public/v2/createOrders`, 
+                let o = await axios.post(`http://4750-190-28-227-176.ngrok.io/api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
                         { headers : headers }).catch((e)=>reject(e));
                 
@@ -108,7 +108,7 @@ const OrderController  = {
         }
         return new Promise(async (resolve, reject)=>{
             let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
-            let rates = await axios.post(`http://3a83-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, body, {
+            let rates = await axios.post(`http://4750-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, body, {
                 headers : headers
             }).catch((e)=>reject(e));
 
