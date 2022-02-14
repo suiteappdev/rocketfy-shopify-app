@@ -76,7 +76,7 @@ app.prepare().then(async () => {
         let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth);
 
         console.log("rates", rates);
-        ctx.body = { rates :  OrderController.mapCarrier(rates.courriers)}
+        ctx.body = { rates :  OrderController.mapCarrier(rates.data.courriers)}
         ctx.status = 200;
     }
   });
