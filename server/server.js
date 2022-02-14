@@ -178,7 +178,7 @@ app.prepare().then(async () => {
 
     if(auth.webhook){
         let order = await OrderController.createOrder(ctx.request.body, auth);
-        ctx.response.status = 200;
+        ctx.response.status = 201;
         ctx.response.body  = order;
         console.log(`Webhook processed, returned status code 200`);
     }
