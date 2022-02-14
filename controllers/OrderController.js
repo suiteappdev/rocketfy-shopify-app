@@ -76,7 +76,6 @@ const OrderController  = {
             "cod" : true,
             "quantity" : 1
         }
-
         return new Promise(async (resolve, reject)=>{
             let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
             let rates = await axios.post(`https://f2b2-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, body, {
