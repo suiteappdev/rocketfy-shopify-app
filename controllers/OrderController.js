@@ -40,7 +40,7 @@ const OrderController  = {
                             "large":0,
                             "weight": parseInt(item.grams / 1000)
                         }
-                    })
+                    }),
                     "carrier" : data.shipping_lines[0].title || 'servientrega'
                 }
 
