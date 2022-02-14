@@ -57,6 +57,7 @@ const OrderController  = {
     
     getShippingRates : (data, auth)=>{
         let body  = { 
+            "customerID" :auth.customerID,
             "total" : 10000,
             "lines" : {
                 "from": { 
