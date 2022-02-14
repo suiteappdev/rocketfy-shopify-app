@@ -50,7 +50,7 @@ const OrdersForm = (props)=>{
 
     const open = async (event)=>{
         event.preventDefault();
-        window.open(application); 
+        window.open(rs.urlRedirect); 
     }
 
     const sync = (event)=>{
