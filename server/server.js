@@ -182,7 +182,7 @@ app.prepare().then(async () => {
 
     if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
         if(auth.webhook){
-            let order = await OrderController.createOrder(ctx.request.body, auth);
+            let order = await OrderController.createOrder(ctx.request.body, auth).catch((e)=>console.log(e));
             ctx.response.status = 201;
             ctx.response.body  = order;
             console.log(`Webhook processed, returned status code 200`);
