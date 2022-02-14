@@ -123,7 +123,7 @@ const OrderController  = {
             return  { 
                 "service_name": c.name,
                 "service_code": !c.disabled  ? "ON" : "OFF", 
-                "total_price": (c.shipping_value * 100), 
+                "total_price": (c.shipping_value * 10), 
                 "description": `transportadora nacional ${c.name}`,
                 "currency": "COP", 
                 "min_delivery_date": "2013-04-12 14:48:45 -0400",
