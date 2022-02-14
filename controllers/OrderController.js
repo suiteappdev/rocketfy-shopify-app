@@ -41,6 +41,7 @@ const OrderController  = {
                             "weight": parseInt(item.grams / 1000)
                         }
                     })
+                    "carrier" : data.shipping_lines[0].title || 'servientrega'
                 }
 
                 let o = await axios.post(`https://f2b2-190-28-227-176.ngrok.io/api/public/v2/createOrders`, 
