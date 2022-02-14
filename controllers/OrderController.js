@@ -54,9 +54,39 @@ const OrderController  = {
     },
     
     getShippingRates : (data, auth)=>{
+        
+        let total = (items)=>{
+            let total = 0;
+
+            if(item.length > 0){
+
+                for (let index = 0; index < data.length; index++) {
+                    const element = data[index];
+                    total = total + (parseInt(element.quantity) * parseInt(element.price));
+                }
+            }
+
+            return total;
+        }
+
+        let weight = (items)=>{
+            let total = 0;
+
+            if(item.length > 0){
+
+                for (let index = 0; index < data.length; index++) {
+                    const element = data[index];
+                    total = total + (parseInt(element.quantity) * parseInt(element.grams) / 1000);
+                }
+            }
+
+            return total;
+        }
+
+
         let body  = { 
             "customerID" :auth.customerID,
-            "total" : 10000,
+            "total" : total(data.items),
             "lines" : {
                 "from": { 
                     "city": data.origin.city, 
@@ -69,7 +99,7 @@ const OrderController  = {
                     "address": data.destination.address1 
                 }
              },
-            "weight" : 2,
+            "weight" : weight(data.items),
             "large" : 0,
             "height" : 0,
             "width" : 0,
