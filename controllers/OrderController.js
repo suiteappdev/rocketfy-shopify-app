@@ -124,7 +124,7 @@ const OrderController  = {
                 "service_name": c.name,
                 "service_code": !c.disabled  ? "ON" : "OFF", 
                 "total_price": (c.shipping_value * 10), 
-                "description": `transportadora nacional ${c.name}`,
+                "description":   `${c.fechaEntrega ? (`Fecha de entrega ${c.fechaEntrega}`) : (`Tiempo de entrega ${c.shipping_time} dia`) } `,
                 "currency": "COP", 
                 "min_delivery_date": "2013-04-12 14:48:45 -0400",
                 "max_delivery_date": "2013-04-12 14:48:45 -0400" 
