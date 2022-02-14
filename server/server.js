@@ -68,14 +68,12 @@ app.prepare().then(async () => {
   });
 
   apiRoutes.post('/api/shippings', async (ctx)=>{
-    console.log("body shipping", ctx.request.body);
-
     let auth = await Settings.findOne({ shop :  ctx.request.body.rate.origin.company_name});
 
     if(auth && auth.carrier){
         let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth);
 
-        console.log("r", rates.courriers.length)
+        console.log("r", rates)
 
         console.log({ rates :  OrderController.mapCarrier(rates.courriers)})
 
