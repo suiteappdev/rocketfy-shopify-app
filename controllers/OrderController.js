@@ -43,7 +43,7 @@ const OrderController  = {
                     })
                 }
 
-                let o = await axios.post(`https://4fed-190-28-227-176.ngrok.io/api/public/v2/createOrders`, 
+                let o = await axios.post(`https://49f4-190-28-227-176.ngrok.io/api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
                         { headers : headers }).catch((e)=>reject(e));
                 
@@ -81,7 +81,7 @@ const OrderController  = {
 
         return new Promise(async (resolve, reject)=>{
             let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
-            let rates = await axios.post(`https://4fed-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, body, {
+            let rates = await axios.post(`https://49f4-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, body, {
                 headers : headers
             }).catch((e)=>reject(e));
 
