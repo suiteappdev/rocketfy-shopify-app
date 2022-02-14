@@ -176,13 +176,15 @@ app.prepare().then(async () => {
     let host = new URL(ctx.request.body.order_status_url).host;
     let auth = await Settings.findOne({ domain :  host});
 
-    if(auth.webhook){
-        let order = await OrderController.createOrder(ctx.request.body, auth);
-        ctx.response.status = 201;
-        ctx.response.body  = order;
-        console.log(`Webhook processed, returned status code 200`);
-    }
+    if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
+      if(auth.webhook){
+          let order = await OrderController.createOrder(ctx.request.body, auth);
+          ctx.response.status = 201;
+          ctx.response.body  = order;
+          console.log(`Webhook processed, returned status code 200`);
+      }
 
+    }
   });
 
   router.post("/carrier-service", async (ctx) => {
