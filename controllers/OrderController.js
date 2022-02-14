@@ -125,7 +125,7 @@ const OrderController  = {
                 "service_name": c.name,
                 "service_code": !c.disabled  ? "ON" : "OFF", 
                 "total_price": (c.shipping_value * 1000), 
-                "description": "Descripcion de transportadora ejemplo",
+                "description": `transportadora nacional ${c.name}`,
                 "currency": "COP", 
                 "min_delivery_date": "2013-04-12 14:48:45 -0400",
                 "max_delivery_date": "2013-04-12 14:48:45 -0400" 
