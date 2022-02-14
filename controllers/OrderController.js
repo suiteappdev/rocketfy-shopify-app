@@ -58,7 +58,7 @@ const OrderController  = {
         let total = (items)=>{
             let total = 0;
 
-            if(item.length > 0){
+            if(items.length > 0){
 
                 for (let index = 0; index < data.length; index++) {
                     const element = data[index];
@@ -72,7 +72,7 @@ const OrderController  = {
         let weight = (items)=>{
             let total = 0;
 
-            if(item.length > 0){
+            if(items.length > 0){
 
                 for (let index = 0; index < data.length; index++) {
                     const element = data[index];
