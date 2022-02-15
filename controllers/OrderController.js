@@ -14,7 +14,7 @@ const OrderController  = {
                     "total": parseInt(data.current_total_price_set.shop_money.amount),
                     "payment_method": "cod",
                     "dimensions" : {
-                        width : 0, height : 0 , weight :data.total_weight, large : 0
+                        width : 0, height : 0 , weight : Math.round(parseInt(data.total_weight / 1000)) , large : 0
                     },
                     "shipping" : data.shipping_address,
                     "billing": {
