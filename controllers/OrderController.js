@@ -3,7 +3,7 @@ import axios from "axios";
 const OrderController  = {
     createOrder : (data, auth)=>{
         return new Promise(async (resolve, reject)=>{
-                let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
+                let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`};
 
                 let order = {
                     "id" : data.name,
@@ -37,6 +37,7 @@ const OrderController  = {
                             "price": parseInt(item.price),
                             "width": 0,
                             "height": 0,
+                            "sku" : item.sku || '',
                             "large":0,
                             "weight": parseInt(item.grams / 1000)
                         }
@@ -44,7 +45,7 @@ const OrderController  = {
                     "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega')
                 }
 
-                let o = await axios.post(`http://4750-190-28-227-176.ngrok.io/api/public/v2/createOrders`, 
+                let o = await axios.post(`http://8a8f-190-28-227-176.ngrok.io/api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
                         { headers : headers }).catch((e)=>reject(e));
                 
@@ -108,7 +109,7 @@ const OrderController  = {
         }
         return new Promise(async (resolve, reject)=>{
             let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
-            let rates = await axios.post(`http://4750-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, body, {
+            let rates = await axios.post(`http://8a8f-190-28-227-176.ngrok.io/api/public/v2/calculateShipping`, body, {
                 headers : headers
             }).catch((e)=>reject(e));
 
