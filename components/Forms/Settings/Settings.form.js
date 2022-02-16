@@ -80,6 +80,7 @@ const Settings = (props)=>{
     </p>)
     
     useEffect(()=>{
+            console.log("props", props)
             let isConnectedSettings =  async ()=>{
                 setLoading(true);
                 
