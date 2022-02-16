@@ -1,51 +1,19 @@
 import React, {useCallback, useState, useEffect} from 'react';
 import {Card, Tabs, AppProvider} from '@shopify/polaris';
-
 import SignupForm from './Forms/Signup/Signup.form.js';
 import OrdersForm from './Forms/Orders/Orders.form.js';
 import Settings from './Forms/Settings/Settings.form.js';
-import { getCarriers as GetCarriers} from '../helpers/carrier.helper';
-import { getJson, setJson } from '../helpers/storage.helper';
-import { getSessionToken } from "@shopify/app-bridge-utils";
-import { useAppBridge } from "@shopify/app-bridge-react";
 
 export default function MainTabs(props) {
     const [selected, setSelected] = useState(0);
     const [carrier, setCarrier] = useState([]);
     const [token, setToken] = useState('');
 
-    const app = useAppBridge();
 
     const handleTabChange = useCallback(
         (selectedTabIndex) => setSelected(selectedTabIndex || 0),
       [],
     );
-
-    useEffect(()=>{
-        getToken();
-        getCarrier();
-    }, []);
-
-    let getToken = async ()=>{
-      const token = await getSessionToken(app);
-          console.log("token", token);
-
-      if(token){
-          setJson('st', { st : token});
-      }
-    }
-
-    const getCarrier = async ()=>{
-      if(getJson('st')){
-          let response = await GetCarriers(getJson('st').st).catch((e)=>{
-              console.log(e);
-          });
-
-          if(response.data.carrier_services.length > 0){
-              setCarrier(response.data[0]);
-          }
-      }
-    }
 
     const tabs = [
       {
@@ -65,7 +33,7 @@ export default function MainTabs(props) {
         id: 'settings-tab',
         content: 'Configuración',
         panelID: 'settings-tab-content',
-        render :<Settings setSelectedTab={handleTabChange} carrier={carrier} />
+        render :<Settings setSelectedTab={handleTabChange}  />
       }
     ];
   

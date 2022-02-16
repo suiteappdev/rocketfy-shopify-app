@@ -214,6 +214,11 @@ app.prepare().then(async () => {
   router.get('/carriers-service', async (ctx)=>{
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+    if (session === undefined || ACTIVE_SHOPIFY_SHOPS[session.shop] === undefined) {
+      ctx.redirect(`/auth?shop=${shop}`);
+      return;
+    }
     
     const data = await client.get({
       path: 'carrier_services'
@@ -225,6 +230,8 @@ app.prepare().then(async () => {
   router.delete("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+
 
     const data = await client.delete({
       path: `carrier_services/${ctx.body.id}`,

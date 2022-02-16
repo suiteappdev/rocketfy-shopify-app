@@ -80,7 +80,6 @@ const Settings = (props)=>{
     </p>)
     
     useEffect(()=>{
-            console.log("props", props)
             let isConnectedSettings =  async ()=>{
                 setLoading(true);
                 
@@ -110,7 +109,7 @@ const Settings = (props)=>{
             }
 
             getToken();
-            //getCarriers();
+            getCarriers();
     }, []);
 
     const createCarrier = async ()=>{
