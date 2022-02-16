@@ -110,7 +110,7 @@ const Settings = (props)=>{
             }
 
             getToken();
-    }, []);
+    }, [connectedCarriers, connectedWebhook]);
 
     const createCarrier = async ()=>{
         if(getJson('st')){
