@@ -103,6 +103,9 @@ const SignupForm = (props)=>{
                 address_shop:form.txtAddress,
                 customer_domain : form.txtDomain,
                 partnerID:process.env.ROCKETFY_PARTNERID,
+                hubspot : {
+                    
+                }
             }
 
             let response = await PostRequest(`${ROCKETFY_APIHOST}/api/public/createAccount` , data).catch(e=>toast({

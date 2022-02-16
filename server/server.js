@@ -74,7 +74,7 @@ app.prepare().then(async () => {
     console.log("auth", auth)
 
     if(auth && auth.carrier){
-        let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth);
+        let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth).catch((e)=>console.log(e));
 
         console.log("r", rates)
 

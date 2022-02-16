@@ -4,7 +4,7 @@ import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
 import { Get, Put } from '../../../helpers/request.helper';
-import {createCarrier as CreateCarrier} from '../../../helpers/carrier.helper';
+import {createCarrier as CreateCarrier, getCarriers as GetCarriers} from '../../../helpers/carrier.helper';
 import { getSessionToken } from "@shopify/app-bridge-utils";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { getJson, setJson } from '../../../helpers/storage.helper';
@@ -16,7 +16,9 @@ const Settings = (props)=>{
     const [connectedWebhook, setConnectedWebhook] = useState(false);
     const [connectedCarriers, setConnectedCarriers] = useState(false);
     const [user, setUser] = useState({});
+    const [carrier, setCarrier] = useState([]);
     const [st, setSt]  = useState('');
+
     const app = useAppBridge();
 
     const [showToast, setShowToast] = useState({
@@ -107,6 +109,7 @@ const Settings = (props)=>{
             }
 
             getToken();
+            getCarriers();
     }, []);
 
     const createCarrier = async ()=>{
@@ -115,6 +118,16 @@ const Settings = (props)=>{
                 console.log(e);
               });
             console.log("getJson('st')", getJson('st'))
+        }
+    }
+
+    const getCarriers = async ()=>{
+        if(getJson('st')){
+            let response = await GetCarriers(getJson('st').st).catch((e)=>{
+                console.log(e);
+            });
+            
+            setCarrier(response.data);
         }
     }
 
