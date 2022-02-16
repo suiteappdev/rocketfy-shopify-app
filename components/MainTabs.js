@@ -5,7 +5,7 @@ import SignupForm from './Forms/Signup/Signup.form.js';
 import OrdersForm from './Forms/Orders/Orders.form.js';
 import Settings from './Forms/Settings/Settings.form.js';
 import { getCarriers as GetCarriers} from '../helpers/carrier.helper';
-import { getJson } from '../helpers/storage.helper';
+import { getJson, setJson } from '../helpers/storage.helper';
 import { getSessionToken } from "@shopify/app-bridge-utils";
 import { useAppBridge } from "@shopify/app-bridge-react";
 
@@ -23,28 +23,27 @@ export default function MainTabs(props) {
 
     useEffect(()=>{
         getToken();
-        getCarrier(token);
-
+        getCarrier();
     }, []);
 
     let getToken = async ()=>{
       const token = await getSessionToken(app);
 
       if(token){
-        setToken(token)
+          setJson('st', { st : token});
       }
     }
 
-    const getCarrier = async (t)=>{
-          let response = await GetCarriers(t).catch((e)=>{
+    const getCarrier = async ()=>{
+      if(getJson('st')){
+          let response = await GetCarriers(getJson('st').st).catch((e)=>{
               console.log(e);
           });
-
-          console.log("response", response);
 
           if(response.data.carrier_services.length > 0){
               setCarrier(response.data[0]);
           }
+      }
     }
 
     const tabs = [
