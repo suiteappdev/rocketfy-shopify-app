@@ -12,6 +12,7 @@ const SettingsSchema = new Schema({
     carrier: { type: Boolean, default : false  },
     urlRedirect : {  type : String },
     access_token : { type: String },
+    sp_access_token : { type: String },
     metadata : { type : Object}
 });
 
