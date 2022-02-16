@@ -99,9 +99,8 @@ const Settings = (props)=>{
             let getToken = async ()=>{
                 const token = await getSessionToken(app);
                 if(token){
-                  setShopifyToken(token);
-                  const c = await GetCarriers(token);
-                  console.log("c", c);
+                    const c = await GetCarriers(token);
+                    console.log("c", c);
                 }
             }
 
