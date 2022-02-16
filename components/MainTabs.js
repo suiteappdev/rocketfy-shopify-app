@@ -28,6 +28,7 @@ export default function MainTabs(props) {
 
     let getToken = async ()=>{
       const token = await getSessionToken(app);
+          console.log("token", token);
 
       if(token){
           setJson('st', { st : token});
