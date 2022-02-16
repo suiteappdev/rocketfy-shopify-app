@@ -1,6 +1,8 @@
 import axios from "axios";
 const apiurl = (process.env.NODE_ENV == 'production') ? process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV;
 
+console.log("env", process.env);
+
 const OrderController  = {
     createOrder : (data, auth)=>{
         return new Promise(async (resolve, reject)=>{
