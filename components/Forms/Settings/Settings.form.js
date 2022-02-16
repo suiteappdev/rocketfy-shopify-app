@@ -43,12 +43,6 @@ const Settings = (props)=>{
 
     }, [connectedWebhook]);
 
-    let updateSpToken =  async (t)=>{
-        let r = await Put(`/api/settings/status/${user._id}`, {
-            sp_access_token : t
-        });
-    }
-
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
 
@@ -104,7 +98,11 @@ const Settings = (props)=>{
 
             let getToken = async ()=>{
                 const token = await getSessionToken(app);
-                updateSpToken(token);
+                if(token){
+                  setShopifyToken(token);
+                  const c = await GetCarriers(token);
+                  console.log("c", c);
+                }
             }
 
             if(data && data[DATA_KEY]){
@@ -113,7 +111,6 @@ const Settings = (props)=>{
             }
 
             getToken();
-            getCarriers(user.sp_access_token);
     }, []);
 
     const createCarrier = async ()=>{
@@ -121,16 +118,6 @@ const Settings = (props)=>{
             let response = await CreateCarrier(getJson('st').st).catch((e)=>{
                 console.log(e);
               });
-        }
-    }
-
-    const getCarriers = async (t)=>{
-        if(t){
-            let response = await GetCarriers(t).catch((e)=>{
-                console.log(e);
-            });
-            
-            setCarrier(response.data);
         }
     }
 
