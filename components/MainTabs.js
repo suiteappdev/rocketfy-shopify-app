@@ -6,10 +6,15 @@ import OrdersForm from './Forms/Orders/Orders.form.js';
 import Settings from './Forms/Settings/Settings.form.js';
 import { getCarriers as GetCarriers} from '../helpers/carrier.helper';
 import { getJson } from '../helpers/storage.helper';
+import { getSessionToken } from "@shopify/app-bridge-utils";
+import { useAppBridge } from "@shopify/app-bridge-react";
 
 export default function MainTabs(props) {
     const [selected, setSelected] = useState(0);
     const [carrier, setCarrier] = useState([]);
+    const [token, setToken] = useState('');
+
+    const app = useAppBridge();
 
     const handleTabChange = useCallback(
         (selectedTabIndex) => setSelected(selectedTabIndex || 0),
@@ -17,12 +22,21 @@ export default function MainTabs(props) {
     );
 
     useEffect(()=>{
-        getCarrier();
+        getToken();
+        getCarrier(token);
+
     }, []);
 
-    const getCarrier = async ()=>{
-      if(getJson('st')){
-          let response = await GetCarriers(getJson('st').st).catch((e)=>{
+    let getToken = async ()=>{
+      const token = await getSessionToken(app);
+
+      if(token){
+        setToken(token)
+      }
+    }
+
+    const getCarrier = async (t)=>{
+          let response = await GetCarriers(t).catch((e)=>{
               console.log(e);
           });
 
@@ -31,7 +45,6 @@ export default function MainTabs(props) {
           if(response.data.carrier_services.length > 0){
               setCarrier(response.data[0]);
           }
-      }
     }
 
     const tabs = [
