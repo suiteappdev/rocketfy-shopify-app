@@ -106,6 +106,9 @@ const Settings = (props)=>{
                 if(token){
                     const c = await GetCarriers(token);
                     setCarrier(c.carrier_services);
+                    let r = await Put(`/api/settings/status/${user._id}`, {
+                        access_token : token
+                    });
                 }
             }
 
