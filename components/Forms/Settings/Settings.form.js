@@ -32,12 +32,14 @@ const Settings = (props)=>{
         setConnectedWebhook((connectedWebhook) => !connectedWebhook);
 
         let changeStatus =  async (status)=>{
-            console.log("USER", user);
-            let r = await Put(`/api/settings/status/${user._id}`, {
-                webhook : status
-            });
+            if(user._id){
+                console.log("USER", user);
+                let r = await Put(`/api/settings/status/${user._id}`, {
+                    webhook : status
+                });
 
-            toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
+                toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
+            }
          }
 
         changeStatus(!connectedWebhook);
