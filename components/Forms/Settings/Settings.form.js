@@ -157,9 +157,7 @@ const Settings = (props)=>{
                         action={{
                             content: buttonTextCarriers,
                             onAction: ()=>{
-                                if(user){
-                                    handleActionConnectCarriers(user);
-                                }
+                                 handleActionConnectCarriers(user);
                             },
                         }}
                         details={detailsCarriers}
@@ -172,9 +170,7 @@ const Settings = (props)=>{
                         action={{
                             content: buttonTextWebhook,
                             onAction: ()=>{
-                                if(user){
-                                     handleActionConnectWebhook(user);
-                                }
+                                handleActionConnectWebhook(user);
                             },
                         }}
                         details={detailsWebhook}
