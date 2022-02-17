@@ -52,7 +52,7 @@ const Settings = (props)=>{
                     carrier : status
                 });
     
-                let c = await createCarrier(st);
+                let c = await createCarrier(user.access_token);
     
                 if(c){
                     console.log(c);
@@ -116,9 +116,9 @@ const Settings = (props)=>{
             getToken();
     }, [connectedCarriers, connectedWebhook]);
 
-    const createCarrier = async ()=>{
-        if(getJson('st')){
-            let response = await CreateCarrier(getJson('st').st).catch((e)=>{
+    const createCarrier = async (st)=>{
+        if(st){
+            let response = await CreateCarrier(st).catch((e)=>{
                 console.log(e);
               });
         }
