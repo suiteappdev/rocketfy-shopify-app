@@ -87,7 +87,6 @@ const Settings = (props)=>{
                     setConnectedCarriers(rs.carrier);
                     setConnectedWebhook(rs.webhook);
                     setLoading(false);
-
                     return;
                 }
                 
