@@ -90,6 +90,8 @@ const Settings = (props)=>{
 
                 setUser(rs);
 
+                console.log("rs",  rs);
+
                 setConnectedCarriers(rs.carrier);
                 setConnectedWebhook(rs.webhook);
 
