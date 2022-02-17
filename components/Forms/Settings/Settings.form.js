@@ -29,13 +29,14 @@ const Settings = (props)=>{
     const accountName = connectedWebhook || connectedCarriers ? 'Rocketfy' : '';
 
     let changeStatus =  async (status)=>{
-            if(user._id){
-                let r = await Put(`/api/settings/status/${user._id}`, {
-                    webhook : status
-                });
+        console.log("user", user)
+        if(user._id){
+            let r = await Put(`/api/settings/status/${user._id}`, {
+                webhook : status
+            });
 
-                toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
-            }
+            toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
+        }
     }
   
     const handleActionConnectWebhook = useCallback((user) => {
@@ -44,6 +45,7 @@ const Settings = (props)=>{
     }, [connectedWebhook, user]);
 
     let changeStatus_webhook =  async (status)=>{
+        console.log("user", user)
         if(user._id){
             let r = await Put(`/api/settings/status/${user._id}`, {
                 carrier : status
@@ -62,8 +64,8 @@ const Settings = (props)=>{
 
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
-        changeStatus_webhook(connectedCarriers);
-        
+        changeStatus_webhook(!connectedCarriers);
+
       }, [connectedCarriers, user]);
   
     const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
