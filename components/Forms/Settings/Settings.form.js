@@ -52,7 +52,7 @@ const Settings = (props)=>{
                     carrier : status
                 });
 
-                let token = getSessionToken(app);
+                let token = await getSessionToken(app);
                 let c = await createCarrier(token);
     
                 if(c){
@@ -102,7 +102,7 @@ const Settings = (props)=>{
             }
 
             let getToken = async ()=>{
-                const token = getSessionToken(app);
+                const token = await getSessionToken(app);
                 if(token){
                     const c = await GetCarriers(token);
                     setCarrier(c.carrier_services);
