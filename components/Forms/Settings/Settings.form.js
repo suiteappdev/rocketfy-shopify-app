@@ -52,9 +52,8 @@ const Settings = (props)=>{
                     carrier : status
                 });
 
-                console.log("accesstoken", user.access_token);
-    
-                let c = await createCarrier(user.access_token);
+                let token = getSessionToken(app);
+                let c = await createCarrier(token);
     
                 if(c){
                     console.log(c);
