@@ -47,17 +47,19 @@ const Settings = (props)=>{
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
 
         let changeStatus =  async (status)=>{
-            let r = await Put(`/api/settings/status/${user._id}`, {
-                carrier : status
-            });
-
-            let c = await createCarrier(st);
-
-            if(c){
-                console.log(c);
+            if(user._id){
+                let r = await Put(`/api/settings/status/${user._id}`, {
+                    carrier : status
+                });
+    
+                let c = await createCarrier(st);
+    
+                if(c){
+                    console.log(c);
+                }
+    
+                toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
             }
-
-            toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
 
         changeStatus(!connectedCarriers);
