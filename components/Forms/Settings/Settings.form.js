@@ -84,8 +84,8 @@ const Settings = (props)=>{
                 setLoading(true);
 
                 if(user){
-                    setConnectedCarriers(rs.carrier);
-                    setConnectedWebhook(rs.webhook);
+                    setConnectedCarriers(user.carrier);
+                    setConnectedWebhook(user.webhook);
                     setLoading(false);
                     return;
                 }
@@ -107,7 +107,7 @@ const Settings = (props)=>{
                 const token = await getSessionToken(app);
                 if(token){
                     const c = await GetCarriers(token);
-                    console.log("c", c);
+                    setCarrier(c.carrier_services);
                 }
             }
 
