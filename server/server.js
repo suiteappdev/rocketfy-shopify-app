@@ -177,8 +177,9 @@ app.prepare().then(async () => {
     let host = new URL(ctx.request.body.order_status_url).host;
     let auth = await Settings.findOne({ domain :  host});
 
-    console.log("auth notification", auth);
+    console.log("HOST", HOST)
 
+    console.log("auth notification", auth);
 
     if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
         if(auth.webhook){
