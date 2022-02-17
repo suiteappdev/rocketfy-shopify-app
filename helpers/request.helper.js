@@ -97,11 +97,11 @@ const verifyUrl = (body)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${window.localStorage.getItem('rocketfy-token')}`},
+            headers: { 'Content-Type': 'application/json'},
             body : JSON.stringify(body)
         };
 
-        const response = await fetch(`${process.env.HOST}/api/verify`, options).catch(e=>reject(e));
+        const response = await fetch(`https://rocketfy-shopify-app.herokuapp.com/api/verify`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
     
         resolve(data);
