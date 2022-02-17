@@ -32,6 +32,7 @@ const Settings = (props)=>{
         setConnectedWebhook((connectedWebhook) => !connectedWebhook);
 
         let changeStatus =  async (status)=>{
+            console.log("USER", user);
             let r = await Put(`/api/settings/status/${user._id}`, {
                 webhook : status
             });
@@ -156,7 +157,9 @@ const Settings = (props)=>{
                         action={{
                             content: buttonTextCarriers,
                             onAction: ()=>{
-                                handleActionConnectCarriers(user);
+                                if(user){
+                                    handleActionConnectCarriers(user);
+                                }
                             },
                         }}
                         details={detailsCarriers}
@@ -169,7 +172,9 @@ const Settings = (props)=>{
                         action={{
                             content: buttonTextWebhook,
                             onAction: ()=>{
-                                handleActionConnectWebhook(user);
+                                if(user){
+                                     handleActionConnectWebhook(user);
+                                }
                             },
                         }}
                         details={detailsWebhook}
