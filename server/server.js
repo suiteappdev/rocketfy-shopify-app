@@ -194,8 +194,8 @@ app.prepare().then(async () => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
-    console.log("BODY", ctx.request.body)
-    console.log("toke", session.accessToken)
+    console.log("BODY", ctx.request.body);
+    console.log("sesssion", session);
 
     const carrier = await client.post({
       path: 'carrier_services',
