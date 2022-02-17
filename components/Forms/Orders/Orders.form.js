@@ -55,7 +55,9 @@ const OrdersForm = (props)=>{
             redirectUrl : user.urlRedirect
         });
 
-        window.open(url.data.application); 
+        console.log("url", url);
+
+        window.open(url.application); 
     }
 
     const sync = (event)=>{
