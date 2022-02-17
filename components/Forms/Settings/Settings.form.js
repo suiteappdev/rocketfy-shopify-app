@@ -51,6 +51,8 @@ const Settings = (props)=>{
                 let r = await Put(`/api/settings/status/${user._id}`, {
                     carrier : status
                 });
+
+                console.log("accesstoken", user.access_token);
     
                 let c = await createCarrier(user.access_token);
     

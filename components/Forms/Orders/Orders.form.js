@@ -55,8 +55,6 @@ const OrdersForm = (props)=>{
             redirectUrl : user.urlRedirect
         });
 
-        console.log("url", url);
-
         window.open(url.application); 
     }
 
