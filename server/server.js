@@ -216,7 +216,7 @@ app.prepare().then(async () => {
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     if (session === undefined || ACTIVE_SHOPIFY_SHOPS[session.shop] === undefined) {
-      ctx.redirect(`/auth?shop=${shop}`);
+      ctx.redirect(`/auth?shop=${session.shop}`);
       return;
     }
     
