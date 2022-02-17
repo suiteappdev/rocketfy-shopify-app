@@ -82,13 +82,6 @@ const Settings = (props)=>{
     useEffect(()=>{
             let isConnectedSettings =  async ()=>{
                 setLoading(true);
-
-                if(user){
-                    setConnectedCarriers(user.carrier);
-                    setConnectedWebhook(user.webhook);
-                    setLoading(false);
-                    return;
-                }
                 
                 let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                     setLoading(false);
