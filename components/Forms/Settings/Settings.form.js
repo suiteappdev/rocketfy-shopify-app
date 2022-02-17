@@ -44,7 +44,7 @@ const Settings = (props)=>{
 
         changeStatus(!connectedWebhook);
 
-    }, [connectedWebhook]);
+    }, [connectedWebhook, user]);
 
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
@@ -68,7 +68,7 @@ const Settings = (props)=>{
 
         changeStatus(!connectedCarriers);
 
-      }, [connectedCarriers]);
+      }, [connectedCarriers, user]);
   
     const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
     const detailsWebhook = connectedWebhook ? 'Conectado' : 'No conectado';
