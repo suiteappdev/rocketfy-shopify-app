@@ -50,8 +50,8 @@ const OrdersForm = (props)=>{
 
     const open = async (event)=>{
         event.preventDefault();
-        l
-        et url = await verifyUrl({
+        
+        let url = await verifyUrl({
             redirectUrl : user.urlRedirect
         });
 
