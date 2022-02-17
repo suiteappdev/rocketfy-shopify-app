@@ -27,47 +27,43 @@ const Settings = (props)=>{
     });
 
     const accountName = connectedWebhook || connectedCarriers ? 'Rocketfy' : '';
-  
-    const handleActionConnectWebhook = useCallback((user) => {
-        setConnectedWebhook((connectedWebhook) => !connectedWebhook);
 
-        let changeStatus =  async (status)=>{
+    let changeStatus =  async (status)=>{
             if(user._id){
-                console.log("USER", user);
                 let r = await Put(`/api/settings/status/${user._id}`, {
                     webhook : status
                 });
 
                 toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
             }
-         }
-
+    }
+  
+    const handleActionConnectWebhook = useCallback((user) => {
+        setConnectedWebhook((connectedWebhook) => !connectedWebhook);
         changeStatus(!connectedWebhook);
-
     }, [connectedWebhook, user]);
+
+    let changeStatus_webhook =  async (status)=>{
+        if(user._id){
+            let r = await Put(`/api/settings/status/${user._id}`, {
+                carrier : status
+            });
+
+            let token = await getSessionToken(app);
+            let c = await createCarrier(token);
+
+            if(c){
+                console.log(c);
+            }
+
+            toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
+        }
+    }
 
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
-
-        let changeStatus =  async (status)=>{
-            if(user._id){
-                let r = await Put(`/api/settings/status/${user._id}`, {
-                    carrier : status
-                });
-
-                let token = await getSessionToken(app);
-                let c = await createCarrier(token);
-    
-                if(c){
-                    console.log(c);
-                }
-    
-                toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
-            }
-        }
-
-        changeStatus(!connectedCarriers);
-
+        changeStatus_webhook(connectedCarriers);
+        
       }, [connectedCarriers, user]);
   
     const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
