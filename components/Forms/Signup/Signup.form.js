@@ -198,6 +198,7 @@ const SignupForm = (props)=>{
                                 value={form.txtShop}
                                 onChange={onChange}
                                 label="Nombre de la tienda"
+                                disabled={true}
                                 id="txtShop"
                                 type="text"
                             />
