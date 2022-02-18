@@ -14,6 +14,7 @@ const OrderController  = {
                     "shipping_total": 10000,
                     "subtotal": parseInt(data.current_subtotal_price_set.shop_money.amount),
                     "total": parseInt(data.current_total_price_set.shop_money.amount),
+                    "coupon" : parseInt(data.total_discounts || 0),
                     "payment_method": "cod",
                     "dimensions" : {
                         width : 0, height : 0 , weight : Math.round(parseInt(data.total_weight / 1000)) , large : 0
