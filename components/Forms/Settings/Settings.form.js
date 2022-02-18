@@ -35,6 +35,7 @@ const Settings = (props)=>{
                 webhook : status
             });
 
+            setConnectedCarriers(status);
             toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
         }
     }
@@ -53,6 +54,7 @@ const Settings = (props)=>{
 
             let token = await getSessionToken(app);
             let c = await createCarrier(token);
+            setConnectedWebhook(status);
 
             if(c){
                 console.log(c);
