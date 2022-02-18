@@ -76,6 +76,7 @@ const getAcessToken  = ()=>{
 }
 
 const refreshToken = (rocketfy_token, customerID)=>{
+    console.log("rocketfytoken", rocketfy_token);
     return new Promise(async (resolve, reject)=>{
         const options = {
             method: 'POST',
