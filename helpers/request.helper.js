@@ -75,14 +75,14 @@ const getAcessToken  = ()=>{
     });
 }
 
-const refreshToken = ()=>{
+const refreshToken = (rocketfy_token, customerID)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${window.localStorage.getItem('rocketfy-token')}`},
+            headers: { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${rocketfy_token}`},
             body : JSON.stringify({
                 partnerID : process.env.ROCKETFY_PARTNERID,
-                customerID : window.localStorage.getItem('rocketfy-customerid')
+                customerID : customerID
             })
         };
 

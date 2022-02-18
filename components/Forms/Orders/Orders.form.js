@@ -7,7 +7,7 @@ import {  useQuery } from '@apollo/client';
 import  {ORDERS_QUERY, DATA_KEY}  from '../../../graphql/querys/orders.query';
 import { setJson, getJson} from '../../../helpers/storage.helper';
 import { getCities as getlist } from '../../../helpers/location.helper';
-import { Get, verifyUrl }  from '../../../helpers/request.helper';
+import { Get, refreshToken, verifyUrl }  from '../../../helpers/request.helper';
 
 const OrdersForm = (props)=>{
     const [ordersData, setOrdersData] = useState([]);
@@ -50,12 +50,18 @@ const OrdersForm = (props)=>{
 
     const open = async (event)=>{
         event.preventDefault();
-        
-        let url = await verifyUrl({
-            redirectUrl : user.urlRedirect
-        });
 
-        window.open(url.application); 
+        let refresh = await refreshToken(user.acesss_token, user.customerID);
+
+        console.log("refres", refresh);
+
+        if(refresh && refresh.data){
+            let url = await verifyUrl({
+                redirectUrl : refresh.data.redirectUrl
+            });
+
+            window.open(url.application); 
+        }
     }
 
     const sync = (event)=>{
