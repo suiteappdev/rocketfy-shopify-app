@@ -51,9 +51,9 @@ const OrdersForm = (props)=>{
     const open = async (event)=>{
         event.preventDefault();
 
-        console.log("user", user);
+        console.log("user", user.access_token);
 
-        let refresh = await refreshToken(user.acesss_token, user.customerID);
+        let refresh = await refreshToken(user.access_token, user.customerID);
 
         console.log("refres", refresh);
 
