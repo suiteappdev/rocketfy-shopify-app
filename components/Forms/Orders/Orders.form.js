@@ -51,19 +51,11 @@ const OrdersForm = (props)=>{
     const open = async (event)=>{
         event.preventDefault();
 
-        console.log("user", user.access_token);
+        let url = await verifyUrl({
+            redirectUrl : user.urlRedirect
+        });
 
-        let refresh = await refreshToken(user.access_token, user.customerID);
-
-        console.log("refres", refresh);
-
-        if(refresh && refresh.data){
-            let url = await verifyUrl({
-                redirectUrl : refresh.data.redirectUrl
-            });
-
-            window.open(url.application); 
-        }
+        window.open(url.application); 
     }
 
     const sync = (event)=>{
