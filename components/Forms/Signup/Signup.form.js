@@ -164,6 +164,21 @@ const SignupForm = (props)=>{
         }
     }
 
+    const open = async (event)=>{
+        event.preventDefault();
+
+        let refresh = await refreshToken(user.access_token, user.customerID);
+
+        if(refresh && refresh.data){
+            let url = await verifyUrl({
+                redirectUrl : refresh.data.redirectUrl
+            });
+
+             window.open(url.application); 
+
+        }
+    }
+
     return (
         <Form>
             {loading || isLoading ? (
@@ -184,7 +199,13 @@ const SignupForm = (props)=>{
                 ) : (
                 <FormLayout>
                     <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
-                    {user._id ? (null) : (
+                    {user._id ? (
+                        <React.Fragment styles={{marginTop:'30px'}}>
+                            <ButtonGroup>
+                                <Button primary onClick={open}>Ir a panel de envios en Rocketfy</Button>
+                            </ButtonGroup>
+                        </React.Fragment>
+                    ) : (
                          <React.Fragment>
                             <TextField
                                 value={form.txtAddress}

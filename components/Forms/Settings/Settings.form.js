@@ -111,12 +111,12 @@ const Settings = (props)=>{
 
                 if(rs && rs.connected){
                     setConnected(true);
+                    setUser(rs);
                 }else{
                     setConnected(false);
                 }
 
                 setUser(rs);
-
                 setConnectedCarriers(rs.carrier);
                 setConnectedWebhook(rs.webhook);
 
