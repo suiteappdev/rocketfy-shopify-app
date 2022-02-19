@@ -42,7 +42,7 @@ const Settings = (props)=>{
                     carrier[0].active = status;
                     let updated = await UpdateCarrier(carrier[0], token);
                     if(updated && updated.data){
-                        toast({ content : `${!status ? 'Conectado' : 'Desconectado'}`, active : true});
+                        toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
                     }
                 }else{
                     let c = await createCarrier(token);
