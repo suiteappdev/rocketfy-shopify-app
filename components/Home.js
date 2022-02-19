@@ -3,6 +3,7 @@ import React, { useState, useEffect} from 'react';
 import MainTabs from "./MainTabs";
 import { getAcessToken } from "../helpers/request.helper";
 import { getAppToken, getRocketfyToken, setRocketfyToken } from "../helpers/storage.helper";
+import box2 from '../assets/images/box2.png'
 
 const Home = (props) => {
     const [token, setToken] = useState({});
@@ -24,6 +25,7 @@ const Home = (props) => {
 
     return (
         <Page>
+            <img src={box2} alt="Box" />;
             {token ? (
                 <Frame>
                     <MainTabs {...token}/>
