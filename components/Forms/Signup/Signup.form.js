@@ -18,6 +18,12 @@ const SignupForm = (props)=>{
     const [isLoading, setLoading] = useState(false);
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connected, setConnected] = useState(false);
+    const [error, setError] = useState({
+        txtAddress : false,
+        txtEmail : false,
+        txtFullname : false,
+        txtPhone : false
+    });
     const [user, setUser] = useState({});
 
     const [showToast, setShowToast] = useState({
@@ -44,6 +50,7 @@ const SignupForm = (props)=>{
             }
         }
 
+
         if (data){
            setStoreData(data[DATA_KEY]);
            setForm({
@@ -65,6 +72,10 @@ const SignupForm = (props)=>{
 
     const onChange = (value, id)=>{
         setForm({...form, [id] : (value)});
+    }
+
+    const validate = ()=>{
+
     }
 
     const toast = (options)=>{
@@ -176,13 +187,16 @@ const SignupForm = (props)=>{
                             <TextField
                                 value={form.txtAddress}
                                 onChange={onChange}
-                                onBlur={()=>{}}
+                                onBlur={()=>{
+                                    if(!form.txtAddress){
+                                        setError({...error, txtAddress : true});
+                                    }
+                                }}
                                 label="Dirección de recolección"
                                 id="txtAddress"
                                 type="text"
-                                id={'txtAddress'}
                             />
-                            <InlineError message="Dirección de la tienda es requerida" fieldID="txtAddress" />
+                            {error.txtAddress ? (<InlineError message="Dirección de la tienda es requerida" fieldID="txtAddress" />) : (null)}
                             <TextField
                                 value={form.txtPhone}
                                 onChange={onChange}
