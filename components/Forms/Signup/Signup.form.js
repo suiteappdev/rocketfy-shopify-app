@@ -43,8 +43,6 @@ const SignupForm = (props)=>{
 
             setUser(rs);
 
-              const [user, setUser] = useState({});
-
             if(rs && rs.connected){
                 setConnected(true);
                 setLoading(false);
