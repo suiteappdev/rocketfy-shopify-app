@@ -18,15 +18,8 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({
   dev,
 });
+
 const handle = app.getRequestHandler();
-
-var q = new Queue(function (input, cb) {
-  
-  // Some processing here ...
- 
-  cb(null, result);
-})
-
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
   API_SECRET_KEY: process.env.SHOPIFY_API_SECRET,
@@ -41,6 +34,7 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 let order_queue = new Queue(async (ctx, cb) => {
     if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
+        console.log("body", ctx.body);
         let host = new URL(ctx.request.body.order_status_url).host;
         let auth = await Settings.findOne({ domain :  host});
 

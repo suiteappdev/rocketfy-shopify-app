@@ -1,6 +1,6 @@
 import axios from "axios";
 
-console.log("env", process.env);
+const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_DEV :  process.env.APIPUBLIC_PRO
 
 const OrderController  = {
     createOrder : (data, auth)=>{
@@ -48,7 +48,7 @@ const OrderController  = {
                     "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega')
                 }
 
-                let o = await axios.post(`http://3c65-190-28-241-149.ngrok.io/api/public/v2/createOrders`, 
+                let o = await axios.post(`${url}api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
                         { headers : headers }).catch((e)=>reject(e));
                 
@@ -112,7 +112,7 @@ const OrderController  = {
         }
         return new Promise(async (resolve, reject)=>{
             let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`}
-            let rates = await axios.post(`http://3c65-190-28-241-149.ngrok.io/api/public/v2/calculateShipping`, body, {
+            let rates = await axios.post(`${url}api/public/v2/calculateShipping`, body, {
                 headers : headers
             }).catch((e)=>reject(e));
 
