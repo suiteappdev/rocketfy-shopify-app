@@ -41,7 +41,7 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 let order_queue = new Queue(function (ctx, cb) {
     if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
-      
+
         let host = new URL(ctx.request.body.order_status_url).host;
         let auth = await Settings.findOne({ domain :  host});
 
@@ -198,7 +198,7 @@ app.prepare().then(async () => {
     ctx.response.status = 200;
     ctx.response.body  = {};
 
-    order_queue.push(ctx,)
+    order_queue.push(ctx)
   });
 
   router.post("/carrier-service", async (ctx) => {
