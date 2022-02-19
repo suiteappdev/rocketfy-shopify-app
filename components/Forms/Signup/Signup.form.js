@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {Button, Spinner, TextField, Form, FormLayout, Banner, Toast} from '@shopify/polaris'
+import {Button, Spinner, TextField, Form, FormLayout, Banner, Toast, InlineError} from '@shopify/polaris'
 import styles from './Signup.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
@@ -176,10 +176,13 @@ const SignupForm = (props)=>{
                             <TextField
                                 value={form.txtAddress}
                                 onChange={onChange}
+                                onBlur={()=>{}}
                                 label="Dirección de recolección"
                                 id="txtAddress"
                                 type="text"
+                                id={'txtAddress'}
                             />
+                            <InlineError message="Dirección de la tienda es requerida" fieldID="txtAddress" />
                             <TextField
                                 value={form.txtPhone}
                                 onChange={onChange}
