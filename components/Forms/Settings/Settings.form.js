@@ -159,7 +159,7 @@ const Settings = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                    { connected ? (
+                    { !connected ? (
                         <Banner
                             title="Tu cuenta shopify aun no esta conectada a Rocketfy"
                             status="primary"
