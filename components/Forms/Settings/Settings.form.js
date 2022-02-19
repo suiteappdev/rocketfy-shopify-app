@@ -4,7 +4,7 @@ import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
 import { Get, Put } from '../../../helpers/request.helper';
-import {createCarrier as CreateCarrier, getCarriers as GetCarriers, updateCarrier} from '../../../helpers/carrier.helper';
+import {createCarrier as CreateCarrier, getCarriers as GetCarriers, updateCarrier, getCarriers} from '../../../helpers/carrier.helper';
 import { getSessionToken } from "@shopify/app-bridge-utils";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { getJson, setJson } from '../../../helpers/storage.helper';
@@ -94,7 +94,8 @@ const Settings = (props)=>{
     useEffect(()=>{
             let isConnectedSettings =  async ()=>{
                 setLoading(true);
-                
+
+               
                 let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                     setLoading(false);
                     toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true});
@@ -114,6 +115,9 @@ const Settings = (props)=>{
                 setConnectedCarriers(rs.carrier);
                 setConnectedWebhook(rs.webhook);
 
+                console.log("carriers", carrier);
+
+
                 setLoading(false);
             }
 
@@ -131,7 +135,7 @@ const Settings = (props)=>{
             }
 
             getToken();
-    }, [connectedCarriers, connectedWebhook]);
+    }, [connectedCarriers, connectedWebhook, carrier]);
 
     const createCarrier = async (st)=>{
         if(st){
