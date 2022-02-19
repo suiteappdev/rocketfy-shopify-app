@@ -4,7 +4,7 @@ import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
 import { Get, Put } from '../../../helpers/request.helper';
-import {createCarrier as CreateCarrier, getCarriers as GetCarriers} from '../../../helpers/carrier.helper';
+import {createCarrier as CreateCarrier, getCarriers as GetCarriers, updateCarrier as UpdateCarrier} from '../../../helpers/carrier.helper';
 import { getSessionToken } from "@shopify/app-bridge-utils";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { getJson, setJson } from '../../../helpers/storage.helper';
@@ -30,7 +30,6 @@ const Settings = (props)=>{
     const accountName = connectedWebhook || connectedCarriers ? 'Rocketfy' : '';
 
     let changeStatus =  async (status)=>{
-        console.log("user", user)
         if(user._id){
             let r = await Put(`/api/settings/status/${user._id}`, {
                 webhook : status
@@ -47,28 +46,33 @@ const Settings = (props)=>{
     }, [connectedWebhook, user]);
 
     let changeStatus_webhook =  async (status)=>{
-        console.log("user", user)
         if(user._id){
             let r = await Put(`/api/settings/status/${user._id}`, {
                 carrier : status
             });
 
-            let token = await getSessionToken(app);
-            let c = await createCarrier(token);
-            setConnectedWebhook(status);
-
-            if(c){
-                console.log(c);
+            if(r && r.data){
+                if(carrier.id){
+                    carrier.active = status;
+                    let token = await getSessionToken(app);
+                    let updated = await UpdateCarrier(carrier, token);
+                    if(updated && updated.data){
+                        toast({ content : `${!status ? 'Conectado' : 'Desconectado'}`, active : true});
+                    }
+                }else{
+                    let token = await getSessionToken(app);
+                    let c = await createCarrier(token);
+                    setConnectedWebhook(status);
+                    toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
+                }
             }
 
-            toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
     }
 
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
         changeStatus_webhook(!connectedCarriers);
-
       }, [connectedCarriers, user]);
   
     const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
@@ -128,6 +132,14 @@ const Settings = (props)=>{
     const createCarrier = async (st)=>{
         if(st){
             let response = await CreateCarrier(st).catch((e)=>{
+                console.log(e);
+              });
+        }
+    }
+
+    const updateCarrier = async (st)=>{
+        if(st){
+            let response = await UpdateCarrier(st).catch((e)=>{
                 console.log(e);
               });
         }

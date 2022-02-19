@@ -193,12 +193,27 @@ app.prepare().then(async () => {
     order_queue.push(ctx)
   });
 
-  router.post("/carrier-service", async (ctx) => {
+  router.put("/carrier-service/:id", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
-    console.log("BODY", ctx.request.body);
-    console.log("sesssion", session);
+    const data = await client.put({
+        path: `carrier_services/${ctx.request.params.id}`,
+        data: ctx.request.body,
+        type: DataType.JSON,
+    });
+   
+    ctx.status = 200;
+    ctx.body = {
+      status: "OK_CARRIERS_UPDATED",
+      data: data,
+    };
+
+  });
+
+  router.post("/carrier-service", async (ctx) => {
+    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     const carrier = await client.post({
       path: 'carrier_services',
@@ -214,6 +229,8 @@ app.prepare().then(async () => {
     ctx.status = 200;
   });
 
+
+
   router.get('/carriers-service', async (ctx)=>{
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
@@ -228,8 +245,6 @@ app.prepare().then(async () => {
   router.delete("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
-
-
 
     const data = await client.delete({
       path: `carrier_services/${ctx.body.id}`,

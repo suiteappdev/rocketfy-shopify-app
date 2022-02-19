@@ -19,6 +19,23 @@ const createCarrier = (token) =>{
     });
 }
 
+const updateCarrier = (carrier, token) =>{
+    return new Promise(async (resolve, reject)=>{
+            const opts = {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body : JSON.stringify({
+                    carrier_service : carrier
+                })
+            };
+    
+            const response = await fetch(`/carrier-service/${carrier.id}`, opts).catch(e=>reject(e));
+            const data = await response.json().catch(e=>reject(e));
+        
+            resolve(data);
+    });
+}
+
 const deleteCarrier = (token, id) =>{
     return new Promise(async (resolve, reject)=>{
             let body = {
@@ -52,4 +69,4 @@ const getCarriers = (token) =>{
     });
 }
 
-export {createCarrier, deleteCarrier, getCarriers}
+export {createCarrier, deleteCarrier, getCarriers, updateCarrier}
