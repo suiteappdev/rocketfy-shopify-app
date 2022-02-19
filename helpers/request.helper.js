@@ -68,7 +68,7 @@ const getAcessToken  = ()=>{
             })
         };
        
-        const response = await fetch(`http://localhost:4001/api/public/connect`, options).catch(e=>reject(e));
+        const response = await fetch(`http://3c65-190-28-241-149.ngrok.io/public/connect`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
 
         resolve(data);        
@@ -87,7 +87,7 @@ const refreshToken = (rocketfy_token, customerID)=>{
             })
         };
 
-        const response = await fetch(`http://localhost:4001/api/public/refreshCustomerToken`, options).catch(e=>reject(e));
+        const response = await fetch(`http://3c65-190-28-241-149.ngrok.io/api/public/refreshCustomerToken`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
     
         resolve(data);
