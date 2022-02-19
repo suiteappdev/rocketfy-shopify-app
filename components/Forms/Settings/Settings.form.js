@@ -1,5 +1,5 @@
 import React, {useCallback, useState, useEffect} from 'react';
-import {Form, FormLayout,Toast, AccountConnection, Link} from '@shopify/polaris'
+import {Form, FormLayout,Toast, AccountConnection, Link, Banner} from '@shopify/polaris'
 import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
@@ -15,6 +15,7 @@ const Settings = (props)=>{
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connectedWebhook, setConnectedWebhook] = useState(false);
     const [connectedCarriers, setConnectedCarriers] = useState(false);
+    const [connected, setConnected] = useState(false);
     const [user, setUser] = useState({});
     const [carrier, setCarrier] = useState([]);
     const [st, setSt]  = useState('');
@@ -94,6 +95,12 @@ const Settings = (props)=>{
                     toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true});
                 });
 
+                if(rs && rs.connected){
+                    setConnected(true);
+                }else{
+                    setConnected(false);
+                }
+
                 setUser(rs);
 
                 setConnectedCarriers(rs.carrier);
@@ -152,36 +159,50 @@ const Settings = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                  <AccountConnection
-                        accountName={accountName}
-                        connected={connectedCarriers}
-                        title="Importar transportadoras Rocketfy"
-                        action={{
-                            content: buttonTextCarriers,
-                            onAction: ()=>{
-                                 handleActionConnectCarriers(user);
-                            },
-                        }}
-                        details={detailsCarriers}
-                        termsOfService={termsCarriers}
-                 /> 
-                  <AccountConnection
-                        accountName={accountName}
-                        connected={connectedWebhook}
-                        title="Sincronizar automaticamente pedidos"
-                        action={{
-                            content: buttonTextWebhook,
-                            onAction: ()=>{
-                                handleActionConnectWebhook(user);
-                            },
-                        }}
-                        details={detailsWebhook}
-                        termsOfService={termsWebhook}
-                 />
-                   {connectedWebhook ? (null) : (
-                    <React.Fragment>
-                     
-                   </React.Fragment>)}
+                    { connected ? (
+                        <Banner
+                            title="Tu cuenta shopify aun no esta conectada a Rocketfy"
+                            status="primary"
+                            action={{content: 'Conectar', onAction: ()=>{
+                                props.setSelectedTab(0)
+                            }}}
+                            secondaryAction={{content: 'Saber más', url: 'https://rocketfy.co'}}
+                            onDismiss={() => {}}
+                            >
+                            <p>
+                            Para sincronizar los pedidos primero debes conectar tu cuenta Shopify a Rocketfy
+                            </p>
+                        </Banner>
+                    ) : (
+                        <React.Fragment>
+                            <AccountConnection
+                                    accountName={accountName}
+                                    connected={connectedCarriers}
+                                    title="Importar transportadoras Rocketfy"
+                                    action={{
+                                        content: buttonTextCarriers,
+                                        onAction: ()=>{
+                                            handleActionConnectCarriers(user);
+                                        },
+                                    }}
+                                    details={detailsCarriers}
+                                    termsOfService={termsCarriers}
+                            /> 
+                            <AccountConnection
+                                    accountName={accountName}
+                                    connected={connectedWebhook}
+                                    title="Sincronizar automaticamente pedidos"
+                                    action={{
+                                        content: buttonTextWebhook,
+                                        onAction: ()=>{
+                                            handleActionConnectWebhook(user);
+                                        },
+                                    }}
+                                    details={detailsWebhook}
+                                    termsOfService={termsWebhook}
+                            />
+                        </React.Fragment>
+                    )}
             </FormLayout>
             )}
             { showToast.active ? (<Toast content={showToast.content} onDismiss={()=>setShowToast({ active : false })} />) : null } 
