@@ -187,9 +187,8 @@ app.prepare().then(async () => {
   });
 
   router.post('/webhook-notification', async (ctx)=>{
-    ctx.response.status = 200;
+    ctx.response.status = 201;
     ctx.response.body  = {};
-
     order_queue.push(ctx)
   });
 
@@ -257,7 +256,6 @@ app.prepare().then(async () => {
     
     ctx.status = 200;
   });
-
 
   const handleRequest = async (ctx) => {
     await handle(ctx.req, ctx.res);
