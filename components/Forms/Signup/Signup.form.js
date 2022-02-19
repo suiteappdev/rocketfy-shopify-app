@@ -18,7 +18,7 @@ const SignupForm = (props)=>{
     const [isLoading, setLoading] = useState(false);
     const {loading, error, data} = useQuery(STORE_QUERY);
     const [connected, setConnected] = useState(false);
-    const [error, setError] = useState({
+    const [errors, setError] = useState({
         txtAddress : false,
         txtEmail : false,
         txtFullname : false,
@@ -189,14 +189,14 @@ const SignupForm = (props)=>{
                                 onChange={onChange}
                                 onBlur={()=>{
                                     if(!form.txtAddress){
-                                        setError({...error, txtAddress : true});
+                                        setError({...errors, txtAddress : true});
                                     }
                                 }}
                                 label="Dirección de recolección"
                                 id="txtAddress"
                                 type="text"
                             />
-                            {error.txtAddress ? (<InlineError message="Dirección de la tienda es requerida" fieldID="txtAddress" />) : (null)}
+                            {errors.txtAddress ? (<InlineError message="Dirección de la tienda es requerida" fieldID="txtAddress" />) : (null)}
                             <TextField
                                 value={form.txtPhone}
                                 onChange={onChange}
