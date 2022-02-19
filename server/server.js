@@ -174,16 +174,17 @@ app.prepare().then(async () => {
 
   router.post('/webhook-notification', async (ctx)=>{
     let host = new URL(ctx.request.body.order_status_url).host;
-    let auth = await Settings.findOne({ domain :  host});
-    ctx.response.status = 201;
+    console.log("name===>" , ctx.request.body.name);
+    //let auth = await Settings.findOne({ domain :  host});
+    ctx.response.status = 200;
     ctx.response.body  = {};
 
-    if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
+    /*if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
         if(auth.webhook){
             let order = await OrderController.createOrder(ctx.request.body, auth).catch((e)=>console.log(e));
             console.log(`Order Processed`);
         }
-    }
+    }*/
   });
 
   router.post("/carrier-service", async (ctx) => {
