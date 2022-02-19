@@ -23,12 +23,12 @@ export default function MainTabs(props) {
         panelID: 'all-customers-content-1',
         render :<SignupForm/>
       },
-      {
+     /* {
         id: 'accepts-marketing-1',
         content: 'Pedidos',
         panelID: 'accepts-marketing-content-1',
         render :<OrdersForm setSelectedTab={handleTabChange} />
-      },
+      },*/
       {
         id: 'settings-tab',
         content: 'Configuración',

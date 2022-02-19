@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_DEV :  process.env.APIPUBLIC_PRO
+const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
 
 const OrderController  = {
     createOrder : (data, auth)=>{
