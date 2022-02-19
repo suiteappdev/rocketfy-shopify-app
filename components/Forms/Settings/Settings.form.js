@@ -52,19 +52,21 @@ const Settings = (props)=>{
             });
 
             let token = await getSessionToken(app);
-
+            console.log("carriers", carrier);
             if(carrier.length > 0){
                 carrier[0].active = status;
                 let updated = await updateCarrier(carrier[0], token);
-
+                console.log("updated", updated);
                 if(updated && updated.data){
                     setConnectedWebhook(status);
                     toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
                 }
             }else{
                 let c = await createCarrier(token);
-                setConnectedWebhook(status);
-                toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
+                if(c){
+                    setConnectedWebhook(status);
+                    toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
+                }
             }
         }
     }
@@ -106,7 +108,7 @@ const Settings = (props)=>{
                     setConnected(false);
                     setLoading(false);
                 }
-                
+
                 setUser(rs);
 
                 setConnectedCarriers(rs.carrier);
