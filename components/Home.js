@@ -25,7 +25,7 @@ const Home = (props) => {
 
     return (
         <Page>
-            <img src={box2} alt="Box" />;
+            <img src='https://www.rocketfy.co/static/graf_drop-2821422d99ea86f94f6dc11c038e62b3.png' alt="logo" />;
             {token ? (
                 <Frame>
                     <MainTabs {...token}/>
