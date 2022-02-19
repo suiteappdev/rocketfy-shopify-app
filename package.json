@@ -31,6 +31,7 @@
     "@shopify/polaris": "^6.2.0",
     "apollo-boost": "^0.4.9",
     "axios": "^0.21.4",
+    "better-queue": "^3.8.10",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "graphql": "^14.5.8",

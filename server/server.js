@@ -9,6 +9,7 @@ import Router, { url } from "koa-router";
 import mongoose from 'mongoose';
 import Settings from '../models/Settings';
 import OrderController from '../controllers/OrderController'
+import Queue from  'better-queue';
 
 dotenv.config();
 
@@ -18,6 +19,13 @@ const app = next({
   dev,
 });
 const handle = app.getRequestHandler();
+
+var q = new Queue(function (input, cb) {
+  
+  // Some processing here ...
+ 
+  cb(null, result);
+})
 
 Shopify.Context.initialize({
   API_KEY: process.env.SHOPIFY_API_KEY,
@@ -30,6 +38,20 @@ Shopify.Context.initialize({
 });
 
 const ACTIVE_SHOPIFY_SHOPS = {};
+
+let order_queue = new Queue(function (ctx, cb) {
+    if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
+      
+        let host = new URL(ctx.request.body.order_status_url).host;
+        let auth = await Settings.findOne({ domain :  host});
+
+        if(auth.webhook){
+            let order = await OrderController.createOrder(ctx.request.body, auth).catch((e)=>console.log(e));
+            cb(null, order);
+            console.log(`Order Processed`);
+        }
+    }
+})
 
 app.prepare().then(async () => {
   const environment = process.env.NODE_ENV == 'development' ? process.env.MONGODB_CONNECTION_STRING_DEV : process.env.MONGODB_CONNECTION_STRING_PRO;
@@ -173,18 +195,10 @@ app.prepare().then(async () => {
   });
 
   router.post('/webhook-notification', async (ctx)=>{
-    let host = new URL(ctx.request.body.order_status_url).host;
-    console.log("name===>" , ctx.request.body.name);
-    //let auth = await Settings.findOne({ domain :  host});
     ctx.response.status = 200;
     ctx.response.body  = {};
 
-    /*if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
-        if(auth.webhook){
-            let order = await OrderController.createOrder(ctx.request.body, auth).catch((e)=>console.log(e));
-            console.log(`Order Processed`);
-        }
-    }*/
+    order_queue.push(ctx,)
   });
 
   router.post("/carrier-service", async (ctx) => {
