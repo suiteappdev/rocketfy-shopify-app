@@ -43,6 +43,8 @@ const SignupForm = (props)=>{
 
             setUser(rs);
 
+              const [user, setUser] = useState({});
+
             if(rs && rs.connected){
                 setConnected(true);
                 setLoading(false);
@@ -162,8 +164,16 @@ const SignupForm = (props)=>{
 
     const open = async (event)=>{
         event.preventDefault();
+        
+        let url = await verifyUrl({
+            redirectUrl : refresh.data.redirectUrl
+        });
 
-        let refresh = await refreshToken(user.access_token, user.customerID);
+        if(url){
+            window.open(url.application); 
+        }
+
+        /**let refresh = await refreshToken(user.access_token, user.customerID);
 
         if(refresh && refresh.data){
             let url = await verifyUrl({
@@ -172,7 +182,7 @@ const SignupForm = (props)=>{
 
              window.open(url.application); 
 
-        }
+        }*/
     }
 
     return (

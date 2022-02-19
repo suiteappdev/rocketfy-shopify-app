@@ -4,7 +4,7 @@ import styles from './Settings.module.css';
 import { useQuery } from '@apollo/client';
 import  {STORE_QUERY, DATA_KEY}  from '../../../graphql/querys/store.query';
 import { Get, Put } from '../../../helpers/request.helper';
-import {createCarrier as CreateCarrier, getCarriers as GetCarriers, updateCarrier as UpdateCarrier} from '../../../helpers/carrier.helper';
+import {createCarrier as CreateCarrier, getCarriers as GetCarriers, updateCarrier} from '../../../helpers/carrier.helper';
 import { getSessionToken } from "@shopify/app-bridge-utils";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { getJson, setJson } from '../../../helpers/storage.helper';
@@ -100,10 +100,13 @@ const Settings = (props)=>{
 
                 if(rs && rs.connected){
                     setConnected(true);
+                    setLoading(false);
+                    setUser(rs);
                 }else{
                     setConnected(false);
+                    setLoading(false);
                 }
-
+                
                 setUser(rs);
 
                 setConnectedCarriers(rs.carrier);
