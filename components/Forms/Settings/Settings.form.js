@@ -35,6 +35,22 @@ const Settings = (props)=>{
                 webhook : status
             });
 
+            if(r && r.data){
+                let token = await getSessionToken(app);
+                
+                if(carrier.id){
+                    carrier.active = status;
+                    let updated = await UpdateCarrier(carrier, token);
+                    if(updated && updated.data){
+                        toast({ content : `${!status ? 'Conectado' : 'Desconectado'}`, active : true});
+                    }
+                }else{
+                    let c = await createCarrier(token);
+                    setConnectedWebhook(status);
+                    toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
+                }
+            }
+
             setConnectedCarriers(status);
             toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
         }
@@ -51,28 +67,22 @@ const Settings = (props)=>{
                 carrier : status
             });
 
-            if(r && r.data){
-                if(carrier.id){
-                    carrier.active = status;
-                    let token = await getSessionToken(app);
-                    let updated = await UpdateCarrier(carrier, token);
-                    if(updated && updated.data){
-                        toast({ content : `${!status ? 'Conectado' : 'Desconectado'}`, active : true});
-                    }
-                }else{
-                    let token = await getSessionToken(app);
-                    let c = await createCarrier(token);
-                    setConnectedWebhook(status);
-                    toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
-                }
+            let token = await getSessionToken(app);
+            let c = await createCarrier(token);
+            setConnectedWebhook(status);
+
+            if(c){
+                console.log(c);
             }
 
+            toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
         }
     }
 
     const handleActionConnectCarriers = useCallback((user) => {
         setConnectedCarriers((connectedCarriers) => !connectedCarriers);
-        changeStatus_webhook(!connectedCarriers);
+        changeStatus(!connectedCarriers);
+
       }, [connectedCarriers, user]);
   
     const buttonTextWebhook = connectedWebhook ? 'Desconectar' : 'Conectar';
