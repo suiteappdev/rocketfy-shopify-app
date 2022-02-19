@@ -53,9 +53,11 @@ const OrdersForm = (props)=>{
 
         let refresh = await refreshToken(user.access_token, user.customerID);
 
+        console.log("refresh", refresh);
+
         if(refresh && refresh.data){
             let url = await verifyUrl({
-                redirectUrl : user.urlRedirect
+                redirectUrl : refresh.data.data.redirectUrl
             });
 
              window.open(url.application); 
