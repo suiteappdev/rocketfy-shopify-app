@@ -76,10 +76,6 @@ const SignupForm = (props)=>{
         setForm({...form, [id] : (value)});
     }
 
-    const validate = ()=>{
-
-    }
-
     const toast = (options)=>{
         setShowToast({
             active : options.active,
