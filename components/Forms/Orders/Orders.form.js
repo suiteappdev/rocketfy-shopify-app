@@ -57,7 +57,7 @@ const OrdersForm = (props)=>{
 
         if(refresh && refresh.data){
             let url = await verifyUrl({
-                redirectUrl : refresh.data.data.redirectUrl
+                redirectUrl : refresh.data.redirectUrl
             });
 
              window.open(url.application); 
