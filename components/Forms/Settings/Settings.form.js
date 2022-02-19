@@ -38,9 +38,9 @@ const Settings = (props)=>{
             if(r){
                 let token = await getSessionToken(app);
 
-                if(carrier[0].id){
-                    carrier.active = status;
-                    let updated = await UpdateCarrier(carrier, token);
+                if(carrier.length >  0){
+                    carrier[0].active = status;
+                    let updated = await UpdateCarrier(carrier[0], token);
                     if(updated && updated.data){
                         toast({ content : `${!status ? 'Conectado' : 'Desconectado'}`, active : true});
                     }
