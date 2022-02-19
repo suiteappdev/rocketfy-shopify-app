@@ -50,7 +50,7 @@ const Settings = (props)=>{
             let r = await Put(`/api/settings/status/${user._id}`, {
                 carrier : status
             });
-            
+
             let token = await getSessionToken(app);
 
             if(carrier.length > 0){
@@ -131,14 +131,6 @@ const Settings = (props)=>{
     const createCarrier = async (st)=>{
         if(st){
             let response = await CreateCarrier(st).catch((e)=>{
-                console.log(e);
-              });
-        }
-    }
-
-    const updateCarrier = async (st)=>{
-        if(st){
-            let response = await UpdateCarrier(st).catch((e)=>{
                 console.log(e);
               });
         }
