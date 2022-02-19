@@ -35,10 +35,10 @@ const Settings = (props)=>{
                 webhook : status
             });
 
-            if(r && r.data){
+            if(r){
                 let token = await getSessionToken(app);
-                
-                if(carrier.id){
+
+                if(carrier[0].id){
                     carrier.active = status;
                     let updated = await UpdateCarrier(carrier, token);
                     if(updated && updated.data){
