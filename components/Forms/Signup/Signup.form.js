@@ -162,15 +162,12 @@ const SignupForm = (props)=>{
 
     const open = async (event)=>{
         event.preventDefault();
-        
         let refresh = await refreshToken(user.access_token, user.customerID);
-
         if(refresh && refresh.data){
             let url = await verifyUrl({
                 redirectUrl : refresh.data.redirectUrl
             });
-
-             window.open(url.application); 
+            window.open(url.application); 
         }
     }
 
