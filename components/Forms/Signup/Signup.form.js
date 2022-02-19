@@ -163,15 +163,7 @@ const SignupForm = (props)=>{
     const open = async (event)=>{
         event.preventDefault();
         
-        let url = await verifyUrl({
-            redirectUrl : refresh.data.redirectUrl
-        });
-
-        if(url){
-            window.open(url.application); 
-        }
-
-        /**let refresh = await refreshToken(user.access_token, user.customerID);
+        let refresh = await refreshToken(user.access_token, user.customerID);
 
         if(refresh && refresh.data){
             let url = await verifyUrl({
@@ -179,8 +171,7 @@ const SignupForm = (props)=>{
             });
 
              window.open(url.application); 
-
-        }*/
+        }
     }
 
     return (
