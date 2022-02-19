@@ -41,7 +41,6 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 let order_queue = new Queue(function (ctx, cb) {
     if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
-
         let host = new URL(ctx.request.body.order_status_url).host;
         let auth = await Settings.findOne({ domain :  host});
 
