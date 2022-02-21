@@ -87,7 +87,7 @@ const refreshToken = (rocketfy_token, customerID)=>{
             })
         };
 
-        const response = await fetch(`http://3c65-190-28-241-149.ngrok.io/api/public/refreshCustomerToken`, options).catch(e=>reject(e));
+        const response = await fetch(`http://3ab7-190-28-241-149.ngrok.io/api/public/refreshCustomerToken`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
     
         resolve(data);
