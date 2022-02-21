@@ -1,5 +1,6 @@
-const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
-console.log("URl front", url);
+const apiurl = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
+
+console.log("URl front", apiurl);
 const PostRequest = (url, body)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
@@ -70,7 +71,7 @@ const getAcessToken  = ()=>{
             })
         };
        
-        const response = await fetch(`http://3c65-190-28-241-149.ngrok.io/public/connect`, options).catch(e=>reject(e));
+        const response = await fetch(`${apiurl}public/connect`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
 
         resolve(data);        
@@ -89,7 +90,7 @@ const refreshToken = (rocketfy_token, customerID)=>{
             })
         };
 
-        const response = await fetch(`http://3ab7-190-28-241-149.ngrok.io/api/public/refreshCustomerToken`, options).catch(e=>reject(e));
+        const response = await fetch(`${apiurl}api/public/refreshCustomerToken`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
     
         resolve(data);
@@ -104,7 +105,7 @@ const verifyUrl = (body)=>{
             body : JSON.stringify(body)
         };
 
-        const response = await fetch(`https://rocketfy-shopify-app.herokuapp.com/api/verify`, options).catch(e=>reject(e));
+        const response = await fetch(`${apiurl}api/verify`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
     
         resolve(data);
