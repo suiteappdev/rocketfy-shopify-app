@@ -35,7 +35,7 @@ const Settings = (props)=>{
                 webhook : status
             });
 
-            setConnectedCarriers(status);
+            setConnectedWebhook(status);
             toast({ content : `${!connectedWebhook ? 'Conectado' : 'Desconectado'}`, active : true});
         }
     }
@@ -58,13 +58,13 @@ const Settings = (props)=>{
                 let updated = await updateCarrier(carrier[0], token);
                 console.log("updated", updated);
                 if(updated && updated.data){
-                    setConnectedWebhook(status);
+                    setConnectedCarriers(status);
                     toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
                 }
             }else{
                 let c = await createCarrier(token);
                 if(c){
-                    setConnectedWebhook(status);
+                    setConnectedCarriers(status);
                     toast({ content : `${!connectedCarriers ? 'Conectado' : 'Desconectado'}`, active : true});
                 }
             }
