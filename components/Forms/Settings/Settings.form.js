@@ -135,7 +135,7 @@ const Settings = (props)=>{
             }
 
             getToken();
-    }, [connectedCarriers, connectedWebhook, carrier]);
+    }, []);
 
     const createCarrier = async (st)=>{
         if(st){
