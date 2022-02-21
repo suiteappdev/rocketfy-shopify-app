@@ -1,0 +1,36 @@
+.btnOrders{
+    margin-left: 10px;
+}
+
+.spinner{
+    width: 100%;
+    height: 100%;
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
+    flex-direction: column!important;
+}
+
+.carrier-logo{
+    width: 15%;
+}
+  
+.carrier-item{
+    border: 2px solid #f4f4f4;
+    padding: 5px;
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    cursor:pointer;
+}
+
+.carrier-logo:hover{
+      background-color: #e2f0d3;
+}
+
+.item-list{
+    width: 100%;
+    height: auto;
+    background-color: black;
+}
+  
