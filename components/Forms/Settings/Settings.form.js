@@ -95,7 +95,6 @@ const Settings = (props)=>{
             let isConnectedSettings =  async ()=>{
                 setLoading(true);
 
-               
                 let rs = await Get(`/api/settings/me/${data[DATA_KEY].myshopifyDomain}`).catch((e)=>{
                     setLoading(false);
                     toast({ content : "Ocurrio un error al obtener la información de la cuenta.", active : true});
@@ -114,28 +113,27 @@ const Settings = (props)=>{
 
                 setConnectedCarriers(rs.carrier);
                 setConnectedWebhook(rs.webhook);
-
                 console.log("carriers", carrier);
-
-
                 setLoading(false);
             }
 
-            let getToken = async ()=>{
-                const token = await getSessionToken(app);
-                if(token){
-                    const c = await GetCarriers(token);
-                    setCarrier(c.carrier_services);
+            if(!user._id){
+                let getToken = async ()=>{
+                    const token = await getSessionToken(app);
+                    if(token){
+                        const c = await GetCarriers(token);
+                        setCarrier(c.carrier_services);
+                    }
                 }
+    
+                if(data && data[DATA_KEY]){
+                    setStoreData(data[DATA_KEY]);
+                    isConnectedSettings();
+                }
+    
+                getToken();
             }
-
-            if(data && data[DATA_KEY]){
-                setStoreData(data[DATA_KEY]);
-                isConnectedSettings();
-            }
-
-            getToken();
-    }, []);
+    });
 
     const createCarrier = async (st)=>{
         if(st){
