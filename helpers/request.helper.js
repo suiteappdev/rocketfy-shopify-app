@@ -1,4 +1,4 @@
-const apiurl = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
+const apiurl = process.env.NODE_ENV == 'production'  ?  process.env.REACT_APP_APIPUBLIC_PRO : process.env.REACT_APP_APIPUBLIC_DEV
 
 console.log("URl front", apiurl);
 const PostRequest = (url, body)=>{
