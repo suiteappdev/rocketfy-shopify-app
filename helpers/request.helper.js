@@ -1,3 +1,5 @@
+const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
+console.log("URl front", url);
 const PostRequest = (url, body)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
