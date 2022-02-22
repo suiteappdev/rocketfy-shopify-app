@@ -5,7 +5,7 @@ import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
 import Shopify, { ApiVersion, DataType } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
-import Router, { url } from "koa-router";
+import Router from "koa-router";
 import mongoose from 'mongoose';
 import Settings from '../models/Settings';
 import OrderController from '../controllers/OrderController'
