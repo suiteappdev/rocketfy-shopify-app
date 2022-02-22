@@ -33,8 +33,7 @@ Shopify.Context.initialize({
 const ACTIVE_SHOPIFY_SHOPS = {};
 
 let order_queue = new Queue(async (ctx, cb) => {
-    console.log("body", ctx.request.body)
-    console.log("ctx.request.body.gateway", ctx.request.body.gateway);
+    console.log("ctx.request.body.gateway", ctx.request.body);
     if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
         let host = new URL(ctx.request.body.order_status_url).host;
         let auth = await Settings.findOne({ domain :  host});
@@ -192,9 +191,9 @@ app.prepare().then(async () => {
   });
 
   router.post('/webhook-notification', async (ctx)=>{
+    order_queue.push(ctx)
     ctx.response.status = 201;
     ctx.response.body  = {};
-    order_queue.push(ctx)
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
