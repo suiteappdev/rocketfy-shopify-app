@@ -1,6 +1,5 @@
 const apiurl = process.env.NODE_ENV == 'production'  ?  process.env.NEXT_PUBLIC_APIPUBLIC_PRO : process.env.NEXT_PUBLIC_APIPUBLIC_DEV
 
-console.log("URl front", apiurl);
 const PostRequest = (url, body)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
@@ -105,7 +104,7 @@ const verifyUrl = (body)=>{
             body : JSON.stringify(body)
         };
 
-        const response = await fetch(`${apiurl}api/verify`, options).catch(e=>reject(e));
+        const response = await fetch(`api/verify`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
     
         resolve(data);
