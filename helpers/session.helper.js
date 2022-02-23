@@ -24,12 +24,24 @@ const storeCallback = async (session)=>{
             scope : data.scope
         }
 
-        console.log("obj", obj);
+        let exist = await Sessions.findOne({session_id : session.id });
 
+        if(exist){
+            Sessions.updateOne({session_id : session.id}, obj);
+        }else{
+            let s = new Sessions({
+                shop_url : data.shop,
+                session_id : data.id,
+                domain_id : domain_id,
+                accessToken : data.accessToken,
+                state : data.state,
+                isOnline : data.isOnline,
+                onlineAccessInfo : data.onlineAccessInfo,
+                scope : data.scope
+            });
 
-        let doc = await Sessions.findOneAndUpdate( { session_id : session.id }, obj, { upsert: true });
-
-        console.log("doc", doc);
+            await s.save();
+        }
 
         return true;
 
@@ -73,7 +85,11 @@ const loadCallback = async (id)=>{
 }
 
 const deleteCallback = async (id)=>{
-
+    try {
+        return false;
+    } catch (e) {
+        throw new Error(e)
+    }
 }
 
 export {
