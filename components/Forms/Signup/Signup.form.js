@@ -115,7 +115,7 @@ const SignupForm = (props)=>{
                 }
             }
 
-            let response = await PostRequest(`${process.env.APIPUBLIC}/api/public/createAccount` , data).catch(e=>toast({
+            let response = await PostRequest(`${process.env.APIPUBLIC}api/public/createAccount` , data).catch(e=>toast({
                 content : "Ocurrio un error al conectar la cuenta.",
                 active : true,
             }));
