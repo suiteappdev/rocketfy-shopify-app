@@ -110,14 +110,10 @@ const Settings = (props)=>{
                 }
 
                 setUser(rs);
-
                 setConnectedCarriers(rs.carrier);
                 setConnectedWebhook(rs.webhook);
-                console.log("carriers", carrier);
                 setLoading(false);
-            }
-
-            if(!user._id){
+                
                 let getToken = async ()=>{
                     const token = await getSessionToken(app);
                     if(token){
@@ -133,6 +129,8 @@ const Settings = (props)=>{
     
                 getToken();
             }
+
+
     });
 
     const createCarrier = async (st)=>{
