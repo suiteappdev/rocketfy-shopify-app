@@ -1,5 +1,3 @@
-const apiurl = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
-
 const PostRequest = (url, body)=>{
     return new Promise(async (resolve, reject)=>{
         const options = {
@@ -70,7 +68,7 @@ const getAcessToken  = ()=>{
             })
         };
        
-        const response = await fetch(`${apiurl}public/connect`, options).catch(e=>reject(e));
+        const response = await fetch(`${process.env.APIPUBLIC}public/connect`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
 
         resolve(data);        
@@ -89,7 +87,7 @@ const refreshToken = (rocketfy_token, customerID)=>{
             })
         };
 
-        const response = await fetch(`${apiurl}api/public/refreshCustomerToken`, options).catch(e=>reject(e));
+        const response = await fetch(`${process.env.APIPUBLIC}api/public/refreshCustomerToken`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
     
         resolve(data);
