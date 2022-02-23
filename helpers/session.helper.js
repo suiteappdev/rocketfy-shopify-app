@@ -11,7 +11,7 @@ const storeCallback = async (session)=>{
             domain_id = data.id;
         }
 
-        console.log("session", session);
+        conmsole.log("session", session);
 
         let obj = {
             shop_url : data.shop,
@@ -24,7 +24,7 @@ const storeCallback = async (session)=>{
             scope : data.scope
         }
 
-        let doc = await Sessions.findByIdAndUpdate( { session_id : session.id }, obj, { upsert: true });
+        let doc = await Sessions.findOneAndUpdate( { session_id : session.id }, obj, { upsert: true });
 
         console.log("doc", doc);
 
