@@ -11,7 +11,7 @@ const storeCallback = async (session)=>{
             domain_id = data.id;
         }
 
-        conmsole.log("session", session);
+        console.log("session", session);
 
         let obj = {
             shop_url : data.shop,
