@@ -1,4 +1,4 @@
-const apiurl = process.env.NODE_ENV == 'production'  ?  process.env.NEXT_PUBLIC_APIPUBLIC_PRO : process.env.NEXT_PUBLIC_APIPUBLIC_DEV
+const apiurl = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
 
 const PostRequest = (url, body)=>{
     return new Promise(async (resolve, reject)=>{
