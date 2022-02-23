@@ -8,8 +8,6 @@ import {getRocketfyToken} from '../../../helpers/storage.helper';
 import { getISO } from '../../../helpers/country.helper';
 import AccountStatus from '../../AccountStatus';
 
-const ROCKETFY_APIHOST = process.env.ROCKETFY_APIHOST 
-
 const SignupForm = (props)=>{
     const [form, setForm] = useState({
         txtShop : ''
@@ -117,7 +115,7 @@ const SignupForm = (props)=>{
                 }
             }
 
-            let response = await PostRequest(`${ROCKETFY_APIHOST}/api/public/createAccount` , data).catch(e=>toast({
+            let response = await PostRequest(`${process.env.APIPUBLIC}/api/public/createAccount` , data).catch(e=>toast({
                 content : "Ocurrio un error al conectar la cuenta.",
                 active : true,
             }));
