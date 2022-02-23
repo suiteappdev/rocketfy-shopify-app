@@ -68,7 +68,7 @@ const getAcessToken  = ()=>{
             })
         };
        
-        const response = await fetch(`${process.env.APIPUBLIC}public/connect`, options).catch(e=>reject(e));
+        const response = await fetch(`${process.env.APIPUBLIC}api/public/connect`, options).catch(e=>reject(e));
         const data = await response.json().catch(e=>reject(e));
 
         resolve(data);        
