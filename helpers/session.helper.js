@@ -1,74 +1,35 @@
 import Sessions from "../models/Sessions"
 import { Session } from '@shopify/shopify-api/dist/auth/session'
-let domain_id = '';
+import Cryptr from "cryptr";
+const cryption = new Cryptr(process.env.SHOPIFY_PWD_KEYS)
 
 const storeCallback = async (session)=>{
-    try {
-        let data = session;
-        data.onlineAccessInfo = JSON.stringify(session.onlineAccessInfo);
+    const result = await Sessions.findOne({ id: session.id });
 
-        if(data.id.indexOf(`${data.shop}`) > -1){
-            domain_id = data.id;
-        }
+    if (result === null) {
+        let s = new Sessions({
+            id : session.id,
+            data : cryption.encrypt(JSON.stringify(session)),
+            shop : session.shop
+        });
 
-        console.log("S", session);
-
-        let obj = {
-            shop_url : data.shop,
-            session_id : data.id,
-            domain_id : domain_id,
-            accessToken : data.accessToken,
-            state : data.state,
-            isOnline : data.isOnline,
-            onlineAccessInfo : data.onlineAccessInfo,
-            scope : data.scope
-        }
-
-        console.log("obj", obj);
-        let doc = await Sessions.findOneAndUpdate( { session_id : session.id },  {
-            shop_url : data.shop,
-            domain_id : domain_id,
-            accessToken : data.accessToken,
-            state : data.state,
-            isOnline : data.isOnline,
-            onlineAccessInfo : data.onlineAccessInfo,
-            scope : data.scope
-        }, { upsert: true });
-
-        return true;
-
-    } catch (e) {
-        throw new Error(e);
+        await s.save();
+        
+    } else {
+        await Sessions.findOneAndUpdate( { id: session.id }, { data: cryption.encrypt(JSON.stringify(session)), shop: session.shop }
+      );
     }
+
+    return true;
 }
 
 const loadCallback = async (id)=>{
     try {
-        let rs =  await Sessions.findOne({ $or: [{session_id : id}, { domain_id : id }]});
-        let session = new Session(rs.session_id);
-        console.log("session query", session)
+        const sessionResult = await Sessions.findOne({ id });
 
-        console.log("rs", rs);
-
-        if(rs){
-            session.shop = rs.shop_url;
-            session.state = rs.state;
-            session.scope = rs.scope;
-            session.isOnline = rs.isOnline == 'true' ? true : false;
-            session.onlineAccessInfo = rs.onlineAccessInfo;
-            session.accessToken = rs.accessToken;
-
-            const date = new Date();
-            date.setDate(date + 1);
-
-            session.expires = date;
-
-            if(session.expires && typeof session.expires == 'string'){
-                session.expires = new Date(session.expires);
-            }
+        if (sessionResult) {
+            return JSON.parse(cryption.decrypt(sessionResult.data));
         }
-
-        return session;
 
     } catch (e) {
         throw new Error(e);
@@ -77,8 +38,8 @@ const loadCallback = async (id)=>{
 
 const deleteCallback = async (id)=>{
     try {
-       let doc = await Sessions.findOneAndRemove({session_id : id});
-       return true;
+        await Sessions.remove({ id });
+        return true;
     } catch (e) {
         throw new Error(e)
     }

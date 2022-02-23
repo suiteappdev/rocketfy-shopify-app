@@ -33,6 +33,7 @@
     "axios": "^0.21.4",
     "better-queue": "^3.8.10",
     "cross-env": "^7.0.3",
+    "cryptr": "^6.0.2",
     "dotenv": "^8.2.0",
     "graphql": "^14.5.8",
     "isomorphic-fetch": "^3.0.0",

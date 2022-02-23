@@ -23,5 +23,6 @@ module.exports = {
     ROCKETFY_APIHOST : process.env.ROCKETFY_APIHOST,
     HOST : process.env.HOST,
     APIPUBLIC: (process.env.NODE_ENV  == 'production') ? process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_PRO,
+    SHOPIFY_PWD_KEYS : process.env.SHOPIFY_PWD_KEYS
   },
 };
