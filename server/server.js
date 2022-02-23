@@ -10,6 +10,7 @@ import mongoose from 'mongoose';
 import Settings from '../models/Settings';
 import OrderController from '../controllers/OrderController'
 import Queue from  'better-queue';
+import { storeCallback, loadCallback, deleteCallback } from '../helpers/session.helper';
 
 dotenv.config();
 
@@ -27,8 +28,9 @@ Shopify.Context.initialize({
   HOST_NAME: process.env.HOST.replace(/https:\/\//, ""),
   API_VERSION: ApiVersion.October20,
   IS_EMBEDDED_APP: true,
-  SESSION_STORAGE: new Shopify.Session.MemorySessionStorage(),
+  SESSION_STORAGE: new Shopify.Session.CustomSessionStorage(storeCallback, loadCallback, deleteCallback),
 });
+
 
 const ACTIVE_SHOPIFY_SHOPS = {};
 
@@ -93,11 +95,6 @@ app.prepare().then(async () => {
 
     if(auth && auth.carrier){
         let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth).catch((e)=>console.log(e));
-
-        console.log("r", rates)
-
-        console.log({ rates :  OrderController.mapCarrier(rates.courriers)})
-
         ctx.body = { rates :  OrderController.mapCarrier(rates.courriers)}
         ctx.status = 200;
     }
