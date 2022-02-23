@@ -25,9 +25,15 @@ const storeCallback = async (session)=>{
         }
 
         console.log("obj", obj);
-        let doc = await Sessions.findOneAndUpdate( { session_id : session.id }, obj, { upsert: true });
-
-        console.log("doc", doc);
+        let doc = await Sessions.findOneAndUpdate( { session_id : session.id },  {
+            shop_url : data.shop,
+            domain_id : domain_id,
+            accessToken : data.accessToken,
+            state : data.state,
+            isOnline : data.isOnline,
+            onlineAccessInfo : data.onlineAccessInfo,
+            scope : data.scope
+        }, { upsert: true });
 
         return true;
 
