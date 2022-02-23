@@ -38,11 +38,10 @@ const storeCallback = async (session)=>{
 
 const loadCallback = async (id)=>{
     try {
-        let session = new Session(id);
-
+        let rs =  await Sessions.findOne({ $or: [{session_id : id}, { domain_id : id }]});
+        let session = new Session(rs.session_id);
         console.log("session query", session)
 
-        let rs =  await Sessions.findOne({ $or: [{session_id : session.id}, { domain_id : id }]});
         console.log("rs", rs);
 
         if(rs){
@@ -71,7 +70,12 @@ const loadCallback = async (id)=>{
 }
 
 const deleteCallback = async (id)=>{
-
+    try {
+       let doc = await Sessions.findOneAndRemove({session_id : id});
+       return true;
+    } catch (e) {
+        throw new Error(e)
+    }
 }
 
 export {
