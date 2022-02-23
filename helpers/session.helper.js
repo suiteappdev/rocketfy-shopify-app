@@ -17,7 +17,7 @@ const storeCallback = async (session)=>{
             shop_url : data.shop,
             session_id : data.id,
             domain_id : domain_id,
-            access_token : data.accessToken,
+            accessToken : data.accessToken,
             state : data.state,
             isOnline : data.isOnline,
             onlineAccessInfo : data.onlineAccessInfo,
