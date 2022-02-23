@@ -42,6 +42,8 @@ const loadCallback = async (id)=>{
     try {
         let session = new Session(id);
 
+        console.log("session query", session)
+
         let rs =  await Sessions.findOne({session_id : session.id});
         console.log("rs", rs);
 
