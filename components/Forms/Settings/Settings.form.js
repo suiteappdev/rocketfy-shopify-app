@@ -113,7 +113,7 @@ const Settings = (props)=>{
                 setConnectedCarriers(rs.carrier);
                 setConnectedWebhook(rs.webhook);
                 setLoading(false);
-                
+
                 let getToken = async ()=>{
                     const token = await getSessionToken(app);
                     if(token){
@@ -129,9 +129,7 @@ const Settings = (props)=>{
     
                 getToken();
             }
-
-
-    });
+    }, []);
 
     const createCarrier = async (st)=>{
         if(st){
