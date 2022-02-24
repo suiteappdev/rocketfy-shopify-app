@@ -113,22 +113,23 @@ const Settings = (props)=>{
                 setConnectedCarriers(rs.carrier);
                 setConnectedWebhook(rs.webhook);
                 setLoading(false);
-
-                let getToken = async ()=>{
-                    const token = await getSessionToken(app);
-                    if(token){
-                        const c = await GetCarriers(token);
-                        setCarrier(c.carrier_services);
-                    }
-                }
-    
-                if(data && data[DATA_KEY]){
-                    setStoreData(data[DATA_KEY]);
-                    isConnectedSettings();
-                }
-    
-                getToken();
             }
+
+            let getToken = async ()=>{
+                const token = await getSessionToken(app);
+                if(token){
+                    const c = await GetCarriers(token);
+                    setCarrier(c.carrier_services);
+                }
+            }
+
+            if(data && data[DATA_KEY]){
+                setStoreData(data[DATA_KEY]);
+                isConnectedSettings();
+            }
+
+            getToken();
+            
     }, [connected]);
 
     const createCarrier = async (st)=>{
