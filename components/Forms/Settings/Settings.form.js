@@ -129,7 +129,7 @@ const Settings = (props)=>{
     
                 getToken();
             }
-    }, []);
+    }, [connected]);
 
     const createCarrier = async (st)=>{
         if(st){
