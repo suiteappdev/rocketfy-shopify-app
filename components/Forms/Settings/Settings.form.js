@@ -125,11 +125,10 @@ const Settings = (props)=>{
 
             if(data && data[DATA_KEY]){
                 setStoreData(data[DATA_KEY]);
-                isConnectedSettings();
             }
 
             getToken();
-            
+
     }, [connected]);
 
     const createCarrier = async (st)=>{
@@ -174,7 +173,7 @@ const Settings = (props)=>{
                                 props.setSelectedTab(0)
                             }}}
                             secondaryAction={{content: 'Saber más', url: 'https://rocketfy.co'}}
-                            onDismiss={() => {}}
+                            onDismiss={() => props.setSelectedTab(0)}
                             >
                             <p>
                             Para sincronizar los pedidos primero debes conectar tu cuenta Shopify a Rocketfy
