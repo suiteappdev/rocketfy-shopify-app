@@ -98,16 +98,12 @@ const SignupForm = (props)=>{
     const connect = async ()=>{
         let fields = Object.values(errors);
         fields.shift();
+        let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-        let IsvalidForm = Object.values(form).some((v)=>!v);
-
-        console.log(fields, IsvalidForm);
-        return;
-
-        /*if(fields.some((e)=>e)){
+        if(fields.some((e)=>e || IsInvalidForm)){
             setError({...errors, formSubmited : true});
             return;
-        }*/
+        }
 
         setLoading(true);
 
