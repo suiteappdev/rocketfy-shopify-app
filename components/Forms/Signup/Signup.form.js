@@ -188,6 +188,10 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
+                    <Banner title="Order archived" onDismiss={() => {}} status="critical">
+                            <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>
+                            <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>
+                    </Banner>
                     <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
                     {user._id ? (
                         <React.Fragment styles={{marginTop:'30px'}}>
@@ -197,10 +201,6 @@ const SignupForm = (props)=>{
                         </React.Fragment>
                     ) : (
                          <React.Fragment>
-                             <Banner title="Order archived" onDismiss={() => {}} status="critical">
-                                 <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>
-                                 <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>
-                             </Banner>
                             <TextField
                                 value={form.txtAddress}
                                 onChange={onChange}
