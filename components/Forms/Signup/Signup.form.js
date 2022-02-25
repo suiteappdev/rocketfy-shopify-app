@@ -214,6 +214,51 @@ const SignupForm = (props)=>{
                     ) : (
                          <React.Fragment>
                             <TextField
+                                value={form.txtFullname}
+                                onChange={onChange}
+                                label="Nombre completo"
+                                onBlur={()=>{
+                                    if(!form.txtFullname){
+                                        setError({...errors, txtFullname : true});
+                                    }else{
+                                        setError({...errors, txtFullname : false});
+                                    }
+                                }}
+                                id="txtFullname"
+                                type="text"
+                            />
+                            {errors.txtFullname ? (<InlineError message="El campo nombre completo es requerido" fieldID="txtFullname" />) : (null)}
+                            <TextField
+                                value={form.txtDocument}
+                                onChange={onChange}
+                                label="Número documento"
+                                id="txtDocument"
+                                onBlur={()=>{
+                                    if(!form.txtDocument){
+                                        setError({...errors, txtDocument : true});
+                                    }else{
+                                        setError({...errors, txtDocument : false});
+                                    }
+                                }}
+                                type="text"
+                            />
+                            {errors.txtDocument ? (<InlineError message="El campo numero de documento" fieldID="txtDocument" />) : (null)}
+                            <TextField
+                                value={form.txtEmail}
+                                onChange={onChange}
+                                label="Email"
+                                id="txtEmail"
+                                onBlur={()=>{
+                                    if(!form.txtEmail){
+                                        setError({...errors, txtEmail : true});
+                                    }else{
+                                        setError({...errors, txtEmail : false});
+                                    }
+                                }}
+                                type="text"
+                            />
+                            {errors.txtEmail ? (<InlineError message="El campo email es requerido" fieldID="txtEmail" />) : (null)}
+                            <TextField
                                 value={form.txtAddress}
                                 onChange={onChange}
                                 onBlur={()=>{
@@ -244,21 +289,6 @@ const SignupForm = (props)=>{
                             />
                              {errors.txtPhone ? (<InlineError message="El campo télefono es requerido" fieldID="txtPhone" />) : (null)}
                             <TextField
-                                value={form.txtDocument}
-                                onChange={onChange}
-                                label="Número documento"
-                                id="txtDocument"
-                                onBlur={()=>{
-                                    if(!form.txtDocument){
-                                        setError({...errors, txtDocument : true});
-                                    }else{
-                                        setError({...errors, txtDocument : false});
-                                    }
-                                }}
-                                type="text"
-                            />
-                            {errors.txtDocument ? (<InlineError message="El campo numero de documento" fieldID="txtDocument" />) : (null)}
-                            <TextField
                                 value={form.txtShop}
                                 onChange={onChange}
                                 label="Nombre de la tienda"
@@ -274,37 +304,6 @@ const SignupForm = (props)=>{
                                 type="text"
                             />
                             {errors.txtShop ? (<InlineError message="El campo nombre de la tienda" fieldID="txtShop" />) : (null)}
-                            <TextField
-                                value={form.txtFullname}
-                                onChange={onChange}
-                                label="Nombre completo"
-                                onBlur={()=>{
-                                    if(!form.txtFullname){
-                                        setError({...errors, txtFullname : true});
-                                    }else{
-                                        setError({...errors, txtFullname : false});
-                                    }
-                                }}
-                                id="txtFullname"
-                                type="text"
-                            />
-                            {errors.txtFullname ? (<InlineError message="El campo nombre completo es requerido" fieldID="txtFullname" />) : (null)}
-                            <TextField
-                                value={form.txtEmail}
-                                onChange={onChange}
-                                label="Email"
-                                id="txtEmail"
-                                onBlur={()=>{
-                                    if(!form.txtEmail){
-                                        setError({...errors, txtEmail : true});
-                                    }else{
-                                        setError({...errors, txtEmail : false});
-                                    }
-                                }}
-                                type="text"
-                            />
-                            {errors.txtEmail ? (<InlineError message="El campo email es requerido" fieldID="txtEmail" />) : (null)}
-
                     </React.Fragment>
                     )}
                     </FormLayout>
