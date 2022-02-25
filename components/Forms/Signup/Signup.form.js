@@ -99,10 +99,15 @@ const SignupForm = (props)=>{
         let fields = Object.values(errors);
         fields.shift();
 
-        if(fields.some((e)=>e) || Object.values(form).some((e)=>!e)){
+        let IsvalidForm = Object.values(form).some((v)=>!v);
+
+        console.log(fields, IsvalidForm);
+        return;
+
+        /*if(fields.some((e)=>e)){
             setError({...errors, formSubmited : true});
             return;
-        }
+        }*/
 
         setLoading(true);
 
