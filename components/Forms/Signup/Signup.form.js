@@ -199,9 +199,11 @@ const SignupForm = (props)=>{
                 ) : (
                 <FormLayout>
                     { errors.formSubmited || (errors.txtAddress || errors.txtDocument || errors.txtFullname || errors.txtPhone || errors.txtShop || errors.txtEmail) ? (
-                        <Banner title="Error la procesar el formulario" onDismiss={() => setError({...errors, formSubmited : false})} status="critical">
-                                <p>El campo Nombre de tienda es Incorrecto.</p>
-                                <p>El campo cedula es incorrecto.</p>
+                        <Banner title="Error en el formulario" onDismiss={() => setError({...errors, formSubmited : false})} status="critical">
+                                {errors.txtAddress ? 'El campo dirección de recogida es incorrecto' : '' }
+                                {errors.txtDocument ? 'El campo numero de documento es incorrecto' : '' }
+                                {errors.phone ? 'El campo numero télefonico es incorrecto' : '' }
+                                {errors.txtFullname ? 'El campo nombre completo es incorrecto' : '' }
                         </Banner>
                     ) : (null)}
                     <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
