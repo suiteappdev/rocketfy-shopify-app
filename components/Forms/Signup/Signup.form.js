@@ -188,9 +188,9 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                    <Banner title="Order archived" onDismiss={() => {}} status="critical">
-                            <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>
-                            <p>This order was archived on March 7, 2017 at 3:12pm EDT.</p>
+                    <Banner title="Error la procesar el formulario" onDismiss={() => {}} status="critical">
+                            <p>El campo Nombre de tienda es Incorrecto.</p>
+                            <p>El campo cedula es incorrecto.</p>
                     </Banner>
                     <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
                     {user._id ? (
