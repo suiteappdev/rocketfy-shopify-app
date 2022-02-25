@@ -96,6 +96,13 @@ const SignupForm = (props)=>{
     }
 
     const connect = async ()=>{
+        let errs = Object.values(errors).reverse().pop();
+
+        if(errs.some((e)=>e)){
+            setError({...errors, formSubmited : true});
+            return;
+        }
+
         setLoading(true);
 
         if(!user._id){
@@ -189,8 +196,8 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                    { formSubmited && (errors.txtAddress || errors.txtDocument || errors.txtFullname || errors.txtPhone || errors.txtShop || errors.txtEmail) ? (
-                        <Banner title="Error la procesar el formulario" onDismiss={() => {}} status="critical">
+                    { errors.formSubmited && (errors.txtAddress || errors.txtDocument || errors.txtFullname || errors.txtPhone || errors.txtShop || errors.txtEmail) ? (
+                        <Banner title="Error la procesar el formulario" onDismiss={() => setError({...errors, formSubmited : false})} status="critical">
                                 <p>El campo Nombre de tienda es Incorrecto.</p>
                                 <p>El campo cedula es incorrecto.</p>
                         </Banner>
