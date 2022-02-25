@@ -100,7 +100,7 @@ const SignupForm = (props)=>{
         fields.shift();
         let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-        if(fields.some((e)=>e || IsInvalidForm)){
+        if(fields.some((e)=>e && IsInvalidForm)){
             setError({...errors, formSubmited : true});
             return;
         }
