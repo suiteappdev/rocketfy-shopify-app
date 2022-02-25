@@ -96,7 +96,7 @@ const SignupForm = (props)=>{
     }
 
     const connect = async ()=>{
-        let errs = Object.values(errors).pop();
+        let errs = Object.values(errors);
         console.log("errs", errs);
         return;
         if(errs.some((e)=>e)){
