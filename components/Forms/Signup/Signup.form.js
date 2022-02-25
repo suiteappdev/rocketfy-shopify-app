@@ -98,8 +98,8 @@ const SignupForm = (props)=>{
     const connect = async ()=>{
         let fields = Object.values(errors);
         fields.shift();
-        
-        if(fields.some((e)=>e)){
+
+        if(fields.some((e)=>e) || Object.values(form).some((e)=>!e)){
             setError({...errors, formSubmited : true});
             return;
         }
