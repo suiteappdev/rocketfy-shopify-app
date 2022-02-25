@@ -96,9 +96,9 @@ const SignupForm = (props)=>{
     }
 
     const connect = async ()=>{
-        let errs = Object.values(errors).reverse().pop();
-        console.log("errs", errs);
-
+        //let errs = Object.values(errors).reverse().pop();
+        console.log("errs", errors);
+        return;
         if(errs.some((e)=>e)){
             setError({...errors, formSubmited : true});
             return;
