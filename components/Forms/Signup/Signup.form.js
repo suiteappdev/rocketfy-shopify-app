@@ -100,7 +100,7 @@ const SignupForm = (props)=>{
         fields.shift();
         let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-        if(fields.some((e)=>e && IsInvalidForm)){
+        if(fields.some((e)=>e || IsInvalidForm )){
             setError({...errors, formSubmited : true});
             return;
         }
@@ -198,7 +198,7 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                    { errors.formSubmited && (errors.txtAddress || errors.txtDocument || errors.txtFullname || errors.txtPhone || errors.txtShop || errors.txtEmail) ? (
+                    { errors.formSubmited || (errors.txtAddress || errors.txtDocument || errors.txtFullname || errors.txtPhone || errors.txtShop || errors.txtEmail) ? (
                         <Banner title="Error la procesar el formulario" onDismiss={() => setError({...errors, formSubmited : false})} status="critical">
                                 <p>El campo Nombre de tienda es Incorrecto.</p>
                                 <p>El campo cedula es incorrecto.</p>
