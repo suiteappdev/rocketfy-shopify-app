@@ -202,7 +202,8 @@ const SignupForm = (props)=>{
                         <Banner title="Error en el formulario" onDismiss={() => setError({...errors, formSubmited : false})} status="critical">
                                 {errors.txtAddress ? 'El campo dirección de recogida es incorrecto' : '' }
                                 {errors.txtDocument ? 'El campo numero de documento es incorrecto' : '' }
-                                {errors.phone ? 'El campo numero télefonico es incorrecto' : '' }
+                                {errors.txtPhone ? 'El campo numero télefonico es incorrecto' : '' }
+                                {errors.txtEmail ? 'El campo numero correo es incorrecto' : '' }
                                 {errors.txtFullname ? 'El campo nombre completo es incorrecto' : '' }
                         </Banner>
                     ) : (null)}
