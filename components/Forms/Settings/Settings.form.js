@@ -125,6 +125,7 @@ const Settings = (props)=>{
 
             if(data && data[DATA_KEY]){
                 setStoreData(data[DATA_KEY]);
+                isConnectedSettings();
             }
 
             getToken();
