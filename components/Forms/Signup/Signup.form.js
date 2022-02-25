@@ -22,7 +22,8 @@ const SignupForm = (props)=>{
         txtFullname : false,
         txtPhone : false,
         txtDocument : false,
-        txtShop : false
+        txtShop : false,
+        formSubmited : false,
     });
     const [user, setUser] = useState({});
 
@@ -188,10 +189,12 @@ const SignupForm = (props)=>{
                     </div>
                 ) : (
                 <FormLayout>
-                    <Banner title="Error la procesar el formulario" onDismiss={() => {}} status="critical">
-                            <p>El campo Nombre de tienda es Incorrecto.</p>
-                            <p>El campo cedula es incorrecto.</p>
-                    </Banner>
+                    { formSubmited && (errors.txtAddress || errors.txtDocument || errors.txtFullname || errors.txtPhone || errors.txtShop || errors.txtEmail) ? (
+                        <Banner title="Error la procesar el formulario" onDismiss={() => {}} status="critical">
+                                <p>El campo Nombre de tienda es Incorrecto.</p>
+                                <p>El campo cedula es incorrecto.</p>
+                        </Banner>
+                    ) : (null)}
                     <AccountStatus status={connected} actionDisconnect={()=>disconnect(user)} actionConnect={connect} shop={form.txtShop || ''} />
                     {user._id ? (
                         <React.Fragment styles={{marginTop:'30px'}}>
