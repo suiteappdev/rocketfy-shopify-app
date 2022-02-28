@@ -14,7 +14,8 @@ import { storeCallback, loadCallback, deleteCallback } from '../helpers/session.
 
 dotenv.config();
 
-const port = parseInt(process.env.PORT, 10) || 9000;
+// const port = parseInt(process.env.PORT, 10) || 3000;
+const port = 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({
   dev,
@@ -109,16 +110,16 @@ app.prepare().then(async () => {
     }
 
     const publicKey = fs.readFileSync(`${path.normalize(process.cwd() + '/keys/rocketfy.pem')}`, "utf8");
-    
+
     const iss = "Rocketfy";
     const sub = "hola@rocketfy.co";
     const aud = "https://www.rocketfy.co/";
     const exp = "30m";
 
     const verifyOption = {  issuer: iss,  subject: sub,  audience: aud,  maxAge: exp,  algorithm: "RS256"}
-    
+
     try {
-     
+
       const { url } = jwt.verify(redirectUrl, publicKey, verifyOption);
       ctx.response.status = 200;
       ctx.response.body = {
@@ -202,7 +203,7 @@ app.prepare().then(async () => {
         data: ctx.request.body,
         type: DataType.JSON,
     });
-   
+
     ctx.status = 200;
     ctx.body = {
       status: "OK_CARRIERS_UPDATED",
@@ -225,7 +226,7 @@ app.prepare().then(async () => {
       status: "OK_CARRIERS",
       data: carrier,
     };
-    
+
     ctx.status = 200;
   });
 
@@ -254,7 +255,7 @@ app.prepare().then(async () => {
       status: "DELETE_CARRIER",
       data: data,
     };
-    
+
     ctx.status = 200;
   });
 
@@ -283,6 +284,14 @@ app.prepare().then(async () => {
     } else {
       await handleRequest(ctx);
     }
+  });
+
+  router.get("/", (ctx) => {
+    ctx.body = {
+      ok: true,
+    };
+
+    ctx.status = 200;
   });
 
   server.use(router.allowedMethods());
