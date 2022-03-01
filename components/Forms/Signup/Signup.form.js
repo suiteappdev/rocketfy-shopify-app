@@ -226,15 +226,6 @@ const SignupForm = (props)=>{
                                     }else{
                                         setError({...errors, txtFullname : false});
                                     }
-
-                                    let fields = Object.values(errors);
-                                    fields.shift();
-                                    let IsInvalidForm = Object.values(form).some((v)=>!v);
-
-                                    if(!IsInvalidForm){
-                                       setError({...errors, formSubmited : false})
-                                    }
-                                    
                                 }}
                                 id="txtFullname"
                                 type="text"
@@ -249,15 +240,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtDocument){
                                         setError({...errors, txtDocument : true});
                                     }else{
-                                        setError({...errors, txtDocument : false});
-                                    }
-
-                                    let fields = Object.values(errors);
-                                    fields.shift();
-                                    let IsInvalidForm = Object.values(form).some((v)=>!v);
-
-                                    if(!IsInvalidForm){
-                                       setError({...errors, formSubmited : false})
+                                        setError({...errors, txtDocument : false, formSubmited : false});
                                     }
                                 }}
                                 type="text"
@@ -272,14 +255,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtEmail){
                                         setError({...errors, txtEmail : true});
                                     }else{
-                                        setError({...errors, txtEmail : false});
-                                    }
-                                    let fields = Object.values(errors);
-                                    fields.shift();
-                                    let IsInvalidForm = Object.values(form).some((v)=>!v);
-
-                                    if(!IsInvalidForm){
-                                       setError({...errors, formSubmited : false})
+                                        setError({...errors, txtEmail : false , formSubmited : false});
                                     }
                                 }}
                                 type="text"
@@ -292,15 +268,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtAddress){
                                         setError({...errors, txtAddress : true});
                                     }else{
-                                        setError({...errors, txtAddress : false});
-                                    }
-
-                                    let fields = Object.values(errors);
-                                    fields.shift();
-                                    let IsInvalidForm = Object.values(form).some((v)=>!v);
-
-                                    if(!IsInvalidForm){
-                                       setError({...errors, formSubmited : false})
+                                        setError({...errors, txtAddress : false ,  formSubmited : false});
                                     }
                                 }}
                                 label="Dirección de recolección"
@@ -317,15 +285,8 @@ const SignupForm = (props)=>{
                                     if(!form.txtPhone){
                                         setError({...errors, txtPhone : true});
                                     }else{
-                                        setError({...errors, txtPhone : false});
+                                        setError({...errors, txtPhone : false, formSubmited : false});
                                     }
-                                    let fields = Object.values(errors);
-                                    fields.shift();
-                                    let IsInvalidForm = Object.values(form).some((v)=>!v);
-
-                                    if(!IsInvalidForm){
-                                       setError({...errors, formSubmited : false})
-                                    }  
                                 }}
                                 type="text"
                             />
@@ -339,14 +300,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtPhone){
                                         setError({...errors, txtShop : true});
                                     }else{
-                                        setError({...errors, txtShop : false});
-                                    }
-                                    let fields = Object.values(errors);
-                                    fields.shift();
-                                    let IsInvalidForm = Object.values(form).some((v)=>!v);
-
-                                    if(!IsInvalidForm){
-                                       setError({...errors, formSubmited : false})
+                                        setError({...errors, txtShop : false,  formSubmited : false});
                                     }
                                 }}
                                 id="txtShop"
