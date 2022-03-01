@@ -47,7 +47,7 @@ let order_queue = new Queue(async (ctx, cb) => {
         if(auth.webhook){
             let order = await OrderController.createOrder(ctx.request.body, auth).catch((e)=>console.log(e));
             cb(null, order);
-            console.log(`Order Processed`);
+            console.log(`Order Processed`, order);
         }
     }
 })

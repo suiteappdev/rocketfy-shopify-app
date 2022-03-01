@@ -11,7 +11,7 @@ const OrderController  = {
                 let city;
                 let state;
 
-                console.log(rs.data)
+                console.log("cities", rs.data)
                 
                 if(rs.data){
                     city = rs.data.name;
