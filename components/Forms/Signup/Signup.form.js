@@ -231,7 +231,7 @@ const SignupForm = (props)=>{
                                     fields.shift();
                                     let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-                                    if(IsInvalidForm){
+                                    if(!IsInvalidForm){
                                        setError({...errors, formSubmited : false})
                                     }
                                     
@@ -256,7 +256,7 @@ const SignupForm = (props)=>{
                                     fields.shift();
                                     let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-                                    if(IsInvalidForm){
+                                    if(!IsInvalidForm){
                                        setError({...errors, formSubmited : false})
                                     }
                                 }}
@@ -278,7 +278,7 @@ const SignupForm = (props)=>{
                                     fields.shift();
                                     let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-                                    if(IsInvalidForm){
+                                    if(!IsInvalidForm){
                                        setError({...errors, formSubmited : false})
                                     }
                                 }}
@@ -299,7 +299,7 @@ const SignupForm = (props)=>{
                                     fields.shift();
                                     let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-                                    if(IsInvalidForm){
+                                    if(!IsInvalidForm){
                                        setError({...errors, formSubmited : false})
                                     }
                                 }}
@@ -323,7 +323,7 @@ const SignupForm = (props)=>{
                                     fields.shift();
                                     let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-                                    if(IsInvalidForm){
+                                    if(!IsInvalidForm){
                                        setError({...errors, formSubmited : false})
                                     }  
                                 }}
@@ -345,7 +345,7 @@ const SignupForm = (props)=>{
                                     fields.shift();
                                     let IsInvalidForm = Object.values(form).some((v)=>!v);
 
-                                    if(IsInvalidForm){
+                                    if(!IsInvalidForm){
                                        setError({...errors, formSubmited : false})
                                     }
                                 }}
