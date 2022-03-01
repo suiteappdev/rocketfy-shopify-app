@@ -88,6 +88,11 @@ app.prepare().then(async () => {
     ctx.response.body = r;
   });
 
+  apiRoutes.post('/api/check', async (ctx)=>{
+    ctx.body = 'Ok'
+    ctx.status = 200;
+  });
+
   apiRoutes.post('/api/shippings', async (ctx)=>{
     console.log("company",  ctx.request.body.rate);
     let auth = await Settings.findOne({ shop :  ctx.request.body.rate.origin.company_name});
