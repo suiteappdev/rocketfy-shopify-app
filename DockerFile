@@ -10,6 +10,8 @@ COPY ["package.json", "package-lock.json", ".env", "./"]
 # Installs all node packages
 RUN npm install
 
+RUN npm run build
+
 # Copies everything over to Docker environment
 COPY . .
 # Uses port which is used by the actual application
