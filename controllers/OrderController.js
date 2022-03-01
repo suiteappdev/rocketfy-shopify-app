@@ -6,7 +6,16 @@ const OrderController  = {
     createOrder : (data, auth)=>{
         return new Promise(async (resolve, reject)=>{
                 let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`};
-
+                let rs  = await axios.post('https://city-predictor.herokuapp.com/cities', { query : line['Shipping City'] || line['Billing City']});
+                
+                let city;
+                let state;
+                
+                if(rs.data){
+                    city = rs.data.name;
+                    state = rs.data.state.name;
+                }
+                
                 let order = {
                     "id" : data.name,
                     "customerID":auth.customerID,
@@ -25,8 +34,8 @@ const OrderController  = {
                         "last_name": data.billing_address.last_name,
                         "address_1":  data.billing_address.address1,
                         "address_2":  data.billing_address.address2,
-                        "city":  data.billing_address.city,
-                        "state": data.shipping_address.province,
+                        "city":  city || data.billing_address.city,
+                        "state": state || data.shipping_address.province,
                         "country": data.billing_address.country_code,
                         "email": data.customer.email,
                         "phone": data.phone,
@@ -50,7 +59,7 @@ const OrderController  = {
 
                 let o = await axios.post(`${url}api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
-                        { headers : headers }).catch((e)=>reject(e));
+                        { headers : headers }).catch((e)=>console.log(e));
                 
                 if(o && o.data){
                     return resolve(o.data);
