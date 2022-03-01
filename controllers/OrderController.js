@@ -6,7 +6,7 @@ const OrderController  = {
     createOrder : (data, auth)=>{
         return new Promise(async (resolve, reject)=>{
                 let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`};
-                let rs  = await axios.post('https://city-predictor.herokuapp.com/cities', { query : line['Shipping City'] || line['Billing City']});
+                let rs  = await axios.post('https://city-predictor.herokuapp.com/cities', { query : data.billing_address.city});
                 
                 let city;
                 let state;
