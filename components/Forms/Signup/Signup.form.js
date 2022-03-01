@@ -72,7 +72,9 @@ const SignupForm = (props)=>{
     }, [data, connected]);
 
     const onChange = (value, id)=>{
+        console.log("form", form)
         setForm({...form, [id] : (value)});
+        
     }
 
     const toast = (options)=>{
