@@ -28,23 +28,7 @@ const OrderController  = {
                     "dimensions" : {
                         width : 0, height : 0 , weight : Math.round(parseInt(data.total_weight / 1000)) , large : 0
                     },
-                    "shipping" : {
-                        address1:data.shipping_address.adress1,
-                        address2:data.shipping_address.adress2,
-                        city:city,
-                        company:data.shipping_address.company,
-                        country:data.shipping_address.country,
-                        country_code:data.shipping_address.country_code,
-                        first_name:data.shipping_address.first_name,
-                        last_name:data.shipping_address.last_name,
-                        latitude:data.shipping_address.latitude,
-                        longitude:data.shipping_address.longitude,
-                        name:data.shipping_address.name,
-                        phone:data.shipping_address.phone,
-                        province:state,
-                        province_code:data.shipping_address.province_code,
-                        zip:data.shipping_address.zip
-                    },
+                    "shipping" : data.shipping,
                     "billing": {
                         "first_name":data.billing_address.first_name,
                         "last_name": data.billing_address.last_name,
