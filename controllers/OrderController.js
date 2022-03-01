@@ -10,6 +10,8 @@ const OrderController  = {
                 
                 let city;
                 let state;
+
+                console.log(rs.data)
                 
                 if(rs.data){
                     city = rs.data.name;
