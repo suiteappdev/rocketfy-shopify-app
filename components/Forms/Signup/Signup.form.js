@@ -313,7 +313,6 @@ const SignupForm = (props)=>{
             )}
             { showToast.active ? (<Toast content={showToast.content} onDismiss={()=>setShowToast({ active : false })} />) : null } 
         </Form>
-
     );
 }
 

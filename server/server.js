@@ -85,7 +85,7 @@ app.prepare().then(async () => {
     ctx.response.body = r;
   });
 
-  apiRoutes.get('/api/check', async (ctx)=>{
+  router.get('/check', async (ctx)=>{
     ctx.body =  { ok: true }
     ctx.status = 200;
   });
