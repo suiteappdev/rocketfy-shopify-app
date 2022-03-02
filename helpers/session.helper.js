@@ -4,7 +4,6 @@ import { Session } from '@shopify/shopify-api/dist/auth/session'
 import Cryptr from "cryptr";
 dotenv.config();
 
-console.log("env", process.env);
 const cryption = new Cryptr(process.env.SHOPIFY_PWD_KEYS)
 
 const storeCallback = async (session)=>{

@@ -56,7 +56,8 @@ const OrderController  = {
                             "weight": parseInt(item.grams / 1000)
                         }
                     }),
-                    "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega')
+                    "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega'),
+                    "notes" : data.note
                 }
 
                 let o = await axios.post(`${url}api/public/v2/createOrders`, 
