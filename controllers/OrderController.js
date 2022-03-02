@@ -15,6 +15,8 @@ const OrderController  = {
                     city = rs.data.name;
                     state = rs.data.state.name;
                 }
+
+                console.log("DATA", data);
                 
                 let order = {
                     "id" : data.name,
@@ -34,7 +36,7 @@ const OrderController  = {
                         "last_name": data.billing_address.last_name,
                         "address_1":  data.billing_address.address1,
                         "address_2":  data.billing_address.address2,
-                        "city":  city ,
+                        "city":  city,
                         "state": state,
                         "country": data.billing_address.country_code,
                         "email": data.customer.email,
