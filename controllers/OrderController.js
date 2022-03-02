@@ -30,7 +30,7 @@ const OrderController  = {
                     "dimensions" : {
                         width : 0, height : 0 , weight : Math.round(parseInt(data.total_weight / 1000)) , large : 0
                     },
-                    "shipping" : data.shipping,
+                    "shipping" : {...data.shipping_address, province : state, city : city},
                     "billing": {
                         "first_name":data.billing_address.first_name,
                         "last_name": data.billing_address.last_name,
