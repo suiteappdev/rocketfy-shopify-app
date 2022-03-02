@@ -1,0 +1,24 @@
+{
+  "family": "shopify-app-dev",
+  "networkMode": "awsvpc",
+  "executionRoleArn": "ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 3000,
+          "protocol": "tcp",
+          "containerPort": 3000
+        }
+      ],
+      "cpu": 0,
+      "memoryReservation": 128,
+      "image": "685894002621.dkr.ecr.us-east-1.amazonaws.com/shopify-app:develop",
+      "essential": true,
+      "name": "shopify-app-dev-container-dev"
+    }
+  ],
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512"
+}

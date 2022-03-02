@@ -1,0 +1,63 @@
+pipelines:
+  definitions:
+    services:
+      push-image: &push-image
+        name: Build and Push Docker Image
+        image: atlassian/pipelines-awscli
+        caches:
+          - docker
+        services:
+          - docker
+        script:
+          - export BUILD_ID=$BITBUCKET_BRANCH_$BITBUCKET_COMMIT_$BITBUCKET_BUILD_NUMBER
+          - export DOCKER_URI=$DOCKER_IMAGE_URL:latest
+          - if [[ $BITBUCKET_BRANCH != *"master"* ]]; then DOCKER_URI=$DOCKER_IMAGE_URL:develop; fi
+          # Login to docker registry on AWS
+          - eval $(aws ecr get-login --no-include-email)
+          # Build image
+          - export DOCKER_ENV=./dockerfile.prod
+          - if [[ $BITBUCKET_BRANCH != *"master"* ]]; then DOCKER_ENV=./dockerfile.dev; fi
+          - docker build -t $DOCKER_URI -f $DOCKER_ENV .
+          # Push image to private registry
+          - docker push $DOCKER_URI
+
+      deploy-to-production: &deploy-to-production
+        name: Deploy to ECS
+        image: atlassian/pipelines-awscli
+        deployment: production
+        # trigger: manual
+        script:
+          - pipe: atlassian/aws-ecs-deploy:1.6.1
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              CLUSTER_NAME: 'shopify-app'
+              SERVICE_NAME: 'shopify-app'
+              TASK_DEFINITION: "task-definition-prod.json"
+
+      deploy-to-develop: &deploy-to-develop
+        name: Deploy to ECS
+        image: atlassian/pipelines-awscli
+        deployment: staging
+        # trigger: manual
+        script:
+          - pipe: atlassian/aws-ecs-deploy:1.6.1
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              CLUSTER_NAME: 'shopify-app-dev'
+              SERVICE_NAME: 'shopify-app-dev'
+              TASK_DEFINITION: "task-definition-dev.json"
+
+
+  custom:
+    develop:
+      - step: *push-image
+      - step: *deploy-to-develop
+
+  branches:
+    master:
+      - step: *push-image
+      - step: *deploy-to-production
