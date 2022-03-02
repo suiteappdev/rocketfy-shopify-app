@@ -16,8 +16,6 @@ const OrderController  = {
                     state = rs.data.state.name;
                 }
 
-                console.log("DATA", data);
-                
                 let order = {
                     "id" : data.name,
                     "customerID":auth.customerID,
