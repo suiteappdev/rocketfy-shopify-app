@@ -6,6 +6,17 @@ const OrderController  = {
     createOrder : (data, auth)=>{
         return new Promise(async (resolve, reject)=>{
                 let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`};
+                let rs  = await axios.post('https://city-predictor.herokuapp.com/cities', { query : data.shipping_address.city});
+                
+                let city;
+                let state;
+
+                if(rs.data){
+                    city = rs.data.name;
+                    state = rs.data.state.name;
+                }
+
+                console.log(data.shipping_address.city)
 
                 let order = {
                     "id" : data.name,
@@ -19,14 +30,14 @@ const OrderController  = {
                     "dimensions" : {
                         width : 0, height : 0 , weight : Math.round(parseInt(data.total_weight / 1000)) , large : 0
                     },
-                    "shipping" : data.shipping_address,
+                    "shipping" : {...data.shipping_address, province : state, city : city},
                     "billing": {
                         "first_name":data.billing_address.first_name,
                         "last_name": data.billing_address.last_name,
                         "address_1":  data.billing_address.address1,
                         "address_2":  data.billing_address.address2,
-                        "city":  data.billing_address.city,
-                        "state": data.shipping_address.province,
+                        "city":  city,
+                        "state": state,
                         "country": data.billing_address.country_code,
                         "email": data.customer.email,
                         "phone": data.phone,
@@ -50,7 +61,7 @@ const OrderController  = {
 
                 let o = await axios.post(`${url}api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
-                        { headers : headers }).catch((e)=>reject(e));
+                        { headers : headers }).catch((e)=>console.log(e));
                 
                 if(o && o.data){
                     return resolve(o.data);

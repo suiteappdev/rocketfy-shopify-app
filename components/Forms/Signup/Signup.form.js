@@ -60,7 +60,7 @@ const SignupForm = (props)=>{
                txtAddress : data[DATA_KEY].billingAddress.address1,
                txtPhone : data[DATA_KEY].billingAddress.phone,
                txtEmail : data[DATA_KEY].email,
-               txtFullname : `${data[DATA_KEY].billingAddress.firstName || ''} ${data[DATA_KEY].billingAddress.lastName || ''}`,
+               txtFullname : `${data[DATA_KEY].billingAddress.firstName ? data[DATA_KEY].billingAddress.firstName : ''}${data[DATA_KEY].billingAddress.lastName ? ' ' +data[DATA_KEY].billingAddress.lastName : '' }`,
                txtDomain : data[DATA_KEY].myshopifyDomain,
                txtProvince :  data[DATA_KEY].billingAddress.province,
                txtCountry : getISO(data[DATA_KEY].billingAddress.countryCodeV2).iso3,
@@ -240,7 +240,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtDocument){
                                         setError({...errors, txtDocument : true});
                                     }else{
-                                        setError({...errors, txtDocument : false});
+                                        setError({...errors, txtDocument : false, formSubmited : false});
                                     }
                                 }}
                                 type="text"
@@ -255,7 +255,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtEmail){
                                         setError({...errors, txtEmail : true});
                                     }else{
-                                        setError({...errors, txtEmail : false});
+                                        setError({...errors, txtEmail : false , formSubmited : false});
                                     }
                                 }}
                                 type="text"
@@ -268,7 +268,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtAddress){
                                         setError({...errors, txtAddress : true});
                                     }else{
-                                        setError({...errors, txtAddress : false});
+                                        setError({...errors, txtAddress : false ,  formSubmited : false});
                                     }
                                 }}
                                 label="Dirección de recolección"
@@ -285,7 +285,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtPhone){
                                         setError({...errors, txtPhone : true});
                                     }else{
-                                        setError({...errors, txtPhone : false});
+                                        setError({...errors, txtPhone : false, formSubmited : false});
                                     }
                                 }}
                                 type="text"
@@ -300,7 +300,7 @@ const SignupForm = (props)=>{
                                     if(!form.txtPhone){
                                         setError({...errors, txtShop : true});
                                     }else{
-                                        setError({...errors, txtShop : false});
+                                        setError({...errors, txtShop : false,  formSubmited : false});
                                     }
                                 }}
                                 id="txtShop"
