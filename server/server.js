@@ -86,7 +86,7 @@ app.prepare().then(async () => {
   });
 
   apiRoutes.get('/api/check', async (ctx)=>{
-    ctx.body = 'Ok'
+    ctx.body =  { ok: true }
     ctx.status = 200;
   });
 
