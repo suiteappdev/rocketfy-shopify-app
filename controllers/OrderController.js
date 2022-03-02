@@ -16,6 +16,8 @@ const OrderController  = {
                     state = rs.data.state.name;
                 }
 
+                console.log(data.shipping_address.city)
+
                 let order = {
                     "id" : data.name,
                     "customerID":auth.customerID,
