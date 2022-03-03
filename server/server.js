@@ -29,9 +29,8 @@ Shopify.Context.initialize({
   HOST_NAME: process.env.HOST.replace(/https:\/\//, ""),
   API_VERSION: ApiVersion.January22,
   IS_EMBEDDED_APP: true,
-  SESSION_STORAGE:new Shopify.Session.MemorySessionStorage() //new Shopify.Session.CustomSessionStorage(storeCallback, loadCallback, deleteCallback),
+  SESSION_STORAGE:new Shopify.Session.CustomSessionStorage(storeCallback, loadCallback, deleteCallback),
 });
-
 
 const ACTIVE_SHOPIFY_SHOPS = {};
 
