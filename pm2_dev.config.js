@@ -6,6 +6,8 @@ module.exports = {
       env: {
         NODE_ENV: "development",
       },
+      instances: 2,
+      exec_mode: "cluster",
     },
   ],
 };
