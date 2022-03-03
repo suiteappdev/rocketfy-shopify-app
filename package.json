@@ -29,7 +29,6 @@
     "@shopify/koa-shopify-auth": "^4.1.2",
     "@shopify/koa-shopify-webhooks": "^4.2.1",
     "@shopify/polaris": "^6.2.0",
-    "@shopify/shopify-api": "^2.1.0",
     "apollo-boost": "^0.4.9",
     "axios": "^0.21.4",
     "better-queue": "^3.8.10",
