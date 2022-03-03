@@ -4,7 +4,6 @@ pipelines:
       push-image: &push-image
         name: Build and Push Docker Image
         image: atlassian/pipelines-awscli
-        size: 2x
         caches:
           - docker
         services:
@@ -25,6 +24,7 @@ pipelines:
       deploy-to-production: &deploy-to-production
         name: Deploy to ECS
         image: atlassian/pipelines-awscli
+        size: 2x
         deployment: production
         # trigger: manual
         script:
@@ -40,6 +40,7 @@ pipelines:
       deploy-to-develop: &deploy-to-develop
         name: Deploy to ECS
         image: atlassian/pipelines-awscli
+        size: 2x
         deployment: staging
         # trigger: manual
         script:
