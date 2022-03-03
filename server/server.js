@@ -231,8 +231,6 @@ app.prepare().then(async () => {
     ctx.status = 200;
   });
 
-
-
   router.get('/carriers-service', async (ctx)=>{
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
