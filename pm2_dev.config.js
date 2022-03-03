@@ -4,7 +4,7 @@ module.exports = {
       name: "shopify-app:dev",
       script: "server/index.js",
       env: {
-        NODE_ENV: "development",
+        NODE_ENV: "production",
       },
       instances: 2,
       exec_mode: "cluster",
