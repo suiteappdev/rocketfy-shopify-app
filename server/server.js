@@ -190,9 +190,9 @@ app.prepare().then(async () => {
   });
 
   router.post('/webhook-notification', async (ctx)=>{
-    order_queue.push(ctx)
     ctx.response.status = 201;
     ctx.response.body  = {};
+    order_queue.push(ctx)
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
