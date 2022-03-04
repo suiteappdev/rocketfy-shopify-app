@@ -28,11 +28,7 @@ const Home = () => {
                 <Frame>
                     <MainTabs {...token}/>
                 </Frame>
-            ) : null}
-            <p>
-                Rocketfy <strong>v0.0.1</strong> 
-                <Link url="https://www.rocketfy.co/universo/guias">Documentación</Link>.
-            </p>
+            ) : (null)}
         </Page>
     )
 } 
