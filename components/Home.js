@@ -32,9 +32,9 @@ const Home = () => {
                 ) : null}
 
             </Page>
-            <p style={{marginBottom : '40px', marginTop : '30px', textAlign:'center'}}>
-                    Rocketfy <strong>v0.0.1</strong> 
-                    <Link url="https://www.rocketfy.co/universo/guias">Documentación</Link>.
+            <p style={{marginBottom : '40px', marginTop : '20px', textAlign:'center'}}>
+                Rocketfy <strong> v0.0.1</strong> 
+                <Link url="https://www.rocketfy.co/universo/guias"> Documentación</Link>.
             </p>
         </React.Fragment>
     )
