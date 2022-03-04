@@ -23,13 +23,19 @@ const Home = () => {
     }, []);
 
     return (
-        <Page>
-            {token ? (
-                <Frame>
-                    <MainTabs {...token}/>
-                </Frame>
-            ) : (null)}
-        </Page>
+        <React.Fragment>
+            <Page>
+                {token ? (
+                    <Frame>
+                        <MainTabs {...token}/>
+                    </Frame>
+                ) : null}
+                <p>
+                    Rocketfy <strong>v0.0.1</strong> 
+                    <Link url="https://www.rocketfy.co/universo/guias">Documentación</Link>.
+                </p>
+            </Page>
+        </React.Fragment>
     )
 } 
 
