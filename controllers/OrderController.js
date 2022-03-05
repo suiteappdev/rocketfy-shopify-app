@@ -22,13 +22,13 @@ const OrderController  = {
                     "id" : data.name,
                     "customerID":auth.customerID,
                     "currency": data.current_total_price_set.shop_money.currency_code,
-                    "shipping_total": parseInt(data.total_shipping_price_set.shop_money.amount),
+                    "shipping_total": 10000,
                     "subtotal": parseInt(data.current_subtotal_price_set.shop_money.amount),
                     "total": parseInt(data.current_total_price_set.shop_money.amount),
                     "coupon" : parseInt(data.total_discounts || 0),
                     "payment_method": "cod",
                     "dimensions" : {
-                        width : 20, height : 20 , weight : Math.round(parseInt(data.total_weight / 1000)) , large : 20
+                        width : 0, height : 0 , weight : Math.round(parseInt(data.total_weight / 1000)) , large : 0
                     },
                     "shipping" : {...data.shipping_address, province : state, city : city},
                     "billing": {
@@ -140,7 +140,7 @@ const OrderController  = {
             return  { 
                 "service_name": c.name,
                 "service_code": !c.disabled  ? "ON" : "OFF", 
-                "total_price": (c.shipping_value), 
+                "total_price": (c.shipping_value * 100), 
                 "description":   `${c.fechaEntrega ? (`Fecha de entrega ${c.fechaEntrega}`) : (`Tiempo de entrega ${c.shipping_time} dia`) } `,
                 "currency": "COP", 
                 "min_delivery_date": "2013-04-12 14:48:45 -0400",
