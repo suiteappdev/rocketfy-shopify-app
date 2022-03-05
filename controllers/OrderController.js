@@ -1,4 +1,7 @@
+import dotenv from "dotenv";
 import axios from "axios";
+
+dotenv.config();
 
 const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
 console.log("url", url);
