@@ -93,8 +93,6 @@ app.prepare().then(async () => {
     console.log("company",  ctx.request.body.rate);
     let auth = await Settings.findOne({ shop :  ctx.request.body.rate.origin.company_name});
 
-    console.log("transportadoras", OrderController.mapCarrier(rates.courriers));
-
     if(auth && auth.carrier){
         let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth).catch((e)=>console.log(e));
         console.log("rates", rates);
