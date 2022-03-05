@@ -61,9 +61,7 @@ const OrderController  = {
                 }
 
                 console.log("rocketfy order", order)
-                //https://api.rocketfy.co/
-                //http://6472-186-43-14-133.ngrok.io
-                let o = await axios.post(`http://4c4e-186-43-14-133.ngrok.io/api/public/v2/createOrders`, 
+                let o = await axios.post(`https://api.rocketfy.co/api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
                         { headers : headers }).catch((e)=>console.log(e));
                 
