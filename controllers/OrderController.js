@@ -22,7 +22,7 @@ const OrderController  = {
                     "id" : data.name,
                     "customerID":auth.customerID,
                     "currency": data.current_total_price_set.shop_money.currency_code,
-                    "shipping_total": 10000,
+                    "shipping_total": data.total_shipping_price_set.shop_money.amount,
                     "subtotal": parseInt(data.current_subtotal_price_set.shop_money.amount),
                     "total": parseInt(data.current_total_price_set.shop_money.amount),
                     "coupon" : parseInt(data.total_discounts || 0),
@@ -59,6 +59,8 @@ const OrderController  = {
                     "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega'),
                     "notes" : data.note
                 }
+
+                console.log("rocketfy order", order)
 
                 let o = await axios.post(`${'https://api.rocketfy.co/'}api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
