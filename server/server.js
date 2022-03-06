@@ -44,7 +44,8 @@ let order_queue = new Queue(async (ctx, cb) => {
         let auth = await Settings.findOne({ domain :  host});
         let result = await Sessions.findOne({shop : host});
        
-        let credentials =  cryption.decrypt(result.data)
+        let credentials =  cryption.decrypt(result.data);
+        console.log("credentials", credentials);
         const client = new Shopify.Clients.Rest(result.shop, credentials.accessToken);
 
         if(auth.webhook){
