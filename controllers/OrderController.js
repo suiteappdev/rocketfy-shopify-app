@@ -46,6 +46,7 @@ const OrderController  = {
                     },
                     "line_items": data.line_items.map((item)=>{
                         return {
+                            "product_id" : item.product_id,
                             "name": item.name,
                             "variation_name": item.title,
                             "quantity": item.quantity,
@@ -67,7 +68,7 @@ const OrderController  = {
                         const line = order.line_items[index];
 
                         let rs  = await client.get({
-                            path:`products/${line.id}/images`,
+                            path:`products/${line.product_id}/images`,
                         });
 
                         order.line_items[index].images = rs.images || [];
