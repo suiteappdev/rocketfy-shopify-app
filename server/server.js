@@ -44,9 +44,9 @@ let order_queue = new Queue(async (ctx, cb) => {
         let auth = await Settings.findOne({ domain :  host});
         let shopify = await Sessions.findOne({shop : host});
 
-        console.log("shopify", shopify);
+        console.log("shopify", cryption.decrypt(shopify.data));
 
-        const client = new Shopify.Clients.Rest(host, cryption.decrypt(shopify.data).accessToken);
+        const client = new Shopify.Clients.Rest();
 
         if(auth.webhook){
             let order = await OrderController.createOrder(ctx.request.body, auth, client).catch((e)=>console.log(e));
