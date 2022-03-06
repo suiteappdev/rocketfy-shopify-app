@@ -19,6 +19,8 @@ const OrderController  = {
 
                 let mapImage  =  (images, id)=>{
                     let ret = [];
+
+                    console.log("images", images);
             
                     images.forEach(image => {
                         if(image.variant_ids.length > 0){
@@ -81,6 +83,8 @@ const OrderController  = {
                         let rs  = await client.get({
                             path:`products/${line.product_id}/images`,
                         });
+
+                        console.log("rs", rs);
 
                         order.line_items[index].images = mapImage(rs.images, line.variant_id);
                     }
