@@ -42,11 +42,10 @@ let order_queue = new Queue(async (ctx, cb) => {
     if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
         let host = new URL(ctx.request.body.order_status_url).host;
         let auth = await Settings.findOne({ domain :  host});
-        let shopify = await Sessions.findOne({shop : host});
-
-        console.log("shopify", cryption.decrypt(shopify.data));
-
-        const client = new Shopify.Clients.Rest();
+        let result = await Sessions.findOne({shop : host});
+       
+        let credentials =  cryption.decrypt(result.data)
+        const client = new Shopify.Clients.Rest(result.shop, credentials.accessToken);
 
         if(auth.webhook){
             let order = await OrderController.createOrder(ctx.request.body, auth, client).catch((e)=>console.log(e));
