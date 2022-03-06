@@ -5,7 +5,7 @@ dotenv.config();
 const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
 
 const OrderController  = {
-    createOrder : (data, auth)=>{
+    createOrder : (data, auth, client)=>{
         return new Promise(async (resolve, reject)=>{
                 let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`};
                 let rs  = await axios.post('https://city-predictor.herokuapp.com/cities', { query : data.shipping_address.city});
@@ -44,7 +44,11 @@ const OrderController  = {
                         "email": data.customer.email,
                         "phone": data.phone,
                     },
-                    "line_items": data.line_items.map((item)=>{
+                    "line_items": data.line_items.map(async (item)=>{
+                        let rs  = await client.get({
+                           path:`products/${item.id}/images`,
+                        });
+
                         return {
                             "name": item.name,
                             "variation_name": item.title,
@@ -54,6 +58,7 @@ const OrderController  = {
                             "width": 0,
                             "height": 0,
                             "sku" : item.sku || '',
+                            "image" : (rs.images.length > 0 )  ? rs.images[0] : null,
                             "large":0,
                             "weight": parseInt(item.grams / 1000)
                         }

@@ -41,7 +41,7 @@ let order_queue = new Queue(async (data, cb) => {
         let auth = await Settings.findOne({ domain :  host});
 
         if(auth.webhook){
-            let order = await OrderController.createOrder(data.ctx.request.body, auth).catch((e)=>console.log(e));
+            let order = await OrderController.createOrder(data.ctx.request.body, auth, data.client).catch((e)=>console.log(e));
             cb(null, order);
             console.log(`Order Processed`);
         }
