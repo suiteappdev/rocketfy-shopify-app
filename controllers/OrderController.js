@@ -2,9 +2,8 @@ import dotenv from "dotenv";
 import axios from "axios";
 
 dotenv.config();
-
 const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
-console.log("url", url);
+
 const OrderController  = {
     createOrder : (data, auth)=>{
         return new Promise(async (resolve, reject)=>{
@@ -25,7 +24,7 @@ const OrderController  = {
                     "id" : data.name,
                     "customerID":auth.customerID,
                     "currency": data.current_total_price_set.shop_money.currency_code,
-                    "shipping_total": data.total_shipping_price_set.shop_money.amount,
+                    "shipping_total": parseInt(data.total_shipping_price_set.shop_money.amount),
                     "subtotal": parseInt(data.current_subtotal_price_set.shop_money.amount),
                     "total": parseInt(data.current_total_price_set.shop_money.amount),
                     "coupon" : parseInt(data.total_discounts || 0),

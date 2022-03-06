@@ -4,7 +4,7 @@ import { Session } from '@shopify/shopify-api/dist/auth/session'
 import Cryptr from "cryptr";
 dotenv.config();
 
-const cryption = new Cryptr(process.env.SHOPIFY_PWD_KEYS)
+const cryption = new Cryptr(process.env.SHOPIFY_PWD_KEYS);
 
 const storeCallback = async (session)=>{
     const result = await Sessions.findOne({ id: session.id });
