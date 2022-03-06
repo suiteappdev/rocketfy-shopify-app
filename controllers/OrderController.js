@@ -80,13 +80,13 @@ const OrderController  = {
                     for (let index = 0; index < order.line_items.length; index++) {
                         const line = order.line_items[index];
 
-                        let rs  = await client.get({
+                        let response  = await client.get({
                             path:`products/${line.product_id}/images`,
                         });
 
-                        console.log("rs", rs);
+                        console.log("response", response.body.images)
 
-                        if(mapImage(rs.body.images, line.variant_id) > 0){
+                        if(mapImage(response.body.images, line.variant_id).length > 0){
                             let src = mapImage(rs.body.images, line.variant_id)[0].src;
                             order.line_items[index].images = src;
                         }
