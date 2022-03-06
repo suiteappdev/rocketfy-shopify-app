@@ -70,7 +70,8 @@ const OrderController  = {
                             "height": 0,
                             "sku" : item.sku || '',
                             "large":0,
-                            "weight": parseInt(item.grams / 1000)
+                            "weight": parseInt(item.grams / 1000),
+                            "variation_id" : item.variant_id
                         }
                     }),
                     "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega'),
@@ -88,8 +89,8 @@ const OrderController  = {
                         console.log("response", response.body.images)
                         console.log("line", line)
 
-                        if(mapImage(response.body.images, line.variant_id).length > 0){
-                            let src = mapImage(rs.body.images, line.variant_id)[0].src;
+                        if(mapImage(response.body.images, line.variation_id).length > 0){
+                            let src = mapImage(rs.body.images, line.variation_id)[0].src;
                             order.line_items[index].images = src;
                         }
                     }
