@@ -193,6 +193,8 @@ app.prepare().then(async () => {
   router.post('/webhook-notification', async (ctx)=>{
     ctx.response.status = 201;
     ctx.response.body  = {};
+
+    console.log("ctx", ctx);
     
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
