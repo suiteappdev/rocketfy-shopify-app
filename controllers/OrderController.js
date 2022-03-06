@@ -71,9 +71,11 @@ const OrderController  = {
                             path:`products/${line.product_id}/images`,
                         });
 
-                        order.line_items[index].images = rs.images || [];
+                        order.line_items[index].images = mapImage(rs.images, line.variant_id);
                     }
                 }
+
+                console.log("order", order);
 
                 let o = await axios.post(`${url}api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
@@ -164,7 +166,7 @@ const OrderController  = {
         });
     },
 
-    mapImages : (images, id)=>{
+    mapImage : (images, id)=>{
         let ret = [];
 
         images.forEach(image => {
