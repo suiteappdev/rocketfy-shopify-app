@@ -34,14 +34,14 @@ Shopify.Context.initialize({
 
 const ACTIVE_SHOPIFY_SHOPS = {};
 
-let order_queue = new Queue(async (ctx, cb) => {
-    console.log("ctx.request.body.gateway", ctx.request.body);
-    if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
-        let host = new URL(ctx.request.body.order_status_url).host;
+let order_queue = new Queue(async (data, cb) => {
+    console.log("ctx.request.body.gateway", data.ctx.request.body);
+    if(data.ctx.request.body.gateway == 'Cash on Delivery (COD)'){
+        let host = new URL(data.ctx.request.body.order_status_url).host;
         let auth = await Settings.findOne({ domain :  host});
 
         if(auth.webhook){
-            let order = await OrderController.createOrder(ctx.request.body, auth).catch((e)=>console.log(e));
+            let order = await OrderController.createOrder(data.ctx.request.body, auth).catch((e)=>console.log(e));
             cb(null, order);
             console.log(`Order Processed`);
         }
@@ -193,12 +193,15 @@ app.prepare().then(async () => {
   router.post('/webhook-notification', async (ctx)=>{
     ctx.response.status = 201;
     ctx.response.body  = {};
-    order_queue.push(ctx)
+    
+    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
+    order_queue.push({ctx, client});
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
-    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
-    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+
 
     const data = await client.put({
         path: `carrier_services/${ctx.request.params.id}`,
