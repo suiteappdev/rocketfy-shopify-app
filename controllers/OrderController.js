@@ -46,7 +46,7 @@ const OrderController  = {
                     },
                     "line_items": data.line_items.map(async (item)=>{
                         let rs  = await client.get({
-                           path:`products/${item.id}/images`,
+                           path:`products/${id}/images`,
                         });
 
                         return {
