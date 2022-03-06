@@ -44,11 +44,7 @@ const OrderController  = {
                         "email": data.customer.email,
                         "phone": data.phone,
                     },
-                    "line_items": data.line_items.map(async (item)=>{
-                        let rs  = await client.get({
-                           path:`products/${data.id}/images`,
-                        });
-
+                    "line_items": data.line_items.map((item)=>{
                         return {
                             "name": item.name,
                             "variation_name": item.title,
@@ -58,7 +54,6 @@ const OrderController  = {
                             "width": 0,
                             "height": 0,
                             "sku" : item.sku || '',
-                            "image" : (rs.images.length > 0 )  ? rs.images[0] : null,
                             "large":0,
                             "weight": parseInt(item.grams / 1000)
                         }
@@ -67,7 +62,18 @@ const OrderController  = {
                     "notes" : data.note
                 }
 
-                console.log("rocketfy order", order)
+                if(order.line_items.length > 0){
+                    for (let index = 0; index < order.line_items.length; index++) {
+                        const line = order.line_items[index];
+
+                        let rs  = await client.get({
+                            path:`products/${line.product_id}/images`,
+                        });
+
+                        order.line_items[index].images = rs.images || [];
+                    }
+                }
+
                 let o = await axios.post(`${url}api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
                         { headers : headers }).catch((e)=>console.log(e));
@@ -155,6 +161,18 @@ const OrderController  = {
                 "max_delivery_date": "2013-04-12 14:48:45 -0400" 
             }
         });
+    },
+
+    mapImages : (images, id)=>{
+        let ret = [];
+
+        images.forEach(image => {
+            if(image.variant_ids.length > 0){
+                return ret.push(image.variant_ids.find(variant => variant == id));
+            }
+        });
+        
+        return ret;
     }
 }
 
