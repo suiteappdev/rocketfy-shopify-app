@@ -9,7 +9,6 @@ const OrderController  = {
         return new Promise(async (resolve, reject)=>{
                 let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`};
                 let rs  = await axios.post('https://city-predictor.herokuapp.com/cities', { query : data.shipping_address.city});
-                
                 let city;
                 let state;
 
@@ -18,7 +17,19 @@ const OrderController  = {
                     state = rs.data.state.name;
                 }
 
-                console.log(data.shipping_address.city)
+                let mapImage  =  (images, id)=>{
+                    let ret = [];
+            
+                    images.forEach(image => {
+                        if(image.variant_ids.length > 0){
+                            if(image.variant_ids.some(variant => variant == id)){
+                                return ret.push(image)
+                            }
+                        }
+                    });
+                    
+                    return ret;
+                }
 
                 let order = {
                     "id" : data.name,
@@ -166,17 +177,6 @@ const OrderController  = {
         });
     },
 
-    mapImage : (images, id)=>{
-        let ret = [];
-
-        images.forEach(image => {
-            if(image.variant_ids.length > 0){
-                return ret.push(image.variant_ids.find(variant => variant == id));
-            }
-        });
-        
-        return ret;
-    }
 }
 
 export default OrderController;
