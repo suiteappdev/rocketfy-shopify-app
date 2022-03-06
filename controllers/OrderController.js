@@ -17,14 +17,15 @@ const OrderController  = {
                     state = rs.data.state.name;
                 }
 
-                let mapImage  =  (images, id)=>{
+                let mapImage  =  (collection, id)=>{
                     let ret = [];
 
-                    console.log("images", images);
+                    console.log("images", collection);
             
-                    images.forEach(image => {
+                    collection.forEach(image => {
                         if(image.variant_ids.length > 0){
                             if(image.variant_ids.some(variant => variant == id)){
+                                console.log("image.variant_ids", image.variant_ids);
                                 return ret.push(image)
                             }
                         }
@@ -85,6 +86,7 @@ const OrderController  = {
                         });
 
                         console.log("response", response.body.images)
+                        console.log("line", line)
 
                         if(mapImage(response.body.images, line.variant_id).length > 0){
                             let src = mapImage(rs.body.images, line.variant_id)[0].src;
