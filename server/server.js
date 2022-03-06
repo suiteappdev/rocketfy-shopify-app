@@ -11,6 +11,9 @@ import Settings from '../models/Settings';
 import OrderController from '../controllers/OrderController'
 import Queue from  'better-queue';
 import { storeCallback, loadCallback, deleteCallback } from '../helpers/session.helper';
+import Sessions from "../models/Sessions";
+import Cryptr from "cryptr";
+const cryption = new Cryptr(process.env.SHOPIFY_PWD_KEYS);
 
 dotenv.config();
 
@@ -34,14 +37,19 @@ Shopify.Context.initialize({
 
 const ACTIVE_SHOPIFY_SHOPS = {};
 
-let order_queue = new Queue(async (data, cb) => {
-    console.log("ctx.request.body.gateway", data.ctx.request.body);
-    if(data.ctx.request.body.gateway == 'Cash on Delivery (COD)'){
-        let host = new URL(data.ctx.request.body.order_status_url).host;
+let order_queue = new Queue(async (ctx, cb) => {
+    console.log("ctx.request.body.gateway", ctx.request.body);
+    if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
+        let host = new URL(ctx.request.body.order_status_url).host;
         let auth = await Settings.findOne({ domain :  host});
+        let shopify = await Sessions.findOne({shop : host});
+
+        console.log("shopify", shopify);
+
+        const client = new Shopify.Clients.Rest(host, cryption.decrypt(shopify.data).accessToken);
 
         if(auth.webhook){
-            let order = await OrderController.createOrder(data.ctx.request.body, auth, data.client).catch((e)=>console.log(e));
+            let order = await OrderController.createOrder(ctx.request.body, auth, client).catch((e)=>console.log(e));
             cb(null, order);
             console.log(`Order Processed`);
         }
@@ -193,17 +201,12 @@ app.prepare().then(async () => {
   router.post('/webhook-notification', async (ctx)=>{
     ctx.response.status = 201;
     ctx.response.body  = {};
-
-    console.log("ctx", ctx);
-    
-    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
-    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
-
-    order_queue.push({ctx, client});
+    order_queue.push(ctx)
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
-
+    const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
+    const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     const data = await client.put({
         path: `carrier_services/${ctx.request.params.id}`,
