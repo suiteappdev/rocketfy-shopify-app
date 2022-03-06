@@ -67,7 +67,7 @@ const OrderController  = {
                         const line = order.line_items[index];
 
                         let rs  = await client.get({
-                            path:`products/${line.product_id}/images`,
+                            path:`products/${line.id}/images`,
                         });
 
                         order.line_items[index].images = rs.images || [];
