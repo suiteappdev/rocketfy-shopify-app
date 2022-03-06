@@ -86,7 +86,10 @@ const OrderController  = {
 
                         console.log("rs", rs);
 
-                        order.line_items[index].images = mapImage(rs.images, line.variant_id);
+                        if(mapImage(rs.body.images, line.variant_id) > 0){
+                            let src = mapImage(rs.body.images, line.variant_id)[0].src;
+                            order.line_items[index].images = src;
+                        }
                     }
                 }
 
