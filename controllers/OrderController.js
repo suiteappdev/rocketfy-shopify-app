@@ -86,9 +86,6 @@ const OrderController  = {
                             path:`products/${line.product_id}/images`,
                         });
 
-                        console.log("response", response.body.images)
-                        console.log("line", line)
-
                         if(mapImage(response.body.images, line.variation_id).length > 0){
                             let src = mapImage(response.body.images, line.variation_id)[0].src;
                             order.line_items[index].image = src;
