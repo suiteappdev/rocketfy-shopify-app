@@ -73,10 +73,11 @@ const OrderController  = {
                             "weight": parseInt(item.grams / 1000),
                             "variation_id" : item.variant_id,
                             "dimensions" : {
-                                width:  0,
-                                height: 0,
-                                large:  0,
-                                weight:parseInt(item.grams / 1000),
+                                "width":  10,
+                                "height": 10,
+                                "large":  10,
+                                "weight": 2,
+                                "volume" : 2
                             }
                         }                  
                     }),
