@@ -96,6 +96,20 @@ const SignupForm = (props)=>{
     }
 
     const connect = async ()=>{
+         if(user._id){
+            let r = await Put(`/api/settings/status/${user._id}`, {
+                connected : true
+            });
+
+            if(r){
+                toast({ content : `Conectado`, active : true});
+                setConnected(true);
+                setLoading(false);
+            }
+            
+            return;
+         }
+
         let fields = Object.values(errors);
         fields.shift();
         let IsInvalidForm = Object.values(form).some((v)=>!v);
