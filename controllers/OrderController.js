@@ -172,7 +172,6 @@ const OrderController  = {
 
     mapCarrier : (data)=>{
         return data.filter((c)=>{
-            if(c.name != 'Envío local'){
                 return  { 
                     "service_name": c.name,
                     "service_code": !c.disabled  ? "ON" : "OFF", 
@@ -182,7 +181,6 @@ const OrderController  = {
                     "min_delivery_date": "2013-04-12 14:48:45 -0400",
                     "max_delivery_date": "2013-04-12 14:48:45 -0400" 
                 }
-            }
         });
     },
 }
