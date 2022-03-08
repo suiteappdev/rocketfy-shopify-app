@@ -171,7 +171,7 @@ const OrderController  = {
     },
 
     mapCarrier : (data)=>{
-        return data.filter((c)=>{
+        return data.map((c)=>{
                 return  { 
                     "service_name": c.name,
                     "service_code": !c.disabled  ? "ON" : "OFF", 
