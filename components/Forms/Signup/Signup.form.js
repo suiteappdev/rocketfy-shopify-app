@@ -106,7 +106,7 @@ const SignupForm = (props)=>{
                 setConnected(true);
                 setLoading(false);
             }
-            
+
             return;
          }
 
@@ -189,10 +189,8 @@ const SignupForm = (props)=>{
             let url = await verifyUrl({
                 redirectUrl : refresh.data.redirectUrl
             });
-
-            console.log("url", url.application)
-           
-           // window.open(url.application); 
+            
+            window.open(url.application); 
         }
     }
 
