@@ -71,8 +71,14 @@ const OrderController  = {
                             "sku" : item.sku || '',
                             "large":0,
                             "weight": parseInt(item.grams / 1000),
-                            "variation_id" : item.variant_id
-                        }
+                            "variation_id" : item.variant_id,
+                            "dimensions" : {
+                                width:  0,
+                                height: 0,
+                                large:  0,
+                                weight:parseInt(item.grams / 1000),
+                            }
+                        }                  
                     }),
                     "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega'),
                     "notes" : data.note
