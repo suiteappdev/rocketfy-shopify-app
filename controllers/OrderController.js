@@ -179,7 +179,7 @@ const OrderController  = {
 
     mapCarrier : (data)=>{
         return data.filter((c)=>{
-            if(c.name != 'Envío local'){
+            if(c.name != 'Envío local' || c.name != 'Interrapidísimo'){
                 return true
             }
         }).map((c)=>{

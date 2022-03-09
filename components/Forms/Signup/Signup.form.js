@@ -23,8 +23,24 @@ const SignupForm = (props)=>{
         txtPhone : false,
         txtDocument : false,
         txtShop : false,
+        /*txtName: "Cra26A #25-56, Casa",
+        txtAddress: "26 # 35 - 56",
+        txtCity : "",
+        txtDepartament : "",
+        txtCountry: "CO",
+        txtNeighborhood: "San juan",
+        txtComposed_address: {
+            street: 26,
+            street_number_one: 35,
+            street_number_two: 56
+        },
+        txtGeolocation: {},
+        txtDefault: true,*/
         formSubmited : false,
     });
+    
+
+
     const [user, setUser] = useState({});
 
     const [showToast, setShowToast] = useState({
