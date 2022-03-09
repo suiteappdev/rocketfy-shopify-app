@@ -172,13 +172,7 @@ const OrderController  = {
             }).catch((e)=>reject(e));
 
             if(rates && rates.data){
-                resolve(rates.data.data.filter((c)=>{
-                    if(c.name == 'Interrapidísimo' || c.name == 'Envío local'){
-                        return false;
-                    }
-                    
-                    return true;
-                }));
+                resolve(rates.data.data);
             }
 
         });
