@@ -103,12 +103,18 @@ app.prepare().then(async () => {
 
     if(auth && auth.carrier){
         let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth).catch((e)=>console.log(e));
-        console.log("rates", rates);
-        ctx.body = { rates :  OrderController.mapCarrier(rates.courriers).filter((c)=>{
-          if(c.name != 'Envío local' || c.name != 'Interrapidísimo'){
-              return true;
+        console.log("rates", OrderController.mapCarrier(rates.courriers).filter((c)=>{
+          if(c.name == 'Envío local' || c.name == 'Interrapidísimo'){
+              return false;
           }else{
-            return false;
+            return true;
+          }
+        }));
+        ctx.body = { rates :  OrderController.mapCarrier(rates.courriers).filter((c)=>{
+          if(c.name == 'Envío local' || c.name == 'Interrapidísimo'){
+              return false;
+          }else{
+            return true;
           }
         })}
         ctx.status = 200;
