@@ -50,6 +50,7 @@ const OrderController  = {
                     "billing": {
                         "first_name":data.billing_address.first_name,
                         "last_name": data.billing_address.last_name,
+                        "full_name" : `${data.billing_address.first_name} ${data.billing_address.last_name}`,
                         "address_1":  data.billing_address.address1,
                         "address_2":  data.billing_address.address2,
                         "city":  city,
@@ -179,6 +180,7 @@ const OrderController  = {
 
     mapCarrier : (data)=>{
         return data.filter((c)=>{
+            console.log("c", c.name);
             if(c.name != 'Envío local' || c.name != 'Interrapidísimo'){
                 return true
             }
