@@ -205,8 +205,8 @@ const SignupForm = (props)=>{
             let url = await verifyUrl({
                 redirectUrl : refresh.data.redirectUrl
             });
-            
-            window.open(url.application); 
+            console.log(url.application)
+            //window.open(url.application); 
         }
     }
 
