@@ -172,19 +172,20 @@ const OrderController  = {
             }).catch((e)=>reject(e));
 
             if(rates && rates.data){
-                resolve(rates.data.data);
+                resolve(rates.data.data.filter((c)=>{
+                    if(c.name == 'Interrapidísimo' || c.name == 'Envío local'){
+                        return false;
+                    }
+                    
+                    return true;
+                }));
             }
 
         });
     },
 
     mapCarrier : (data)=>{
-        return data.filter((c)=>{
-            console.log("c", c.name);
-            if(c.name != 'Envío local' || c.name != 'Interrapidísimo'){
-                return true
-            }
-        }).map((c)=>{
+        return data.map((c)=>{
             return  { 
                 "service_name": c.name,
                 "service_code": !c.disabled  ? "ON" : "OFF", 
