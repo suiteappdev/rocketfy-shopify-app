@@ -173,7 +173,7 @@ const OrderController  = {
             }).catch((e)=>reject(e));
 
             if(rates && rates.data){
-                rates.data.data.courriers = rates.data.data.courriers.filter((x)=>(x.key != 'interrapidisimo'));
+                rates.data.data.courriers = rates.data.data.courriers.filter((x)=>(x.key != 'interrapidisimo')).filter((s)=>(s.key != 'rocketfy'));
                 resolve(rates.data.data);
             }
 
