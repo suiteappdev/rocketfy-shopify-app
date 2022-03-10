@@ -107,7 +107,7 @@ app.prepare().then(async () => {
         ctx.body = { rates :  OrderController.mapCarrier(rates.courriers).filter((s)=>(s.service_name != 'Interrapidísimo'))}
         ctx.status = 200;
 
-        console.log("transportadoras", OrderController.mapCarrier(rates.courriers));
+        console.log("filtered", OrderController.mapCarrier(rates.courriers).filter((s)=>(s.service_name != 'Interrapidísimo')));
     }
   });
 
