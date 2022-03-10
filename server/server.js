@@ -103,8 +103,8 @@ app.prepare().then(async () => {
 
     if(auth && auth.carrier){
         let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth).catch((e)=>console.log(e));
-        let courriers = OrderController.mapCarrier(rates.courriers).filter((s)=>s.service_name != 'Interrapidísimo');
-        ctx.body = { rates :  courriers.filter((c)=>c.service_name != 'Envío local')}
+        let courriers = OrderController.mapCarrier(rates.courriers.filter((x)=>(x.key != 'rocketfy') || (x.key != 'interrapidisimo')));
+        ctx.body = { rates :  courriers}
         ctx.status = 200;
 
         console.log("ctx.body", ctx.body);
