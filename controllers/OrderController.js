@@ -50,6 +50,7 @@ const OrderController  = {
                     "billing": {
                         "first_name":data.billing_address.first_name,
                         "last_name": data.billing_address.last_name,
+                        "customer_id" : data.customer.id || '',
                         "full_name" : `${data.billing_address.first_name} ${data.billing_address.last_name}`,
                         "address_1":  data.billing_address.address1,
                         "address_2":  data.billing_address.address2,
