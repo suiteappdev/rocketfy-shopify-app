@@ -37,6 +37,7 @@ const OrderController  = {
                 let order = {
                     "id" : data.name,
                     "customerID":auth.customerID,
+                    "shop" : auth.shop || '',
                     "currency": data.current_total_price_set.shop_money.currency_code,
                     "shipping_total": parseInt(data.total_shipping_price_set.shop_money.amount),
                     "subtotal": parseInt(data.current_subtotal_price_set.shop_money.amount),
