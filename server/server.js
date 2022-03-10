@@ -103,7 +103,7 @@ app.prepare().then(async () => {
 
     if(auth && auth.carrier){
         let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth).catch((e)=>console.log(e));
-        let courriers = OrderController.mapCarrier(rates.courriers.filter((x)=>(x.key != 'rocketfy') || (x.key != 'interrapidisimo')));
+        let courriers = OrderController.mapCarrier(rates.courriers.filter((x)=>(x.key != 'interrapidisimo')));
         ctx.body = { rates :  courriers}
         ctx.status = 200;
 
