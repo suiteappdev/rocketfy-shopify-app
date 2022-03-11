@@ -76,9 +76,9 @@ const OrderController  = {
                             "weight": parseInt(item.grams / 1000),
                             "variation_id" : item.variant_id,
                             "dimensions" : {
-                                "width":  20,
-                                "height": 20,
-                                "large":  20,
+                                "width":  0,
+                                "height": 0,
+                                "large":  0,
                                 "weight": parseInt(item.grams / 1000),
                                 "volume" : parseInt(item.grams / 1000)
                             }
