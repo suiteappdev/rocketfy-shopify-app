@@ -79,7 +79,7 @@ const OrderController  = {
                                 "width":  10,
                                 "height": 10,
                                 "large":  10,
-                                "weight": 2,
+                                "weight": parseInt(item.grams / 1000),
                                 "volume" : 2
                             }
                         }                  
