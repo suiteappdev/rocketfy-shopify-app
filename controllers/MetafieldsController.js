@@ -2,10 +2,11 @@ import { DataType } from "@shopify/shopify-api";
 
 const MetafieldController  =  {
     createDimensionMetafields : (client)=>{
+       
         let createWidth = new Promise(async (resolve, reject)=>{
             const data = await client.post({
                 path: 'metafields',
-                data: {"metafield":{"namespace":"inventory","key":"warehouse","value":25,"type":"number_integer"}},
+                data: {"metafield":{"namespace":"inventory","validations": [], "visibleToStorefrontApi" : false "pin": true, "key":"warehouse","value":25,"type":"number_integer"}},
                 type: DataType.JSON,
             }).catch((e)=>reject(e));
 
