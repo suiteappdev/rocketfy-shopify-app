@@ -26,7 +26,7 @@ const MetafieldController  =  {
         };
 
         let height = async ()=>{
-            await Graphql.query({ data: `
+            return await Graphql.query({ data: `
                 mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
                     metafieldDefinitionCreate(definition: $input) {
                         userErrors {
@@ -49,7 +49,7 @@ const MetafieldController  =  {
         };
 
         let large = async ()=>{
-            await Graphql.query({ data: `
+            return await Graphql.query({ data: `
                 mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
                     metafieldDefinitionCreate(definition: $input) {
                         userErrors {
