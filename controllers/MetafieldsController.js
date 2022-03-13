@@ -4,29 +4,33 @@ const MetafieldController  =  {
     size : (RestClient, Graphql)=>{
         let width = ()=>{
             return new Promise(async (resolve, reject)=>{
-                let rs = await Graphql.query({data: `
-                    mutation metafieldDefinitionCreate($definition: MetafieldDefinitionInput!) {
-                        metafieldDefinitionCreate(definition: $definition) {
-                            createdDefinition {
-                                name
+                let rs = await Graphql.query({
+                    data : {
+                        "query" : `mutation CreateMetafieldDefinition($definition: MetafieldDefinitionInput!) {
+                            metafieldDefinitionCreate(definition: $definition) {
+                                createdDefinition {
+                                    id
+                                    name
+                                }
+                                userErrors {
+                                    field
+                                    message
+                                    code
+                                }
                             }
-                            userErrors {
-                                field
-                                message
+                        }`,
+                        "variables": {
+                            "definition": {
+                              "name": "Ingredients",
+                              "namespace": "bakery",
+                              "key": "ingredients",
+                              "description": "A list of ingredients used to make the product.",
+                              "type": "multi_line_text_field",
+                              "ownerType": "PRODUCT"
                             }
-                        }
+                        },
                     }
-                `}, { variables : {
-                        "definition": {
-                            "name": "ancho",
-                            "ownerType": "PRODUCT",
-                            "namespace": "dimensiones",
-                            "key": "ancho",
-                            "type": "number_integer",
-                            "description" : "Prueba",
-                            "pin":true
-                        }
-                }}).catch((e)=>console.log(e));
+                }).catch((e)=>console.log(e));
                 console.log("rs", JSON.stringify(rs.body.errors));
                 
                 resolve(rs);
