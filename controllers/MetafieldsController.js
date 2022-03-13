@@ -21,8 +21,7 @@ const MetafieldController  =  {
                             "type": "number_integer",
                             "value" : "0",
                             "name": "ancho",
-                            "description": "Defina en (cms) la anchura del paquete",
-                            "pin" : true
+                            "description" : "Prueba"
                         }
                 }}).catch((e)=>console.log(e));
                 console.log("rs", JSON.stringify(rs.body.errors));
