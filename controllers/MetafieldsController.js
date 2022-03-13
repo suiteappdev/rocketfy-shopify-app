@@ -2,8 +2,8 @@ import { DataType } from "@shopify/shopify-api";
 
 const MetafieldController  =  {
     size : (RestClient, Graphql)=>{
-        let width = new Promise(async (resolve, reject)=>{
-            await Graphql.query({ data: `
+        let width = async ()=>{
+            return await Graphql.query({ data: `
                 mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
                     metafieldDefinitionCreate(definition: $input) {
                         userErrors {
@@ -13,19 +13,19 @@ const MetafieldController  =  {
                     }
                 }
             `}, { variables : {
-                input: {
-                    ownerType: "PRODUCT",
-                    namespace: "dimensiones",
-                    key: "ancho",
-                    type: "number_integer",
-                    validations: [],
-                    name: "ancho",
-                    description: "Defina en (cms) la anchura del paquete"
-                }
+                    input: {
+                        ownerType: "PRODUCT",
+                        namespace: "dimensiones",
+                        key: "ancho",
+                        type: "number_integer",
+                        validations: [],
+                        name: "ancho",
+                        description: "Defina en (cms) la anchura del paquete"
+                    }
             }});
-        });
+        };
 
-        let height = new Promise(async (resolve, reject)=>{
+        let height = async ()=>{
             await Graphql.query({ data: `
                 mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
                     metafieldDefinitionCreate(definition: $input) {
@@ -46,9 +46,9 @@ const MetafieldController  =  {
                     description: "Defina en (cms) la altura del paquete"
                 }
             }});
-        });
+        };
 
-        let large = new Promise(async (resolve, reject)=>{
+        let large = async ()=>{
             await Graphql.query({ data: `
                 mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
                     metafieldDefinitionCreate(definition: $input) {
@@ -69,7 +69,7 @@ const MetafieldController  =  {
                     description: "Defina en (cms) la longitud del paquete"
                 }
             }});
-        });
+        };
 
         return Promise.all([width, height, large]);
     }
