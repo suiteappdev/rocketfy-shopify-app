@@ -2,8 +2,8 @@ import { DataType } from "@shopify/shopify-api";
 
 const MetafieldController  =  {
     size : (RestClient, Graphql)=>{
-        let width = async ()=>{
-            return new Promise((resolve, reject)=>{
+        let width = ()=>{
+            return new Promise(async (resolve, reject)=>{
                 let rs = await Graphql.query({ data: `
                     mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
                         metafieldDefinitionCreate(definition: $input) {
