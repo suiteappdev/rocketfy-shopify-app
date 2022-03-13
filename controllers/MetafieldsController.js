@@ -14,16 +14,16 @@ const MetafieldController  =  {
                         }
                     }
                 `}, { variables : {
-                        input: {
-                            ownerType: "PRODUCT",
-                            namespace: "dimensiones",
-                            key: "ancho",
-                            type: "number_integer",
-                            validations: [],
-                            value : 0,
-                            name: "ancho",
-                            description: "Defina en (cms) la anchura del paquete",
-                            pin : true
+                        "input": {
+                            "ownerType": "PRODUCT",
+                            "namespace": "dimensiones",
+                            "key": "ancho",
+                            "type": "number_integer",
+                            "value" : 0,
+                            "validations": [],
+                            "name": "ancho",
+                            "description": "Defina en (cms) la anchura del paquete",
+                            "pin" : true
                         }
                 }}).catch((e)=>console.log(e));
                 console.log("rs", JSON.stringify(rs.body.errors));
