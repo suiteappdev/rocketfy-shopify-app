@@ -25,7 +25,7 @@ const MetafieldController  =  {
                             pin : true
                         }
                 }}).catch((e)=>console.log(e));
-                console.log("rs", rs);
+                console.log("rs", JSON.stringify(rs.body.errors));
                 
                 resolve(rs);
             });
