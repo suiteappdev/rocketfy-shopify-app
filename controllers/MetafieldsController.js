@@ -1,3 +1,5 @@
+import { DataType } from "@shopify/shopify-api";
+
 const MetafieldController  =  {
     createDimensionMetafields : (client)=>{
         let createWidth = new Promise(async (resolve, reject)=>{
