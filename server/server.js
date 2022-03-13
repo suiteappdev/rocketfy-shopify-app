@@ -226,10 +226,11 @@ app.prepare().then(async () => {
   router.post("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+    console.log("AT", session.accessToken);
     const graphqlClient = new Shopify.Clients.Graphql(session.shop, session.accessToken);
     
     let mtf = await MetafieldController.size(null, graphqlClient).catch((e)=>console.log(e));
-    console.log("mtf", JSON.stringify(mtf.body));
+    console.log("mtf", mtf);
 
     const carrier = await client.post({
       path: 'carrier_services',

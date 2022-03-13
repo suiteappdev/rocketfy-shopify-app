@@ -4,7 +4,7 @@ const MetafieldController  =  {
     size : (RestClient, Graphql)=>{
         let width = ()=>{
             return new Promise(async (resolve, reject)=>{
-                let rs = await Graphql.query({ data: `
+                let rs = await Graphql.query({data: `
                     mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
                         metafieldDefinitionCreate(definition: $input) {
                             userErrors {
@@ -23,7 +23,8 @@ const MetafieldController  =  {
                             name: "ancho",
                             description: "Defina en (cms) la anchura del paquete"
                         }
-                }}).catch((e)=>reject(e));
+                }}).catch((e)=>console.log(e));
+                console.log("rs", rs);
                 
                 resolve(rs);
             });
