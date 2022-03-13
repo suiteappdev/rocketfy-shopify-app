@@ -22,8 +22,6 @@ const MetafieldController  =  {
                 type: DataType.JSON,
             }).catch((e)=>reject(e));
 
-            console.log("Alto", data);
-            
             resolve(data);
         });
 
@@ -34,8 +32,6 @@ const MetafieldController  =  {
                 type: DataType.JSON,
             }).catch((e)=>reject(e));
 
-            console.log("Largo", data);
-            
             resolve(data);
         });
 
