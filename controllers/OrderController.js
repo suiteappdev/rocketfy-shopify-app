@@ -93,6 +93,12 @@ const OrderController  = {
                             path:`products/${line.product_id}/images`,
                         });
 
+                        let metafields  = await client.get({
+                            path:`products/${line.product_id}/metafields.json`,
+                        });
+
+                        console.log("metafields", metafields);
+        
                         if(mapImage(response.body.images, line.variation_id).length > 0){
                             let src = mapImage(response.body.images, line.variation_id)[0].src;
                             order.line_items[index].image = src;
@@ -100,12 +106,7 @@ const OrderController  = {
                     }
                 }
 
-                let metafields  = await client.get({
-                    path:`products/${data.id}/metafields.json`,
-                });
-
                 console.log("order", order);
-                console.log("metafields", metafields);
 
                 let o = await axios.post(`${url}api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
