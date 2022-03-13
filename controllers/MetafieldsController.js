@@ -21,7 +21,8 @@ const MetafieldController  =  {
                             type: "number_integer",
                             validations: [],
                             name: "ancho",
-                            description: "Defina en (cms) la anchura del paquete"
+                            description: "Defina en (cms) la anchura del paquete",
+                            pin : true
                         }
                 }}).catch((e)=>console.log(e));
                 console.log("rs", rs);
