@@ -229,7 +229,7 @@ app.prepare().then(async () => {
     const graphqlClient = new Shopify.Clients.Graphql(session.shop, session.accessToken);
     
     let mtf = await MetafieldController.size(null, graphqlClient).catch((e)=>console.log(e));
-    console.log("mtf", mtf.body.errors.map((e)=>console.log(e)));
+    console.log("mtf", JSON.stringify(mtf.body));
 
     const carrier = await client.post({
       path: 'carrier_services',
