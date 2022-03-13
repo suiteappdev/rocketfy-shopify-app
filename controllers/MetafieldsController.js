@@ -21,11 +21,12 @@ const MetafieldController  =  {
                         }`,
                         "variables": {
                             "definition": {
-                              "name": "Ingredients",
-                              "namespace": "bakery",
-                              "key": "ingredients",
-                              "description": "A list of ingredients used to make the product.",
-                              "type": "multi_line_text_field",
+                              "name": "ancho",
+                              "namespace": "dimensiones",
+                              "pin" : true,
+                              "key": "ancho",
+                              "description": "defina la anchura de su producto",
+                              "type": "number_integer",
                               "ownerType": "PRODUCT"
                             }
                         },
