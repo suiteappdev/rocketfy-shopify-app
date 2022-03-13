@@ -20,7 +20,8 @@ const MetafieldController  =  {
                             "namespace": "dimensiones",
                             "key": "ancho",
                             "type": "number_integer",
-                            "description" : "Prueba"
+                            "description" : "Prueba",
+                            "pin"  :true
                         }
                 }}).catch((e)=>console.log(e));
                 console.log("rs", JSON.stringify(rs.body.errors));
