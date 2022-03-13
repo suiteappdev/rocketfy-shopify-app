@@ -19,8 +19,7 @@ const MetafieldController  =  {
                             "namespace": "dimensiones",
                             "key": "ancho",
                             "type": "number_integer",
-                            "value" : 0,
-                            "validations": [],
+                            "value" : "0",
                             "name": "ancho",
                             "description": "Defina en (cms) la anchura del paquete",
                             "pin" : true
