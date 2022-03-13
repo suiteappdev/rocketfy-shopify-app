@@ -69,10 +69,7 @@ const OrderController  = {
                             "quantity": item.quantity,
                             "total": (parseInt(item.price) * item.quantity),
                             "price": parseInt(item.price),
-                            "width": 0,
-                            "height": 0,
                             "sku" : item.sku || '',
-                            "large":0,
                             "weight": parseInt(item.grams / 1000),
                             "variation_id" : item.variant_id,
                             "dimensions" : {

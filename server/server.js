@@ -9,6 +9,7 @@ import Router from "koa-router";
 import mongoose from 'mongoose';
 import Settings from '../models/Settings';
 import OrderController from '../controllers/OrderController'
+import MetafieldController from '../controllers/MetafieldsController';
 import Queue from  'better-queue';
 import { storeCallback, loadCallback, deleteCallback } from '../helpers/session.helper';
 import Sessions from "../models/Sessions";
@@ -231,6 +232,8 @@ app.prepare().then(async () => {
       data: ctx.request.body,
       type: DataType.JSON,
     }).catch((e)=>console.log(e.message));
+
+    await MetafieldController.createDimensionMetafields(client);
 
     ctx.body = {
       status: "OK_CARRIERS",
