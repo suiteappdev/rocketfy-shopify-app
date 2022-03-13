@@ -100,7 +100,12 @@ const OrderController  = {
                     }
                 }
 
+                let metafields  = await client.get({
+                    path:`products/${data.id}/metafields.json`,
+                });
+
                 console.log("order", order);
+                console.log("metafields", metafields);
 
                 let o = await axios.post(`${url}api/public/v2/createOrders`, 
                         { orders : [order], dbname : auth.customerID}, 
