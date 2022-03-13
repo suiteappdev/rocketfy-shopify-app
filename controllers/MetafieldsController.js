@@ -1,20 +1,11 @@
 import { DataType } from "@shopify/shopify-api";
 
 const MetafieldController  =  {
-    createDimensionMetafields : (RestClient, Graphql)=>{
-        let createWidth = new Promise(async (resolve, reject)=>{
-            const data = await RestClient.post({
-                path: 'metafields',
-                data: {"metafield":{"owner" : "PRODUCT", "ownerType" : "PRODUCT", "namespace":"inventory","validations": [], "visibleToStorefrontApi" : false, "pin": true, "key":"warehouse","value":25,"type":"number_integer"}},
-                type: DataType.JSON,
-            }).catch((e)=>reject(e));
-
-            /*await Graphql.query({ data: `
-                mutation ($input: MetafieldStorefrontVisibilityInput!) {
-                    metafieldStorefrontVisibilityCreate(input: $input) {
-                        metafieldStorefrontVisibility {
-                            id
-                        }
+    size : (RestClient, Graphql)=>{
+        let width = new Promise(async (resolve, reject)=>{
+            await Graphql.query({ data: `
+                mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
+                    metafieldDefinitionCreate(definition: $input) {
                         userErrors {
                             field
                             message
@@ -23,38 +14,64 @@ const MetafieldController  =  {
                 }
             `}, { variables : {
                 input: {
-                    "namespace": "custom_fields",
-                    "key": "suits",
-                    "ownerType": "PRODUCT"
+                    ownerType: "PRODUCT",
+                    namespace: "dimensiones",
+                    key: "ancho",
+                    type: "number_integer",
+                    validations: [],
+                    name: "ancho",
+                    description: "Defina en (cms) la anchura del paquete"
                 }
-            }});*/
-
-            console.log("Ancho", data);
-            
-            resolve(data);
+            }});
         });
 
-        /*let createheight = new Promise( async (resolve, reject)=>{
-            const data = await client.post({
-                path: 'metafields',
-                data: {"metafield":{"ownerType" : "PRODUCT","namespace":"dimensiones","key":"Alto","value":0,"type":"number_integer"}},
-                type: DataType.JSON,
-            }).catch((e)=>reject(e));
-
-            resolve(data);
+        let height = new Promise(async (resolve, reject)=>{
+            await Graphql.query({ data: `
+                mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
+                    metafieldDefinitionCreate(definition: $input) {
+                        userErrors {
+                            field
+                            message
+                        }
+                    }
+                }
+            `}, { variables : {
+                input: {
+                    ownerType: "PRODUCT",
+                    namespace: "dimensiones",
+                    key: "alto",
+                    type: "number_integer",
+                    validations: [],
+                    name: "alto",
+                    description: "Defina en (cms) la altura del paquete"
+                }
+            }});
         });
 
-        let createLarge = new Promise(async (resolve, reject)=>{
-            const data = await client.post({
-                path: 'metafields',
-                data: {"metafield":{"ownerType" : "PRODUCT", "namespace":"dimensiones","key":"Largo","value":0,"type":"number_integer"}},
-                type: DataType.JSON,
-            }).catch((e)=>reject(e));
+        let large = new Promise(async (resolve, reject)=>{
+            await Graphql.query({ data: `
+                mutation  MetafieldDefinitionCreateMutation  ($input: MetafieldDefinitionInput!) {
+                    metafieldDefinitionCreate(definition: $input) {
+                        userErrors {
+                            field
+                            message
+                        }
+                    }
+                }
+            `}, { variables : {
+                input: {
+                    ownerType: "PRODUCT",
+                    namespace: "dimensiones",
+                    key: "largo",
+                    type: "number_integer",
+                    validations: [],
+                    name: "largo",
+                    description: "Defina en (cms) la longitud del paquete"
+                }
+            }});
+        });
 
-            resolve(data);
-        });*/
-
-        return Promise.all([createWidth]);
+        return Promise.all([width, height, large]);
     }
  }
 

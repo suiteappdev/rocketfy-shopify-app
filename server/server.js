@@ -226,8 +226,9 @@ app.prepare().then(async () => {
   router.post("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
-    console.log("at", session.accessToken);
-    let mtf = await MetafieldController.createDimensionMetafields(client).catch((e)=>console.log(e));
+    const graphqlClient = new Shopify.Clients.Graphql(session.shop, session.accessToken);
+    
+    let mtf = await MetafieldController.size(null, graphqlClient).catch((e)=>console.log(e));
     console.log("mtf", mtf);
 
     const carrier = await client.post({
