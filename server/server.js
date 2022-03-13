@@ -226,14 +226,14 @@ app.prepare().then(async () => {
   router.post("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
+    let mtf = await MetafieldController.createDimensionMetafields(client).catch((e)=>console.log(e));
+    console.log("mtf", mtf);
 
     const carrier = await client.post({
       path: 'carrier_services',
       data: ctx.request.body,
       type: DataType.JSON,
     }).catch((e)=>console.log(e.message));
-
-    await MetafieldController.createDimensionMetafields(client);
 
     ctx.body = {
       status: "OK_CARRIERS",

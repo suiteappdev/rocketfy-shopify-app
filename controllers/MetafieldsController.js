@@ -8,6 +8,8 @@ const MetafieldController  =  {
                 data: {"metafield":{"ownerType" : "PRODUCT" ,"namespace":"dimensiones","key":"Ancho","value":0,"type":"number_integer"}},
                 type: DataType.JSON,
             }).catch((e)=>reject(e));
+
+            console.log("Ancho", data);
             
             resolve(data);
         });
@@ -18,6 +20,8 @@ const MetafieldController  =  {
                 data: {"metafield":{"ownerType" : "PRODUCT","namespace":"dimensiones","key":"Alto","value":0,"type":"number_integer"}},
                 type: DataType.JSON,
             }).catch((e)=>reject(e));
+
+            console.log("Alto", data);
             
             resolve(data);
         });
@@ -28,6 +32,8 @@ const MetafieldController  =  {
                 data: {"metafield":{"ownerType" : "PRODUCT", "namespace":"dimensiones","key":"Largo","value":0,"type":"number_integer"}},
                 type: DataType.JSON,
             }).catch((e)=>reject(e));
+
+            console.log("Largo", data);
             
             resolve(data);
         });
