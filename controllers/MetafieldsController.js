@@ -71,7 +71,7 @@ const MetafieldController  =  {
             }});
         };
 
-        return Promise.all([width, height, large]);
+        return Promise.all([width(), height(), large()]);
     }
  }
 
