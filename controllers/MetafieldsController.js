@@ -30,7 +30,7 @@ const MetafieldController  =  {
             });
         };
       
-        return Promise.all([width]);
+        return Promise.all([width()]);
     }
  }
 
