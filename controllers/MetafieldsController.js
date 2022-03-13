@@ -5,8 +5,11 @@ const MetafieldController  =  {
         let width = ()=>{
             return new Promise(async (resolve, reject)=>{
                 let rs = await Graphql.query({data: `
-                    mutation  MetafieldDefinitionCreateMutation  ($definition: MetafieldDefinitionInput!) {
+                    mutation metafieldDefinitionCreate($definition: MetafieldDefinitionInput!) {
                         metafieldDefinitionCreate(definition: $definition) {
+                            createdDefinition {
+                                name
+                            }
                             userErrors {
                                 field
                                 message
@@ -21,7 +24,7 @@ const MetafieldController  =  {
                             "key": "ancho",
                             "type": "number_integer",
                             "description" : "Prueba",
-                            "pin"  :true
+                            "pin":true
                         }
                 }}).catch((e)=>console.log(e));
                 console.log("rs", JSON.stringify(rs.body.errors));
