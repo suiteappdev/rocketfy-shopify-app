@@ -93,11 +93,20 @@ const OrderController  = {
                             path:`products/${line.product_id}/images`,
                         });
 
-                        let metafields  = await client.get({
+                        let rs  = await client.get({
                             path:`metafields`,
                         });
 
+                        let metafields = rs.body.metafields.filter((m)=>{
+                            return (m.owner_id == line.product_id);
+                        });
+
+                        order.line_items[index].dimensions.width = metafields.find((e)=>e.key == 'width');
+                        order.line_items[index].dimensions.height = metafields.find((e)=>e.key == 'height');
+                        order.line_items[index].dimensions.large = metafields.find((e)=>e.key == 'large');
+                        
                         console.log("metafields", metafields);
+                        console.log("dimensions",  order.line_items[index].dimensions);
         
                         if(mapImage(response.body.images, line.variation_id).length > 0){
                             let src = mapImage(response.body.images, line.variation_id)[0].src;
