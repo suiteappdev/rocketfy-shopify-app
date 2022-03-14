@@ -63,7 +63,7 @@ const OrderController  = {
                         "state": state,
                         "country": data.billing_address.country_code,
                         "email": data.customer.email,
-                        "phone": data.customer.phone,
+                        "phone": data.shipping.phone,
                     },
                     "line_items": data.line_items.map((item)=>{
                         return {
