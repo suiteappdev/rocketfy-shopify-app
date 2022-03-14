@@ -101,11 +101,11 @@ const OrderController  = {
                             return (m.owner_id == line.product_id);
                         });
 
-                        order.line_items[index].dimensions.width = metafields.find((e)=>e.key == 'width');
-                        order.line_items[index].dimensions.height = metafields.find((e)=>e.key == 'height');
-                        order.line_items[index].dimensions.large = metafields.find((e)=>e.key == 'large');
+                        order.line_items[index].dimensions.width = metafields.find((e)=>e.key == 'ancho') || 0;
+                        order.line_items[index].dimensions.height = metafields.find((e)=>e.key == 'alto') || 0;
+                        order.line_items[index].dimensions.large = metafields.find((e)=>e.key == 'largo') || 0;
                         
-                        console.log("metafields", metafields);
+                        console.log("metafields", JSON.stringify(metafields));
                         console.log("dimensions",  order.line_items[index].dimensions);
         
                         if(mapImage(response.body.images, line.variation_id).length > 0){
