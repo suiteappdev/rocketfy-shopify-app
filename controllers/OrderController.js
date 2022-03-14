@@ -94,7 +94,7 @@ const OrderController  = {
                         });
 
                         let rs  = await client.get({
-                            path:`metafields`,
+                            path:`produts/${line.product_id}/metafields`,
                         });
 
                         console.log("meta", JSON.stringify(rs.body.metafields));
