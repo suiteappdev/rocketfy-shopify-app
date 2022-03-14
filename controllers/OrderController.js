@@ -97,16 +97,19 @@ const OrderController  = {
                             path:`metafields`,
                         });
 
+                        console.log("meta", JSON.stringify(rs.body.metafields));
+
                         let metafields = rs.body.metafields.filter((m)=>{
                             return (m.owner_id == line.product_id);
                         });
+
+                        console.log("metafields", JSON.stringify(metafields));
 
                         order.line_items[index].dimensions.width = metafields.find((e)=>e.key == 'ancho') || 0;
                         order.line_items[index].dimensions.height = metafields.find((e)=>e.key == 'alto') || 0;
                         order.line_items[index].dimensions.large = metafields.find((e)=>e.key == 'largo') || 0;
                         
-                        console.log("metafields", JSON.stringify(metafields));
-                        console.log("dimensions",  order.line_items[index].dimensions);
+
         
                         if(mapImage(response.body.images, line.variation_id).length > 0){
                             let src = mapImage(response.body.images, line.variation_id)[0].src;
