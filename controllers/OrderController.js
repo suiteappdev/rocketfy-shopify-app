@@ -93,11 +93,15 @@ const OrderController  = {
                             path:`products/${line.product_id}/images`,
                         });
 
-                        let metafields  = await client.get({
+                        let rs  = await client.get({
                             path:`products/${line.product_id}/metafields.json`,
                         });
 
-                        console.log("meta", JSON.stringify(metafields));
+                        console.log("rs", rs.body.metafields);
+
+                        order.line_items[index].width = rs.body.metafields.find((m)=>m.key == 'ancho').value || 0
+                        order.line_items[index].height = rs.body.metafields.find((m)=>m.key == 'alto').value || 0
+                        order.line_items[index].large = rs.body.metafields.find((m)=>m.key == 'largo').value || 0
 
                         if(mapImage(response.body.images, line.variation_id).length > 0){
                             let src = mapImage(response.body.images, line.variation_id)[0].src;
