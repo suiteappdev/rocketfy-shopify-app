@@ -228,6 +228,7 @@ app.prepare().then(async () => {
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
     console.log("AT", session.accessToken);
     const graphqlClient = new Shopify.Clients.Graphql(session.shop, session.accessToken);
+    console.log("HOLA MUNDO", client);
     
     let mtf = await MetafieldController.size(null, graphqlClient).catch((e)=>console.log(e));
     console.log("mtf", mtf);
