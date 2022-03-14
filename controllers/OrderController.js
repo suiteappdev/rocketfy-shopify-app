@@ -5,7 +5,7 @@ dotenv.config();
 const url = process.env.NODE_ENV == 'production'  ?  process.env.APIPUBLIC_PRO : process.env.APIPUBLIC_DEV
 
 const OrderController  = {
-    createOrder : (data, auth, client)=>{
+    createOrder : (data, auth, client, Graphql)=>{
         return new Promise(async (resolve, reject)=>{
                 let headers = { 'Content-Type': 'application/json', 'Authorization' : `Bearer ${auth.access_token}`};
                 let rs  = await axios.post('https://city-predictor.herokuapp.com/cities', { query : data.shipping_address.city});
@@ -93,24 +93,74 @@ const OrderController  = {
                             path:`products/${line.product_id}/images`,
                         });
 
-                        let rs  = await client.get({
-                            path:`produts/${line.product_id}/metafields`,
-                        });
+                        let rs = await Graphql.query({
+                            data : {
+                                "query" : `query AppliedMetafieldDefinitionsForEdit($resourceId: ID!, $limit: Int!) {
+                                    node(id: $resourceId) {
+                                      ... on HasMetafieldDefinitions {
+                                        appliedMetafieldDefinitions(
+                                          first: $limit
+                                          pinnedStatus: PINNED
+                                          sortKey: PINNED_POSITION
+                                        ) {
+                                          edges {
+                                            node {
+                                              ...AppliedMetafieldDefinitionFragment
+                                              __typename
+                                            }
+                                            __typename
+                                          }
+                                          __typename
+                                        }
+                                        __typename
+                                      }
+                                      __typename
+                                    }
+                                  }
+                                  
+                                  fragment AppliedMetafieldDefinitionFragment on AppliedMetafieldDefinition {
+                                    metafield {
+                                      id
+                                      value
+                                      __typename
+                                    }
+                                    definition {
+                                      id
+                                      ...MetafieldDefinitionFragment
+                                      __typename
+                                    }
+                                    __typename
+                                  }
+                                  
+                                  fragment MetafieldDefinitionFragment on MetafieldDefinition {
+                                    id
+                                    namespace
+                                    key
+                                    name
+                                    description
+                                    type {
+                                      name
+                                      __typename
+                                    }
+                                    pinnedPosition
+                                    validations {
+                                      name
+                                      type
+                                      value
+                                      __typename
+                                    }
+                                    __typename
+                                  }
+                                `,
+                                "variables": {
+                                    "resourceId": `gid://shopify/Product/${line.product_id}`,
+                                    "limit": 20
+                                },
+                            }
+                        }).catch((e)=>console.log(e));
 
-                        console.log("meta", JSON.stringify(rs.body.metafields));
+                        console.log("meta", JSON.stringify(rs));
 
-                        let metafields = rs.body.metafields.filter((m)=>{
-                            return (m.owner_id == line.product_id);
-                        });
-
-                        console.log("metafields", JSON.stringify(metafields));
-
-                        order.line_items[index].dimensions.width = metafields.find((e)=>e.key == 'ancho') || 0;
-                        order.line_items[index].dimensions.height = metafields.find((e)=>e.key == 'alto') || 0;
-                        order.line_items[index].dimensions.large = metafields.find((e)=>e.key == 'largo') || 0;
-                        
-
-        
                         if(mapImage(response.body.images, line.variation_id).length > 0){
                             let src = mapImage(response.body.images, line.variation_id)[0].src;
                             order.line_items[index].image = src;

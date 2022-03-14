@@ -48,9 +48,9 @@ let order_queue = new Queue(async (ctx, cb) => {
         let credentials =  JSON.parse(cryption.decrypt(result.data));
         console.log("credentials", credentials);
         const client = new Shopify.Clients.Rest(result.shop, credentials.accessToken);
-
+        const graphqlClient = new Shopify.Clients.Graphql(result.shop, credentials.accessToken);
         if(auth.webhook){
-            let order = await OrderController.createOrder(ctx.request.body, auth, client).catch((e)=>console.log(e));
+            let order = await OrderController.createOrder(ctx.request.body, auth, client, graphqlClient).catch((e)=>console.log(e));
             cb(null, order);
             console.log(`Order Processed`);
         }
