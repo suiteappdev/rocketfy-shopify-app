@@ -49,8 +49,8 @@ const OrderController  = {
                         "width":  0,
                         "height": 0,
                         "large":  0,
-                        "weight": parseInt(data.grams / 1000),
-                        "volume" : parseInt(data.grams / 1000)
+                        "weight": parseInt(data.total_weight / 1000),
+                        "volume" : parseInt(data.total_weight / 1000)
                     },
                     "billing": {
                         "first_name":data.billing_address.first_name,
@@ -101,7 +101,7 @@ const OrderController  = {
                             path:`products/${line.product_id}/metafields`,
                         });
 
-                        console.log("rs", rs.body);
+                        console.log("rs", order);
 
                         order.line_items[index].dimensions.width = rs.body.metafields.find((m)=>m.key == 'ancho').value || 0
                         order.line_items[index].dimensions.height = rs.body.metafields.find((m)=>m.key == 'alto').value || 0
