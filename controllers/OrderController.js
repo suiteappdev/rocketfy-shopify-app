@@ -45,6 +45,13 @@ const OrderController  = {
                     "coupon" : parseInt(data.total_discounts || 0),
                     "payment_method": "cod",
                     "shipping" : {...data.shipping_address, province : state, city : city},
+                    "dimensions" : {
+                        "width":  0,
+                        "height": 0,
+                        "large":  0,
+                        "weight": parseInt(data.grams / 1000),
+                        "volume" : parseInt(data.grams / 1000)
+                    },
                     "billing": {
                         "first_name":data.billing_address.first_name,
                         "last_name": data.billing_address.last_name,
