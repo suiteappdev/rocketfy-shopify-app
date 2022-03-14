@@ -30,7 +30,6 @@ const MetafieldController  =  {
                         },
                     }
                 }).catch((e)=>console.log(e));
-                
                 resolve(rs);
             });
         };
@@ -65,7 +64,6 @@ const MetafieldController  =  {
                         },
                     }
                 }).catch((e)=>console.log(e));
-                
                 resolve(rs);
             });
         };
@@ -100,7 +98,6 @@ const MetafieldController  =  {
                         },
                     }
                 }).catch((e)=>console.log(e));
-                
                 resolve(rs);
             });
         };
