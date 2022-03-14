@@ -93,25 +93,11 @@ const OrderController  = {
                             path:`products/${line.product_id}/images`,
                         });
 
-                        let rs = await Graphql.query({
-                            data : {
-                                "query" : `query AppliedMetafieldDefinitionsForEdit($resourceId: ID!, $limit: Int!) {
-                                    node(id: $resourceId) {
-                                        id
-                                        namespace
-                                        value
-                                    }
-                                  }
+                        let metafields  = await client.get({
+                            path:`products/${line.product_id}/metafields.json`,
+                        });
 
-                                `,
-                                "variables": {
-                                    "resourceId": `gid://shopify/Product/${line.product_id}`,
-                                    "limit": 20
-                                },
-                            }
-                        }).catch((e)=>console.log(e));
-
-                        console.log("meta", JSON.stringify(rs));
+                        console.log("meta", JSON.stringify(metafields));
 
                         if(mapImage(response.body.images, line.variation_id).length > 0){
                             let src = mapImage(response.body.images, line.variation_id)[0].src;
