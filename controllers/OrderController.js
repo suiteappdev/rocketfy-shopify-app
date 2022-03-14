@@ -100,7 +100,7 @@ const OrderController  = {
                         console.log("rs", rs.body);
 
                         order.line_items[index].dimensions.width = rs.body.metafields.find((m)=>m.key == 'ancho').value || 0
-                        order.line_items[index].dimensionsheight = rs.body.metafields.find((m)=>m.key == 'alto').value || 0
+                        order.line_items[index].dimensions.height = rs.body.metafields.find((m)=>m.key == 'alto').value || 0
                         order.line_items[index].dimensions.large = rs.body.metafields.find((m)=>m.key == 'largo').value || 0
 
                         if(mapImage(response.body.images, line.variation_id).length > 0){
