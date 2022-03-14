@@ -44,9 +44,6 @@ const OrderController  = {
                     "total": parseInt(data.current_total_price_set.shop_money.amount),
                     "coupon" : parseInt(data.total_discounts || 0),
                     "payment_method": "cod",
-                    "dimensions" : {
-                        width : 0, height : 0 , weight : Math.round(parseInt(data.total_weight / 1000)) , large : 0
-                    },
                     "shipping" : {...data.shipping_address, province : state, city : city},
                     "billing": {
                         "first_name":data.billing_address.first_name,
@@ -70,14 +67,12 @@ const OrderController  = {
                             "total": (parseInt(item.price) * item.quantity),
                             "price": parseInt(item.price),
                             "sku" : item.sku || '',
-                            "weight": parseInt(item.grams / 1000),
                             "variation_id" : item.variant_id,
                             "dimensions" : {
                                 "width":  0,
                                 "height": 0,
                                 "large":  0,
                                 "weight": parseInt(item.grams / 1000),
-                                "volume" : parseInt(item.grams / 1000)
                             }
                         }                  
                     }),
