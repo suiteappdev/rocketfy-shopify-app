@@ -85,7 +85,7 @@ const OrderController  = {
                             }
                         }                  
                     }),
-                    "carrier" : (data.shipping_lines.length > 0 ?  data.shipping_lines[0].title : 'servientrega'),
+                    "carrier" : parseInt(data.total_shipping_price_set.shop_money.amount) == 0 ? 'servientrega' : data.shipping_lines[0].title,
                     "notes" : data.note
                 }
 
