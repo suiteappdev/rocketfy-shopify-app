@@ -127,6 +127,8 @@ const OrderController  = {
     },
     
     getShippingRates : (data, auth)=>{
+
+        console.log("data shipping rates", data);
         
         let total = (items)=>{
             let total = 0;
