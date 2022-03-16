@@ -1,52 +1,55 @@
 import { PostRequest, Post } from "./request.helper";
 
-const getCourrier = (cities, city)=>{
-    return new Promise(async (resolve, reject)=>{
-        let mapperCourrier  =  (c)=>{
-            return (c.cod && c.default);
-        }
+const getCourrier = (cities, city) => {
+  return new Promise(async (resolve, reject) => {
+    let mapperCourrier = (c) => {
+      return c.cod && c.default;
+    };
 
-        try {
-                let courriers = cities.filter((c)=>c.name.toLowerCase() == city.toLowerCase());
-                
-                if(courriers.length > 0){
-                    let avaliable = courriers[0].courriers.filter(mapperCourrier);
-                   
-                    return resolve(avaliable[0]);
-                }else{
-                    resolve('Sin cobertura');
-                }
+    try {
+      let courriers = cities.filter(
+        (c) => c.name.toLowerCase() == city.toLowerCase()
+      );
 
-        } catch (error) {
-            reject(error);
-        }
+      if (courriers.length > 0) {
+        let avaliable = courriers[0].courriers.filter(mapperCourrier);
 
-    });
-}
+        return resolve(avaliable[0]);
+      } else {
+        resolve("Sin cobertura");
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
-const mapCourrier = (orders, cities)=>{
-    return new Promise(async (resolve, reject)=>{
-        try {
+const mapCourrier = (orders, cities) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      for (let index = 0; index < orders.length; index++) {
+        const order = orders[index];
+        let curr = await getCourrier(cities, order.node.shippingAddress.city);
+        order.node.courrier = curr.name;
+      }
 
-            for (let index = 0; index < orders.length; index++) {
-                const order = orders[index];
-                let curr = await getCourrier(cities, order.node.shippingAddress.city);
-                order.node.courrier = curr.name;
-            }
+      resolve(orders);
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
-            resolve(orders);
+const getCities = () => {
+  return new Promise(async (resolve, reject) => {
+    let response = await Post(`https://rest.rocketfy.co/api/countries/cities`, {
+      query: {},
+      sort: { name: 1 },
+      limit: 0,
+      skip: 0,
+    }).catch((e) => reject(e));
+    resolve(response.data);
+  });
+};
 
-        } catch (error) {
-            reject(error);
-        }
-    });
-}
-
-const getCities = (cod)=>{
-    return new Promise(async (resolve, reject)=>{
-        let response = await Post(`https://rest.rocketfy.co/api/countries/cities`, {"query":{"courriers.cod":cod},"sort":{"name":1},"limit":0,"skip":0}).catch((e)=>reject(e));
-        resolve(response.data);
-    });
-}
-
-export { getCourrier, getCities, mapCourrier }
+export { getCourrier, getCities, mapCourrier };
