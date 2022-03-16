@@ -70,6 +70,7 @@ const SignupForm = (props) => {
       let cities = await getCities();
 
       if (cities && cities.data) {
+        console.log("CITIES", cities.data);
         setStates(
           cities.data.map((c) => {
             return {
