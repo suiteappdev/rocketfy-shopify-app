@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Button,
   TextField,
@@ -26,12 +26,28 @@ import { getISO } from "../../../helpers/country.helper";
 import AccountStatus from "../../AccountStatus";
 
 const SignupForm = (props) => {
+  const handleSelectChangeCity = useCallback((value) => setCity(value), []);
+  const handleSelectChangeDepartament = useCallback(
+    (value) => setDepartament(value),
+    []
+  );
+
+  const options = [
+    { label: "Today", value: "today" },
+    { label: "Yesterday", value: "yesterday" },
+    { label: "Last 7 days", value: "lastWeek" },
+  ];
+
   const [form, setForm] = useState({
     txtShop: "",
   });
   const [storeData, setStoreData] = useState({});
   const [cities, setCities] = useState([]);
-  const [state, setSTates] = useState([]);
+  const [state, setStates] = useState([]);
+
+  const [city, setCity] = useState({});
+  const [departament, setDepartament] = useState({});
+
   const [isLoading, setLoading] = useState(false);
   const { loading, error, data } = useQuery(STORE_QUERY);
   const [connected, setConnected] = useState(false);
@@ -42,19 +58,6 @@ const SignupForm = (props) => {
     txtPhone: false,
     txtDocument: false,
     txtShop: false,
-    /*txtName: "Cra26A #25-56, Casa",
-        txtAddress: "26 # 35 - 56",
-        txtCity : "",
-        txtDepartament : "",
-        txtCountry: "CO",
-        txtNeighborhood: "San juan",
-        txtComposed_address: {
-            street: 26,
-            street_number_one: 35,
-            street_number_two: 56
-        },
-        txtGeolocation: {},
-        txtDefault: true,*/
     formSubmited: false,
   });
 
@@ -248,7 +251,7 @@ const SignupForm = (props) => {
         redirectUrl: refresh.data.redirectUrl,
       });
       console.log(url.application);
-      //window.open(url.application);
+      window.open(url.application);
     }
   };
 
@@ -448,6 +451,50 @@ const SignupForm = (props) => {
                 id="txtAddress"
                 type="text"
               />
+              <FormLayout>
+                <FormLayout.Group condensed>
+                  <Select
+                    label="Departamento"
+                    options={options}
+                    onChange={handleSelectChangeDepartament}
+                    value={departament}
+                  />
+                  <Select
+                    label="Ciudad"
+                    options={options}
+                    onChange={handleSelectChangeCity}
+                    value={city}
+                  />
+                  <TextField
+                    label="Via"
+                    id="txtVia"
+                    value={form.txtVia}
+                    onChange={onChange}
+                    autoComplete="off"
+                  />
+                  <TextField
+                    label="Número"
+                    id="txtNumero"
+                    value={form.txtNumero}
+                    onChange={onChange}
+                    autoComplete="off"
+                  />
+                  <TextField
+                    label="Con"
+                    id="txtCon"
+                    value={form.txt}
+                    onChange={onChange}
+                    autoComplete="off"
+                  />
+                  <TextField
+                    label="Barrio"
+                    id="txtBarrio"
+                    value={form.txtBarrio}
+                    onChange={onChange}
+                    autoComplete="off"
+                  />
+                </FormLayout.Group>
+              </FormLayout>
               {errors.txtAddress ? (
                 <InlineError
                   message="Dirección de la tienda es requerida"
