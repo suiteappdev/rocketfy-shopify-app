@@ -69,9 +69,9 @@ const SignupForm = (props) => {
       setLoading(true);
 
       let cities = await getCities();
-      console.log("CITIES", cities.data);
+      console.log("CITIES", cities);
       setStates(
-        cities.data.map((c) => {
+        cities.map((c) => {
           return {
             label: c.state.name,
             value: c.state.id,
