@@ -305,6 +305,13 @@ const SignupForm = (props)=>{
                                 id="txtAddress"
                                 type="text"
                             />
+                            <FormLayout>
+                            <FormLayout.Group condensed>
+                                <TextField  type="text" label="Via" id="txtVia" onChange={onChange} autoComplete="off" />
+                                <TextField  type="text" label="Número"  id="txtOne" onChange={onChange} autoComplete="off" />
+                                <TextField  type="text" label="" id="txtTwo"  onChange={onChange} autoComplete="off" />
+                            </FormLayout.Group>
+                            </FormLayout>
                             {errors.txtAddress ? (<InlineError message="Dirección de la tienda es requerida" fieldID="txtAddress" />) : (null)}
                             <TextField
                                 value={form.txtPhone}
