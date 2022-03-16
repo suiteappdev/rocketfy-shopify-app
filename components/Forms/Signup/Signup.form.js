@@ -69,9 +69,8 @@ const SignupForm = (props) => {
       setLoading(true);
 
       let cities = await getCities();
-      console.log("CITIES", cities);
       setStates(
-        cities.map((c) => {
+        _.uniq(cities, (c) => c.state.id).map((c) => {
           return {
             label: c.state.name,
             value: c.state.id,
