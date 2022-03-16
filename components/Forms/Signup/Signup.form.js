@@ -33,18 +33,13 @@ const SignupForm = (props) => {
     []
   );
 
-  const options = [
-    { label: "Today", value: "today" },
-    { label: "Yesterday", value: "yesterday" },
-    { label: "Last 7 days", value: "lastWeek" },
-  ];
-
   const [form, setForm] = useState({
     txtShop: "",
   });
+
   const [storeData, setStoreData] = useState({});
   const [cities, setCities] = useState([]);
-  const [state, setStates] = useState([]);
+  const [states, setStates] = useState([]);
 
   const [city, setCity] = useState({});
   const [departament, setDepartament] = useState({});
@@ -53,7 +48,6 @@ const SignupForm = (props) => {
   const { loading, error, data } = useQuery(STORE_QUERY);
   const [connected, setConnected] = useState(false);
   const [errors, setError] = useState({
-    txtAddress: false,
     txtEmail: false,
     txtFullname: false,
     txtPhone: false,
@@ -76,8 +70,14 @@ const SignupForm = (props) => {
       let cities = await getCities();
 
       if (cities && cities.data) {
-        setCities(cities.data);
-        console.log("cities", data);
+        setStates(
+          cities.data.map((c) => {
+            return {
+              label: c.state.name,
+              value: c.state.id,
+            };
+          })
+        );
       }
 
       let rs = await Get(
@@ -106,7 +106,6 @@ const SignupForm = (props) => {
       setForm({
         txtShop: data[DATA_KEY].name,
         email: data[DATA_KEY].email,
-        txtAddress: data[DATA_KEY].billingAddress.address1,
         txtPhone: data[DATA_KEY].billingAddress.phone,
         txtEmail: data[DATA_KEY].email,
         txtFullname: `${
@@ -434,35 +433,17 @@ const SignupForm = (props) => {
                   fieldID="txtEmail"
                 />
               ) : null}
-              <TextField
-                value={form.txtAddress}
-                onChange={onChange}
-                onBlur={() => {
-                  if (!form.txtAddress) {
-                    setError({ ...errors, txtAddress: true });
-                  } else {
-                    setError({
-                      ...errors,
-                      txtAddress: false,
-                      formSubmited: false,
-                    });
-                  }
-                }}
-                label="Dirección de recolección"
-                id="txtAddress"
-                type="text"
-              />
               <FormLayout>
                 <FormLayout.Group condensed>
                   <Select
                     label="Departamento"
-                    options={options}
+                    options={states}
                     onChange={handleSelectChangeDepartament}
                     value={departament}
                   />
                   <Select
                     label="Ciudad"
-                    options={options}
+                    options={cities}
                     onChange={handleSelectChangeCity}
                     value={city}
                   />
@@ -496,12 +477,6 @@ const SignupForm = (props) => {
                   />
                 </FormLayout.Group>
               </FormLayout>
-              {errors.txtAddress ? (
-                <InlineError
-                  message="Dirección de la tienda es requerida"
-                  fieldID="txtAddress"
-                />
-              ) : null}
               <TextField
                 value={form.txtPhone}
                 onChange={onChange}
