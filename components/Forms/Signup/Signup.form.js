@@ -34,8 +34,9 @@ const SignupForm = (props) => {
     setDepartament(value);
     setCities(
       all
-        .filter((c) => c.state.id == value)
+        .filter((c) => c.state.id === value)
         .map((c) => {
+          console.log("c", c);
           return {
             label: c.name,
             value: c.id,
@@ -484,7 +485,7 @@ const SignupForm = (props) => {
                     autoComplete="off"
                   />
                   <TextField
-                    label="Barrio"
+                    label="Barrio/Apto/Unidad"
                     id="txtBarrio"
                     value={form.txtBarrio}
                     onChange={onChange}
