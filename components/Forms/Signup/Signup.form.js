@@ -80,10 +80,10 @@ const SignupForm = (props) => {
     let isConnected = async () => {
       setLoading(true);
 
-      let cities = await getCities();
-      setAll(cities);
+      let cities_list = await getCities();
+      setAll(cities_list);
       setStates(
-        _.uniq(cities, (c) => c.state.id).map((c) => {
+        _.uniq(cities_list, (c) => c.state.id).map((c) => {
           return {
             label: c.state.name,
             value: c.state.id,
