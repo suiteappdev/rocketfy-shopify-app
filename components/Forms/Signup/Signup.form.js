@@ -11,6 +11,7 @@ import {
   ButtonGroup,
 } from "@shopify/polaris";
 import styles from "./Signup.module.css";
+import _ from "underscore";
 import { useQuery } from "@apollo/client";
 import { STORE_QUERY, DATA_KEY } from "../../../graphql/querys/store.query";
 import {
@@ -68,18 +69,15 @@ const SignupForm = (props) => {
       setLoading(true);
 
       let cities = await getCities();
-
-      if (cities && cities.data) {
-        console.log("CITIES", cities.data);
-        setStates(
-          cities.data.map((c) => {
-            return {
-              label: c.state.name,
-              value: c.state.id,
-            };
-          })
-        );
-      }
+      console.log("CITIES", cities.data);
+      setStates(
+        cities.data.map((c) => {
+          return {
+            label: c.state.name,
+            value: c.state.id,
+          };
+        })
+      );
 
       let rs = await Get(
         `/api/settings/me/${data[DATA_KEY].myshopifyDomain}`
