@@ -29,10 +29,19 @@ import AccountStatus from "../../AccountStatus";
 
 const SignupForm = (props) => {
   const handleSelectChangeCity = useCallback((value) => setCity(value), []);
-  const handleSelectChangeDepartament = useCallback(
-    (value) => setDepartament(value),
-    []
-  );
+  const handleSelectChangeDepartament = useCallback((value) => {
+    setDepartament(value);
+    setCities(
+      all
+        .filter((c) => c.state.id == value)
+        .map((c) => {
+          return {
+            label: c.name,
+            value: c.id,
+          };
+        })
+    );
+  }, []);
 
   const [form, setForm] = useState({
     txtShop: "",
@@ -40,6 +49,7 @@ const SignupForm = (props) => {
 
   const [storeData, setStoreData] = useState({});
   const [cities, setCities] = useState([]);
+  const [all, setAll] = useState([]);
   const [states, setStates] = useState([]);
 
   const [city, setCity] = useState({});
@@ -69,6 +79,7 @@ const SignupForm = (props) => {
       setLoading(true);
 
       let cities = await getCities();
+      setAll(cities);
       setStates(
         _.uniq(cities, (c) => c.state.id).map((c) => {
           return {
@@ -446,8 +457,9 @@ const SignupForm = (props) => {
                     value={city}
                   />
                   <TextField
-                    label="Via"
+                    label="Cra"
                     id="txtVia"
+                    placeholder="Carrera/Via"
                     value={form.txtVia}
                     onChange={onChange}
                     autoComplete="off"
@@ -455,13 +467,17 @@ const SignupForm = (props) => {
                   <TextField
                     label="Número"
                     id="txtNumero"
+                    prefix="#"
+                    placeholder="00"
                     value={form.txtNumero}
                     onChange={onChange}
                     autoComplete="off"
                   />
                   <TextField
+                    prefix="-"
                     label="Con"
                     id="txtCon"
+                    placeholder="00"
                     value={form.txt}
                     onChange={onChange}
                     autoComplete="off"
