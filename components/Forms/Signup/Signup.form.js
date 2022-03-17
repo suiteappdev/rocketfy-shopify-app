@@ -33,7 +33,16 @@ const SignupForm = (props) => {
   const handleSelectChangeDepartament = (value) => {
     console.log("departament", value);
     setDepartament(value);
-    console.log("locations", locations);
+    setCities(
+      locations
+        .filter((c) => c.state.id == value)
+        .map((e) => {
+          return {
+            label: e.name,
+            value: e.id,
+          };
+        })
+    );
   };
 
   const [form, setForm] = useState({
@@ -191,10 +200,21 @@ const SignupForm = (props) => {
         origin_city: form.txtCity,
         origin_departament: form.txtProvince,
         address_shop: `${form.txtVia} # ${form.txtNumero} - ${form.txtCon}, ${form.txtBarrio}`,
+        composed_address: {
+          street: form.txtVia || "",
+          street_number_one: form.txtNumero || "",
+          street_number_two: form.txtCon || "",
+          neighborhood: form.txtBarrio || "",
+        },
         customer_domain: form.txtDomain,
         partnerID: process.env.ROCKETFY_PARTNERID,
         hubspot: {},
       };
+
+      console.log(
+        "addresss",
+        `${form.txtVia} # ${form.txtNumero} - ${form.txtCon}, ${form.txtBarrio}`
+      );
 
       let response = await PostRequest(
         `${process.env.APIPUBLIC}api/public/createAccount`,
