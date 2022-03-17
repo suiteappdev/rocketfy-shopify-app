@@ -462,7 +462,9 @@ const SignupForm = (props) => {
                     options={states}
                     error={errors.txtDepartament ? true : false}
                     placeholder="Departamento"
-                    onChange={handleSelectChangeDepartament}
+                    onChange={(value) =>
+                      handleSelectChangeDepartament(value, "txtDepartament")
+                    }
                     value={form.txtDepartament}
                     id="txtDepartament"
                     onBlur={() => {
@@ -477,7 +479,9 @@ const SignupForm = (props) => {
                     label="Ciudad"
                     error={errors.txtCity ? true : false}
                     options={cities}
-                    onChange={handleSelectChangeCity}
+                    onChange={(value) =>
+                      handleSelectChangeCity(value, "txtCity")
+                    }
                     placeholder="Ciudad"
                     value={form.txtCity}
                     id="txtCity"
@@ -581,7 +585,7 @@ const SignupForm = (props) => {
                 label="Nombre de la tienda"
                 disabled={true}
                 onBlur={() => {
-                  if (!form.txtPhone) {
+                  if (!form.txtShop) {
                     setError({ ...errors, txtShop: true });
                   } else {
                     setError({
