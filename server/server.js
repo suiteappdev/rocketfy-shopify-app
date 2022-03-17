@@ -6,12 +6,16 @@ import Shopify, { ApiVersion, DataType } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
-import mongoose from 'mongoose';
-import Settings from '../models/Settings';
-import OrderController from '../controllers/OrderController'
-import MetafieldController from '../controllers/MetafieldsController';
-import Queue from  'better-queue';
-import { storeCallback, loadCallback, deleteCallback } from '../helpers/session.helper';
+import mongoose from "mongoose";
+import Settings from "../models/Settings";
+import OrderController from "../controllers/OrderController";
+import MetafieldController from "../controllers/MetafieldsController";
+import Queue from "better-queue";
+import {
+  storeCallback,
+  loadCallback,
+  deleteCallback,
+} from "../helpers/session.helper";
 import Sessions from "../models/Sessions";
 import Cryptr from "cryptr";
 const cryption = new Cryptr(process.env.SHOPIFY_PWD_KEYS);
@@ -19,7 +23,7 @@ const cryption = new Cryptr(process.env.SHOPIFY_PWD_KEYS);
 dotenv.config();
 
 // const port = parseInt(process.env.PORT, 10) || 3000;
-const port = process.env.NODE_ENV == 'production' ? process.env.PORT : 3000;
+const port = process.env.NODE_ENV == "production" ? process.env.PORT : 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({
   dev,
@@ -33,115 +37,151 @@ Shopify.Context.initialize({
   HOST_NAME: process.env.HOST.replace(/https:\/\//, ""),
   API_VERSION: ApiVersion.January22,
   IS_EMBEDDED_APP: true,
-  SESSION_STORAGE:new Shopify.Session.CustomSessionStorage(storeCallback, loadCallback, deleteCallback),
+  SESSION_STORAGE: new Shopify.Session.CustomSessionStorage(
+    storeCallback,
+    loadCallback,
+    deleteCallback
+  ),
 });
 
 const ACTIVE_SHOPIFY_SHOPS = {};
 
 let order_queue = new Queue(async (ctx, cb) => {
-    console.log("ctx.request.body.gateway", ctx.request.body);
-    if(ctx.request.body.gateway == 'Cash on Delivery (COD)'){
-        let host = new URL(ctx.request.body.order_status_url).host;
-        let auth = await Settings.findOne({ domain :  host});
-        let result = await Sessions.findOne({shop : host});
-       
-        let credentials =  JSON.parse(cryption.decrypt(result.data));
-        console.log("credentials", credentials);
-        const client = new Shopify.Clients.Rest(result.shop, credentials.accessToken);
-        const graphqlClient = new Shopify.Clients.Graphql(result.shop, credentials.accessToken);
-        if(auth.webhook){
-            let order = await OrderController.createOrder(ctx.request.body, auth, client, graphqlClient).catch((e)=>console.log(e));
-            cb(null, order);
-            console.log(`Order Processed`);
-        }
+  console.log("ctx.request.body.gateway", ctx.request.body);
+  if (ctx.request.body.gateway == "Cash on Delivery (COD)") {
+    let host = new URL(ctx.request.body.order_status_url).host;
+    let auth = await Settings.findOne({ domain: host });
+    let result = await Sessions.findOne({ shop: host });
+
+    let credentials = JSON.parse(cryption.decrypt(result.data));
+    console.log("credentials", credentials);
+    const client = new Shopify.Clients.Rest(
+      result.shop,
+      credentials.accessToken
+    );
+    const graphqlClient = new Shopify.Clients.Graphql(
+      result.shop,
+      credentials.accessToken
+    );
+    if (auth.webhook) {
+      let order = await OrderController.createOrder(
+        ctx.request.body,
+        auth,
+        client,
+        graphqlClient
+      ).catch((e) => console.log(e));
+      cb(null, order);
+      console.log(`Order Processed`);
     }
-})
+  }
+});
 
 app.prepare().then(async () => {
-  const environment = process.env.NODE_ENV == 'development' ? process.env.MONGODB_CONNECTION_STRING_DEV : process.env.MONGODB_CONNECTION_STRING_PRO;
-  await mongoose.connect(environment).catch((e)=>console.log(`Error connecting database : ${e.message}`));
+  const environment =
+    process.env.NODE_ENV == "development"
+      ? process.env.MONGODB_CONNECTION_STRING_DEV
+      : process.env.MONGODB_CONNECTION_STRING_PRO;
+  await mongoose
+    .connect(environment)
+    .catch((e) => console.log(`Error connecting database : ${e.message}`));
 
   const server = new Koa();
   const router = new Router();
-  const koaBody = require('koa-body');
-  const fs = require('fs');
-  const path = require('path');
-  const jwt = require('jsonwebtoken');
+  const koaBody = require("koa-body");
+  const fs = require("fs");
+  const path = require("path");
+  const jwt = require("jsonwebtoken");
   const apiRoutes = new Router();
   server.keys = [Shopify.Context.API_SECRET_KEY];
-  const cors = require('@koa/cors');
+  const cors = require("@koa/cors");
   server.use(cors());
   server.use(koaBody());
 
-  apiRoutes.get('/api/settings/me/:domain', async (ctx)=>{
-    let s = await Settings.findOne({ domain : ctx.request.params.domain });
+  apiRoutes.get("/api/settings/me/:domain", async (ctx) => {
+    let s = await Settings.findOne({ domain: ctx.request.params.domain });
     ctx.response.status = 200;
     ctx.response.body = s || [];
   });
 
-  apiRoutes.post('/api/settings', async (ctx)=>{
+  apiRoutes.post("/api/settings", async (ctx) => {
     const s = new Settings(ctx.request.body);
     await s.save();
     ctx.response.status = 200;
-    ctx.response.body = s
+    ctx.response.body = s;
   });
 
-  apiRoutes.put('/api/settings/status/:id', async (ctx)=>{
-    let s = await Settings.updateOne({ _id : ctx.params.id}, {...ctx.request.body});
-    let r = await Settings.findOne({ id :  ctx.params.id});
+  apiRoutes.put("/api/settings/status/:id", async (ctx) => {
+    let s = await Settings.updateOne(
+      { _id: ctx.params.id },
+      { ...ctx.request.body }
+    );
+    let r = await Settings.findOne({ id: ctx.params.id });
     ctx.response.status = 200;
     ctx.response.body = r;
   });
 
-  apiRoutes.get('/api/check', async (ctx)=>{
-    ctx.body =  { ok: true }
+  apiRoutes.get("/api/check", async (ctx) => {
+    ctx.body = { ok: true };
     ctx.status = 200;
   });
 
-  apiRoutes.post('/api/shippings', async (ctx)=>{
-    console.log("company",  ctx.request.body.rate.origin.company_name);
-    let auth = await Settings.findOne({ shop :  ctx.request.body.rate.origin.company_name});
+  apiRoutes.post("/api/shippings", async (ctx) => {
+    console.log("company", ctx.request.body.rate.origin.company_name);
+    let auth = await Settings.findOne({
+      shop: ctx.request.body.rate.origin.company_name,
+    });
 
-    if(auth && auth.carrier){
-        let rates = await OrderController.getShippingRates(ctx.request.body.rate, auth).catch((e)=>console.log(e));
-        let courriers = OrderController.mapCarrier(rates.courriers.filter((x)=>(x.key != 'interrapidisimo')));
-        ctx.body = { rates :  courriers}
-        ctx.status = 200;
+    if (auth && auth.carrier) {
+      let rates = await OrderController.getShippingRates(
+        ctx.request.body.rate,
+        auth
+      ).catch((e) => console.log(e));
+      let courriers = OrderController.mapCarrier(
+        rates.courriers.filter((x) => x.key != "interrapidisimo")
+      );
+      ctx.body = { rates: courriers };
+      ctx.status = 200;
 
-        console.log("ctx.body", ctx.body);
+      console.log("ctx.body", ctx.body);
     }
   });
 
-  apiRoutes.post('/api/verify', async (ctx)=>{
+  apiRoutes.post("/api/verify", async (ctx) => {
     let redirectUrl = ctx.request.body.redirectUrl;
 
-    if(!redirectUrl){
+    if (!redirectUrl) {
       ctx.response.status = 400;
-      return ctx.response.body = "Missing redirectUrl parameter in the body";
+      return (ctx.response.body = "Missing redirectUrl parameter in the body");
     }
 
-    const publicKey = fs.readFileSync(`${path.normalize(process.cwd() + '/keys/rocketfy.pem')}`, "utf8");
+    const publicKey = fs.readFileSync(
+      `${path.normalize(process.cwd() + "/keys/rocketfy.pem")}`,
+      "utf8"
+    );
 
     const iss = "Rocketfy";
     const sub = "hola@rocketfy.co";
     const aud = "https://www.rocketfy.co/";
     const exp = "30m";
 
-    const verifyOption = {  issuer: iss,  subject: sub,  audience: aud,  maxAge: exp,  algorithm: "RS256"}
+    const verifyOption = {
+      issuer: iss,
+      subject: sub,
+      audience: aud,
+      maxAge: exp,
+      algorithm: "RS256",
+    };
 
     try {
-
       const { url } = jwt.verify(redirectUrl, publicKey, verifyOption);
       ctx.response.status = 200;
       ctx.response.body = {
-        application : url
+        application: url,
       };
-
     } catch (error) {
       ctx.response.status = 400;
       ctx.response.body = error;
     }
-
   });
 
   server.use(apiRoutes.routes());
@@ -162,30 +202,32 @@ app.prepare().then(async () => {
         });
 
         if (!response.success) {
-            console.log(
-              `Failed to register APP_UNINSTALLED webhook: ${response.result}`
-            );
+          console.log(
+            `Failed to register APP_UNINSTALLED webhook: ${response.result}`
+          );
         }
 
         const ordersWebhooks = await Shopify.Webhooks.Registry.register({
-            shop,
-            accessToken,
-            path: '/webhook-notification',
-            topic: 'ORDERS_CREATE',
-            webhookHandler: async (_topic, shop, body) => {
-            console.log('received order create webhook: ');
+          shop,
+          accessToken,
+          path: "/webhook-notification",
+          topic: "ORDERS_CREATE",
+          webhookHandler: async (_topic, shop, body) => {
+            console.log("received order create webhook: ");
             console.log(body);
           },
         });
 
         if (ordersWebhooks.success) {
-          console.log('Successfully registered order create webhook!');
+          console.log("Successfully registered order create webhook!");
         } else {
-          console.log('Failed to register order update create', ordersWebhooks.result);
+          console.log(
+            "Failed to register order update create",
+            ordersWebhooks.result
+          );
         }
 
         ctx.redirect(`/?shop=${shop}&host=${host}`);
-
       },
     })
   );
@@ -199,10 +241,11 @@ app.prepare().then(async () => {
     }
   });
 
-  router.post('/webhook-notification', async (ctx)=>{
+  router.post("/webhook-notification", async (ctx) => {
     ctx.response.status = 201;
-    ctx.response.body  = {};
-    order_queue.push(ctx)
+    ctx.response.body = {};
+    console.log("CTXXXX", ctx.request.body);
+    order_queue.push(ctx);
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
@@ -210,9 +253,9 @@ app.prepare().then(async () => {
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     const data = await client.put({
-        path: `carrier_services/${ctx.request.params.id}`,
-        data: ctx.request.body,
-        type: DataType.JSON,
+      path: `carrier_services/${ctx.request.params.id}`,
+      data: ctx.request.body,
+      type: DataType.JSON,
     });
 
     ctx.status = 200;
@@ -220,24 +263,30 @@ app.prepare().then(async () => {
       status: "OK_CARRIERS_UPDATED",
       data: data,
     };
-
   });
 
   router.post("/carrier-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
     console.log("AT", session.accessToken);
-    const graphqlClient = new Shopify.Clients.Graphql(session.shop, session.accessToken);
+    const graphqlClient = new Shopify.Clients.Graphql(
+      session.shop,
+      session.accessToken
+    );
     console.log("HOLA MUNDO", client);
-    
-    let mtf = await MetafieldController.size(null, graphqlClient).catch((e)=>console.log(e));
+
+    let mtf = await MetafieldController.size(null, graphqlClient).catch((e) =>
+      console.log(e)
+    );
     console.log("mtf", mtf);
 
-    const carrier = await client.post({
-      path: 'carrier_services',
-      data: ctx.request.body,
-      type: DataType.JSON,
-    }).catch((e)=>console.log(e.message));
+    const carrier = await client
+      .post({
+        path: "carrier_services",
+        data: ctx.request.body,
+        type: DataType.JSON,
+      })
+      .catch((e) => console.log(e.message));
 
     ctx.body = {
       status: "OK_CARRIERS",
@@ -247,15 +296,15 @@ app.prepare().then(async () => {
     ctx.status = 200;
   });
 
-  router.get('/carriers-service', async (ctx)=>{
+  router.get("/carriers-service", async (ctx) => {
     const session = await Shopify.Utils.loadCurrentSession(ctx.req, ctx.res);
     const client = new Shopify.Clients.Rest(session.shop, session.accessToken);
 
     const data = await client.get({
-      path: 'carrier_services'
+      path: "carrier_services",
     });
 
-    ctx.body = data.body
+    ctx.body = data.body;
   });
 
   router.delete("/carrier-service", async (ctx) => {
