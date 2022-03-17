@@ -70,6 +70,7 @@ const SignupForm = (props) => {
     txtNumero: false,
     txtCon: false,
     txtBarrio: false,
+    txtCity: false,
     formSubmited: false,
   });
 
@@ -399,6 +400,7 @@ const SignupForm = (props) => {
               <TextField
                 value={form.txtFullname}
                 error={errors.txtFullname ? true : false}
+                placeholder="Nombre completo"
                 onChange={onChange}
                 label="Nombre completo"
                 onBlur={() => {
@@ -416,6 +418,7 @@ const SignupForm = (props) => {
                 onChange={onChange}
                 error={errors.txtDocument ? true : false}
                 label="Número documento"
+                placeholder="Número documento"
                 id="txtDocument"
                 onBlur={() => {
                   if (!form.txtDocument) {
@@ -435,6 +438,7 @@ const SignupForm = (props) => {
                 error={errors.txtEmail ? true : false}
                 onChange={onChange}
                 label="Email"
+                placeholder="Email"
                 id="txtEmail"
                 onBlur={() => {
                   if (!form.txtEmail) {
@@ -455,6 +459,7 @@ const SignupForm = (props) => {
                     label="Departamento"
                     options={states}
                     error={errors.txtDepartament ? true : false}
+                    placeholder="Departamento"
                     onChange={handleSelectChangeDepartament}
                     value={form.txtDepartament}
                     id="txtDepartament"
@@ -471,6 +476,7 @@ const SignupForm = (props) => {
                     error={errors.txtCity ? true : false}
                     options={cities}
                     onChange={handleSelectChangeCity}
+                    placeholder="Ciudad"
                     value={form.txtCity}
                     onBlur={() => {
                       if (!form.txtCity) {
