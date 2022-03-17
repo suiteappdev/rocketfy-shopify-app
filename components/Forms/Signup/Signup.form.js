@@ -29,11 +29,14 @@ import AccountStatus from "../../AccountStatus";
 
 const SignupForm = (props) => {
   const handleSelectChangeCity = useCallback((value) => setCity(value), []);
-  const handleSelectChangeDepartament = useCallback((value) => {
-    console.log("departament", value);
-    setDepartament(value);
-    console.log("locations", locations);
-  }, []);
+  const handleSelectChangeDepartament = useCallback(
+    (value) => {
+      console.log("departament", value);
+      setDepartament(value);
+      console.log("locations", locations);
+    },
+    [locations]
+  );
 
   const [form, setForm] = useState({
     txtShop: "",
@@ -189,7 +192,7 @@ const SignupForm = (props) => {
         terms: true,
         origin_city: form.txtCity,
         origin_departament: form.txtProvince,
-        address_shop: form.txtAddress,
+        address_shop: `${form.txtVia} # ${form.txtNumero} - ${form.txtCon}, ${form.txtBarrio}`,
         customer_domain: form.txtDomain,
         partnerID: process.env.ROCKETFY_PARTNERID,
         hubspot: {},
@@ -471,7 +474,7 @@ const SignupForm = (props) => {
                     label="Con"
                     id="txtCon"
                     placeholder="00"
-                    value={form.txt}
+                    value={form.txtCon}
                     onChange={onChange}
                     autoComplete="off"
                   />
