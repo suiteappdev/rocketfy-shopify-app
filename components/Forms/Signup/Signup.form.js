@@ -29,14 +29,12 @@ import AccountStatus from "../../AccountStatus";
 
 const SignupForm = (props) => {
   const handleSelectChangeCity = useCallback((value) => setCity(value), []);
-  const handleSelectChangeDepartament = useCallback(
-    (value) => {
-      console.log("departament", value);
-      setDepartament(value);
-      console.log("locations", locations);
-    },
-    [locations]
-  );
+
+  const handleSelectChangeDepartament = (value) => {
+    console.log("departament", value);
+    setDepartament(value);
+    console.log("locations", locations);
+  };
 
   const [form, setForm] = useState({
     txtShop: "",
