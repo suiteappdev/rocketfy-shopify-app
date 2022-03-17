@@ -32,17 +32,7 @@ const SignupForm = (props) => {
   const handleSelectChangeDepartament = useCallback((value) => {
     console.log("departament", value);
     setDepartament(value);
-    setCities(
-      all
-        .filter((c) => c.state.id === value)
-        .map((c) => {
-          console.log("c", c);
-          return {
-            label: c.name,
-            value: c.id,
-          };
-        })
-    );
+    console.log("all", all);
   }, []);
 
   const [form, setForm] = useState({
