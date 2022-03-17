@@ -28,9 +28,9 @@ import { getISO } from "../../../helpers/country.helper";
 import AccountStatus from "../../AccountStatus";
 
 const SignupForm = (props) => {
-  const handleSelectChangeCity = useCallback((value, id) => {
+  const handleSelectChangeCity = (value, id) => {
     setForm({ ...form, [id]: value });
-  }, []);
+  };
 
   const handleSelectChangeDepartament = (value, id) => {
     console.log("departament", value);
@@ -73,6 +73,7 @@ const SignupForm = (props) => {
     txtCon: false,
     txtBarrio: false,
     txtCity: false,
+    txtDepartament: false,
     formSubmited: false,
   });
 
