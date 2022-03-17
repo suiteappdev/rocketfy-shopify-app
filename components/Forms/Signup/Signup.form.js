@@ -398,6 +398,7 @@ const SignupForm = (props) => {
             <React.Fragment>
               <TextField
                 value={form.txtFullname}
+                error={errors.txtFullname ? true : false}
                 onChange={onChange}
                 label="Nombre completo"
                 onBlur={() => {
@@ -410,15 +411,10 @@ const SignupForm = (props) => {
                 id="txtFullname"
                 type="text"
               />
-              {errors.txtFullname ? (
-                <InlineError
-                  message="El campo nombre completo es requerido"
-                  fieldID="txtFullname"
-                />
-              ) : null}
               <TextField
                 value={form.txtDocument}
                 onChange={onChange}
+                error={errors.txtDocument ? true : false}
                 label="Número documento"
                 id="txtDocument"
                 onBlur={() => {
@@ -434,14 +430,9 @@ const SignupForm = (props) => {
                 }}
                 type="text"
               />
-              {errors.txtDocument ? (
-                <InlineError
-                  message="El campo numero de documento"
-                  fieldID="txtDocument"
-                />
-              ) : null}
               <TextField
                 value={form.txtEmail}
+                error={errors.txtEmail ? true : false}
                 onChange={onChange}
                 label="Email"
                 id="txtEmail"
@@ -458,17 +449,12 @@ const SignupForm = (props) => {
                 }}
                 type="text"
               />
-              {errors.txtEmail ? (
-                <InlineError
-                  message="El campo email es requerido"
-                  fieldID="txtEmail"
-                />
-              ) : null}
               <FormLayout>
                 <FormLayout.Group condensed>
                   <Select
                     label="Departamento"
                     options={states}
+                    error={errors.txtDepartament ? true : false}
                     onChange={handleSelectChangeDepartament}
                     value={form.txtDepartament}
                     id="txtDepartament"
@@ -482,6 +468,7 @@ const SignupForm = (props) => {
                   />
                   <Select
                     label="Ciudad"
+                    error={errors.txtCity ? true : false}
                     options={cities}
                     onChange={handleSelectChangeCity}
                     value={form.txtCity}
@@ -515,6 +502,7 @@ const SignupForm = (props) => {
                     prefix="#"
                     placeholder="00"
                     value={form.txtNumero}
+                    error={errors.txtNumero ? true : false}
                     onChange={onChange}
                     autoComplete="off"
                     onBlur={() => {
@@ -531,6 +519,7 @@ const SignupForm = (props) => {
                     id="txtCon"
                     placeholder="00"
                     value={form.txtCon}
+                    error={errors.txtCon ? true : false}
                     onChange={onChange}
                     autoComplete="off"
                     onBlur={() => {
@@ -545,6 +534,7 @@ const SignupForm = (props) => {
                     label="Barrio/Apto/Unidad"
                     id="txtBarrio"
                     value={form.txtBarrio}
+                    error={errors.txtBarrio ? true : false}
                     onChange={onChange}
                     autoComplete="off"
                     onBlur={() => {
@@ -561,6 +551,7 @@ const SignupForm = (props) => {
                 value={form.txtPhone}
                 onChange={onChange}
                 label="Télefono"
+                error={errors.txtPhone ? true : false}
                 id="txtPhone"
                 onBlur={() => {
                   if (!form.txtPhone) {
@@ -575,12 +566,6 @@ const SignupForm = (props) => {
                 }}
                 type="text"
               />
-              {errors.txtPhone ? (
-                <InlineError
-                  message="El campo télefono es requerido"
-                  fieldID="txtPhone"
-                />
-              ) : null}
               <TextField
                 value={form.txtShop}
                 onChange={onChange}
@@ -600,12 +585,6 @@ const SignupForm = (props) => {
                 id="txtShop"
                 type="text"
               />
-              {errors.txtShop ? (
-                <InlineError
-                  message="El campo nombre de la tienda"
-                  fieldID="txtShop"
-                />
-              ) : null}
             </React.Fragment>
           )}
         </FormLayout>
