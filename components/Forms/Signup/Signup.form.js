@@ -32,7 +32,7 @@ const SignupForm = (props) => {
   const handleSelectChangeDepartament = useCallback((value) => {
     console.log("departament", value);
     setDepartament(value);
-    console.log("all", all);
+    console.log("all", locations);
   }, []);
 
   const [form, setForm] = useState({
@@ -41,7 +41,7 @@ const SignupForm = (props) => {
 
   const [storeData, setStoreData] = useState({});
   const [cities, setCities] = useState([]);
-  const [all, setAll] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [states, setStates] = useState([]);
 
   const [city, setCity] = useState({});
@@ -71,7 +71,7 @@ const SignupForm = (props) => {
       setLoading(true);
 
       let cities_list = await getCities();
-      setAll(cities_list);
+
       setStates(
         _.uniq(cities_list, (c) => c.state.id).map((c) => {
           return {
@@ -80,6 +80,8 @@ const SignupForm = (props) => {
           };
         })
       );
+
+      setLocations(cities_list);
 
       let rs = await Get(
         `/api/settings/me/${data[DATA_KEY].myshopifyDomain}`
