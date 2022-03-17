@@ -228,7 +228,7 @@ const OrderController = {
         description: `${
           c.fechaEntrega
             ? `Fecha de entrega ${c.fechaEntrega}`
-            : `Tiempo de entrega ${c.shipping_time} dia`
+            : `Tiempo de entrega ${c.shipping_time} día`
         } `,
         currency: "COP",
         min_delivery_date: "2013-04-12 14:48:45 -0400",
