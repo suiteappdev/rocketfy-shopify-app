@@ -66,6 +66,10 @@ const SignupForm = (props) => {
     txtPhone: false,
     txtDocument: false,
     txtShop: false,
+    txtVia: false,
+    txtNumero: false,
+    txtCon: false,
+    txtBarrio: false,
     formSubmited: false,
   });
 
@@ -370,6 +374,10 @@ const SignupForm = (props) => {
               ) : (
                 ""
               )}
+              {errors.txtVia ? <p>El campo Carrera/via es incorrecto</p> : ""}
+              {errors.txtNumero ? <p>El campo Número es incorrecto</p> : ""}
+              {errors.txtCon ? <p>El campo Con es incorrecto</p> : ""}
+              {errors.txtBarrio ? <p>El campo Barrio es incorrecto</p> : ""}
             </Banner>
           ) : null}
           <AccountStatus
@@ -462,14 +470,41 @@ const SignupForm = (props) => {
                     label="Departamento"
                     options={states}
                     onChange={handleSelectChangeDepartament}
-                    value={departament}
+                    value={form.txtDepartament}
+                    id="txtDepartament"
+                    onBlur={() => {
+                      if (!form.departament) {
+                        setError({ ...errors, txtDepartament: true });
+                      } else {
+                        setError({ ...errors, txtDepartament: false });
+                      }
+                    }}
                   />
+                  {errors.txtDepartament ? (
+                    <InlineError
+                      message="El campo incorrecto"
+                      fieldID="txtDepartament"
+                    />
+                  ) : null}
                   <Select
                     label="Ciudad"
                     options={cities}
                     onChange={handleSelectChangeCity}
-                    value={city}
+                    value={form.txtCity}
+                    onBlur={() => {
+                      if (!form.txtCity) {
+                        setError({ ...errors, txtCity: true });
+                      } else {
+                        setError({ ...errors, txtCity: false });
+                      }
+                    }}
                   />
+                  {errors.txtCity ? (
+                    <InlineError
+                      message="El campo incorrecto"
+                      fieldID="txtCity"
+                    />
+                  ) : null}
                   <TextField
                     label="Cra"
                     id="txtVia"
@@ -477,7 +512,20 @@ const SignupForm = (props) => {
                     value={form.txtVia}
                     onChange={onChange}
                     autoComplete="off"
+                    onBlur={() => {
+                      if (!form.txtVia) {
+                        setError({ ...errors, txtVia: true });
+                      } else {
+                        setError({ ...errors, txtVia: false });
+                      }
+                    }}
                   />
+                  {errors.txtVia ? (
+                    <InlineError
+                      message="El campo incorrecto"
+                      fieldID="txtVia"
+                    />
+                  ) : null}
                   <TextField
                     label="Número"
                     id="txtNumero"
@@ -486,7 +534,20 @@ const SignupForm = (props) => {
                     value={form.txtNumero}
                     onChange={onChange}
                     autoComplete="off"
+                    onBlur={() => {
+                      if (!form.txtNumero) {
+                        setError({ ...errors, txtNumero: true });
+                      } else {
+                        setError({ ...errors, txtNumero: false });
+                      }
+                    }}
                   />
+                  {errors.txtNumero ? (
+                    <InlineError
+                      message="El campo incorrecto"
+                      fieldID="txtNumero"
+                    />
+                  ) : null}
                   <TextField
                     prefix="-"
                     label="Con"
@@ -495,14 +556,40 @@ const SignupForm = (props) => {
                     value={form.txtCon}
                     onChange={onChange}
                     autoComplete="off"
+                    onBlur={() => {
+                      if (!form.txtCon) {
+                        setError({ ...errors, txtCon: true });
+                      } else {
+                        setError({ ...errors, txtCon: false });
+                      }
+                    }}
                   />
+                  {errors.txtCon ? (
+                    <InlineError
+                      message="El campo incorrecto"
+                      fieldID="txtCon"
+                    />
+                  ) : null}
                   <TextField
                     label="Barrio/Apto/Unidad"
                     id="txtBarrio"
                     value={form.txtBarrio}
                     onChange={onChange}
                     autoComplete="off"
+                    onBlur={() => {
+                      if (!form.txtBarrio) {
+                        setError({ ...errors, txtBarrio: true });
+                      } else {
+                        setError({ ...errors, txtBarrio: false });
+                      }
+                    }}
                   />
+                  {errors.txtBarrio ? (
+                    <InlineError
+                      message="El campo incorrecto"
+                      fieldID="txtBarrio"
+                    />
+                  ) : null}
                 </FormLayout.Group>
               </FormLayout>
               <TextField
