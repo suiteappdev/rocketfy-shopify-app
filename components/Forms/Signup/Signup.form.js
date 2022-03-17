@@ -81,14 +81,7 @@ const SignupForm = (props) => {
         })
       );
 
-      setLocations(
-        _.uniq(cities_list, (c) => c.name).map((c) => {
-          return {
-            label: c.name,
-            value: c.id,
-          };
-        })
-      );
+      console.log("cities", cities_list);
 
       let rs = await Get(
         `/api/settings/me/${data[DATA_KEY].myshopifyDomain}`
