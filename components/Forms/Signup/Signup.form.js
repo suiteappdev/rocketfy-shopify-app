@@ -29,11 +29,12 @@ import AccountStatus from "../../AccountStatus";
 
 const SignupForm = (props) => {
   const handleSelectChangeCity = (value, id) => {
+    console.log(value, id);
     setForm({ ...form, [id]: value });
   };
 
   const handleSelectChangeDepartament = (value, id) => {
-    console.log("departament", value);
+    console.log(value, id);
     setForm({ ...form, [id]: value });
     setCities(
       locations
@@ -55,10 +56,6 @@ const SignupForm = (props) => {
   const [cities, setCities] = useState([]);
   const [locations, setLocations] = useState([]);
   const [states, setStates] = useState([]);
-
-  const [city, setCity] = useState({});
-  const [departament, setDepartament] = useState({});
-
   const [isLoading, setLoading] = useState(false);
   const { loading, error, data } = useQuery(STORE_QUERY);
   const [connected, setConnected] = useState(false);
