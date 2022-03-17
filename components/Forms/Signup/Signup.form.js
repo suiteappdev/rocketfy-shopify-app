@@ -469,7 +469,7 @@ const SignupForm = (props) => {
                     value={form.txtDepartament}
                     id="txtDepartament"
                     onBlur={() => {
-                      if (!form.departament) {
+                      if (!form.txtDepartament) {
                         setError({ ...errors, txtDepartament: true });
                       } else {
                         setError({ ...errors, txtDepartament: false });
