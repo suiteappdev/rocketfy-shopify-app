@@ -36,28 +36,16 @@ const SignupForm = (props) => {
   const handleSelectChangeDepartament = (value, id) => {
     console.log(value, id);
     setForm({ ...form, [id]: value });
-    console.log(
-      "filtered",
+    setCities(
       locations
         .filter((c) => c.state.id == value)
         .map((e) => {
           return {
             label: e.name,
-            value: e.id,
+            value: e._id,
           };
         })
     );
-
-    /*setCities(
-      locations
-        .filter((c) => c.state.id == value)
-        .map((e) => {
-          return {
-            label: e.name,
-            value: e.id,
-          };
-        })
-    );*/
   };
 
   const [form, setForm] = useState({
@@ -573,6 +561,7 @@ const SignupForm = (props) => {
               <TextField
                 value={form.txtPhone}
                 onChange={onChange}
+                placeholder="Télefono"
                 label="Télefono"
                 error={errors.txtPhone ? true : false}
                 id="txtPhone"
