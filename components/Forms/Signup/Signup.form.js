@@ -36,7 +36,8 @@ const SignupForm = (props) => {
   const handleSelectChangeDepartament = (value, id) => {
     console.log(value, id);
     setForm({ ...form, [id]: value });
-    setCities(
+    console.log(
+      "filtered",
       locations
         .filter((c) => c.state.id == value)
         .map((e) => {
@@ -46,6 +47,17 @@ const SignupForm = (props) => {
           };
         })
     );
+
+    /*setCities(
+      locations
+        .filter((c) => c.state.id == value)
+        .map((e) => {
+          return {
+            label: e.name,
+            value: e.id,
+          };
+        })
+    );*/
   };
 
   const [form, setForm] = useState({
