@@ -460,7 +460,7 @@ const SignupForm = (props) => {
                     options={states}
                     error={errors.txtDepartament ? true : false}
                     placeholder="Departamento"
-                    onChange={handleSelectChangeDepartament}
+                    onChange={onChange}
                     value={form.txtDepartament}
                     id="txtDepartament"
                     onBlur={() => {
@@ -475,9 +475,10 @@ const SignupForm = (props) => {
                     label="Ciudad"
                     error={errors.txtCity ? true : false}
                     options={cities}
-                    onChange={handleSelectChangeCity}
+                    onChange={onChange}
                     placeholder="Ciudad"
                     value={form.txtCity}
+                    id="txtCity"
                     onBlur={() => {
                       if (!form.txtCity) {
                         setError({ ...errors, txtCity: true });
