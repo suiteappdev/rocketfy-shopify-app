@@ -480,12 +480,6 @@ const SignupForm = (props) => {
                       }
                     }}
                   />
-                  {errors.txtDepartament ? (
-                    <InlineError
-                      message="El campo incorrecto"
-                      fieldID="txtDepartament"
-                    />
-                  ) : null}
                   <Select
                     label="Ciudad"
                     options={cities}
@@ -499,14 +493,9 @@ const SignupForm = (props) => {
                       }
                     }}
                   />
-                  {errors.txtCity ? (
-                    <InlineError
-                      message="El campo incorrecto"
-                      fieldID="txtCity"
-                    />
-                  ) : null}
                   <TextField
                     label="Cra"
+                    error={errors.txtVia ? true : false}
                     id="txtVia"
                     placeholder="Carrera/Via"
                     value={form.txtVia}
@@ -520,12 +509,6 @@ const SignupForm = (props) => {
                       }
                     }}
                   />
-                  {errors.txtVia ? (
-                    <InlineError
-                      message="El campo incorrecto"
-                      fieldID="txtVia"
-                    />
-                  ) : null}
                   <TextField
                     label="Número"
                     id="txtNumero"
@@ -542,12 +525,6 @@ const SignupForm = (props) => {
                       }
                     }}
                   />
-                  {errors.txtNumero ? (
-                    <InlineError
-                      message="El campo incorrecto"
-                      fieldID="txtNumero"
-                    />
-                  ) : null}
                   <TextField
                     prefix="-"
                     label="Con"
@@ -564,12 +541,6 @@ const SignupForm = (props) => {
                       }
                     }}
                   />
-                  {errors.txtCon ? (
-                    <InlineError
-                      message="El campo incorrecto"
-                      fieldID="txtCon"
-                    />
-                  ) : null}
                   <TextField
                     label="Barrio/Apto/Unidad"
                     id="txtBarrio"
@@ -584,12 +555,6 @@ const SignupForm = (props) => {
                       }
                     }}
                   />
-                  {errors.txtBarrio ? (
-                    <InlineError
-                      message="El campo incorrecto"
-                      fieldID="txtBarrio"
-                    />
-                  ) : null}
                 </FormLayout.Group>
               </FormLayout>
               <TextField
