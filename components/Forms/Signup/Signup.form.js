@@ -202,8 +202,10 @@ const SignupForm = (props) => {
         country: form.txtCountry,
         phone: form.txtPhone,
         terms: true,
-        origin_city: form.txtCity,
-        origin_departament: form.txtProvince,
+        origin_city: cities.find((c) => c._id == form.txtCity).name,
+        origin_departament: cities.find(
+          (c) => c.state.id == form.txtDepartament
+        ).name,
         address_shop: `${form.txtVia} # ${form.txtNumero} - ${form.txtCon}, ${form.txtBarrio}`,
         composed_address: {
           street: form.txtVia || "",
