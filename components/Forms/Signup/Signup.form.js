@@ -28,11 +28,13 @@ import { getISO } from "../../../helpers/country.helper";
 import AccountStatus from "../../AccountStatus";
 
 const SignupForm = (props) => {
-  const handleSelectChangeCity = useCallback((value) => setCity(value), []);
+  const handleSelectChangeCity = useCallback((value, id) => {
+    setForm({ ...form, [id]: value });
+  }, []);
 
-  const handleSelectChangeDepartament = (value) => {
+  const handleSelectChangeDepartament = (value, id) => {
     console.log("departament", value);
-    setDepartament(value);
+    setForm({ ...form, [id]: value });
     setCities(
       locations
         .filter((c) => c.state.id == value)
