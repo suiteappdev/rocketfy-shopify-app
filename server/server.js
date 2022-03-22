@@ -46,6 +46,30 @@ Shopify.Context.initialize({
 
 const ACTIVE_SHOPIFY_SHOPS = {};
 
+const setContentSecurityHeader = (ctx, next) => {
+  if (ctx.cookies.get("shopOrigin")) {
+    return helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: helmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
+        frameAncestors: [
+          `https://${ctx.cookies.get("shopOrigin")}`,
+          "https://admin.shopify.com",
+        ],
+      },
+    })(ctx, next);
+  } else {
+    return helmet.contentSecurityPolicy({
+      directives: {
+        defaultSrc: helmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
+        frameAncestors: [
+          `https://${ctx.query.shop}`,
+          "https://admin.shopify.com",
+        ],
+      },
+    })(ctx, next);
+  }
+};
+
 let order_queue = new Queue(async (ctx, cb) => {
   console.log("ctx.request.body.gateway", ctx.request.body);
   if (ctx.request.body.gateway == "Cash on Delivery (COD)") {
@@ -94,6 +118,8 @@ app.prepare().then(async () => {
   const apiRoutes = new Router();
   server.keys = [Shopify.Context.API_SECRET_KEY];
   const cors = require("@koa/cors");
+
+  server.use(setContentSecurityHeader);
   server.use(cors());
   server.use(koaBody());
 
@@ -227,6 +253,65 @@ app.prepare().then(async () => {
           );
         }
 
+        const GDPR_request = await Shopify.Webhooks.Registry.register({
+          shop,
+          accessToken,
+          path: "/gdpr/data-request",
+          topic: "customers/data_request",
+          webhookHandler: async (_topic, shop, body) => {
+            console.log("received order create webhook: ");
+            console.log(body);
+          },
+        });
+
+        const GDPR_customer = await Shopify.Webhooks.Registry.register({
+          shop,
+          accessToken,
+          path: "/gdpr/customer-redact",
+          topic: "customers/redact",
+          webhookHandler: async (_topic, shop, body) => {
+            console.log("received order create webhook: ");
+            console.log(body);
+          },
+        });
+
+        const GDPR_shop = await Shopify.Webhooks.Registry.register({
+          shop,
+          accessToken,
+          path: "/gdpr/shop-redact",
+          topic: "shop/redact",
+          webhookHandler: async (_topic, shop, body) => {
+            console.log("received order create webhook: ");
+            console.log(body);
+          },
+        });
+
+        if (GDPR_request.success) {
+          console.log(
+            "Successfully registered customers/data_request webhook!"
+          );
+        } else {
+          console.log(
+            "Failed to register customers/data_request",
+            GDPR_request.result
+          );
+        }
+
+        if (GDPR_customer.success) {
+          console.log("Successfully registered customers/redact webhook!");
+        } else {
+          console.log(
+            "Failed to register customers/redact",
+            GDPR_customer.result
+          );
+        }
+
+        if (GDPR_shop.success) {
+          console.log("Successfully registered shop/redact webhook!");
+        } else {
+          console.log("Failed to register shop/redact", GDPR_shop.result);
+        }
+
         ctx.redirect(`/?shop=${shop}&host=${host}`);
       },
     })
@@ -246,6 +331,24 @@ app.prepare().then(async () => {
     ctx.response.body = {};
     console.log("CTXXXX", ctx.request.body);
     order_queue.push(ctx);
+  });
+
+  router.post("/gdpr/data-request", async (ctx) => {
+    ctx.response.status = 201;
+    ctx.response.body = {};
+    console.log("/gdpr/data-request", ctx.request.body);
+  });
+
+  router.post("/gdpr/customer-redact", async (ctx) => {
+    ctx.response.status = 201;
+    ctx.response.body = {};
+    console.log("/gdpr/customer-redact", ctx.request.body);
+  });
+
+  router.post("/gdpr/shop-redact", async (ctx) => {
+    ctx.response.status = 201;
+    ctx.response.body = {};
+    console.log("/gdpr/shop-redact", ctx.request.body);
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
