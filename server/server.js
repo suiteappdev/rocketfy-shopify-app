@@ -291,7 +291,7 @@ app.prepare().then(async () => {
       return (ctx.response.body = {});
     }
 
-    ctx.response.status = 404;
+    ctx.response.status = 400;
     return (ctx.response.body = "bad request");
   });
 
@@ -302,10 +302,19 @@ app.prepare().then(async () => {
   });
 
   router.post("/gdpr/shop-redact", async (ctx) => {
-    ctx.response.status = 201;
-    ctx.response.body = {};
-    await Settings.remove({ shop: ctx.body.shop_domain });
-    console.log("/gdpr/shop-redact", ctx.request.body);
+    let check = await shopifyVerify(ctx, Shopify.Context.API_SECRET_KEY);
+
+    if (check) {
+      ctx.response.status = 201;
+
+      await Settings.remove({ shop: ctx.body.shop_domain });
+      await Sessions.remove({ shop: ctx.body.shop_domain });
+
+      return (ctx.response.body = {});
+    }
+
+    ctx.response.status = 400;
+    return (ctx.response.body = "bad request");
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
