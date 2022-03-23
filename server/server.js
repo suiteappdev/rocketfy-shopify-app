@@ -225,6 +225,7 @@ app.prepare().then(async () => {
           accessToken,
           path: "/webhooks",
           topic: "APP_UNINSTALLED",
+          apiVersion: Shopify.Context.API_VERSION,
           webhookHandler: async (topic, shop, body) =>
             delete ACTIVE_SHOPIFY_SHOPS[shop],
         });
@@ -255,7 +256,7 @@ app.prepare().then(async () => {
           );
         }
 
-        const GDPR_request = await Shopify.Webhooks.Registry.register({
+        /* const GDPR_request = await Shopify.Webhooks.Registry.register({
           shop,
           accessToken,
           path: "/gdpr/data-request",
@@ -312,7 +313,7 @@ app.prepare().then(async () => {
           console.log("Successfully registered shop/redact webhook!");
         } else {
           console.log("Failed to register shop/redact", GDPR_shop.result);
-        }
+        }*/
 
         ctx.redirect(`/?shop=${shop}&host=${host}`);
       },
