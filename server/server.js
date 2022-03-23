@@ -309,7 +309,12 @@ app.prepare().then(async () => {
   });
 
   router.post("/gdpr/shop-redact", async (ctx) => {
-    let check = await shopifyVerify(ctx, Shopify.Context.API_SECRET_KEY);
+    let check = await shopifyVerify(ctx, Shopify.Context.API_SECRET_KEY).catch(
+      (e) => {
+        ctx.response.status = 401;
+        return (ctx.response.body = "bad signature!");
+      }
+    );
 
     if (check) {
       ctx.response.status = 201;
@@ -319,9 +324,6 @@ app.prepare().then(async () => {
 
       return (ctx.response.body = {});
     }
-
-    ctx.response.status = 400;
-    return (ctx.response.body = "bad request");
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
