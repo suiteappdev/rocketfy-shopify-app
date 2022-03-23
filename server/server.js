@@ -256,7 +256,7 @@ app.prepare().then(async () => {
           );
         }
 
-        /* const GDPR_request = await Shopify.Webhooks.Registry.register({
+        const GDPR_request = await Shopify.Webhooks.Registry.register({
           shop,
           accessToken,
           path: "/gdpr/data-request",
@@ -267,7 +267,7 @@ app.prepare().then(async () => {
           },
         });
 
-        const GDPR_customer = await Shopify.Webhooks.Registry.register({
+        /*const GDPR_customer = await Shopify.Webhooks.Registry.register({
           shop,
           accessToken,
           path: "/gdpr/customer-redact",
