@@ -52,6 +52,7 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 const setContentSecurityHeader = (ctx, next) => {
   if (ctx.cookies.get("shopOrigin")) {
+    console.log("shopOrigin", ctx.cookies.get("shopOrigin"));
     return helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: helmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
@@ -62,6 +63,8 @@ const setContentSecurityHeader = (ctx, next) => {
       },
     })(ctx, next);
   } else {
+    console.log("ctx.query.shop", ctx.query.shop);
+
     return helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: helmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
@@ -219,6 +222,13 @@ app.prepare().then(async () => {
     createShopifyAuth({
       async afterAuth(ctx) {
         const { shop, accessToken, scope } = ctx.state.shopify;
+
+        ctx.cookies.set("shopOrigin", shop, {
+          httpOnly: false,
+          secure: true,
+          sameSite: "none",
+        });
+
         const host = ctx.query.host;
         ACTIVE_SHOPIFY_SHOPS[shop] = scope;
 
