@@ -267,6 +267,17 @@ app.prepare().then(async () => {
           },
         });
 
+        if (GDPR_request.success) {
+          console.log(
+            "Successfully registered customers/data_request webhook!"
+          );
+        } else {
+          console.log(
+            "Failed to register customers/data_request",
+            GDPR_request.result
+          );
+        }
+
         /*const GDPR_customer = await Shopify.Webhooks.Registry.register({
           shop,
           accessToken,
