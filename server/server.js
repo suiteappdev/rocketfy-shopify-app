@@ -10,6 +10,8 @@ import mongoose from "mongoose";
 import Settings from "../models/Settings";
 import OrderController from "../controllers/OrderController";
 import MetafieldController from "../controllers/MetafieldsController";
+import shopifyVerify from "../middlewares/shopify-verify";
+
 import Queue from "better-queue";
 import helmet from "koa-helmet";
 
@@ -234,6 +236,10 @@ app.prepare().then(async () => {
           console.log(
             `Failed to register APP_UNINSTALLED webhook: ${response.result}`
           );
+        } else {
+          console.log(
+            `APP_UNINSTALLED webhook register succesfull: ${response.result}`
+          );
         }
 
         const ordersWebhooks = await Shopify.Webhooks.Registry.register({
@@ -280,13 +286,13 @@ app.prepare().then(async () => {
   router.post("/gdpr/data-request", async (ctx) => {
     ctx.response.status = 201;
     ctx.response.body = {};
-    console.log("/gdpr/data-request", ctx.request.body);
+    console.log("/gdpr/data-request", ctx.request.headers);
   });
 
   router.post("/gdpr/customer-redact", async (ctx) => {
     ctx.response.status = 201;
     ctx.response.body = {};
-    console.log("/gdpr/customer-redact", ctx.request.body);
+    console.log("/gdpr/customer-redact", ctx.request.headers);
   });
 
   router.post("/gdpr/shop-redact", async (ctx) => {
