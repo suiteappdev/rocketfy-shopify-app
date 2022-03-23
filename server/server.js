@@ -11,7 +11,7 @@ import Settings from "../models/Settings";
 import OrderController from "../controllers/OrderController";
 import MetafieldController from "../controllers/MetafieldsController";
 import Queue from "better-queue";
-import helmet from "helmet";
+import helmet from "koa-helmet";
 
 import {
   storeCallback,
