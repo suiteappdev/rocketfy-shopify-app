@@ -298,14 +298,26 @@ app.prepare().then(async () => {
       return (ctx.response.body = {});
     }
 
-    ctx.response.status = 400;
-    return (ctx.response.body = "bad request");
+    ctx.response.status = 401;
+    return (ctx.response.body = { msg: "invalid signature!" });
   });
 
   router.post("/gdpr/customer-redact", async (ctx) => {
-    ctx.response.status = 201;
-    ctx.response.body = {};
-    console.log("/gdpr/customer-redact", ctx.request.headers);
+    let check = await shopifyVerify(ctx, Shopify.Context.API_SECRET_KEY);
+
+    if (check) {
+      ctx.response.status = 201;
+
+      if (ctx.body && ctx.body.shop_domain) {
+        await Settings.remove({ shop: ctx.body.shop_domain });
+        await Sessions.remove({ shop: ctx.body.shop_domain });
+      }
+
+      return (ctx.response.body = {});
+    }
+
+    ctx.response.status = 401;
+    return (ctx.response.body = { msg: "invalid signature!" });
   });
 
   router.post("/gdpr/shop-redact", async (ctx) => {
@@ -314,7 +326,7 @@ app.prepare().then(async () => {
     if (check) {
       ctx.response.status = 201;
 
-      if (ctx.body.shop_domain) {
+      if (ctx.body && ctx.body.shop_domain) {
         await Settings.remove({ shop: ctx.body.shop_domain });
         await Sessions.remove({ shop: ctx.body.shop_domain });
       }
