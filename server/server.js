@@ -292,12 +292,14 @@ app.prepare().then(async () => {
   router.post("/gdpr/customer-redact", async (ctx) => {
     ctx.response.status = 201;
     ctx.response.body = {};
+    await Sessions.remove({ shop: ctx.request.body.shop });
     console.log("/gdpr/customer-redact", ctx.request.headers);
   });
 
   router.post("/gdpr/shop-redact", async (ctx) => {
     ctx.response.status = 201;
     ctx.response.body = {};
+    await Settings.remove({ shop: ctx.body.shop });
     console.log("/gdpr/shop-redact", ctx.request.body);
   });
 
