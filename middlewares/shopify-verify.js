@@ -9,16 +9,9 @@ const shopifyVerify = (ctx, key) => {
       .digest("base64");
 
     const hmac = ctx.request.headers["x-shopify-hmac-sha256"];
-
     console.log(hash, hmac);
 
-    console.log("compare", Shopify.Utils.safeCompare(hash, hmac));
-
-    if (Shopify.Utils.safeCompare(hash, hmac)) {
-      return resolve(true);
-    } else {
-      reject();
-    }
+    return resolve(Shopify.Utils.safeCompare(hash, hmac));
   });
 };
 

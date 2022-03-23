@@ -309,21 +309,18 @@ app.prepare().then(async () => {
   });
 
   router.post("/gdpr/shop-redact", async (ctx) => {
-    let check = await shopifyVerify(ctx, Shopify.Context.API_SECRET_KEY).catch(
-      (e) => {
-        ctx.response.status = 401;
-        return (ctx.response.body = "bad signature!");
-      }
-    );
+    let check = await shopifyVerify(ctx, Shopify.Context.API_SECRET_KEY);
 
     if (check) {
       ctx.response.status = 201;
-
       await Settings.remove({ shop: ctx.body.shop_domain });
       await Sessions.remove({ shop: ctx.body.shop_domain });
 
       return (ctx.response.body = {});
     }
+
+    ctx.response.status = 401;
+    return (ctx.response.body = { msg: "invalid signature!" });
   });
 
   router.put("/carrier-service/:id", async (ctx) => {
