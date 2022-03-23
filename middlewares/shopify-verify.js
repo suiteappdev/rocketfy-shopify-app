@@ -16,9 +16,9 @@ const shopifyVerify = (ctx, key) => {
 
     if (Shopify.Utils.safeCompare(hash, hmac)) {
       return resolve(true);
+    } else {
+      reject();
     }
-
-    return reject(new Error("Error checking signature"));
   });
 };
 
