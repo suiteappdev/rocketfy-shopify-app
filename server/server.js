@@ -313,8 +313,11 @@ app.prepare().then(async () => {
 
     if (check) {
       ctx.response.status = 201;
-      await Settings.remove({ shop: ctx.body.shop_domain });
-      await Sessions.remove({ shop: ctx.body.shop_domain });
+
+      if (ctx.body.shop_domain) {
+        await Settings.remove({ shop: ctx.body.shop_domain });
+        await Sessions.remove({ shop: ctx.body.shop_domain });
+      }
 
       return (ctx.response.body = {});
     }
