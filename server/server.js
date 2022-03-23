@@ -52,7 +52,6 @@ const ACTIVE_SHOPIFY_SHOPS = {};
 
 const setContentSecurityHeader = (ctx, next) => {
   if (ctx.cookies.get("shopOrigin")) {
-    console.log("shopOrigin", ctx.cookies.get("shopOrigin"));
     return helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: helmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
@@ -63,8 +62,6 @@ const setContentSecurityHeader = (ctx, next) => {
       },
     })(ctx, next);
   } else {
-    console.log("ctx.query.shop", ctx.query.shop);
-
     return helmet.contentSecurityPolicy({
       directives: {
         defaultSrc: helmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
@@ -126,9 +123,9 @@ app.prepare().then(async () => {
   server.keys = [Shopify.Context.API_SECRET_KEY];
   const cors = require("@koa/cors");
 
-  server.use(setContentSecurityHeader);
   server.use(cors());
   server.use(koaBody());
+  server.use(setContentSecurityHeader);
 
   apiRoutes.get("/api/settings/me/:domain", async (ctx) => {
     let s = await Settings.findOne({ domain: ctx.request.params.domain });
