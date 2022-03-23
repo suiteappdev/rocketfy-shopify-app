@@ -259,7 +259,7 @@ app.prepare().then(async () => {
           path: "/gdpr/data-request",
           topic: "customers/data_request",
           webhookHandler: async (_topic, shop, body) => {
-            console.log("received order create webhook: ");
+            console.log("received customers/data_request webhook: ");
             console.log(body);
           },
         });
@@ -270,7 +270,7 @@ app.prepare().then(async () => {
           path: "/gdpr/customer-redact",
           topic: "customers/redact",
           webhookHandler: async (_topic, shop, body) => {
-            console.log("received order create webhook: ");
+            console.log("received customers/redact webhook: ");
             console.log(body);
           },
         });
