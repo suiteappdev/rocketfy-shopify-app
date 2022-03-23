@@ -284,22 +284,27 @@ app.prepare().then(async () => {
   });
 
   router.post("/gdpr/data-request", async (ctx) => {
-    ctx.response.status = 201;
-    ctx.response.body = {};
-    console.log("/gdpr/data-request", ctx.request.headers);
+    let check = await shopifyVerify(ctx, Shopify.Context.API_SECRET_KEY);
+
+    if (check) {
+      ctx.response.status = 201;
+      return (ctx.response.body = {});
+    }
+
+    ctx.response.status = 404;
+    return (ctx.response.body = "bad request");
   });
 
   router.post("/gdpr/customer-redact", async (ctx) => {
     ctx.response.status = 201;
     ctx.response.body = {};
-    await Sessions.remove({ shop: ctx.request.body.shop });
     console.log("/gdpr/customer-redact", ctx.request.headers);
   });
 
   router.post("/gdpr/shop-redact", async (ctx) => {
     ctx.response.status = 201;
     ctx.response.body = {};
-    await Settings.remove({ shop: ctx.body.shop });
+    await Settings.remove({ shop: ctx.body.shop_domain });
     console.log("/gdpr/shop-redact", ctx.request.body);
   });
 
