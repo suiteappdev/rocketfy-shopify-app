@@ -8,5 +8,5 @@ RUN npm install
 COPY . .
 RUN npm run build
 EXPOSE 3000
-# CMD ["pm2-runtime", "start", "pm2_prod.config.js"]
-CMD ["npm", "run", "dev"]
+CMD ["pm2-runtime", "start", "pm2_prod.config.js"]
+# CMD ["npm", "run", "dev"]
