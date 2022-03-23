@@ -37,6 +37,7 @@
     "cryptr": "^6.0.2",
     "dotenv": "^8.2.0",
     "graphql": "^14.5.8",
+    "helmet": "^5.0.2",
     "isomorphic-fetch": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
